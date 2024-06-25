@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    user-select: none;
+}
+
+.su-location-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f1f1f1;
+}
+.su-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #333;
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    .su-form{
+        display: flex;
+        flex-direction: column;
+    }
+}
