@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+
+.FAQpage {
+    width: 1000px;
+    min-width: 1000px;
+    margin: auto;
+    font-family: 'Nanum Gothic', sans-serif;
+
+}
+
+
+/* ============================================================================== */
+
+.FAQheader {
+    height: 20rem;
+
+    text-align: center;
+    line-height: 20rem;
+
+    background-image: url(https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/971/8d8be64f9d82cd3325a545627dcd1e99_res.jpeg);
+    background-repeat: no-repeat;
+    background-position:left;
+    background-size: contain;
+
+}
+
+.FAQtitle {
+    text-indent: 300px;
+}
+
+/* =============================================================================== */
+
+.FAQsearchBar {
+    height: 2em;
+    width: 20em;
+}
+
+.FAQselect {
+    height: 2em;
+}
+
+.FAQsearchContainer {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 4em;    
+}
+
+
+/* ================================================================ */
+
+
+.FAQlist {
+    height: auto;
+    padding: 1rem 0rem 2rem 0rem;
+}
+
+.FAQ_container {
+    position: relative;
+
+    height: 3rem;
+    width: 100%;
+
+    background-color: white;
+    
+    border: 1px solid;
+    margin-top: -1px;
+    
+    overflow: hidden;
+    transition: .5s;
+}
+
+.FAQ_container>li:nth-child(1) {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+}
+
+
+.FAQlist_category {
+    width: 20%;
+    text-align: center;
+    line-height: 3rem;
+}
+
+.FAQlist_title {
+    width: 100%;
+    text-align: start;
+    line-height: 3rem;
+    font-weight: bold;
+}
+
+
+.FAQlist_Icon{
+    position:absolute;
+    right: 1rem;
+    line-height: 3rem;
+    font-size: 2rem;
+}
+
+.List_answer {
+    box-sizing: border-box;
+    background-color:rgb(255, 255, 255);
+    width: 100%;
+    
+    background-color:whitesmoke;
+
+    font-size: 1rem;
+    padding: 2rem 2rem 2rem 4rem ;
+}
+
+.showList {
+    transition: .5s;
+}
+
+
+/* =============================================================================== */
+
+.FAQsearchBar {
+    height: 2.5rem;
+    width: 30rem;
+    font-size: 1rem;
+}
+
+.FAQselect {
+    height: 2.725rem;
+    width: 10rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.FAQselect,
+.FAQsearchBar{
+    margin-bottom: 1rem;
+}
+
+
+.FAQaddList {
+    cursor: pointer;
+    background-color: rgb(43, 114, 255);
+    opacity: 0.8;
+    
+    margin: auto;
+    margin-top: 1rem;
+    border-radius: 20px;
+    border: 1px solid;
+
+    height: 3rem;
+    width: 12rem;
+    line-height: 3rem;
+
+    text-align: center;
+
+    font-size: 1.1rem;
+    color: white;
+}
+
+.FAQaddList:hover {
+    font-weight: bolder;
+    opacity: 1;
+}
+
+.NothingOnSearch {
+    font-size: 2rem;
+    text-align: center;
+    padding: 1rem;
+}
