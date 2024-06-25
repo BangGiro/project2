@@ -1,0 +1,62 @@
+.schedule-container {
+    width: 100%;
+    padding: 20px;
+}
+
+.schedule-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+}
+
+.schedule-day {
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+.schedule-day-header {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.schedule-hour {
+    position: relative;
+    height: 60px;
+    /* 한 시간의 높이 */
+    border-bottom: 1px solid #eee;
+}
+
+.schedule-hour-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50px;
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+}
+
+.schedule-entries {
+    position: relative;
+    height: 100%;
+}
+
+.schedule-entry {
+    position: absolute;
+    left: 50px;
+    right: 10px;
+    border: 1px solid;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    overflow: hidden;
+}
+
+.empty-hour {
+    /* height: 20px; */
+    /* 비어있는 시간대의 높이를 줄임 */
+}
