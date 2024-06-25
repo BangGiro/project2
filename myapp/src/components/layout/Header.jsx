@@ -8,10 +8,10 @@ function Header(){
                 <div className="logo"><Link to="/"><img src='../../image/Logo.png' /></Link>
                 </div>
                 <ul className="menu">
-                    <li>회원관리
+                    <Link to ="/ManagementMain"><li>회원관리
                         <ul className="submenu">
                         </ul>
-                    </li>
+                    </li></Link>
 
                     <li>운동
                         <ul className="submenu">
@@ -32,7 +32,7 @@ function Header(){
                     
                     <li>고객센터
                         <ul className="submenu">
-                            <li>서브메뉴10</li>
+                            <Link to ="/faqPage/FAQpage"><li>FAQ</li></Link>
                             <li>서브메뉴11</li>
                             <li>서브메뉴12</li>
                         </ul>
