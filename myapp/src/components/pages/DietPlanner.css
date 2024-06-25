@@ -1,0 +1,149 @@
+
+/* Container styles */
+.dietPlanner{
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+dietPlanner{
+    height: 100vh;
+}
+
+/* Heading styles */
+.heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Form styles */
+.form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form label {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.form button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Result styles */
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.result p {
+    margin-bottom: 10px;
+}
+
+.result strong {
+    font-weight: bold;
+}
+
+.maleButton, .femaleButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 350px;
+    height: 350px;
+    background-color: #bebcbc;
+    font-size: 24px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 20px;
+    padding: 0px;
+    opacity: 0.7;
+    
+}
+
+.maleButton:hover, .femaleButton:hover{
+    opacity: 1;
+}
+
+.genderButtons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.ageButtons{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    
+}
+.ageButton{
+    opacity: 0.7;
+    background-color: #bebcbc;
+    width: 120px;
+    height: 100px;
+    margin: 10px;
+}
+
+.ageButton:hover{
+
+    opacity: 1;
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+}
+
+.goalButtons{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.goalButton{
+    opacity: 0.7;
+    background-color: #bebcbc;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    font-size: 2.2vh;
+}
+
+.goalButton:hover{
+
+    opacity: 1;
+}
+
+.dietRecommendation{
+    text-align: center;
+    margin: 10vh;
+    background-color: #bebcbc;
+    border-radius: 10px;
+    padding: 30px;
+}

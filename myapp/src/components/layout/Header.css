@@ -1,0 +1,158 @@
+@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
+*{
+    padding: 0px;
+    margin: 0px;
+    user-select: none;
+    text-decoration: none;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+
+.navbar {
+    display: flex;
+    background-color: #fff;
+    color: #000;
+    padding: 10px 20px;
+    height: 13vh;
+    align-items: center; 
+}
+
+header hr{
+    height: 3px;
+    background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+}
+
+
+/********* 로고 **********/
+.logo img {
+    width: 12vh;
+    padding-left: 7vw; 
+    margin-right: 13vw;
+    margin-top: 1vh;
+}
+
+/*********** 메뉴*********/
+.navbar .menu {
+    display: flex;
+    gap: 5vw;
+    white-space: nowrap;
+    text-decoration: none;
+    /* text-align: center; */
+}
+
+.navbar .menu li {
+    position: relative;
+    list-style: none;
+    padding: 10px 0px;
+    cursor: pointer;
+    font-size: 1vw;
+    color: #000;
+    width: 7vw;
+    text-align: center;
+}
+
+
+/********** 하위 메뉴 *********/
+.navbar .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    background-color: #fff;
+    padding: 10px 0px;
+    white-space: nowrap;
+    color: #000;
+}
+
+
+.navbar .submenu li{
+    font-size: 1vw;
+    color: #000;
+}
+
+@keyframes ani{
+    from{
+    opacity: 0;
+}
+    to{
+    opacity: 1;
+}
+
+}
+
+.navbar .menu li:hover .submenu {
+    display: flex;
+    flex-direction: column; 
+    width: 7vw;
+    animation: ani 0.7s;
+    color: #000;
+}
+
+
+
+/************ 로그인 버튼 **********8*/
+.login_btn{
+    position: absolute;
+    top: 4.5vh;
+    right: 7vw;
+    cursor: pointer;
+    transition: 0.5s;
+    font-size: 2.5vw;
+    text-decoration-color: #000;
+}
+
+
+
+.login_btn:hover{
+    transform: scale(1.1);
+}
+
+.fa-circle-user,
+.fa-regular{
+    color: #000;
+}
+
+
+
+
+
+
+/****************언더 라인*************/
+.menu{
+    position: relative;
+}
+
+.menu>li::after{
+    content: "";
+    height: 2px;
+    width:0;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    position: absolute;
+    background-color: blue;
+    transition: width .5s;
+}
+
+.menu>li:hover::after{
+    width: 70%;
+}
+
+
+
+.menu ul li::after{
+    content: "";
+    height: 1.5px;
+    width:0;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 0;
+    position: absolute;
+    background-color: blue;
+    transition: width .5s;
+}
+
+.menu ul li:hover::after{
+    width: 70%;
+}
+
+

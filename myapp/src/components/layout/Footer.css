@@ -1,0 +1,17 @@
+footer {
+    background-color: white;
+    color: #000;
+    text-align: center;
+    user-select: none;
+}
+
+footer hr{
+    height: 2px;
+    color: blue;
+    background-color: blue;
+}
+
+footer p{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
