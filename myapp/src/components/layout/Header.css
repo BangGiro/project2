@@ -1,10 +1,8 @@
-@import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 *{
     padding: 0px;
     margin: 0px;
     user-select: none;
     text-decoration: none;
-    font-family: 'Nanum Gothic', sans-serif;
 }
 
 
