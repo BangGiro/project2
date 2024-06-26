@@ -16,7 +16,8 @@ const ManagementMain = () => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('members', JSON.stringify(items));
+    if (items.length > 0)
+      localStorage.setItem('members', JSON.stringify(items));
   }, [items]);
 
   const addItem = (item) => {
