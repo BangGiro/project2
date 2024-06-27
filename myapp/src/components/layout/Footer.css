@@ -7,8 +7,8 @@ footer {
 
 footer hr{
     height: 2px;
-    color: blue;
-    background-color: blue;
+    background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+    border: none;
 }
 
 footer p{

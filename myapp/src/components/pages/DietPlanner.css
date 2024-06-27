@@ -1,149 +1,127 @@
 
-/* Container styles */
-.dietPlanner{
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
+.dietPlannerTrue{
+        .dietPlanner{
+            height: 70vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-dietPlanner{
-    height: 100vh;
-}
+        .mainBody{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .mainBody h2{
+        width: 100%;
+        height: 10vh;
+        align-items: center;
+        }
+        .mainBody hr{
+            width: 100%;
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+            height: 1.5px;
+            border: none;
+        }
+        .maleButton, .femaleButton {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 250px;
+            color: white;
+            background: linear-gradient(to right, rgb(25, 128, 246),skyblue );
+            font-size: 24px;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 20px;
+            padding: 0px;
+            opacity: 0.7;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            
+        }
 
-/* Heading styles */
-.heading {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-}
+        .maleButton:hover, .femaleButton:hover{
+            opacity: 1;
+        }
 
-/* Form styles */
-.form {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-}
+        .genderButtons {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
 
-.form label {
-    font-weight: bold;
-    margin-bottom: 10px;
-}
+        .ageButtons{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            
+        }
+        .ageButton{
+            opacity: 0.7;
+            background: linear-gradient(to right, rgb(25, 128, 246),skyblue );
+            width: 120px;
+            height: 100px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
 
-.form input {
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+        .ageButton:hover{
 
-.form button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+            opacity: 1;
+        }
 
-/* Result styles */
-.result {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
+        h2{
+            display: flex;
+            justify-content: center;
+        }
 
-.result p {
-    margin-bottom: 10px;
-}
+        .goalButtons{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+        }
 
-.result strong {
-    font-weight: bold;
-}
+        .goalButton{
+            opacity: 0.7;
+            background: linear-gradient(to right, rgb(25, 128, 246),skyblue );
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            font-size: 2.2vh;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+        }
 
-.maleButton, .femaleButton {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 350px;
-    height: 350px;
-    background-color: #bebcbc;
-    font-size: 24px;
-    font-weight: bold;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 20px;
-    padding: 0px;
-    opacity: 0.7;
-    
-}
+        .goalButton:hover{
 
-.maleButton:hover, .femaleButton:hover{
-    opacity: 1;
-}
+            opacity: 1;
+        }
 
-.genderButtons {
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-}
-
-.ageButtons{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-    
-}
-.ageButton{
-    opacity: 0.7;
-    background-color: #bebcbc;
-    width: 120px;
-    height: 100px;
-    margin: 10px;
-}
-
-.ageButton:hover{
-
-    opacity: 1;
-}
-
-h2{
-    display: flex;
-    justify-content: center;
-}
-
-.goalButtons{
-    display: flex;
-    justify-content: center;
-    flex-direction: row;
-}
-
-.goalButton{
-    opacity: 0.7;
-    background-color: #bebcbc;
-    width: 100px;
-    height: 100px;
-    margin: 10px;
-    font-size: 2.2vh;
-}
-
-.goalButton:hover{
-
-    opacity: 1;
-}
-
-.dietRecommendation{
-    text-align: center;
-    margin: 10vh;
-    background-color: #bebcbc;
-    border-radius: 10px;
-    padding: 30px;
+        .dietRecommendation{
+            text-align: center;
+            margin: 10vh;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            line-height: 4vh;
+            font-weight: bold;
+        }
 }

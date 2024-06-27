@@ -1,385 +1,384 @@
     /* Reset styles */
-    
-    body, html {
-        margin: 0;
-        padding: 0;
-        font-weight: bold;
-    }
-    .all{
-        display: flex;
-        justify-content: center;
-    }
-    .exerciseMainBody {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width:95vw;
-        justify-content:space-evenly;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-        box-shadow: 0px 0px 3px 3px #888888;
-        border-radius: 10px;
-    }
-    .exerciseMain {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: start;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-        justify-content:space-evenly;
-    }
-    /* Header */
-    .header {
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
-        color: white;
-        padding: 20px 0;
-        width: 100%;
-        text-align: center;
-        border-radius: 10px 10px 0 0;
-    }
-
-    /* Daily Activity */
-    .dailyActivity {
-        background-color: white;
-        padding: 15px;
-        text-align: center;
-        border-radius: 0 0 10px 10px;
-    }
-
-    .dailyActivity button {
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        margin-top: 10px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .dailyActivity button:hover {
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
-
-        transform: scale(1.05);
-    }
-
-    .dailyActivity > p {
-        font-size: 20px;
-        font-weight: bold;
-        
-    }
-
-    /* Weekly Stats */
-    .weeklyStats {
-        width: 45vw;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        border-radius: 10px;
-    }
-
-    h2 {
-        padding-top: 5vh;
-        padding-bottom: 5vh;
-        display: flex;
-        justify-content: center;
-        border-radius: 10px;
-    }
-
-    .statsBars {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        box-shadow: 0px 0px 2px 2px #888888;
-        border-radius: 10px ;
-        
-    }
-
-    .statsBars .day {
-        background: linear-gradient(to right, rgb(25, 128, 246),skyblue );
-        color: #fff;
-        width: 45vw;
-        height: 8vh;
-        line-height: 8vh;
-        text-align: center;
-        border-radius: 10px 10px 0 0;
-        font-size: 20px;
-        font-weight: bold;
-        
-    }
-
-    .weeks {
-        width: 100%;
-        transition: 0.5s;
-        border-radius: 10px;
-    }
-
-
-    .weeks p {
-        padding-top: 10px;
-        padding-bottom: 10px;
-    }
-
-    /* Buttons */
-    button {
-        padding: 5px 15px;
-        border: none;
-        border-radius: 5px;
-        font-size: 22px;
-        cursor: pointer;
-        transition: 0.5s;
-        font-weight: bold;
-    }
-
-    .delete {
-        color: white;
-        background-color: white;
-        padding: 0px;
-        margin-right: 15px;
-    }
-
-    .add {
-        border: 1px;
-        color: blue;
-        box-shadow: 0px 0px 2px 2px #888888;
-    }
-    
-    .redBtn {
-        border: 1px;
-        color: red;
-        background-color: white;
-        padding: 0px;
-        margin-right:7.5px;
-        margin-left:7.5px;
+    .ExerciseMainTrue{
+        .every{
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
         }
-    
+        .exerciseMainBody {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width:95vw;
+            justify-content:space-evenly;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            box-shadow: 0px 0px 3px 3px #888888;
+            border-radius: 10px;
+        }
+        .exerciseMain {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: start;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
+            justify-content:space-evenly;
+        }
+        /* Header */
+        .header {
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+            color: white;
+            padding: 20px 0;
+            width: 100%;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
 
-    .blueBtn {
-        border: 1px;
-        color: blue;
-        background-color: white;
-        padding: 0px;
-        margin-right:7.5px;
-        margin-left:7.5px;
-    }
-    
-    .blueBtn:hover {
-        transform: scale(1.05);
-    }
+        /* Daily Activity */
+        .dailyActivity {
+            background-color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 0 0 10px 10px;
+        }
 
-    .add:hover {
-        transform: scale(1.05);
-    }
+        .dailyActivity button {
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin-top: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
 
-    .fa-solid {
-        font-size: 40px;
-    }
+        .dailyActivity button:hover {
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
 
-    .redBtn:hover {
-        transform: scale(1.05);
-    }
+            transform: scale(1.05);
+        }
 
-    .delete:hover {
-        transform: scale(1.05);
-    }
+        .dailyActivity > p {
+            font-size: 20px;
+            font-weight: bold;
+            
+        }
+
+        /* Weekly Stats */
+        .weeklyStats {
+            width: 45vw;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        h2 {
+            padding-top: 5vh;
+            padding-bottom: 5vh;
+            display: flex;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .statsBars {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            box-shadow: 0px 0px 2px 2px #888888;
+            border-radius: 10px ;
+            
+        }
+
+        .statsBars .day {
+            background: linear-gradient(to right, rgb(25, 128, 246),skyblue );
+            color: #fff;
+            width: 45vw;
+            height: 8vh;
+            line-height: 8vh;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+            font-size: 20px;
+            font-weight: bold;
+            
+        }
+
+        .weeks {
+            width: 100%;
+            transition: 0.5s;
+            border-radius: 10px;
+        }
 
 
-    .weeks:hover .delete {
-        color: rgba(252, 20, 20, 0.964);
-    }
+        .weeks p {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
 
-    .rowBox {
-        display: flex;
-        flex-direction: row;
-        margin-top: 3vh;
-        margin-bottom: 3vh;
-        background-color: white;
-    }
-    /* Modal */
-    .modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+        /* Buttons */
+        button {
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.5s;
+            font-weight: bold;
+        }
 
-    .modalContent {
-        padding: 20px;
-        background-color: white;
-        border-radius: 5px;
-        text-align: center;
-        align-items: center;
-        width: 90vw;
-        max-width: 600px;
-        height: 65vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        outline: 3px solid #888888;
-        outline-offset: -20px;
+        .delete {
+            color: white;
+            background-color: white;
+            padding: 0px;
+            margin-right: 15px;
+        }
+
+        .add {
+            border: 1px;
+            color: blue;
+            box-shadow: 0px 0px 2px 2px #888888;
+            width: 50%;
+        }
         
-    }
+        .redBtn {
+            border: 1px;
+            color: red;
+            background-color: white;
+            padding: 0px;
+            margin-right:7.5px;
+            margin-left:7.5px;
 
-    /* Exercise List */
-    .exerciseList {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px;
-        overflow-y: scroll;
-    }
+            }
+        
 
-    .exerciseItem {
-        position: relative;
-        margin: 10px;
-        cursor: pointer;
-        text-align: center;
-        flex: 1 1 100px;
-        max-width: 150px;
-    }
+        .blueBtn {
+            border: 1px;
+            color: blue;
+            background-color: white;
+            padding: 0px;
+            margin-right:7.5px;
+            margin-left:7.5px;
+        }
+        
+        .blueBtn:hover {
+            transform: scale(1.05);
+        }
 
-    .exerciseItem img {
-        width: 100%;
-        height: 80px;
-        object-fit: 100%;
-        border-radius: 5px;
-    }
+        .add:hover {
+            transform: scale(1.05);
+        }
 
-    .exerciseItem p {
-        margin-top: 5px;
-        font-size: 14px;
-        font-weight: bold;
-    }
+        .fa-solid {
+            font-size: 40px;
+        }
 
-    .checkMark {
-        position: absolute;
-        top: 5px;
-        left: 5px;
-        font-size: 30px;
-        color: blue;
-        font-weight: bold;
-    }
+        .redBtn:hover {
+            transform: scale(1.05);
+        }
 
-    .weeks .buttons {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    /* Category List */
-    .categoryList {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 70px;
-        margin-bottom: 2vh;
-        margin-top: 2vh;
-    }
-
-    .categoryItem {
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
-
-        color: white;
-        border: none;
-        width: 100px;
-        height: 70px;
-        cursor: pointer;
-        transition: 0.3s;
-        border-radius: 5px;
-        font-size: 16px;
-        box-shadow: 0px 0px 1.5px 1.5px #888888;
-    }
-
-    .categoryItem:hover {
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
-        transform: scale(1.05);
-    }
-
-    /* Exercise Entry */
-    .exerciseEntry {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 1vh;
-    }
-
-    .exerciseImage {
-        width: 120px;
-        height: 100px;
-        object-fit: 100%;
-        border-radius: 5px;
-        margin-left: 10PX;
-        margin-right: 10px;
-        margin-top: 1vh;
-        margin-bottom: 2vh;
-    }
-
-    .exerciseEntry p {
-        width: 170px;
-        font-size: 14px;
-        font-weight: bold;
-        margin-right: 5px;
-    }
-
-    /* Search Input */
-    .searchInput {
-        width: 80%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+        .delete:hover {
+            transform: scale(1.05);
+        }
 
 
+        .weeks:hover .delete {
+            color: rgba(252, 20, 20, 0.964);
 
-    /*캘린더*/
+        }
 
-    .react-calendar {
-        width: 45vw;
-        height: 50vh;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0px 0px 1px 1px #888888;
-    }
+        .rowBox {
+            display: flex;
+            flex-direction: row;
+            margin-top: 3vh;
+            margin-bottom: 3vh;
+            background-color: white;
+        }
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    .react-calendar__navigation {
-        align-items: center;
-        padding: 30px;
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
-        color: white;
-        border-radius: 10px 10px 0 0;
-    }
+        .modalContent {
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            text-align: center;
+            align-items: center;
+            width: 90vw;
+            max-width: 600px;
+            height: 65vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            outline: 3px solid #888888;
+            outline-offset: -20px;
+            
+        }
 
-    .react-calendar__navigation__label {
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-    }
-    .react-calendar__navigation__arrow {
-        color: white;
-    }
+        /* Exercise List */
+        .exerciseList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            overflow-y: scroll;
+        }
 
-    /* 인풋 */
-    .repsInput, .setsInput, .weightInput{
-        width: 70px;
-        height: 30px;
-        padding: 5px;
-        margin-right: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+        .exerciseItem {
+            position: relative;
+            margin: 10px;
+            cursor: pointer;
+            text-align: center;
+            flex: 1 1 100px;
+            max-width: 150px;
+        }
 
-    ExerciseMain label{
-        left: 0;
-        bottom: 0;
-        position: absolute;
-    }
-    
-    li{
-        list-style-type: none;
+        .exerciseItem img {
+            width: 100%;
+            height: 80px;
+            object-fit: 100%;
+            border-radius: 5px;
+        }
+
+        .exerciseItem p {
+            margin-top: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .checkMark {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            font-size: 30px;
+            color: blue;
+            font-weight: bold;
+        }
+
+        .weeks .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* Category List */
+        .categoryList {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 70px;
+            margin-bottom: 2vh;
+            margin-top: 2vh;
+        }
+
+        .categoryItem {
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+
+            color: white;
+            border: none;
+            width: 100px;
+            height: 70px;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 5px;
+            font-size: 16px;
+            box-shadow: 0px 0px 1.5px 1.5px #888888;
+        }
+
+        .categoryItem:hover {
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+            transform: scale(1.05);
+        }
+
+        /* Exercise Entry */
+        .exerciseEntry {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1vh;
+        }
+
+        .exerciseImage {
+            width: 120px;
+            height: 100px;
+            object-fit: 100%;
+            border-radius: 5px;
+            margin-left: 10PX;
+            margin-right: 10px;
+            margin-top: 1vh;
+            margin-bottom: 2vh;
+        }
+
+        .exerciseEntry p {
+            width: 170px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        /* Search Input */
+        .searchInput {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+
+
+        /*캘린더*/
+
+        .react-calendar {
+            width: 45vw;
+            height: 50vh;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 1px 1px #888888;
+        }
+
+        .react-calendar__navigation {
+            align-items: center;
+            padding: 30px;
+            background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+            color: white;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .react-calendar__navigation__label {
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+        }
+        .react-calendar__navigation__arrow {
+            color: white;
+        }
+        
+        /* 인풋 */
+        .repsInput, .setsInput, .weightInput{
+            width: 70px;
+            height: 30px;
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        ExerciseMain label{
+            left: 0;
+            bottom: 0;
+            position: absolute;
+        }
+        
+        li{
+            list-style-type: none;
+        }
+        
     }

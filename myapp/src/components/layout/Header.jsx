@@ -3,6 +3,7 @@ import React from 'react';
 import {Link} from "react-router-dom";
 function Header(){
     return(
+        <div className='Header'>
         <header>
             <div className="navbar">
                 <div className="logo"><Link to="/"><img src='../../image/Logo.png' /></Link>
@@ -15,9 +16,9 @@ function Header(){
 
                     <li>운동
                         <ul className="submenu">
-                            <Link to ="/exercise/ExerciseMain"><li>운동 관리</li></Link>
-                            <Link to="/DietPlanner"><li>식단 관리</li></Link>
-                            <Link to= "/DietPlannerSelf"><li>수면 관리</li></Link>
+                            <Link to ="/ExerciseMain"><li>운동 관리</li></Link>
+                            <Link to="/DietPlanner"><li>식단 추천</li></Link>
+                            <Link to= "/SleepTracker"><li>수면 관리</li></Link>
                         </ul>
                     </li>
 
@@ -32,7 +33,7 @@ function Header(){
                     
                     <li>고객센터
                         <ul className="submenu">
-                            <Link to ="/faqPage/FAQpage"><li>FAQ</li></Link>
+                            <Link to ="/FAQpage"><li>FAQ</li></Link>
                             <li>서브메뉴11</li>
                             <li>서브메뉴12</li>
                         </ul>
@@ -50,6 +51,7 @@ function Header(){
             </div>
             <hr/>
         </header>
+        </div>
     );
 };
 

@@ -4,10 +4,9 @@ import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer';
 import ExerciseMain from './components/pages/exercise/ExerciseMain.jsx';
 import DietPlanner from './components/pages/DietPlanner.jsx'; 
-import DietPlannerSelf from './components/pages/DietPlannerSelf.jsx';
 import FAQpage from './components/pages/faqPage/FAQpage.jsx';
 import ManagementMain from './components/management/ManagementMain.jsx';
-// import ExerciseJournal from './components/pages/exercise/ExerciseJournal.jsx';
+import SleepTracker from './components/pages/SleepTracker.jsx';
 import { Routes, Route} from 'react-router-dom';
 
 function App() {
@@ -16,20 +15,13 @@ function App() {
 
       <Header />
       <Routes>
-        <Route path="/exercise/exerciseMain" element={<ExerciseMain />} />
+        <Route path="/exerciseMain" element={<ExerciseMain />} />
         <Route path="/dietPlanner" element={<DietPlanner />} />
-        <Route path="/dietPlannerSelf" element={<DietPlannerSelf />} />
         <Route path="/FAQpage" element={<FAQpage />} />
         <Route path="/managementMain" element={<ManagementMain />} />
+        <Route path="/sleepTracker" element={<SleepTracker />} />
       </Routes>
       <Footer />
-      {/* <Router>
-        <Header />
-          <Route path="/">
-            <ExerciseMain />
-          </Route> */}
-            {/* <ExerciseJournal /> */}
-      {/* </Router> */}
     </div>
   );
 }

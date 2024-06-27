@@ -1,0 +1,252 @@
+/* SleepTracker.css */
+
+.sleepTracker {
+    width: 60%;
+    margin: auto;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    align-items:center;
+}
+
+.sleepTracker hr{
+    width: 100%;
+    background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+    height: 1.5px;
+
+}
+.sleepTracker h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 50px;
+}
+.sleepTrackerMain{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.sleepTrackerInputGroup {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.sleepTrackerInputGroup label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.sleepTrackerInputGroup input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.sleepTrackerButtonGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+
+.sleepTrackerButton {
+    flex: 1;
+    padding: 10px;
+    margin: 0 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    transition: 0.5s;
+}
+
+.sleepTrackerButton:hover {
+    background-color: #45a049;
+}
+/* li.sleepTrackerRecord:hover .sleepTrackerButton {
+} */
+
+.sleepTrackerButton:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.sleepTrackerResult {
+    margin: 20px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}
+
+.sleepTrackerTipsContainer {
+    margin-top: 30px;
+}
+
+.sleepTrackerTipsContainer h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+.sleepTrackerTips h2 {
+    text-align: center;
+    color: #333;
+    cursor: pointer;
+}
+
+.sleepTrackerTips ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sleepTrackerTips li {
+    background-color: #eef;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.sleepTrackerErrorMessage {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.sleepTrackerRecords {
+    margin-top: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    width: 80%;
+}
+
+.sleepTrackerRecords h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sleepTrackerRecords ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sleepTrackerRecord {
+    background-color: #eef;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+}
+
+.sleepTrackerRecordInfo {
+    flex: 1;
+    color: #555;
+}
+
+.sleepTrackerRecordButtons {
+    display: flex;
+    gap: 5px;
+}
+
+.sleepTrackerRecordButtons .sleepTrackerButton {
+    margin: 0;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.sleepTrackerModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 400px;
+    width: 80%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ccc;
+}
+
+.sleepTrackerModal h2 {
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+.sleepTrackerModal input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.sleepTrackerModal .sleepTrackerButtonGroup {
+    justify-content: space-between;
+}
+
+.sleepTrackerOverlay {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.sleepTrackerTileContent {
+    text-align: center;
+    color: #333;
+    font-weight: bold;
+    border-radius: 5px;
+    padding-top: 2.5px;
+    padding-bottom: 2.5px;
+}
+
+.sleepTrackerTileContent span {
+    display: block;
+    font-size: 10px;
+    font-weight: bold;
+    overflow:hidden;
+}
+
+.SleepTrackerTrue .react-calendar {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+    padding: 20px;
+    font-weight: bold;
+}
+
+
+.sleepTrackerGraph{
+    width: 350px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+}
+.sleepTrackerGraph h2{
+    margin-top: 30px;
+    margin-bottom: 40px;
+}
