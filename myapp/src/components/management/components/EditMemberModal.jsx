@@ -15,7 +15,7 @@ const EditMemberModal = ({ item, onSave, onClose }) => {
         if (name && email) {
             onSave({ name, email, memo, availability, times });
         } else {
-            alert('Please fill in both name and email.');
+            alert('회원명과 이메일을 입력해주세요.');
         }
     };
 
@@ -53,7 +53,7 @@ const EditMemberModal = ({ item, onSave, onClose }) => {
                 <form className="modal-form" onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Name"
+                        placeholder="회원명"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -64,7 +64,7 @@ const EditMemberModal = ({ item, onSave, onClose }) => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <textarea
-                        placeholder="Memo (optional, max 150 characters)"
+                        placeholder="메모 (최대 150자)"
                         value={memo}
                         onChange={(e) => setMemo(e.target.value)}
                         maxLength="150"
@@ -98,7 +98,7 @@ const EditMemberModal = ({ item, onSave, onClose }) => {
                             )}
                         </div>
                     </div>
-                    <button type="submit" className="submit-button">Save</button>
+                    <button type="submit" className="submit-button">저장</button>
                 </form>
             </div>
         </div>

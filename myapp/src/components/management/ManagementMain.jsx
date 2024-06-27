@@ -81,3 +81,38 @@ const ManagementMain = () => {
 };
 
 export default ManagementMain;
+
+
+// import { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+
+// export default function ManagementMain() {
+//   const [email, setEmail] = useState("");
+//   const navigate = useNavigate();
+//   const parsedIsLoginTrue = parsedCompareLocalLoginData.isLoginTrue;
+//   const CompareLocalLoginData = localStorage.getItem("userData");
+//   const parsedCompareLocalLoginData = JSON.parse(CompareLocalLoginData);
+//   const parsedEmail = parsedCompareLocalLoginData.email;
+  
+  
+//   const handleEmailChange = (e) => {
+//     setEmail(e.target.value);
+//   };
+//   useEffect(()=> parsedIsLoginTrue && loginType === "트레이너" ? true : alert("일반 사용자는 접근할 수 없습니다."), []);
+  
+//   function CompareLoginData(e) {
+//     e.preventDefault();
+//       if(email === parsedEmail && loginType === "일반") {
+//         navigate("/exerciseMain");
+        
+//       } else {
+      
+//       }
+// }
+
+//   return (
+//     <div>
+
+//     </div>
+//   );
+// }

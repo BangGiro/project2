@@ -8,6 +8,9 @@ import FAQpage from './components/pages/faqPage/FAQpage.jsx';
 import ManagementMain from './components/management/ManagementMain.jsx';
 import SleepTracker from './components/pages/SleepTracker.jsx';
 import { Routes, Route} from 'react-router-dom';
+import Login from './components/login/Login';
+import FindPw from './components/login/components/FindPw';
+import SignUp from './components/login/components/SingUp';
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
         <Route path="/FAQpage" element={<FAQpage />} />
         <Route path="/managementMain" element={<ManagementMain />} />
         <Route path="/sleepTracker" element={<SleepTracker />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/FindPw" element={<FindPw />} />
+        <Route path="/SignUp" element={<SignUp />} />
       </Routes>
       <Footer />
     </div>

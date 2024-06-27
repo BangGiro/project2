@@ -25,7 +25,7 @@ const AddMemberModal = ({ onAdd, onClose }) => {
             setTimes(daysOfWeek.reduce((acc, day) => ({ ...acc, [day]: '' }), {}));
             onClose();
         } else {
-            alert('이메일과 이름을 입력해주세요.');
+            alert('이메일과 저장할 회원명을 입력해주세요.');
         }
     };
 
@@ -63,7 +63,7 @@ const AddMemberModal = ({ onAdd, onClose }) => {
                 <form className="modal-form" onSubmit={handleSubmit}>
                     <input
                         type="text"
-                        placeholder="Name"
+                        placeholder="회원명"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
@@ -74,7 +74,7 @@ const AddMemberModal = ({ onAdd, onClose }) => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <textarea
-                        placeholder="Memo (optional, max 150 characters)"
+                        placeholder="메모 (최대 150자)"
                         value={memo}
                         onChange={(e) => setMemo(e.target.value)}
                         maxLength="150"
@@ -107,7 +107,7 @@ const AddMemberModal = ({ onAdd, onClose }) => {
                             )}
                         </div>
                     </div>
-                    <button type="submit" className="submit-button">Submit</button>
+                    <button type="submit" className="submit-button">저장장</button>
                 </form>
             </div>
         </div>

@@ -44,7 +44,7 @@ const ViewMemberModal = ({ item, onClose }) => {
                             )}
                         </div>
                     </div>
-                    <button className="submit-button" onClick={onClose}>Close</button>
+                    <button className="submit-button" onClick={onClose}>닫기</button>
                 </div>
             </div>
         </div>

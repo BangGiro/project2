@@ -1,5 +1,6 @@
 .app-container {
     display: flex;
+    min-height: 62vh;
 }
 
 .sidebar {
