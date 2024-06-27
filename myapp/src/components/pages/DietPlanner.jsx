@@ -21,8 +21,9 @@ const DietPlanner = () => {
 
     const renderGenderButtons = () => {
         return (
-            <div>
+            <div className='mainBody'>
                 <h2>성별을 선택하세요</h2>
+                <hr/>
                 <div className="genderButtons">
                     <button className="maleButton" onClick={() => handleGenderSelection('male')}>남</button>
                     <button className="femaleButton" onClick={() => handleGenderSelection('female')}>여</button>
@@ -35,8 +36,9 @@ const DietPlanner = () => {
         const ageOptions = Array.from({ length: 9 }, (_, index) => 10 + index  * 10);
 
         return (
-            <div>
+            <div className='mainBody'>
                 <h2>나이를 선택하세요</h2>
+                <hr/>
                 <div className="ageButtons">
                     {ageOptions.map((ageOption) => (
                         <button className='ageButton' key={ageOption} onClick={() => handleAgeSelection(ageOption)}>
@@ -50,8 +52,9 @@ const DietPlanner = () => {
 
     const renderGoalButtons = () => {
         return (
-            <div>
+            <div className='mainBody'>
                 <h2>목적을 선택하세요</h2>
+                <hr/>
                 <div className="goalButtons">
                     <button className="goalButton" onClick={() => handleGoalSelection('bulking')}>벌크업</button>
                     <button className="goalButton" onClick={() => handleGoalSelection('dieting')}>다이어트</button>
@@ -367,19 +370,23 @@ const DietPlanner = () => {
             };
         };
     };
+    dietRecommendation = dietRecommendation.replace(/<br\/>/g, "<br/><hr/>");
     return(
-        <div>
+        <div className='mainBody'>
             <h2>당신에게 추천해드리는 식단입니다.</h2>
-            <div className="dietRecommendation" dangerouslySetInnerHTML={{ __html: dietRecommendation }} />
+            <hr/>
+            <div className="dietRecommendation" dangerouslySetInnerHTML={{ __html: dietRecommendation  }} />
             </div>
     )
 };
 return (
+    <div className="dietPlannerTrue">
     <div className="dietPlanner">
         {!gender && renderGenderButtons()}
         {gender && !age && renderAgeButtons()}
         {gender && age && !goal && renderGoalButtons()}
         {gender && age && goal && renderDietRecommendation()}
+    </div>
     </div>
 );
 

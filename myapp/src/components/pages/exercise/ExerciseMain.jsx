@@ -154,123 +154,125 @@ function ExerciseMain() {
   };
 
   return (
-    <div className='all'>
-      <div className='exerciseMainBody'>
-        <div className="header">
-          <h1>운동</h1>
-        </div>
-        <div className='exerciseMain'> 
-          <div className="calendarContainer">
-            <Calendar
-              onChange={handleDateChange}
-              value={selectedDate}
-            />
+    <div className='ExerciseMainTrue'>
+      <div className='every'>
+        <div className='exerciseMainBody'>
+          <div className="header">
+            <h1>운동</h1>
           </div>
-          <div className="weeklyStats">
-            <div className="statsBars">
-              <div className="weeks">
-                <div className="day">{selectedDate.toLocaleDateString()}</div>
-                {currentExercises.map((exercise, exerciseIndex) => (
-                  <div key={exerciseIndex} className="exerciseEntry">
-                    <img src={exercise.image} alt={exercise.name} className="exerciseImage"/>
-                    <p>{exercise.name}</p>
-                    <li>
-                    <label>&nbsp;이름</label>
-                    <input
-                      type="number"
-                      placeholder="무게 (kg)"
-                      value={exercise.weight}
-                      onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
-                      className="weightInput"
-                    />
-                    </li>
-                    <li>
-                      <label>&nbsp;횟수</label>
+          <div className='exerciseMain'> 
+            <div className="calendarContainer">
+              <Calendar
+                onChange={handleDateChange}
+                value={selectedDate}
+              />
+            </div>
+            <div className="weeklyStats">
+              <div className="statsBars">
+                <div className="weeks">
+                  <div className="day">{selectedDate.toLocaleDateString()}</div>
+                  {currentExercises.map((exercise, exerciseIndex) => (
+                    <div key={exerciseIndex} className="exerciseEntry">
+                      <img src={exercise.image} alt={exercise.name} className="exerciseImage"/>
+                      <p>{exercise.name}</p>
+                      <li>
+                      <label>&nbsp;이름</label>
                       <input
                         type="number"
-                        placeholder="횟수"
-                        value={exercise.reps}
-                        onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
-                        className="repsInput"
+                        placeholder="무게 (kg)"
+                        value={exercise.weight}
+                        onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
+                        className="weightInput"
                       />
-                    </li>
-                    <li>
-                    <label>&nbsp;세트 수</label>
-                      <input
-                        type="number"
-                        placeholder="세트 수"
-                        value={exercise.sets}
-                        onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
-                        className="setsInput"
-                      />
-                    </li>
-                    <button className="delete" onClick={() => deleteExercise(exerciseIndex)}>
-                      <i className="fa-solid fa-circle-minus"></i>
-                    </button>
+                      </li>
+                      <li>
+                        <label>&nbsp;횟수</label>
+                        <input
+                          type="number"
+                          placeholder="횟수"
+                          value={exercise.reps}
+                          onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
+                          className="repsInput"
+                        />
+                      </li>
+                      <li>
+                      <label>&nbsp;세트 수</label>
+                        <input
+                          type="number"
+                          placeholder="세트 수"
+                          value={exercise.sets}
+                          onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
+                          className="setsInput"
+                        />
+                      </li>
+                      <button className="delete" onClick={() => deleteExercise(exerciseIndex)}>
+                        <i className="fa-solid fa-circle-minus"></i>
+                      </button>
+                    </div>
+                  ))}
+                  <div className="dailyActivity">
+                    <button className="add" onClick={openModal}>운동 시작하기</button>
                   </div>
-                ))}
-                <div className="dailyActivity">
-                  <button className="add" onClick={openModal}>운동 시작하기</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modalContent">
-            <h2>운동 선택</h2>
-            <input
-              type="text"
-              placeholder="운동 검색"
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className="searchInput"
-            />
-            {!selectedCategory && searchTerm === '' ? (
-              <div className="categoryList">
-                {categories.map((category, index) => (
-                  <button
-                    key={index}
-                    className="categoryItem"
-                    onClick={() => handleCategorySelect(category)}
-                  >
-                    {category}
-                  </button>
-                ))}
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modalContent">
+              <h2>운동 선택</h2>
+              <input
+                type="text"
+                placeholder="운동 검색"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className="searchInput"
+              />
+              {!selectedCategory && searchTerm === '' ? (
+                <div className="categoryList">
+                  {categories.map((category, index) => (
+                    <button
+                      key={index}
+                      className="categoryItem"
+                      onClick={() => handleCategorySelect(category)}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className="exerciseList">
+                  {filteredExercises.map((exercise, index) => (
+                    <div
+                      key={index}
+                      className="exerciseItem"
+                      onClick={() => handleExerciseSelect(exercise.name, exercise.image)}
+                    >
+                      <img src={exercise.image} alt={exercise.name} />
+                      <p>{exercise.name}</p>
+                      {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
+                        <div className="checkMark">&#10003;</div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="rowBox">
+                <button className="redBtn" onClick={() => { setSelectedCategory(null); setSearchTerm(''); }}>
+                  <i className="fa-solid fa-circle-arrow-left"></i>
+                </button>
+                <button className="redBtn" onClick={closeModal}>
+                  <i className="fa-solid fa-circle-xmark"></i>
+                </button>
+                <button className="blueBtn" onClick={handleConfirmExercises}>
+                  <i className="fa-solid fa-circle-check"></i>
+                </button>
               </div>
-            ) : (
-              <div className="exerciseList">
-                {filteredExercises.map((exercise, index) => (
-                  <div
-                    key={index}
-                    className="exerciseItem"
-                    onClick={() => handleExerciseSelect(exercise.name, exercise.image)}
-                  >
-                    <img src={exercise.image} alt={exercise.name} />
-                    <p>{exercise.name}</p>
-                    {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
-                      <div className="checkMark">&#10003;</div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-            <div className="rowBox">
-              <button className="redBtn" onClick={() => { setSelectedCategory(null); setSearchTerm(''); }}>
-                <i className="fa-solid fa-circle-arrow-left"></i>
-              </button>
-              <button className="redBtn" onClick={closeModal}>
-                <i className="fa-solid fa-circle-xmark"></i>
-              </button>
-              <button className="blueBtn" onClick={handleConfirmExercises}>
-                <i className="fa-solid fa-circle-check"></i>
-              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
