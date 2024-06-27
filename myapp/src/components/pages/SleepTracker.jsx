@@ -26,7 +26,8 @@ const SleepTracker = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [selectedRecord, setSelectedRecord] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [tipsVisible, setTipsVisible] = useState(false);
+    const [modalAnimation, setModalAnimation] = useState('');
+    const [sleepQuality, setSleepQuality] = useState('');
 
     useEffect(() => {
         const savedRecords = localStorage.getItem('sleepRecords');
@@ -42,12 +43,32 @@ const SleepTracker = () => {
             setStartTime(record.startTime);
             setEndTime(record.endTime);
             setSleepDuration(record.sleepDuration);
+            setSleepQuality(record.sleepQuality || '');
         } else {
             setStartTime('');
             setEndTime('');
             setSleepDuration(null);
+            setSleepQuality('');
         }
     }, [selectedDate, records]);
+
+    const openModal = () => {
+        setIsModalOpen(true);
+        setModalAnimation('modal-show');
+    };
+
+    const closeModal = () => {
+        setModalAnimation('modal-hide');
+        setTimeout(() => {
+            setIsModalOpen(false);
+            setModalAnimation('');
+        }, 500); // Ensure modal is hidden after animation
+    };
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+        openModal();
+    };
 
     const calculateSleepDuration = () => {
         if (!startTime && !endTime) {
@@ -84,13 +105,12 @@ const SleepTracker = () => {
         }
     };
 
-
-
     const editRecord = (index) => {
         const record = records[index];
         setStartTime(record.startTime);
         setEndTime(record.endTime);
         setSleepDuration(record.sleepDuration);
+        setSleepQuality(record.sleepQuality || '');
         setEditIndex(index);
         setIsModalOpen(true); // Open modal for editing
     };
@@ -101,9 +121,29 @@ const SleepTracker = () => {
         localStorage.setItem('sleepRecords', JSON.stringify(updatedRecords));
     };
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-        setIsModalOpen(true);
+    const saveEditedRecord = (event) => {
+        event.preventDefault();
+        const duration = calculateSleepDuration();
+        if (duration === null) return;
+
+        const date = new Date(selectedDate).toLocaleDateString();
+        const newRecord = { date, startTime, endTime, sleepDuration: duration, sleepQuality };
+        const existingRecordIndex = records.findIndex(record => record.date === date);
+        let updatedRecords;
+
+        if (existingRecordIndex !== -1) {
+            updatedRecords = records.map((record, index) =>
+                index === existingRecordIndex ? newRecord : record
+            );
+        } else {
+            updatedRecords = [...records, newRecord];
+        }
+
+        updatedRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        setRecords(updatedRecords);
+        localStorage.setItem('sleepRecords', JSON.stringify(updatedRecords));
+        setErrorMessage('');
     };
 
     const getTileContent = ({ date, view }) => {
@@ -129,39 +169,6 @@ const SleepTracker = () => {
         } else {
             return '#cce0ff';
         }
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const toggleTipsVisibility = () => {
-        setTipsVisible(!tipsVisible);
-    };
-
-    const saveEditedRecord = (event) => {
-        event.preventDefault();
-        const duration = calculateSleepDuration();
-        if (duration === null) return;
-
-        const date = new Date(selectedDate).toLocaleDateString();
-        const newRecord = { date, startTime, endTime, sleepDuration: duration };
-        const existingRecordIndex = records.findIndex(record => record.date === date);
-        let updatedRecords;
-
-        if (existingRecordIndex !== -1) {
-            updatedRecords = records.map((record, index) =>
-                index === existingRecordIndex ? newRecord : record
-            );
-        } else {
-            updatedRecords = [...records, newRecord];
-        }
-
-        updatedRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        setRecords(updatedRecords);
-        localStorage.setItem('sleepRecords', JSON.stringify(updatedRecords));
-        setErrorMessage('');
     };
 
     const getWeekData = () => {
@@ -205,6 +212,10 @@ const SleepTracker = () => {
         },
     };
 
+    const handleQualityChange = (quality) => {
+        setSleepQuality(quality);
+    };
+
     return (
         <div className='SleepTrackerTrue'>
         <div className="sleepTracker">
@@ -225,7 +236,7 @@ const SleepTracker = () => {
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
                 contentLabel="수면 기록"
-                className="sleepTrackerModal"
+                className={`sleepTrackerModal ${modalAnimation}`}
                 overlayClassName="sleepTrackerOverlay"
             >
                 <form onSubmit={saveEditedRecord}>
@@ -244,6 +255,21 @@ const SleepTracker = () => {
                             value={endTime}
                             onChange={(e) => setEndTime(e.target.value)}
                         />
+                    </div>
+                    <div className="sleepTrackerInputGroup">
+                        <label>수면 품질</label>
+                        <div className="sleepQualityButtons">
+                            <button type="button" onClick={() => handleQualityChange('😴')} className={sleepQuality === '😴' ? 'selected' : ''}>😴</button>
+                            <button type="button" onClick={() => handleQualityChange('🥱')} className={sleepQuality === '🥱' ? 'selected' : ''}>🥱</button>
+                            <button type="button" onClick={() => handleQualityChange('😑')} className={sleepQuality === '😑' ? 'selected' : ''}>😑</button>
+                            <button type="button" onClick={() => handleQualityChange('🙂')} className={sleepQuality === '🙂' ? 'selected' : ''}>🙂</button>
+                            <button type="button" onClick={() => handleQualityChange('😁')} className={sleepQuality === '😁' ? 'selected' : ''}>😁</button>
+                        </div>
+                        {sleepQuality && (
+                            <div className="selectedQuality">
+                                {sleepQuality}
+                            </div>
+                        )}
                     </div>
                     <div className="sleepTrackerButtonGroup">
                         <button type="submit" className="sleepTrackerButton">저장</button>
@@ -291,7 +317,7 @@ const SleepRecords = ({ records, editRecord, deleteRecord }) => {
                 {records.map((record, index) => (
                     <li key={index} className="sleepTrackerRecord" style={getRecordStyle(record.sleepDuration)}>
                         <div className="sleepTrackerRecordInfo">
-                            <strong>{record.date}:</strong> 수면 시간: {record.sleepDuration}h
+                            <strong>{record.date}:</strong> 수면 시간: {record.sleepDuration}h | 수면 품질: {record.sleepQuality}
                         </div>
                         <div className="sleepTrackerRecordButtons">
                             <button className="sleepTrackerButton" onClick={() => editRecord(index)}>수정</button>
@@ -303,7 +329,5 @@ const SleepRecords = ({ records, editRecord, deleteRecord }) => {
         </div>
     );
 };
-
-
 
 export default SleepTracker;

@@ -3,9 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
 
-const exerciseData = [
-  { day: "운동목록", exercises: [] },
-];
+const initialExerciseData = [];
 
 export const availableExercises = [
   { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
@@ -48,7 +46,10 @@ const categories = [
 ];
 
 function ExerciseMain() {
-  const [exercises, setExercises] = useState(exerciseData);
+  const [exercises, setExercises] = useState(() => {
+    const storedExercises = JSON.parse(localStorage.getItem('exercises'));
+    return storedExercises || initialExerciseData;
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentDayIndex, setCurrentDayIndex] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -57,6 +58,10 @@ function ExerciseMain() {
   const [pendingExercises, setPendingExercises] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentExercises, setCurrentExercises] = useState([]);
+
+  useEffect(() => {
+    localStorage.setItem('exercises', JSON.stringify(exercises));
+  }, [exercises]);
 
   useEffect(() => {
     const selectedDateData = exercises.find(day => day.day === selectedDate.toLocaleDateString());
@@ -153,32 +158,53 @@ function ExerciseMain() {
     }
   };
 
+  const handleSave = () => {
+    localStorage.setItem('exercises', JSON.stringify(exercises));
+  };
+
+  const handleClear = () => {
+    const updatedExercises = exercises.filter(day => day.day !== selectedDate.toLocaleDateString());
+    setExercises(updatedExercises);
+    setCurrentExercises([]);
+  };
+
+  const tileContent = ({ date, view }) => {
+    if (view === 'month' && exercises.some(day => day.day === date.toLocaleDateString())) {
+      return <div className="dot"></div>;
+    }
+    return null;
+  };
+
   return (
     <div className='ExerciseMainTrue'>
       <div className='every'>
         <div className='exerciseMainBody'>
           <div className="header">
             <h1>운동</h1>
+            <hr/>
           </div>
           <div className='exerciseMain'> 
             <div className="calendarContainer">
               <Calendar
                 onChange={handleDateChange}
                 value={selectedDate}
+                tileContent={tileContent}
               />
             </div>
             <div className="weeklyStats">
               <div className="statsBars">
                 <div className="weeks">
                   <div className="day">{selectedDate.toLocaleDateString()}</div>
+                  <hr/>
                   {currentExercises.map((exercise, exerciseIndex) => (
                     <div key={exerciseIndex} className="exerciseEntry">
                       <img src={exercise.image} alt={exercise.name} className="exerciseImage"/>
                       <p>{exercise.name}</p>
                       <li>
-                      <label>&nbsp;이름</label>
+                      <label>&nbsp;무게</label>
                       <input
                         type="number"
+                        min="1"
                         placeholder="무게 (kg)"
                         value={exercise.weight}
                         onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
@@ -189,6 +215,7 @@ function ExerciseMain() {
                         <label>&nbsp;횟수</label>
                         <input
                           type="number"
+                          min="1"
                           placeholder="횟수"
                           value={exercise.reps}
                           onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
@@ -199,6 +226,7 @@ function ExerciseMain() {
                       <label>&nbsp;세트 수</label>
                         <input
                           type="number"
+                          min="1"
                           placeholder="세트 수"
                           value={exercise.sets}
                           onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
@@ -211,7 +239,9 @@ function ExerciseMain() {
                     </div>
                   ))}
                   <div className="dailyActivity">
-                    <button className="add" onClick={openModal}>운동 시작하기</button>
+                    <button className="add" onClick={openModal}>운동 추가하기</button>
+                    <button className="save" onClick={handleSave}>저장하기</button>
+                    <button className="clear" onClick={handleClear}>초기화</button>
                   </div>
                 </div>
               </div>

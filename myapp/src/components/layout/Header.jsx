@@ -9,18 +9,18 @@ function Header(){
                 <div className="logo"><Link to="/"><img src='../../image/Logo.png' /></Link>
                 </div>
                 <ul className="menu">
-                    <Link to ="/ManagementMain"><li>회원관리
+                    <li><Link to ="/ManagementMain">회원관리
                         <ul className="submenu">
                         </ul>
-                    </li></Link>
+                        </Link></li>
 
-                    <li>운동
+                    <li><Link to ="/ExerciseMain">운동
                         <ul className="submenu">
                             <Link to ="/ExerciseMain"><li>운동 관리</li></Link>
                             <Link to="/DietPlanner"><li>식단 추천</li></Link>
                             <Link to= "/SleepTracker"><li>수면 관리</li></Link>
                         </ul>
-                    </li>
+                        </Link></li>
 
                     
                     <li>MYPAGE
