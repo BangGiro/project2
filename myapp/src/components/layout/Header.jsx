@@ -9,18 +9,18 @@ function Header() {
                     <div className="logo"><Link to="/"><img src='../../image/Logo.png' /></Link>
                     </div>
                     <ul className="menu">
-                        <Link to="/Management"><li>회원관리
+                        <li><Link to="/Management">회원관리
                             <ul className="submenu">
                             </ul>
-                        </li></Link>
+                            </Link></li>
 
-                        <li>운동
+                        <li><Link to="/ExerciseMain">운동
                             <ul className="submenu">
                                 <Link to="/ExerciseMain"><li>운동 관리</li></Link>
                                 <Link to="/DietPlanner"><li>식단 추천</li></Link>
                                 <Link to="/SleepTracker"><li>수면 관리</li></Link>
                             </ul>
-                        </li>
+                        </Link></li>
 
 
                         <li>MYPAGE
@@ -51,54 +51,8 @@ function Header() {
                     <div className="login_btn"><Link to={"/Login"}><i className="fa-regular fa-circle-user"></i></Link></div>
 
                 </div>
-<<<<<<< HEAD
-                <ul className="menu">
-                    <li><Link to ="/ManagementMain">회원관리
-                        <ul className="submenu">
-                        </ul>
-                        </Link></li>
-
-                    <li><Link to ="/ExerciseMain">운동
-                        <ul className="submenu">
-                            <Link to ="/ExerciseMain"><li>운동 관리</li></Link>
-                            <Link to="/DietPlanner"><li>식단 추천</li></Link>
-                            <Link to= "/SleepTracker"><li>수면 관리</li></Link>
-                        </ul>
-                        </Link></li>
-
-                    
-                    <li>MYPAGE
-                        <ul className="submenu">
-                            <li>서브메뉴7</li>
-                            <li>서브메뉴8</li>
-                            <li>서브메뉴9</li>
-                        </ul>
-                    </li>
-                    
-                    <li>고객센터
-                        <ul className="submenu">
-                            <Link to ="/FAQpage"><li>FAQ</li></Link>
-                            <li>서브메뉴11</li>
-                            <li>서브메뉴12</li>
-                        </ul>
-                    </li>
-                    
-                    <li>메뉴5
-                        <ul className="submenu">
-                            <li>서브메뉴13</li>
-                            <li>서브메뉴14</li>
-                            <li>서브메뉴15</li>
-                        </ul>
-                    </li>
-                </ul>
-                <div className="login_btn"><i className="fa-regular fa-circle-user"></i></div>
-            </div>
-            <hr/>
-        </header>
-=======
                 <hr />
             </header>
->>>>>>> main
         </div>
     );
 };
