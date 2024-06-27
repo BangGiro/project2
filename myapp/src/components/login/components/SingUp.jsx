@@ -12,11 +12,11 @@ export default function SignUp() {
         gender: "",
         loginType: "",
         time: "",
-        isLoginTrue: false,
+        trainer:"",
     });
 
     const [errorMessage, setErrorMessage] = useState("");
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -24,12 +24,12 @@ export default function SignUp() {
             ...prevState,
             [name]: value
         }));
-    }
+    };
 
     const validateEmail = (email) => {
         const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         return re.test(String(email).toLowerCase());
-    }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -47,12 +47,14 @@ export default function SignUp() {
         }
         setErrorMessage("");
 
-        localStorage.setItem("userData", JSON.stringify(userData));
-        let data = localStorage.getItem("userData");
-        console.log(JSON.parse(data));
-        setUserData(...userData, { isLoginTrue: true });
-        Navigate("/login");
-    }
+        const storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
+        const updatedUsers = [...storedUsers, userData];
+        localStorage.setItem("userData", JSON.stringify(updatedUsers));
+        
+        console.log("Stored Users:", updatedUsers);
+
+        navigate("/login");
+    };
 
     return (
         <div className="login_true_location-container">
@@ -78,9 +80,9 @@ export default function SignUp() {
                         </label>
                         <div>성별</div>
                         <div className="select_gender">
-                            <input type="radio" id="male" name="gender" value="남자" checked={userData.gender === "남자"} onChange={handleChange} required/>
+                            <input type="radio" id="male" name="gender" value="남자" checked={userData.gender === "남자"} onChange={handleChange} required />
                             <label htmlFor="male" className={userData.gender === "남자" ? "active" : ""}>남자</label>
-                            <input type="radio" id="female" name="gender" value="여자" checked={userData.gender === "여자"} onChange={handleChange} required/>
+                            <input type="radio" id="female" name="gender" value="여자" checked={userData.gender === "여자"} onChange={handleChange} required />
                             <label htmlFor="female" className={userData.gender === "여자" ? "active" : ""}>여자</label>
                         </div>
                         <div>회원 유형 선택</div>
@@ -92,7 +94,7 @@ export default function SignUp() {
                                 <option value="비지니스">비지니스</option>
                             </select>
                         </label>
-                        <button type="submit" >회원가입</button>
+                        <button type="submit">회원가입</button>
                     </form>
                     <div className="login-links">
                         <Link to="/Login">로그인 화면으로</Link>

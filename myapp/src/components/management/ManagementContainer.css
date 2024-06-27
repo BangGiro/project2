@@ -1,0 +1,37 @@
+/* ManagementContainer.css */
+
+.management-container {
+    display: flex;
+    height: 100vh; /* 컨테이너가 화면을 가득 채우도록 높이 설정 */
+}
+
+.manacategory {
+    width: 20%; /* 필요에 따라 너비 조정 */
+    background-color: #f4f4f4; /* 카테고리 배경색을 연한 회색으로 설정 */
+    border-right: 1px solid #ddd; /* 카테고리와 메인 콘텐츠를 구분하는 오른쪽 테두리 */
+    padding: 20px; /* 더 나은 여백을 위한 패딩 추가 */
+    box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+}
+
+.maco {
+    width: 80%; /* 필요에 따라 너비 조정 */
+    padding: 20px; /* 더 나은 여백을 위한 패딩 추가 */
+    overflow-y: auto; /* 콘텐츠가 넘칠 경우 수직 스크롤 추가 */
+    box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+}
+
+/* 반응형 디자인을 위한 추가 스타일 */
+@media (max-width: 768px) {
+    .management-container {
+        flex-direction: column; /* 화면 너비가 768px 이하일 때 수직 배치 */
+    }
+
+    .category, .maco {
+        width: 100%; /* 너비를 100%로 설정하여 전체 화면 너비 사용 */
+    }
+
+    .category {
+        border-right: none; /* 수직 배치 시 오른쪽 테두리 제거 */
+        border-bottom: 1px solid #ddd; /* 카테고리와 메인 콘텐츠를 구분하는 아래쪽 테두리 추가 */
+    }
+}

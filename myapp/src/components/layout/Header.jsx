@@ -9,7 +9,7 @@ function Header() {
                     <div className="logo"><Link to="/"><img src='../../image/Logo.png' /></Link>
                     </div>
                     <ul className="menu">
-                        <Link to="/ManagementMain"><li>회원관리
+                        <Link to="/Management"><li>회원관리
                             <ul className="submenu">
                             </ul>
                         </li></Link>
