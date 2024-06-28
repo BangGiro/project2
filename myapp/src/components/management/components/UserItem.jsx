@@ -3,7 +3,7 @@ import './UserItem.css';
 
 function UserItem({ user }) {
     return (
-        <div>
+        <div className="managementuseritem">
             <h3>{user.name}</h3>
             <p>{user.email}</p>
             <p>{user.gender}</p>
