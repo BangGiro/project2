@@ -103,9 +103,15 @@ const QnAPage = () => {
         const content = document.getElementById('QnA_textarea').value;
 
         
-        if(categoryData.category === '' || categoryData.details === '') {
+        if(categoryData.category === ''|| categoryData.category === '문의 유형 선택') {
             e.preventDefault();
             alert('문의 유형을 선택해주세요');
+            return;
+        }
+        
+        if(categoryData.details === ''|| categoryData.details === '상세 구분 선택') {
+            e.preventDefault();
+            alert('상세 구분을 선택해주세요');
             return;
         }
         
