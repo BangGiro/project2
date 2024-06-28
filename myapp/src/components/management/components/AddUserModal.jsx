@@ -30,7 +30,7 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
             return;
         }
 
-        const storedUsers = JSON.parse(localStorage.getItem('userData')) || [];
+        const storedUsers = JSON.parse(localStorage.getItem('dummyUserData')) || [];
         if (Array.isArray(storedUsers)) {
             const matchedUser = storedUsers.find((u) => u.email === email);
             if (matchedUser) {
