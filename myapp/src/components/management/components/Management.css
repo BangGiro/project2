@@ -1,33 +1,36 @@
 /* Management.css */
 
 .mainmanagement {
-  
-  .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .user-list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5개의 동일한 열 생성 */
-    gap: 10px; /* 그리드 항목 간의 간격 추가 */
-    width: 100%;
-    max-width: 1200px; /* 디자인에 따라 값 조정 */
-  }
-  
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .user-list {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        /* 5개의 동일한 열 생성 */
+        gap: 10px;
+        /* 그리드 항목 간의 간격 추가 */
+        width: 100%;
+        max-width: 1200px;
+        /* 디자인에 따라 값 조정 */
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
 }
