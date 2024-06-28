@@ -105,7 +105,7 @@
         transform: translateX(-50%);
         bottom: 0;
         position: absolute;
-        background-color: blue;
+        background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
         transition: width 0.5s;
     }
 
@@ -121,7 +121,7 @@
         transform: translateX(-50%);
         bottom: 0;
         position: absolute;
-        background-color: blue;
+        background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
         transition: width 0.5s;
     }
 

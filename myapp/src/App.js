@@ -1,5 +1,3 @@
-// src/App.js
-
 import './App.css';
 import React, { useState } from "react";
 import Header from './components/layout/Header.jsx';
@@ -31,7 +29,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+        <Header loggedIn={loggedIn} onLogout={handleLogout} />
       <Routes>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signUp" element={<SignUp />} />
