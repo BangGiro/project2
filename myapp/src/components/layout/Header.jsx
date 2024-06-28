@@ -11,14 +11,14 @@ function Header() {
                     <ul className="menu">
                         <li><Link to="/Management">회원관리
                             <ul className="submenu">
-                            </ul>
-                            </Link></li>
+                            </ul></Link>
+                        </li>
 
                         <li><Link to="/ExerciseMain">운동
                             <ul className="submenu">
-                                <Link to="/ExerciseMain"><li>운동 관리</li></Link>
-                                <Link to="/DietPlanner"><li>식단 추천</li></Link>
-                                <Link to="/SleepTracker"><li>수면 관리</li></Link>
+                                <li> <Link to="/ExerciseMain">운동 관리</Link></li>
+                                <li><Link to="/DietPlanner">식단 추천</Link></li>
+                                <li><Link to="/SleepTracker">수면 관리</Link></li>
                             </ul>
                         </Link></li>
 
