@@ -22,10 +22,10 @@ function Management({ loggedInEmail }) {
   return (
     <div className='mainmanagement'>
       <div className="container">
-        <button onClick={() => setIsModalOpen(true)}>회원 추가</button>
         <div className="user-list">
           <UserList users={users} />
         </div>
+        <button onClick={() => setIsModalOpen(true)}>회원 추가</button>
         {isModalOpen && (
           <AddUserModal
             onClose={() => setIsModalOpen(false)}
