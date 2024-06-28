@@ -9,7 +9,7 @@ const QnAPage = () => {
     
     // =================================================================================================
     // 데이터 불러오기 파트
-    const userData = localStorage.getItem('userData');
+    const loggedInEmail = localStorage.getItem('loggedInEmail');
     const categoryOptions = QnAdata.map((data) => data.category);
     const savedData = localStorage.getItem('personalQnA');
     const [dropDownData, setDropDownData] = useState({category:'' , details:''});
@@ -18,13 +18,11 @@ const QnAPage = () => {
 
 
     useEffect(() => {
-        if(userData) {
-            const ParsedUserData = JSON.parse(userData);
-            if(ParsedUserData.email) {
-                document.getElementById('QnA_email').value = ParsedUserData.email;
+        if(loggedInEmail) {
+                document.getElementById('QnA_email').value = loggedInEmail;
+                // console.log(loggedInEmail);
             }
-        }
-    } , []);    
+        } , []);    
     
     function QnA_getCategory(selectedOption) {
         setDropDownData({...dropDownData , category: selectedOption});
@@ -131,13 +129,13 @@ const QnAPage = () => {
             <h1>문의하기</h1>
             <form className='QnA_form'>
                 <div className='QnA_inputs'>
-                    <label className='QnA_label' htmlFor="QnA_name">이메일 주소</label>
+                    <label className='QnA_label' htmlFor="QnA_email">이메일 주소</label>
                     <input type="text" id='QnA_email' placeholder='답장받을 이메일 입력' />
 
-                    <label className='QnA_label' htmlFor="QnA_Category_select">문의 유형</label>
+                    <span className='QnA_label'>문의 유형</span>
                     <CustomDropdown QnA_getValue={QnA_getCategory} QnAdata={categoryOptions}/>
 
-                    <label className='QnA_label' htmlFor="QnA_Category_select_detail">상세 구분</label>
+                    <span className='QnA_label'>상세 구분</span>
                     <CustomDropdown QnA_getValue={QnA_getDetails} QnAdata={details}/>
 
                     <label className='QnA_label' htmlFor="QnA_title">제목</label>
