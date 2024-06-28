@@ -42,12 +42,12 @@ function App() {
       <Routes>
         {/* 헤더랑 푸터가 포함된 페이지 */}
         <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} />}>
-          <Route path="exerciseMain" element={<PrivateRoute element={<ExerciseMain />} />} />
-          <Route path="dietPlanner" element={<PrivateRoute element={<DietPlanner />} />} />
+          <Route path="exerciseMain"element={<ExerciseMain />} />
+          <Route path="dietPlanner" element={<DietPlanner />} />
           <Route path="FAQpage" element={<FAQpage />} />
-          <Route path="sleepTracker" element={<PrivateRoute element={<SleepTracker />} />} />
+          <Route path="sleepTracker" element={<SleepTracker />} />
           <Route path="management" element={<PrivateRoute element={<Management loggedInEmail={loggedInEmail} />} />} />
-          <Route path="QnAPage" element={<PrivateRoute element={<QnAPage />} />} />
+          <Route path="QnAPage"  element={<QnAPage />}  />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
