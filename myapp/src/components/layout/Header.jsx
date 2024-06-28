@@ -1,23 +1,52 @@
 import './Header.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 
-function Header() {
-    const [isVideoEnded, setIsVideoEnded] = useState(false);
+function Header({ loggedIn, onLogout }) {
+    const [userInteracted, setUserInteracted] = useState(false);
+    const [videoSrc, setVideoSrc] = useState('');
+
+    useEffect(() => {
+        setVideoSrc(loggedIn ? "/image/header/logout.mp4" : "/image/header/free-animated-icon-login-8717908.mp4");
+    }, [loggedIn]);
+
+    useEffect(() => {
+        const handleUserInteraction = () => {
+            setUserInteracted(true);
+            document.removeEventListener('click', handleUserInteraction);
+        };
+
+        document.addEventListener('click', handleUserInteraction);
+
+        return () => {
+            document.removeEventListener('click', handleUserInteraction);
+        };
+    }, []);
 
     const handleMouseOver = (event) => {
-        if (!isVideoEnded) {
+        if (userInteracted) {
+            event.target.loop = true;
             event.target.play();
         }
     };
 
     const handleMouseOut = (event) => {
-        event.target.pause();
-        event.target.currentTime = 0; // 비디오를 처음으로 되돌립니다.
+        if (userInteracted) {
+            event.target.loop = false;  // 반복을 멈춤
+        }
     };
 
-    const handleVideoEnded = () => {
-        setIsVideoEnded(true);
+    const handleVideoEnded = (event) => {
+        event.target.currentTime = 0;
+        event.target.pause();
+    };
+
+    const handleVideoClick = () => {
+        if (loggedIn) {
+            onLogout();
+            localStorage.removeItem('user');
+            // 로그아웃 처리를 여기에 추가할 수 있습니다.
+        }
     };
 
     return (
@@ -60,14 +89,18 @@ function Header() {
                         </li>
                     </ul>
                     <div className="login_btn">
-                        <Link to={"/Login"}>
+                        <Link to={loggedIn ? "/" : "/Login"}>
                             <video
-                                muted
-                                loop
-                                src="/image/header/free-animated-icon-login-8717908.mp4"
+                                key={videoSrc}  // 비디오 소스를 변경할 때마다 컴포넌트를 재렌더링
+                                src={videoSrc}
                                 onMouseOver={handleMouseOver}
                                 onMouseOut={handleMouseOut}
                                 onEnded={handleVideoEnded}
+                                onClick={handleVideoClick}
+                                style={{
+                                    width: loggedIn ? '2.5vw' : '4.35vw',  // 로그아웃 상태에서 너비를 2.5vw로 설정
+                                    marginTop: loggedIn ? '1.5vh' : '0'  // 로그아웃 상태에서 마진 탑을 1.5vh로 설정
+                                }}
                             />
                         </Link>
                     </div>
