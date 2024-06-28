@@ -1,6 +1,7 @@
 .Header {
     a {
-        color:black; 
+        color:black;
+        padding: 15px;
     }
 
     * {
@@ -45,7 +46,6 @@
         position: relative;
         list-style: none;
         padding: 10px 0px;
-        cursor: pointer;
         font-size: 1vw;
         color: #000;
         width: 7vw;
