@@ -9,8 +9,9 @@ function Management({ loggedInEmail }) {
 
   useEffect(() => {
     const storedMemos = JSON.parse(localStorage.getItem('memos')) || [];
-    setUsers(storedMemos);
-  }, []);
+    const filteredMemos = storedMemos.filter(memo => memo.trainer === loggedInEmail);
+    setUsers(filteredMemos);
+  }, [loggedInEmail]);
 
   const handleAddUser = (user, memo) => {
     const newUser = { ...user, memo, trainer: loggedInEmail };
