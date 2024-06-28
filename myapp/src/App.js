@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from './components/layout/Header.jsx';
 import Footer from './components/layout/Footer';
 import ExerciseMain from './components/pages/exercise/ExerciseMain.jsx';
@@ -17,14 +17,25 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInEmail, setLoggedInEmail] = useState('');
 
+  useEffect(() => {
+    const storedLoggedIn = localStorage.getItem('loggedIn') === 'true';
+    const storedEmail = localStorage.getItem('loggedInEmail') || '';
+    setLoggedIn(storedLoggedIn);
+    setLoggedInEmail(storedEmail);
+  }, []);
+
   const handleLogin = (email) => {
     setLoggedIn(true);
     setLoggedInEmail(email);
+    localStorage.setItem('loggedIn', 'true');
+    localStorage.setItem('loggedInEmail', email);
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
     setLoggedInEmail('');
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('loggedInEmail');
   };
 
   return (
