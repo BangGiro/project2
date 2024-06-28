@@ -1,17 +1,94 @@
 footer {
-    background-color: white;
-    color: #000;
+    background-color: #f8f8f8;
+    color: #333;
     text-align: center;
-    user-select: none;
+    padding: 20px 0;
+    border-top: 1px solid #ddd;
 }
 
-footer hr{
+footer hr {
     height: 2px;
-    background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+    background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
     border: none;
+    margin: 20px 0;
 }
 
-footer p{
-    padding-top: 10px;
-    padding-bottom: 10px;
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px 0;
+}
+
+.footer-content > div {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-content h4 {
+    margin-bottom: 10px;
+}
+
+.footer-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-content ul li {
+    margin: 5px 0;
+}
+
+.footer-content ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.footer-content ul li a:hover {
+    text-decoration: underline;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-media img {
+    width: 30px;
+    height: 30px;
+}
+
+.newsletter form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.newsletter input[type="email"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+}
+
+.newsletter button {
+    padding: 5px 10px;
+    background-color: #1980f6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.newsletter button:hover {
+    background-color: #0f6ed4;
+}
+
+.copyright {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #666;
 }
