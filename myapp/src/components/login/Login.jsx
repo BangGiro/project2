@@ -1,6 +1,9 @@
+// src/components/login/Login.jsx
+
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import './Login.css';
+import { loginUser } from '../../helpers/auth';
 
 export default function Login({ onLogin }) {
     const [email, setEmail] = useState('');
@@ -24,6 +27,7 @@ export default function Login({ onLogin }) {
         const matchedUser = parsedCompareLocalLoginData.find(user => user.email === email && user.password === password);
 
         if (matchedUser) {
+            loginUser(matchedUser);
             onLogin(email);
             navigate('/management');
         } else {
@@ -48,8 +52,8 @@ export default function Login({ onLogin }) {
                         </form>
                     </div>
                     <div className="login-links">
-                        <Link to="/SignUp">회원가입</Link>
-                        <Link to="/FindPw">비밀번호 찾기</Link>
+                        <Link to="/signUp">회원가입</Link>
+                        <Link to="/findPw">비밀번호 찾기</Link>
                         <Link to="/">Home</Link>
                     </div>
                 </div>
