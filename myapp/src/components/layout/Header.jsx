@@ -84,7 +84,7 @@ function Header({ loggedIn, onLogout }) {
                             <ul className="submenu">
                                 <li>공지사항</li>
                                 <li><Link to="/FAQpage">FAQ</Link></li>
-                                <li>1:1문의</li>
+                                <li><Link to="/QnAPage">1:1문의</Link></li>
                             </ul>
                         </li>
                     </ul>

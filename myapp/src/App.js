@@ -11,7 +11,7 @@ import FindPw from './components/login/FindPw';
 import SignUp from './components/login/SingUp';
 import Management from './components/management/ManagementContainer';
 import PrivateRoute from './components/PrivateRoute';
-
+import QnAPage from './components/pages/QnAPage/QnAPage';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInEmail, setLoggedInEmail] = useState('');
@@ -47,6 +47,7 @@ function App() {
           <Route path="FAQpage" element={<FAQpage />} />
           <Route path="sleepTracker" element={<PrivateRoute element={<SleepTracker />} />} />
           <Route path="management" element={<PrivateRoute element={<Management loggedInEmail={loggedInEmail} />} />} />
+          <Route path="QnAPage" element={<PrivateRoute element={<QnAPage />} />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
