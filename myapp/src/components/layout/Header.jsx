@@ -1,15 +1,23 @@
 import './Header.css';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 
 function Header() {
+    const [isVideoEnded, setIsVideoEnded] = useState(false);
+
     const handleMouseOver = (event) => {
-        event.target.play();
+        if (!isVideoEnded) {
+            event.target.play();
+        }
     };
 
     const handleMouseOut = (event) => {
         event.target.pause();
         event.target.currentTime = 0; // 비디오를 처음으로 되돌립니다.
+    };
+
+    const handleVideoEnded = () => {
+        setIsVideoEnded(true);
     };
 
     return (
@@ -54,10 +62,12 @@ function Header() {
                     <div className="login_btn">
                         <Link to={"/Login"}>
                             <video
+                                muted
                                 loop
                                 src="/image/header/free-animated-icon-login-8717908.mp4"
                                 onMouseOver={handleMouseOver}
                                 onMouseOut={handleMouseOut}
+                                onEnded={handleVideoEnded}
                             />
                         </Link>
                     </div>
