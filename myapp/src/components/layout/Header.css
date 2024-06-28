@@ -1,7 +1,9 @@
 .Header {
     a {
         color:black;
-        padding: 15px;
+        padding: 25px;
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
 
     * {
