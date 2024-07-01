@@ -45,9 +45,9 @@ const categories = [
   "하체", "등", "가슴", "어깨", "팔", "유산소"
 ];
 
-function ExerciseMain() {
+function ExerciseMain({ loggedInEmail }) {
   const [exercises, setExercises] = useState(() => {
-    const storedExercises = JSON.parse(localStorage.getItem('exercises'));
+    const storedExercises = JSON.parse(localStorage.getItem(`exercises_${loggedInEmail}`));
     return storedExercises || initialExerciseData;
   });
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,8 +60,8 @@ function ExerciseMain() {
   const [currentExercises, setCurrentExercises] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem('exercises', JSON.stringify(exercises));
-  }, [exercises]);
+    localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+  }, [exercises, loggedInEmail]);
 
   useEffect(() => {
     const selectedDateData = exercises.find(day => day.day === selectedDate.toLocaleDateString());
@@ -159,7 +159,7 @@ function ExerciseMain() {
   };
 
   const handleSave = () => {
-    localStorage.setItem('exercises', JSON.stringify(exercises));
+    localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
   };
 
   const handleClear = () => {
@@ -205,7 +205,7 @@ function ExerciseMain() {
                       <input
                         type="number"
                         min="1"
-                        placeholder="무게 (kg)"
+                        placeholder="(kg)"
                         value={exercise.weight}
                         onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
                         className="weightInput"

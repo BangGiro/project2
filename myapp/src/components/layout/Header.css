@@ -1,4 +1,5 @@
 .Header {
+    z-index: 1000;
     a {
         color:black;
         padding: 25px;
@@ -31,9 +32,9 @@
     /********* 로고 **********/
     .logo img {
         width: 12vh;
-        padding-left: 7vw;
-        margin-right: 16vw;
+        margin-right: 17vw;
         margin-top: 1vh;
+        margin-left: 4vw;
     }
 
     /*********** 메뉴 *********/
@@ -130,4 +131,9 @@
     .menu ul li:hover::after {
         width: 70%;
     }
+}
+
+.navbar .menu li .active {
+    color: blue; /* 현재 페이지를 나타내는 스타일 */
+    font-weight: bold;
 }

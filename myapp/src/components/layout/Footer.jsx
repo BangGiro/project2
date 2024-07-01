@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css';
-
+import { Link } from 'react-router-dom';
 function Footer() {
     return (
         <footer>
@@ -33,8 +33,9 @@ function Footer() {
                 <div className="legal-info">
                     <h4>법적 고지</h4>
                     <ul>
-                        <li>개인정보 처리방침</li>
-                        <li>이용약관</li>
+                        <li><Link to="/privacyPolicy">개인정보 처리방침</Link></li>
+                        <li><Link to="/termsOfService">이용약관</Link></li>
+                        <li><Link to="/previousTerms">이전약관</Link></li>
                     </ul>
                 </div>
                 <div className="social-media">

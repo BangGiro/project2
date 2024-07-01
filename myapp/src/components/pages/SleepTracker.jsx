@@ -16,7 +16,7 @@ ChartJS.register(
     Legend
 );
 
-const SleepTracker = () => {
+const SleepTracker = ({ loggedInEmail }) => {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [sleepDuration, setSleepDuration] = useState(null);
@@ -30,11 +30,11 @@ const SleepTracker = () => {
     const [sleepQuality, setSleepQuality] = useState('');
 
     useEffect(() => {
-        const savedRecords = localStorage.getItem('sleepRecords');
+        const savedRecords = localStorage.getItem(`sleepRecords_${loggedInEmail}`);
         if (savedRecords) {
             setRecords(JSON.parse(savedRecords));
         }
-    }, []);
+    }, [loggedInEmail]);
 
     useEffect(() => {
         const record = records.find(record => new Date(record.date).toLocaleDateString() === selectedDate.toLocaleDateString());
@@ -118,7 +118,7 @@ const SleepTracker = () => {
     const deleteRecord = (index) => {
         const updatedRecords = records.filter((_, i) => i !== index);
         setRecords(updatedRecords);
-        localStorage.setItem('sleepRecords', JSON.stringify(updatedRecords));
+        localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(updatedRecords));
     };
 
     const saveEditedRecord = (event) => {
@@ -142,7 +142,7 @@ const SleepTracker = () => {
         updatedRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         setRecords(updatedRecords);
-        localStorage.setItem('sleepRecords', JSON.stringify(updatedRecords));
+        localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(updatedRecords));
         setErrorMessage('');
     };
 
