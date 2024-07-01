@@ -15,7 +15,7 @@ import QnAPage from './components/pages/QnAPage/QnAPage';
 import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import TermsOfService from './components/pages/TermsOfService';
 import PreviousTerms from './components/pages/PreviousTerms';
-
+import Home from './components/pages/Home';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInEmail, setLoggedInEmail] = useState('');
@@ -46,6 +46,7 @@ function App() {
       <Routes>
         {/* 헤더랑 푸터가 포함된 페이지 */}
         <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} />}>
+          <Route path="/" element={<Home />} />
           <Route path="exerciseMain"element={<ExerciseMain />} />
           <Route path="dietPlanner" element={<DietPlanner />} />
           <Route path="FAQpage" element={<FAQpage />} />

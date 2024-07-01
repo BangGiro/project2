@@ -1,0 +1,129 @@
+/* Home.css */
+.home {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-size: 0;
+  
+  .hero-section {
+    position: relative;
+    text-align: center;
+  }
+  
+  .hero-image {
+    width: 100%;
+  }
+  
+
+  .hero-text {
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+  }
+  
+  .hero-text h1 {
+    font-size: 48px;
+    margin: 0;
+    color: white;
+
+  }
+  
+  .hero-text button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: transparent;
+    border: 2px solid white;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .hero-text button:hover {
+    background-color: white;
+    color: black;
+  }
+  
+  .training-club {
+    text-align: left;
+    position: relative;
+  }
+  
+  .training-club h2 {
+    font-size: 36px;
+  }
+  
+  .challenges {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    padding: 20px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: transform 1.5s ease, opacity 1.5s ease;
+  }
+  
+  .challenges.slide-in {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  .challenge-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 300px;
+    text-align: left;
+    transition: 0.5s;
+  }
+  
+  .challenge-card img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .challenge-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .challenge-info {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .challenge-info h3 {
+    margin: 0 0 10px;
+  }
+  
+  .challenge-info p {
+    margin: 5px 0;
+  }
+  
+  .challenge-info button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .challenge-info button:hover {
+    background-color: #e64a19;
+  }
+  p{
+    font-size: 14px;
+  }
+  h3{
+    font-size: 20px;
+  }
+  
+}
+  

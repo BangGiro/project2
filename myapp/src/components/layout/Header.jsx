@@ -54,7 +54,7 @@ function Header({ loggedIn, onLogout }) {
             <header>
                 <div className="navbar">
                     <div className="logo">
-                        <Link to="/"><img src='../../image/Logo.png' alt="logo" /></Link>
+                        <Link to="/"><img src='/image/Logo.png' alt="logo" /></Link>
                     </div>
                     <ul className="menu">
                         <li>
