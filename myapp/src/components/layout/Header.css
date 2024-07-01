@@ -1,5 +1,4 @@
 .Header {
-    z-index: 1000;
     a {
         color:black;
         padding: 25px;
@@ -68,6 +67,7 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
+        z-index: 2;
     }
 
     .navbar .submenu li {
