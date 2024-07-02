@@ -14,7 +14,7 @@ function ManagementContainer() {
         if (user && user.email) {
             const storedUsers = JSON.parse(localStorage.getItem(`users_${user.email}`)) || [];
             setUsers(storedUsers);
-            setMemberNames(storedUsers.map(user => user.name));
+            setMemberNames(storedUsers.map(user => ({ name: user.name, email: user.email })));
         }
     }, [user.email]);
 
@@ -22,7 +22,14 @@ function ManagementContainer() {
         const updatedUser = { ...newUser, memo, trainer: user.email };
         const updatedUsers = [...users, updatedUser];
         setUsers(updatedUsers);
-        setMemberNames(updatedUsers.map(user => user.name));
+        setMemberNames(updatedUsers.map(user => ({ name: user.name, email: user.email })));
+        localStorage.setItem(`users_${user.email}`, JSON.stringify(updatedUsers));
+    };
+
+    const handleDeleteMember = (email) => {
+        const updatedUsers = users.filter(user => user.email !== email);
+        setUsers(updatedUsers);
+        setMemberNames(updatedUsers.map(user => ({ name: user.name, email: user.email })));
         localStorage.setItem(`users_${user.email}`, JSON.stringify(updatedUsers));
     };
 
@@ -37,10 +44,10 @@ function ManagementContainer() {
     return (
         <div className="management-container">
             <div className='manacategory'>
-                <CategoryContainer memberNames={memberNames} />
+                <CategoryContainer memberNames={memberNames} onDeleteMember={handleDeleteMember} />
             </div>
             <div className='maco'>
-                <Management loggedInEmail={user.email} onAddUser={handleAddUser} />
+                <Management loggedInEmail={user.email} onAddUser={handleAddUser} onDeleteUser={handleDeleteMember} />
             </div>
         </div>
     );

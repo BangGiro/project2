@@ -1,9 +1,7 @@
 .managementuserlist {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    /* 가로 5줄 */
     gap: 10px;
-    /* 각 셀 간의 간격 */
     background-color: #f0f0f0;
     padding: 10px;
     border: 1px solid #ddd;
@@ -11,4 +9,3 @@
     width: 100%;
     box-sizing: border-box;
 }
-

@@ -7,9 +7,11 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     height: 200px;
-    width: 100%; ;
+    width: 100%;
     align-items: center;
-    img{
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    
+    img {
         width: 50%;
     }
 }
