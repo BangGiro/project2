@@ -31,9 +31,9 @@
     /********* 로고 **********/
     .logo img {
         width: 12vh;
-        margin-right: 17vw;
+        margin-right: 14vw;
         margin-top: 1vh;
-        margin-left: 4vw;
+        margin-left: 7vw;
     }
 
     /*********** 메뉴 *********/
@@ -93,6 +93,9 @@
         width: 4.35vw;
     }
 
+    .login_btn a{
+        padding: 0;
+    }
     
 
     /**************** 언더 라인 *************/

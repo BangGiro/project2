@@ -54,7 +54,7 @@ function Header({ loggedIn, onLogout }) {
             <header>
                 <div className="navbar">
                     <div className="logo">
-                        <Link to="/"><img src='../../image/Logo.png' alt="logo" /></Link>
+                        <Link to="/"><img src='/image/Logo.png' alt="logo" /></Link>
                     </div>
                     <ul className="menu">
                         <li>
@@ -72,20 +72,17 @@ function Header({ loggedIn, onLogout }) {
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to="/MyPage" activeClassName="active">MYPAGE
-                                <ul className="submenu">
-                                    <li>서브메뉴7</li>
-                                    <li>서브메뉴8</li>
-                                    <li>서브메뉴9</li>
-                                </ul>
-                            </NavLink>
-                        </li>
-                        <li>
                             <NavLink to="/CustomerService" activeClassName="active">고객센터
                                 <ul className="submenu">
                                     <li>공지사항</li>
                                     <li><NavLink to="/FAQpage" activeClassName="active">FAQ</NavLink></li>
                                     <li><NavLink to="/QnAPage" activeClassName="active">1:1문의</NavLink></li>
+                                </ul>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/MyPage" activeClassName="active">MYPAGE
+                                <ul className="submenu">
                                 </ul>
                             </NavLink>
                         </li>
