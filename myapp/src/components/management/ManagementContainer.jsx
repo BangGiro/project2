@@ -16,7 +16,7 @@ function ManagementContainer() {
             setUsers(storedUsers);
             setMemberNames(storedUsers.map(user => user.name));
         }
-    }, [user]);
+    }, [user.email]);
 
     const handleAddUser = (newUser, memo) => {
         const updatedUser = { ...newUser, memo, trainer: user.email };
