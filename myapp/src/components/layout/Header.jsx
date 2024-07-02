@@ -61,7 +61,7 @@ function Header({ loggedIn, onLogout }) {
                             <NavLink to="/Management" activeClassName="active">회원관리</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/ExerciseMain" activeClassName="active">운동</NavLink>
+                            <NavLink to="/ExerciseMain" activeClassName="active">내 운동</NavLink>
                                 <ul className="submenu">
                                     <li><NavLink to="/ExerciseMain" activeClassName="active">운동 관리</NavLink></li>
                                     <li><NavLink to="/DietPlanner" activeClassName="active">식단 추천</NavLink></li>
