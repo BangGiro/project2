@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 import AddUserModal from './AddUserModal';
+import EditUserModal from './EditUserModal'; // 수정 모달 추가
 import './Management.css';
 
 function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
   const [users, setUsers] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [userToEdit, setUserToEdit] = useState(null);
 
   useEffect(() => {
     if (loggedInEmail) {
@@ -26,18 +29,39 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
     setUsers(updatedUsers);
   };
 
+  const handleEditUser = (updatedUser) => {
+    const updatedUsers = users.map(user =>
+      user.email === updatedUser.email ? updatedUser : user
+    );
+    setUsers(updatedUsers);
+    localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
+    setIsEditModalOpen(false);
+  };
+
   return (
     <div className='mainmanagement'>
       <div className="container">
         <div className="user-list">
-          <UserList users={users} onDeleteUser={handleDeleteUser} />
+          <UserList
+            users={users}
+            onDeleteUser={handleDeleteUser}
+            onEditUser={setUserToEdit}
+            onOpenEditModal={() => setIsEditModalOpen(true)}
+          />
         </div>
-        <button onClick={() => setIsModalOpen(true)}>회원 추가</button>
-        {isModalOpen && (
+        <button onClick={() => setIsAddModalOpen(true)}>회원 추가</button>
+        {isAddModalOpen && (
           <AddUserModal
-            onClose={() => setIsModalOpen(false)}
+            onClose={() => setIsAddModalOpen(false)}
             onAddUser={handleAddUser}
             existingUsers={users}
+          />
+        )}
+        {isEditModalOpen && userToEdit && (
+          <EditUserModal
+            onClose={() => setIsEditModalOpen(false)}
+            onEditUser={handleEditUser}
+            user={userToEdit}
           />
         )}
       </div>

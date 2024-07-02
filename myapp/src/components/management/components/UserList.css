@@ -1,11 +1,38 @@
-.managementuserlist {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 10px;
-    background-color: #f0f0f0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.user-list-container {
     width: 100%;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.user-list-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-list-table th,
+.user-list-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.user-list-table th {
+    background-color: #f2f2f2;
+    color: black;
+}
+
+.user-item-row {
+    cursor: pointer;
+}
+
+.user-item-row:hover {
+    background-color: #f1f1f1;
+}
+
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
