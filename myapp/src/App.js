@@ -8,7 +8,7 @@ import FAQpage from './components/pages/faqPage/FAQpage';
 import SleepTracker from './components/pages/SleepTracker';
 import Login from './components/login/Login';
 import FindPw from './components/login/FindPw';
-import SignUp from './components/login/SingUp';
+import SignUp from './components/login/SignUp';
 import Management from './components/management/ManagementContainer';
 import PrivateRoute from './components/PrivateRoute';
 import QnAPage from './components/pages/QnAPage/QnAPage';
