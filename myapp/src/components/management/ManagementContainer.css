@@ -2,7 +2,7 @@
 
 .management-container {
     display: flex;
-    height: 100vh; /* 컨테이너가 화면을 가득 채우도록 높이 설정 */
+    min-height: 51vh; 
 }
 
 .manacategory {
