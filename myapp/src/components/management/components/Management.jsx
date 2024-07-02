@@ -16,6 +16,9 @@ function Management({ loggedInEmail, onAddUser }) {
 
   const handleAddUser = (user, memo) => {
     onAddUser(user, memo);
+    // 상태 업데이트를 통해 즉시 렌더링
+    const updatedUsers = [...users, { ...user, memo }];
+    setUsers(updatedUsers);
   };
 
   return (
