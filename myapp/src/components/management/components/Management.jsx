@@ -3,7 +3,7 @@ import UserList from './UserList';
 import AddUserModal from './AddUserModal';
 import './Management.css';
 
-function Management({ loggedInEmail, onAddUser }) {
+function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -16,8 +16,13 @@ function Management({ loggedInEmail, onAddUser }) {
 
   const handleAddUser = (user, memo) => {
     onAddUser(user, memo);
-    // 상태 업데이트를 통해 즉시 렌더링
     const updatedUsers = [...users, { ...user, memo }];
+    setUsers(updatedUsers);
+  };
+
+  const handleDeleteUser = (email) => {
+    onDeleteUser(email);
+    const updatedUsers = users.filter(user => user.email !== email);
     setUsers(updatedUsers);
   };
 
@@ -25,14 +30,14 @@ function Management({ loggedInEmail, onAddUser }) {
     <div className='mainmanagement'>
       <div className="container">
         <div className="user-list">
-          <UserList users={users} />
+          <UserList users={users} onDeleteUser={handleDeleteUser} />
         </div>
         <button onClick={() => setIsModalOpen(true)}>회원 추가</button>
         {isModalOpen && (
           <AddUserModal
             onClose={() => setIsModalOpen(false)}
             onAddUser={handleAddUser}
-            existingUsers={users} // 기존 회원 목록 전달
+            existingUsers={users}
           />
         )}
       </div>
