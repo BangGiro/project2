@@ -6,7 +6,8 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
     const navigate = useNavigate();
 
     const handleItemClick = () => {
-        navigate('/exerciseUser'); // 링크 변경
+        localStorage.setItem('selectedUser', JSON.stringify(user));
+        navigate('/exerciseUser');
     };
 
     const handleEditClick = (e) => {

@@ -43,7 +43,7 @@ const categories = [
   "하체", "등", "가슴", "어깨", "팔", "유산소"
 ];
 
-function ExerciseUser({ loggedInEmail }) {
+function ExerciseUser() {
   const [exercises, setExercises] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -51,24 +51,24 @@ function ExerciseUser({ loggedInEmail }) {
   const [pendingExercises, setPendingExercises] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentExercises, setCurrentExercises] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
-    if (loggedInEmail) {
-      const memberLoggedInData = JSON.parse(localStorage.getItem('MemberLoggedInData')) || [];
-      if (memberLoggedInData.includes(loggedInEmail)) {
-        const storedExercises = JSON.parse(localStorage.getItem(`exercises_${loggedInEmail}`));
-        if (storedExercises) {
-          setExercises(storedExercises);
-        }
+    const user = JSON.parse(localStorage.getItem('selectedUser'));
+    if (user) {
+      setSelectedUser(user);
+      const storedExercises = JSON.parse(localStorage.getItem(`exercises_${user.email}`));
+      if (storedExercises) {
+        setExercises(storedExercises);
       }
     }
-  }, [loggedInEmail]);
+  }, []);
 
   useEffect(() => {
-    if (loggedInEmail) {
-      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+    if (selectedUser) {
+      localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(exercises));
     }
-  }, [exercises, loggedInEmail]);
+  }, [exercises, selectedUser]);
 
   useEffect(() => {
     const selectedDateData = exercises.find(day => day.day === selectedDate.toLocaleDateString());
@@ -165,7 +165,7 @@ function ExerciseUser({ loggedInEmail }) {
   };
 
   const handleSave = () => {
-    if (loggedInEmail) {
+    if (selectedUser) {
       const updatedExercises = exercises.map(day => 
         day.day === selectedDate.toLocaleDateString()
           ? { ...day, exercises: currentExercises }
@@ -177,7 +177,7 @@ function ExerciseUser({ loggedInEmail }) {
       }
 
       setExercises(updatedExercises);
-      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(updatedExercises));
+      localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(updatedExercises));
       alert('운동 데이터가 저장되었습니다.');
     }
   };
