@@ -114,7 +114,7 @@ const NoticePage = ({isMini}) => {
     if(isMini) {
         return (
             <>
-                <NoticeView noticeID={noticeID} isMini={isMini}/>
+                <NoticeView noticeID={noticeID} isMini={isMini} setNoticeID={setNoticeID}/>
                 <NoticeList/>
                 {/* 페이지 네이션 */}
                 <div className="pagination">
@@ -128,7 +128,7 @@ const NoticePage = ({isMini}) => {
             <div className="notice_page">
                 <h1>공지사항</h1>
                 {/* 공지 뷰어 */}
-                <NoticeView noticeID={noticeID}/>
+                <NoticeView noticeID={noticeID} setNoticeID={setNoticeID}/>
                 {/* 카테고리 탭 */}
                 <div className="notice_tabs" onClick={tabs}>
                     <button className="notice_tab">전체</button>
