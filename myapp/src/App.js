@@ -18,6 +18,7 @@ import PreviousTerms from './components/pages/PreviousTerms';
 import Home from './components/pages/Home';
 import NoticePage from './components/pages/NoticePage/NoticePage';
 import ExerciseUser from './components/pages/exercise/ExerciseUser';
+import CustomerServicePage from './components/pages/customerServicePage/CustomerServicePage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -61,6 +62,7 @@ function App() {
           <Route path="/previousTerms" element={<PreviousTerms />} />
           <Route path='/noticePage' element={<NoticePage />} />
           <Route path='/exerciseUser' element={<ExerciseUser />} />
+          <Route path='/customerServicePage' element={<CustomerServicePage />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
