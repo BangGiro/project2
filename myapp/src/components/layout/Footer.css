@@ -2,7 +2,6 @@ footer {
     background-color: #f8f8f8;
     color: #333;
     text-align: center;
-    padding: 20px 0;
     border-top: 1px solid #ddd;
 }
 
@@ -10,7 +9,6 @@ footer hr {
     height: 2px;
     background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
     border: none;
-    margin: 20px 0;
 }
 
 .footer-content {

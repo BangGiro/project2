@@ -8,9 +8,9 @@ function Footer() {
             <div className="footer-content">
                 <div className="company-info">
                     <h4>회사 정보</h4>
-                    <p><strong>상호명:</strong> ABC 주식회사</p>
+                    <p><strong>상호명:</strong> 피트니스 올인원</p>
                     <p><strong>사업자등록번호:</strong> 123-45-67890</p>
-                    <p><strong>주소:</strong> 서울특별시 강남구 가로수길 1234</p>
+                    <p><strong>주소:</strong>Silicon Valley</p>
                     <p><strong>전화번호:</strong> 02-1234-5678</p>
                 </div>
                 <div className="site-map">
