@@ -1,0 +1,142 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* ===================================================== */
+
+
+.notice_item {
+    width: 100%;
+    height: 2.5rem;
+
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    align-content: center;
+    justify-items: center;
+
+    border: 1px solid black;
+    box-sizing: border-box;
+    user-select: none;
+
+    cursor: pointer;
+}
+
+.notice_item > h3 {
+    justify-self: start;
+}
+
+.notice_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    margin: auto;
+    height: auto;
+    width: 1200px;
+    box-sizing: border-box;
+    background-color: rgb(255, 255, 255);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.pagination > button {
+    margin: 0 .5rem;
+    padding: .5rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+}   
+
+/* ========================================================================================= */
+/* 공지사항 뷰 파트 */
+
+.NoticeView > header {
+    position: relative;
+    display: flex;
+
+    height: 5rem;
+    width: 100%;
+    align-items: center;
+    background-color: whitesmoke;
+    border-top: 1px solid black;
+}
+
+.NoticeViewCategory {
+    font-size: 1.5rem;
+}
+
+.noticeViewTitle,
+.NoticeViewCategory {
+    margin-left: 1.5rem;
+}
+
+.NoticeViewExit {
+    position: absolute;
+    height: 70%;
+    width: 7rem;
+
+    line-height: 3.5rem;
+    text-align: center;
+    top: 15%;
+    right: 1%;
+
+    color: white;
+
+    cursor: pointer;
+
+    background-color: rgba(0, 106, 255, 0.722);
+}
+
+.noticeViewDate {
+    line-height: 2rem;
+    border-top: 1px solid black;
+    padding: 1rem;
+    text-align: end;
+    text-decoration: underline;
+}
+
+.noticeViewContent {
+    height: 500px;
+    width: 100%;
+    background-color: lightgray;
+    border-top: 1px solid black;
+    padding: 3rem;
+}
+
+/* =========================================================== */
+/* 분류, 검색 */
+
+.notice_tabs {
+display: flex;    
+
+}
+
+.notice_tab {
+    padding: .5rem;
+    width: 7rem;
+    font-size: 1.2rem;
+
+    box-sizing: border-box;
+    border: 1px solid black;
+    background-color: white;
+    cursor: pointer;
+}
+
+.NoticeSearchBar {
+    height: 2.5rem;
+    width: 50%;
+    margin-top: 1rem;
+}
+
+/* ============================================================= */
+/* 이벤트 핸들러 */
+
+.noticeActive {
+    background-color: lightgray !important;
+}
