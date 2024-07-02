@@ -49,17 +49,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} />}>
           <Route path="/" element={<Home />} />
-          <Route path="exerciseMain" element={<ExerciseMain loggedInEmail={loggedInEmail} />} />
-          <Route path="dietPlanner" element={<DietPlanner />} />
-          <Route path="FAQpage" element={<FAQpage />} />
-          <Route path="sleepTracker" element={<SleepTracker loggedInEmail={loggedInEmail} />} />
-          <Route path="management" element={<PrivateRoute element={<Management loggedInEmail={loggedInEmail} />} />} />
-          <Route path="QnAPage" element={<QnAPage />} />
-          <Route path="privacyPolicy" element={<PrivacyPolicy />} />
-          <Route path="termsOfService" element={<TermsOfService />} />
-          <Route path="previousTerms" element={<PreviousTerms />} />
-          <Route path='noticePage' element={<NoticePage />} />
-          <Route path='exerciseUser' element={<ExerciseUser />} />
+          <Route path="/exerciseMain" element={<ExerciseMain loggedInEmail={loggedInEmail} />} />
+          <Route path="/dietPlanner" element={<DietPlanner />} />
+          <Route path="/FAQpage" element={<FAQpage />} />
+          <Route path="/sleepTracker" element={<SleepTracker loggedInEmail={loggedInEmail} />} />
+          <Route path="/management" element={<PrivateRoute element={<Management loggedInEmail={loggedInEmail} />} />} />
+          <Route path="/QnAPage" element={<QnAPage />} />
+          <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
+          <Route path="/termsOfService" element={<TermsOfService />} />
+          <Route path="/previousTerms" element={<PreviousTerms />} />
+          <Route path='/noticePage' element={<NoticePage />} />
+          <Route path='/exerciseUser' element={<ExerciseUser />} />
         </Route>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signUp" element={<SignUp />} />
