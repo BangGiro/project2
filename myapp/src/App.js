@@ -16,6 +16,8 @@ import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import TermsOfService from './components/pages/TermsOfService';
 import PreviousTerms from './components/pages/PreviousTerms';
 import Home from './components/pages/Home';
+import NoticePage from './components/pages/NoticePage/NoticePage';
+import CustomerServicePage from './components/pages/customerServicePage/CustomerServicePage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -57,7 +59,8 @@ function App() {
           <Route path="privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="termsOfService" element={<TermsOfService />} />
           <Route path="previousTerms" element={<PreviousTerms />} />
-
+          <Route path="noticePage" element={<NoticePage />} />
+          <Route path="CustomerService" element={<CustomerServicePage />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
