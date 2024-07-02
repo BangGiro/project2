@@ -8,12 +8,10 @@ function UserList({ users }) {
     }
 
     return (
-        <div className="managemtuserlist">
-            <div>
-                {users.map((user, index) => (
-                    <UserItem key={index} user={user} />
-                ))}
-            </div>
+        <div className="managementuserlist">
+            {users.map((user, index) => (
+                <UserItem key={index} user={user} />
+            ))}
         </div>
     );
 }

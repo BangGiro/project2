@@ -1,15 +1,7 @@
-/* UserItem.css */
-
 .managementuseritem {
-
-    background-color: #f0f0f0;
+    background-color: #ffffff;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 5px;
     text-align: center;
-    width: 100%;
-    /* 각 열의 너비를 동일하게 설정 */
-    box-sizing: border-box;
-    /* 패딩과 보더를 포함한 전체 너비 계산 */
-
 }
