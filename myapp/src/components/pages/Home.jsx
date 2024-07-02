@@ -1,4 +1,3 @@
-// Home.js
 import React, { useEffect } from 'react';
 import './Home.css';
 
