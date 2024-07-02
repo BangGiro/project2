@@ -29,15 +29,15 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [modalAnimation, setModalAnimation] = useState('');
     const [sleepQuality, setSleepQuality] = useState('');
 
+    // 로컬 스토리지에서 데이터를 불러오는 useEffect
     useEffect(() => {
         if (loggedInEmail) {
-            const savedRecords = localStorage.getItem(`sleepRecords_${loggedInEmail}`);
-            if (savedRecords) {
-                setRecords(JSON.parse(savedRecords));
-            }
+            const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`)) || [];
+            setRecords(savedRecords);
         }
     }, [loggedInEmail]);
 
+    // 로컬 스토리지에 데이터를 저장하는 useEffect
     useEffect(() => {
         if (loggedInEmail) {
             localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
@@ -126,7 +126,6 @@ const SleepTracker = ({ loggedInEmail }) => {
     const deleteRecord = (index) => {
         const updatedRecords = records.filter((_, i) => i !== index);
         setRecords(updatedRecords);
-        localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(updatedRecords));
     };
 
     const saveEditedRecord = (event) => {
