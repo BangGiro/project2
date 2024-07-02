@@ -4,26 +4,59 @@
     height: auto;
     
     display: flex;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     margin: auto;
 }
 
-.CTM_notice {
-    font-size: 1em;
-    background-color: blue;
-    height: 500px;
-    width: 50%;
+.CTM_notice, 
+.CTM_faq{
+    position: relative;
+    width: 48%;
+    overflow: hidden;
 }
 
-.CTM_faq {
-    font-size: 1em;
-    background-color: red;
-    height: 500px;
-    width: 50%;
-} 
+.CTM_notice > h3, 
+.CTM_faq > h3{
+    background-color: rgb(233, 233, 233);
+    border-radius: 1rem;
+    height: 3rem;
+    line-height: 3rem;
+    margin-bottom: 1rem;
+    padding-left: .5rem;
+}
 
 .CTM_qna {
-    height: 200px;
+
     width: 1600px;
-    background-color: yellow;
+
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(233, 233, 233);
+}
+
+.CTM_qna > img {
+    margin-left: -20%;
+    height: 17rem;
+    object-fit: cover;
+}
+
+.CTM_qna > P {
+    font-size: larger;
+    margin-right: 2rem;
+}
+
+.CTMtoQnA {
+    font-size: larger;
+    margin-right: 2rem;
+    color: black;
+}
+
+.CTMlinks {
+    position: absolute;
+    right: 1rem;
+    text-decoration: none;
+    
 }

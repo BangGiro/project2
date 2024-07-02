@@ -66,7 +66,7 @@ const CustomDropdown = ({QnA_getValue , QnAdata }) => {
                     border: 1px solid rgb(0, 0, 0, 0.5);;
                     border-radius: 4px;
                 }
-                .QnAselectViewer{
+                .selectViewElement {
                     padding: .4rem;
                     cursor: pointer;
                     position: relative;
@@ -113,7 +113,7 @@ const CustomDropdown = ({QnA_getValue , QnAdata }) => {
             </style>
 
             <ul className='CustomDropdown' value={selectedOption} ref={DropdownContainer}>
-                <li onClick={showOptions} className='QnAselectViewer'>
+                <li onClick={showOptions} className='selectViewElement'>
                     <p>{ 
                     options.includes(selectedOption) ?
                     selectedOption : options[0]            

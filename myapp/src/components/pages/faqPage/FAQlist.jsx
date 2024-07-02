@@ -9,7 +9,7 @@ import FAQsearch from './FAQsearch.jsx';
 
 //==============================================================================
 
-export default function FAQlist(){
+export default function FAQlist({isMini}){
 
     console.log('FAQlist 렌더링');
 
@@ -65,7 +65,7 @@ useMemo(()=> setItemLength(5), [ category ])
 
     };
 
-
+    //카테고리 선택여부 판단
     function FAQfiltering(item) {
         if (category === 'all') {
             return true;
@@ -105,19 +105,31 @@ useMemo(()=> setItemLength(5), [ category ])
         return <p className='NothingOnSearch'>검색결과가 없습니다.</p>
     }
 
+    if(isMini) {
+        return (
+            <div className='Mini_FAQlist' >
+                { FAQfilterOBJ().map((item , index)=>{
+                    if(index < 10)
+                    return <FAQ 
+                            key={item.id}
+                            title={item.title} 
+                            category={item.category} 
+                            solution={item.solution} 
+                            openList={openList}/> })}
+            </div>
+        )
+    } else {
+        return (
+            <div className='FAQlist' >
+                    <FAQsearch categoryOut={categoryOut} detectSearch={detectSearch}/>
+                    { FAQfilterOBJ().map(mapItem).length === 0 ? 
+                    <FAQNothingOnSearch/> : 
+                    FAQfilterOBJ().map(mapItem) }
+                <AddList />
+            </div>
 
-    return (
-        <div className='FAQlist' >
-                <FAQsearch categoryOut={categoryOut} detectSearch={detectSearch}/>
-
-                { FAQfilterOBJ().map(mapItem).length === 0 ? 
-                <FAQNothingOnSearch/> : 
-                FAQfilterOBJ().map(mapItem) }
-
-            <AddList />
-        </div>
-
-    )
+        )
+    }
 };
 
 

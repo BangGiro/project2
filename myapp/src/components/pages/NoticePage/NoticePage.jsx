@@ -76,7 +76,7 @@ const NoticePage = ({isMini}) => {
                     return currentNotices.filter(notice => notice.title.includes(searchText)).map((notice) => (
                         <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
                             <span>{notice.category}</span>
-                            <h3>{notice.title}</h3>
+                            <p>{notice.title}</p>
                             <span>{notice.date}</span>
                         </div>
             ))} else {
@@ -114,19 +114,16 @@ const NoticePage = ({isMini}) => {
     if(isMini) {
         return (
             <>
+                <NoticeView noticeID={noticeID} isMini={isMini}/>
                 <NoticeList/>
                 {/* 페이지 네이션 */}
                 <div className="pagination">
-                    {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
-                        <button key={index} onClick={() => paginate(index + 1)}>
-                            {index + 1}
-                        </button>
-                    ))}
+                    {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) })}
                 </div>
             </>
             )
         } else {
-
+    //기본스타일
         return (
             <div className="notice_page">
                 <h1>공지사항</h1>
@@ -149,7 +146,7 @@ const NoticePage = ({isMini}) => {
                     {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
                         <button key={index} onClick={() => paginate(index + 1)}>
                             {index + 1}
-                        </button>
+                        </button> 
                     ))}
                 </div>
             </div>
