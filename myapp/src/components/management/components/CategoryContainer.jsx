@@ -11,7 +11,7 @@ function CategoryContainer({ memberNames = [], onDeleteMember }) {
                     {memberNames.map((member, index) => (
                         <li className='cat-list-member' key={index}>
                             {member.name}
-                            <button onClick={() => onDeleteMember(member.email)}>삭제</button>
+                            {/* <button onClick={() => onDeleteMember(member.email)}>삭제</button> */}
                         </li>
                     ))}
                 </ul>
