@@ -5,11 +5,11 @@ function CategoryContainer({ memberNames = []}) {
     return (
         <div className="category-container">
             <h2>카테고리</h2>
-            <div className='user-category-management-container'>
+            <div >
                 <h3>회원관리</h3>
-                <ul>
+                <ul className='user-category-management-container'>
                     {memberNames.map((name, index) => (
-                        <li key={index}>{name}</li>
+                        <li className='cat-list-member' key={index}>{name}</li>
                     ))}
                 </ul>
             </div>
