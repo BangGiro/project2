@@ -16,6 +16,7 @@ import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import TermsOfService from './components/pages/TermsOfService';
 import PreviousTerms from './components/pages/PreviousTerms';
 import Home from './components/pages/Home';
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInEmail, setLoggedInEmail] = useState('');
@@ -40,7 +41,7 @@ function App() {
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('loggedInEmail');
   };
-
+   
   return (
     <div className="App">
       <Routes>
@@ -56,6 +57,7 @@ function App() {
           <Route path="privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="termsOfService" element={<TermsOfService />} />
           <Route path="previousTerms" element={<PreviousTerms />} />
+
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

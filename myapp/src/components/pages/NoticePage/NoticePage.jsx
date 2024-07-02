@@ -4,13 +4,15 @@ import './noticePage.css';
 import NoticeView from './components/NoticeView';
 import SearchBar from './components/SearchBar';
 
-const NoticePage = () => {
+const NoticePage = ({isMini}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [noticesPerPage] = useState(10); // Number of notices to display per page
 
     const indexOfLastNotice = currentPage * noticesPerPage;
     const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
     let currentNotices = notices.slice(indexOfFirstNotice, indexOfLastNotice);
+    //================================================================================================= 
+
 
     // =================================================================================================    
     // 페이지네이션
@@ -21,7 +23,6 @@ const NoticePage = () => {
     const [noticeID, setNoticeID] = useState('');
     const [category, setCategory] = useState('전체');
 
-    
     // 공지사항 클릭 시 해당 공지사항의 ID를 NoticeView로 전달
     const sendData = (e) => {
         let closest = e.target.closest('.notice_item');
@@ -109,35 +110,54 @@ const NoticePage = () => {
     //=================================================================================================
     // 렌더링 파트 
 
+    // 소형화 스타일
+    if(isMini) {
+        return (
+            <>
+                <NoticeList/>
+                {/* 페이지 네이션 */}
+                <div className="pagination">
+                    {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
+                        <button key={index} onClick={() => paginate(index + 1)}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            </>
+            )
+        } else {
 
-    return (
-        <div className="notice_page">
-            <h1>공지사항</h1>
-            {/* 공지 뷰어 */}
-            <NoticeView noticeID={noticeID}/>
-            {/* 카테고리 탭 */}
-            <div className="notice_tabs" onClick={tabs}>
-                <button className="notice_tab">전체</button>
-                <button className="notice_tab">업데이트</button>
-                <button className="notice_tab">점검</button>
-                <button className="notice_tab">이벤트</button>
-                <button className="notice_tab">일반</button>
+        return (
+            <div className="notice_page">
+                <h1>공지사항</h1>
+                {/* 공지 뷰어 */}
+                <NoticeView noticeID={noticeID}/>
+                {/* 카테고리 탭 */}
+                <div className="notice_tabs" onClick={tabs}>
+                    <button className="notice_tab">전체</button>
+                    <button className="notice_tab">업데이트</button>
+                    <button className="notice_tab">점검</button>
+                    <button className="notice_tab">이벤트</button>
+                    <button className="notice_tab">일반</button>
+                </div>
+                {/* 리스트 */}
+                <NoticeList/>
+                {/* 검색 */}
+                <SearchBar detectSearch={detectSearch} upDate={category}/>    
+                {/* 페이지 네이션 */}
+                <div className="pagination">
+                    {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
+                        <button key={index} onClick={() => paginate(index + 1)}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
             </div>
-            {/* 리스트 */}
-            <NoticeList/>
-            {/* 검색 */}
-            <SearchBar detectSearch={detectSearch} upDate={category}/>    
-            {/* 페이지 네이션 */}
-            <div className="pagination">
-                {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
-                    <button key={index} onClick={() => paginate(index + 1)}>
-                        {index + 1}
-                    </button>
-                ))}
-            </div>
-        </div>
-    );
+        );
+    }
 }
 
-export default NoticePage;
 
+
+export default NoticePage;
+// export { NoticeList };
