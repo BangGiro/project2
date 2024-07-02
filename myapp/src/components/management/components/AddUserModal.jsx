@@ -31,14 +31,13 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
         }
 
         const storedUsers = JSON.parse(localStorage.getItem('dummyUserData')) || [];
-        if (Array.isArray(storedUsers)) {
-            const matchedUser = storedUsers.find((u) => u.email === email);
-            if (matchedUser) {
-                setUser(matchedUser);
-            } else {
-                setUser(null);
-                alert('사용자를 찾을 수 없습니다.');
-            }
+        const storedpUsers = JSON.parse(localStorage.getItem('userData')) || [];
+
+        const allUsers = [...storedUsers, ...storedpUsers]; // 두 배열을 합침
+
+        const matchedUser = allUsers.find((u) => u.email === email);
+        if (matchedUser) {
+            setUser(matchedUser);
         } else {
             setUser(null);
             alert('사용자를 찾을 수 없습니다.');
