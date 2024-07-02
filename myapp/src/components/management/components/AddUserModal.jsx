@@ -25,6 +25,13 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
     };
 
     const handleFindUser = () => {
+        const loggedInEmail = localStorage.getItem('loggedInEmail');
+
+        if (email === loggedInEmail) {
+            alert('본인은 추가할 수 없습니다.');
+            return;
+        }
+
         if (existingUsers.some((u) => u.email === email)) {
             alert('이미 추가된 회원입니다.');
             return;
