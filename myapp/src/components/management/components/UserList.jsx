@@ -2,7 +2,7 @@ import React from 'react';
 import UserItem from './UserItem';
 import './UserList.css';
 
-function UserList({ users }) {
+function UserList({ users, onDeleteUser }) {
     if (!Array.isArray(users)) {
         return null;
     }
@@ -10,7 +10,7 @@ function UserList({ users }) {
     return (
         <div className="managementuserlist">
             {users.map((user, index) => (
-                <UserItem key={index} user={user} />
+                <UserItem key={index} user={user} onDeleteUser={onDeleteUser} />
             ))}
         </div>
     );

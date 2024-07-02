@@ -1,12 +1,10 @@
-/* Management.css */
-
 .mainmanagement {
-
     .container {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
+        box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
 
         button {
             margin-top: 20px;
@@ -16,6 +14,7 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            align-self: flex-end; /* Align the button to the end (right) */
         }
 
         button:hover {

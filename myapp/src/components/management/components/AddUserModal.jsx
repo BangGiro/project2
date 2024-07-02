@@ -10,6 +10,8 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
                 handleClose();
+            } else if (e.key === 'Enter') {
+                handleFindUser();
             }
         };
 
@@ -18,7 +20,7 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [email]);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -53,6 +55,12 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
 
     const handleSubmit = () => {
         if (user) {
+            const memberLoggedInData = JSON.parse(localStorage.getItem('MemberLoggedInData')) || [];
+            if (!memberLoggedInData.includes(user.email)) {
+                const updatedMemberLoggedInData = [...memberLoggedInData, user.email];
+                localStorage.setItem('MemberLoggedInData', JSON.stringify(updatedMemberLoggedInData));
+            }
+
             onAddUser(user, memo);
             handleClose();
         } else {

@@ -16,18 +16,17 @@ function Footer() {
                 <div className="site-map">
                     <h4>사이트 맵</h4>
                     <ul>
-                        <li>홈</li>
+                        <li><Link to="/">홈</Link></li>
                         <li>회사 소개</li>
                         <li>서비스</li>
-                        <li>문의하기</li>
                     </ul>
                 </div>
                 <div className="customer-support">
                     <h4>고객 지원</h4>
                     <ul>
-                        <li>FAQ</li>
-                        <li>고객 지원</li>
-                        <li>피드백</li>
+                        <li><Link to="/noticePage">공지사항</Link></li>
+                        <li><Link to="/FAQpage">FAQ</Link></li>
+                        <li><Link to="/QnAPage">1:1문의</Link></li>
                     </ul>
                 </div>
                 <div className="legal-info">
