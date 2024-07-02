@@ -3,8 +3,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
 
-const initialExerciseData = [];
-
 export const availableExercises = [
   { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
   { name: "데드리프트", category: "하체", image: "/image/exercisePictogram/deadlift.png" },
@@ -45,7 +43,7 @@ const categories = [
   "하체", "등", "가슴", "어깨", "팔", "유산소"
 ];
 
-function ExerciseMain({ loggedInEmail }) {
+function ExerciseUser({ loggedInEmail }) {
   const [exercises, setExercises] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -67,7 +65,7 @@ function ExerciseMain({ loggedInEmail }) {
   }, [loggedInEmail]);
 
   useEffect(() => {
-    if (loggedInEmail && exercises.length > 0) {
+    if (loggedInEmail) {
       localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
     }
   }, [exercises, loggedInEmail]);
@@ -168,7 +166,19 @@ function ExerciseMain({ loggedInEmail }) {
 
   const handleSave = () => {
     if (loggedInEmail) {
-      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+      const updatedExercises = exercises.map(day => 
+        day.day === selectedDate.toLocaleDateString()
+          ? { ...day, exercises: currentExercises }
+          : day
+      );
+
+      if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
+        updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: currentExercises });
+      }
+
+      setExercises(updatedExercises);
+      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(updatedExercises));
+      alert('운동 데이터가 저장되었습니다.');
     }
   };
 
@@ -317,4 +327,4 @@ function ExerciseMain({ loggedInEmail }) {
   );
 }
 
-export default ExerciseMain;
+export default ExerciseUser;
