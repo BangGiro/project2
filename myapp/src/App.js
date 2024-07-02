@@ -17,7 +17,7 @@ import TermsOfService from './components/pages/TermsOfService';
 import PreviousTerms from './components/pages/PreviousTerms';
 import Home from './components/pages/Home';
 import NoticePage from './components/pages/NoticePage/NoticePage';
-import CustomerServicePage from './components/pages/customerServicePage/CustomerServicePage';
+import ExerciseUser from './components/pages/exercise/ExerciseUser';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     const storedLoggedIn = localStorage.getItem('loggedIn') === 'true';
-    const storedEmail = localStorage.getItem('loggedInEmail') || '';
+    const storedEmail = localStorage.getItem('memberLoggedInData') || '';
     setLoggedIn(storedLoggedIn);
     setLoggedInEmail(storedEmail);
   }, []);
@@ -34,14 +34,14 @@ function App() {
     setLoggedIn(true);
     setLoggedInEmail(email);
     localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('loggedInEmail', email);
+    localStorage.setItem('memberLoggedInData', email);
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
     setLoggedInEmail('');
     localStorage.removeItem('loggedIn');
-    localStorage.removeItem('loggedInEmail');
+    localStorage.removeItem('memberLoggedInData');
   };
    
   return (
@@ -59,8 +59,8 @@ function App() {
           <Route path="privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="termsOfService" element={<TermsOfService />} />
           <Route path="previousTerms" element={<PreviousTerms />} />
-          <Route path="noticePage" element={<NoticePage />} />
-          <Route path="CustomerService" element={<CustomerServicePage />} />
+          <Route path='noticePage' element={<NoticePage />} />
+          <Route path='exerciseUser' element={<ExerciseUser />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
