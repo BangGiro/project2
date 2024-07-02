@@ -16,6 +16,8 @@ import PrivacyPolicy from './components/pages/PrivacyPolicy';
 import TermsOfService from './components/pages/TermsOfService';
 import PreviousTerms from './components/pages/PreviousTerms';
 import Home from './components/pages/Home';
+import NoticePage from './components/pages/NoticePage/NoticePage';
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInEmail, setLoggedInEmail] = useState('');
@@ -44,20 +46,19 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        {/* 헤더랑 푸터가 포함된 페이지 */}
         <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} />}>
           <Route path="/" element={<Home />} />
-          <Route path="exerciseMain"element={<ExerciseMain />} />
+          <Route path="exerciseMain" element={<ExerciseMain loggedInEmail={loggedInEmail} />} />
           <Route path="dietPlanner" element={<DietPlanner />} />
           <Route path="FAQpage" element={<FAQpage />} />
-          <Route path="sleepTracker" element={<SleepTracker />} />
+          <Route path="sleepTracker" element={<SleepTracker loggedInEmail={loggedInEmail} />} />
           <Route path="management" element={<PrivateRoute element={<Management loggedInEmail={loggedInEmail} />} />} />
-          <Route path="QnAPage"  element={<QnAPage />}  />
+          <Route path="QnAPage" element={<QnAPage />} />
           <Route path="privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="termsOfService" element={<TermsOfService />} />
           <Route path="previousTerms" element={<PreviousTerms />} />
+          <Route path='noticePage' element={<NoticePage />} />
         </Route>
-        {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/findPw" element={<FindPw />} />

@@ -46,21 +46,27 @@ const categories = [
 ];
 
 function ExerciseMain({ loggedInEmail }) {
-  const [exercises, setExercises] = useState(() => {
-    const storedExercises = JSON.parse(localStorage.getItem(`exercises_${loggedInEmail}`));
-    return storedExercises || initialExerciseData;
-  });
+  const [exercises, setExercises] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentDayIndex, setCurrentDayIndex] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedExercises, setSelectedExercises] = useState([]);
   const [pendingExercises, setPendingExercises] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentExercises, setCurrentExercises] = useState([]);
 
   useEffect(() => {
-    localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+    if (loggedInEmail) {
+      const storedExercises = JSON.parse(localStorage.getItem(`exercises_${loggedInEmail}`));
+      if (storedExercises) {
+        setExercises(storedExercises);
+      }
+    }
+  }, [loggedInEmail]);
+
+  useEffect(() => {
+    if (loggedInEmail && exercises.length > 0) {
+      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+    }
   }, [exercises, loggedInEmail]);
 
   useEffect(() => {
@@ -80,7 +86,6 @@ function ExerciseMain({ loggedInEmail }) {
     setIsModalOpen(false);
     setSelectedCategory(null);
     setSearchTerm('');
-    setSelectedExercises([]);
     setPendingExercises([]);
   };
 
@@ -159,7 +164,9 @@ function ExerciseMain({ loggedInEmail }) {
   };
 
   const handleSave = () => {
-    localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+    if (loggedInEmail) {
+      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
+    }
   };
 
   const handleClear = () => {

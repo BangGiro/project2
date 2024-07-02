@@ -72,7 +72,7 @@ function Header({ loggedIn, onLogout }) {
                         <li>
                             <NavLink to="/CustomerService" activeClassName="active">고객센터</NavLink>
                                 <ul className="submenu">
-                                    <li>공지사항</li>
+                                    <li><NavLink to="/noticePage" activeClassName="active">공지사항</NavLink></li>
                                     <li><NavLink to="/FAQpage" activeClassName="active">FAQ</NavLink></li>
                                     <li><NavLink to="/QnAPage" activeClassName="active">1:1문의</NavLink></li>
                                 </ul>

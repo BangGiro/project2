@@ -30,11 +30,19 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [sleepQuality, setSleepQuality] = useState('');
 
     useEffect(() => {
-        const savedRecords = localStorage.getItem(`sleepRecords_${loggedInEmail}`);
-        if (savedRecords) {
-            setRecords(JSON.parse(savedRecords));
+        if (loggedInEmail) {
+            const savedRecords = localStorage.getItem(`sleepRecords_${loggedInEmail}`);
+            if (savedRecords) {
+                setRecords(JSON.parse(savedRecords));
+            }
         }
     }, [loggedInEmail]);
+
+    useEffect(() => {
+        if (loggedInEmail) {
+            localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
+        }
+    }, [records, loggedInEmail]);
 
     useEffect(() => {
         const record = records.find(record => new Date(record.date).toLocaleDateString() === selectedDate.toLocaleDateString());
@@ -62,7 +70,7 @@ const SleepTracker = ({ loggedInEmail }) => {
         setTimeout(() => {
             setIsModalOpen(false);
             setModalAnimation('');
-        }, 500); // Ensure modal is hidden after animation
+        }, 500);
     };
 
     const handleDateChange = (date) => {
@@ -82,13 +90,13 @@ const SleepTracker = ({ loggedInEmail }) => {
             return null;
         }
 
-        setErrorMessage(''); // Clear previous error message
+        setErrorMessage('');
         const start = new Date(`1970-01-01T${startTime}:00`);
         const end = new Date(`1970-01-01T${endTime}:00`);
 
-        let duration = (end - start) / (1000 * 60 * 60); // Convert milliseconds to hours
+        let duration = (end - start) / (1000 * 60 * 60);
         if (duration < 0) {
-            duration += 24; // Adjust for cases where end time is past midnight
+            duration += 24;
         }
         return duration.toFixed(1);
     };
@@ -112,7 +120,7 @@ const SleepTracker = ({ loggedInEmail }) => {
         setSleepDuration(record.sleepDuration);
         setSleepQuality(record.sleepQuality || '');
         setEditIndex(index);
-        setIsModalOpen(true); // Open modal for editing
+        openModal();
     };
 
     const deleteRecord = (index) => {
@@ -142,8 +150,8 @@ const SleepTracker = ({ loggedInEmail }) => {
         updatedRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         setRecords(updatedRecords);
-        localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(updatedRecords));
         setErrorMessage('');
+        closeModal();
     };
 
     const getTileContent = ({ date, view }) => {
@@ -218,81 +226,81 @@ const SleepTracker = ({ loggedInEmail }) => {
 
     return (
         <div className='SleepTrackerTrue'>
-        <div className="sleepTracker">
-            <h1>수면 관리</h1>
-            <hr/>
-            <div className='sleepTrackerMain'>
-                <Calendar
-                    onChange={handleDateChange}
-                    value={selectedDate}
-                    tileContent={getTileContent}
-                />
-                <div className="sleepTrackerGraph">
-                    <h2>주간 수면 시간 그래프</h2>
-                    <Line data={data} options={options} />
+            <div className="sleepTracker">
+                <h1>수면 관리</h1>
+                <hr/>
+                <div className='sleepTrackerMain'>
+                    <Calendar
+                        onChange={handleDateChange}
+                        value={selectedDate}
+                        tileContent={getTileContent}
+                    />
+                    <div className="sleepTrackerGraph">
+                        <h2>주간 수면 시간 그래프</h2>
+                        <Line data={data} options={options} />
+                    </div>
                 </div>
-            </div>
-            <Modal
-                isOpen={isModalOpen}
-                onRequestClose={closeModal}
-                contentLabel="수면 기록"
-                className={`sleepTrackerModal ${modalAnimation}`}
-                overlayClassName="sleepTrackerOverlay"
-            >
-                <form onSubmit={saveEditedRecord}>
-                    <div className="sleepTrackerInputGroup">
-                        <label>수면 시작</label>
-                        <input
-                            type="time"
-                            value={startTime}
-                            onChange={(e) => setStartTime(e.target.value)}
-                        />
-                    </div>
-                    <div className="sleepTrackerInputGroup">
-                        <label>수면 종료</label>
-                        <input
-                            type="time"
-                            value={endTime}
-                            onChange={(e) => setEndTime(e.target.value)}
-                        />
-                    </div>
-                    <div className="sleepTrackerInputGroup">
-                        <label>수면 품질</label>
-                        <div className="sleepQualityButtons">
-                            <button type="button" onClick={() => handleQualityChange('😴')} className={sleepQuality === '😴' ? 'selected' : ''}>😴</button>
-                            <button type="button" onClick={() => handleQualityChange('🥱')} className={sleepQuality === '🥱' ? 'selected' : ''}>🥱</button>
-                            <button type="button" onClick={() => handleQualityChange('😑')} className={sleepQuality === '😑' ? 'selected' : ''}>😑</button>
-                            <button type="button" onClick={() => handleQualityChange('🙂')} className={sleepQuality === '🙂' ? 'selected' : ''}>🙂</button>
-                            <button type="button" onClick={() => handleQualityChange('😁')} className={sleepQuality === '😁' ? 'selected' : ''}>😁</button>
+                <Modal
+                    isOpen={isModalOpen}
+                    onRequestClose={closeModal}
+                    contentLabel="수면 기록"
+                    className={`sleepTrackerModal ${modalAnimation}`}
+                    overlayClassName="sleepTrackerOverlay"
+                >
+                    <form onSubmit={saveEditedRecord}>
+                        <div className="sleepTrackerInputGroup">
+                            <label>수면 시작</label>
+                            <input
+                                type="time"
+                                value={startTime}
+                                onChange={(e) => setStartTime(e.target.value)}
+                            />
                         </div>
-                        {sleepQuality && (
-                            <div className="selectedQuality">
-                                {sleepQuality}
+                        <div className="sleepTrackerInputGroup">
+                            <label>수면 종료</label>
+                            <input
+                                type="time"
+                                value={endTime}
+                                onChange={(e) => setEndTime(e.target.value)}
+                            />
+                        </div>
+                        <div className="sleepTrackerInputGroup">
+                            <label>수면 품질</label>
+                            <div className="sleepQualityButtons">
+                                <button type="button" onClick={() => handleQualityChange('😴')} className={sleepQuality === '😴' ? 'selected' : ''}>😴</button>
+                                <button type="button" onClick={() => handleQualityChange('🥱')} className={sleepQuality === '🥱' ? 'selected' : ''}>🥱</button>
+                                <button type="button" onClick={() => handleQualityChange('😑')} className={sleepQuality === '😑' ? 'selected' : ''}>😑</button>
+                                <button type="button" onClick={() => handleQualityChange('🙂')} className={sleepQuality === '🙂' ? 'selected' : ''}>🙂</button>
+                                <button type="button" onClick={() => handleQualityChange('😁')} className={sleepQuality === '😁' ? 'selected' : ''}>😁</button>
+                            </div>
+                            {sleepQuality && (
+                                <div className="selectedQuality">
+                                    {sleepQuality}
+                                </div>
+                            )}
+                        </div>
+                        <div className="sleepTrackerButtonGroup">
+                            <button type="submit" className="sleepTrackerButton">저장</button>
+                            <button type="button" className="sleepTrackerButton" onClick={closeModal}>닫기</button>
+                        </div>
+                        {sleepDuration !== null && (
+                            <div className="sleepTrackerResult">
+                                <h2>수면 시간: {sleepDuration}h</h2>
+                                <p>{getSleepAdvice(sleepDuration)}</p>
                             </div>
                         )}
-                    </div>
-                    <div className="sleepTrackerButtonGroup">
-                        <button type="submit" className="sleepTrackerButton">저장</button>
-                        <button type="button" className="sleepTrackerButton" onClick={closeModal}>닫기</button>
-                    </div>
-                    {sleepDuration !== null && (
-                        <div className="sleepTrackerResult">
-                            <h2>수면 시간: {sleepDuration}h</h2>
-                            <p>{getSleepAdvice(sleepDuration)}</p>
-                        </div>
-                    )}
-                    {errorMessage && (
-                        <div className="sleepTrackerErrorMessage">{errorMessage}</div>
-                    )}
-                </form>
-            </Modal>
-            <hr/>
-            <SleepRecords
-                records={records}
-                editRecord={editRecord}
-                deleteRecord={deleteRecord}
-            />
-        </div>
+                        {errorMessage && (
+                            <div className="sleepTrackerErrorMessage">{errorMessage}</div>
+                        )}
+                    </form>
+                </Modal>
+                <hr/>
+                <SleepRecords
+                    records={records}
+                    editRecord={editRecord}
+                    deleteRecord={deleteRecord}
+                />
+            </div>
         </div>
     );
 };
