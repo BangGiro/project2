@@ -58,33 +58,28 @@ function Header({ loggedIn, onLogout }) {
                     </div>
                     <ul className="menu">
                         <li>
-                            <NavLink to="/Management" activeClassName="active">회원관리
-                                <ul className="submenu"></ul>
-                            </NavLink>
+                            <NavLink to="/Management" activeClassName="active">회원관리</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/ExerciseMain" activeClassName="active">운동
+                            <NavLink to="/ExerciseMain" activeClassName="active">운동</NavLink>
                                 <ul className="submenu">
                                     <li><NavLink to="/ExerciseMain" activeClassName="active">운동 관리</NavLink></li>
                                     <li><NavLink to="/DietPlanner" activeClassName="active">식단 추천</NavLink></li>
                                     <li><NavLink to="/SleepTracker" activeClassName="active">수면 관리</NavLink></li>
                                 </ul>
-                            </NavLink>
+                            
                         </li>
                         <li>
-                            <NavLink to="/CustomerService" activeClassName="active">고객센터
+                            <NavLink to="/CustomerService" activeClassName="active">고객센터</NavLink>
                                 <ul className="submenu">
                                     <li>공지사항</li>
                                     <li><NavLink to="/FAQpage" activeClassName="active">FAQ</NavLink></li>
                                     <li><NavLink to="/QnAPage" activeClassName="active">1:1문의</NavLink></li>
                                 </ul>
-                            </NavLink>
+                            
                         </li>
                         <li>
-                            <NavLink to="/MyPage" activeClassName="active">MYPAGE
-                                <ul className="submenu">
-                                </ul>
-                            </NavLink>
+                            <NavLink to="/MyPage" activeClassName="active">MYPAGE</NavLink>
                         </li>
                     </ul>
                     <div className="login_btn">
