@@ -9,7 +9,7 @@
     height: 200px;
     width: 100%;
     align-items: center;
-    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    box-sizing: border-box; 
     
     img {
         width: 50%;
