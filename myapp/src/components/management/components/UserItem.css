@@ -1,7 +1,15 @@
 .managementuseritem {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
     background-color: #ffffff;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: center;
+    height: 200px;
+    width: 100%; ;
+    align-items: center;
+    img{
+        width: 50%;
+    }
 }
