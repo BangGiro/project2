@@ -1,17 +1,17 @@
-.managementuseritem {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    background-color: #ffffff;
-    padding: 10px;
-    border: 1px solid #ccc;
+.user-item-row td {
+    vertical-align: middle;
+}
+
+.user-item-row button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
     border-radius: 5px;
-    height: 200px;
-    width: 100%;
-    align-items: center;
-    box-sizing: border-box; 
-    
-    img {
-        width: 50%;
-    }
+    cursor: pointer;
+}
+
+.user-item-row button:hover {
+    background-color: #0056b3;
 }

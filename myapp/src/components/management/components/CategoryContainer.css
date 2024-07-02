@@ -11,6 +11,10 @@
 .category-container h2 {
     margin-top: 0;
 }
+.category-container h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
 .user-category-management-container{
     height: 300px;
     overflow-y: auto;
