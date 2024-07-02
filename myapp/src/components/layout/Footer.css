@@ -15,15 +15,12 @@ footer hr {
 
 .footer-content {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    align-items: flex-start;
     padding: 20px 0;
 }
 
 .footer-content > div {
     flex: 1;
-    min-width: 200px;
+    width: 100px;
     margin: 10px;
 }
 
@@ -58,37 +55,18 @@ footer hr {
 .social-media img {
     width: 30px;
     height: 30px;
+    transition: .5s;
 }
 
-.newsletter form {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
 
-.newsletter input[type="email"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 200px;
-}
 
-.newsletter button {
-    padding: 5px 10px;
-    background-color: #1980f6;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.newsletter button:hover {
-    background-color: #0f6ed4;
-}
 
 .copyright {
     margin-top: 20px;
     font-size: 0.9em;
     color: #666;
+}
+
+.social-media img:hover {
+    transform: scale(1.1);
 }

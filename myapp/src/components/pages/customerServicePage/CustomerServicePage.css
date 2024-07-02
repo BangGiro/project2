@@ -1,0 +1,29 @@
+ 
+.customerServices{
+    width: 1600px;
+    height: auto;
+    
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.CTM_notice {
+    font-size: 1em;
+    background-color: blue;
+    height: 500px;
+    width: 50%;
+}
+
+.CTM_faq {
+    font-size: 1em;
+    background-color: red;
+    height: 500px;
+    width: 50%;
+} 
+
+.CTM_qna {
+    height: 200px;
+    width: 1600px;
+    background-color: yellow;
+}
