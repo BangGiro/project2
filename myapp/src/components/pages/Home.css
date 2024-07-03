@@ -1,42 +1,54 @@
+/* 기본 스타일 유지 */
+.home a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.home img {
+  display: block;
+  width: 100%;
+  height: 100vh;
+}
+
 .home {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-size: 0;
+}
 
 .hero-section {
   position: relative;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
-
-.hero-image {
-  width: 100%;
-}
-
 
 .hero-text {
   position: absolute;
   top: 30%;
-  left: 35%;
+  left: 50%;
   transform: translate(-50%, -50%);
   z-index: 3;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
 .hero-text h1 {
-  font-size: 48px;
+  font-size: 3rem;
   margin: 0;
-  color: white;
-
 }
 
 .hero-text button {
   margin-top: 20px;
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 1.25rem;
   background-color: transparent;
   border: 2px solid white;
   color: white;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .hero-text button:hover {
@@ -44,42 +56,55 @@
   color: black;
 }
 
-.training-club {
-  text-align: left;
-  position: relative;
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
 }
 
-.training-club h2 {
-  font-size: 36px;
-}
-
-.challenges {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 20px;
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  padding: 20px;
+/* 챌린지 섹션 스타일 */
+.training-club,
+.more-challenges,
+.customer-reviews,
+.new-section {
+  padding: 60px 20px;
+  text-align: center;
   opacity: 0;
-  transform: translateX(100%);
-  transition: transform 1.5s ease, opacity 1.5s ease;
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+  width: 100%;
 }
 
-.challenges.slide-in {
-  transform: translateX(0);
-  opacity: 1;
+.training-club h2,
+.more-challenges h2,
+.customer-reviews h2,
+.new-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
 }
 
-.challenge-card {
+.challenges,
+.reviews {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.challenge-card,
+.review-card {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 5px;
   overflow: hidden;
   width: 300px;
   text-align: left;
-  transition: 0.5s;
+  transition: transform 0.5s;
+  cursor: pointer;
 }
 
 .challenge-card img {
@@ -87,20 +112,24 @@
   height: auto;
 }
 
-.challenge-card:hover {
+.challenge-card:hover,
+.review-card:hover {
   transform: scale(1.05);
 }
 
-.challenge-info {
+.challenge-info,
+.review-card p {
   padding: 20px;
   text-align: center;
 }
 
-.challenge-info h3 {
+.challenge-info h3,
+.review-card p {
   margin: 0 0 10px;
 }
 
-.challenge-info p {
+.challenge-info p,
+.review-card p {
   margin: 5px 0;
 }
 
@@ -112,16 +141,178 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .challenge-info button:hover {
   background-color: #e64a19;
 }
-p{
-  font-size: 14px;
-}
-h3{
-  font-size: 20px;
+
+@media (max-width: 768px) {
+  .challenge-card,
+  .review-card {
+    width: 100%;
+  }
+
+  .training-club,
+  .more-challenges,
+  .customer-reviews,
+  .new-section {
+    padding: 40px 10px;
+  }
 }
 
+/* 애니메이션 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* 새로운 섹션 스타일 */
+.new-section {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  background-color: #e9f7ff;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.new-section .category {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 20px;
+  width: 20%;
+  min-width: 200px;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  position: relative;
+}
+
+.new-section .category h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.new-section .category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.new-section .category ul li {
+  margin: 10px 0;
+  font-size: 1rem;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-section .category ul li:after {
+  content: '>';
+  color: #007bff;
+  margin-left: 10px;
+}
+
+.new-section .category button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+}
+
+.new-section .category button:hover {
+  background-color: #0056b3;
+}
+
+.new-section .mypage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 플로팅 버튼 스타일 */
+.floating-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.floating-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+  line-height: 60px; /* 버튼 내용이 중앙에 위치하도록 설정 */
+}
+
+.floating-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.1);
+}
+
+.floating-options {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.floating-container.expanded .floating-options {
+  max-height: 500px; /* 충분히 큰 값으로 설정 */
+  opacity: 1;
+}
+
+.floating-options button {
+  border: none;
+  border-radius: 5px;
+  margin: 5px 0;
+  font-size: 40px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  background-color: none;
+}
+
+.floating-options button:hover {
+  background-color: #0056b3;
 }

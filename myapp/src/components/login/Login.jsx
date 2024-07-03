@@ -29,7 +29,7 @@ export default function Login({ onLogin }) {
         if (matchedUser) {
             loginUser(matchedUser);
             onLogin(email);
-            navigate('/management');
+            navigate('/');
         } else {
             alert('이메일 또는 비밀번호를 다시 확인해주세요.');
         }

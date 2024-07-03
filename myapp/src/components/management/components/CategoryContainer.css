@@ -1,43 +1,61 @@
-/* CategoryContainer.css */
-
 .category-container {
-    background-color: #f9f9f9;
+    position: -webkit-sticky;
+    /* For Safari */
+    position: sticky;
+    top: 20px;
+    background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* z-index: 1000; */
+    /* Ensure it stays on top of other content */
+    width: 100%;
 }
 
 .category-container h2 {
-    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
 }
+
 .category-container h3 {
-    margin-top: 20px;
+    font-size: 1.2rem;
     margin-bottom: 10px;
 }
-.user-category-management-container{
-    height: 300px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
+
+.user-category-management-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8f9fa;
+    /* Light grey background */
     border-radius: 10px;
-    .cat-list-member{
-        text-align: center;
-        padding: 5px;
-        margin-bottom: 3px;
-        background-color: #ccc;
-        display: flex;
-        button{
-            margin-left: auto;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            font-size: 12px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-    }
-    .cat-list-member:hover{
-        background-color: #e6e6e6;
-    }
+    overflow-y: auto;
+    /* Ensure rounded corners */
+    max-height: 300px;
+}
+
+.cat-list-member {
+    padding: 10px;
+    margin-bottom: 2px;
+    background-color: #e9ecef;
+    /* Light grey background for each member */
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cat-list-member:last-child {
+    border-bottom: none;
+    /* Remove bottom border for last item */
+}
+
+.cat-list-member:hover {
+    background-color: #ced4da;
+    /* Darker grey on hover */
+}
+
+.cat-list-member:active {
+    background-color: #adb5bd;
+    /* Even darker grey when active */
 }

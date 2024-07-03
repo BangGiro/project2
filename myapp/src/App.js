@@ -12,14 +12,19 @@ import SignUp from './components/login/SignUp';
 import Management from './components/management/ManagementContainer';
 import PrivateRoute from './components/PrivateRoute';
 import QnAPage from './components/pages/QnAPage/QnAPage';
-import PrivacyPolicy from './components/pages/PrivacyPolicy';
-import TermsOfService from './components/pages/TermsOfService';
-import PreviousTerms from './components/pages/PreviousTerms';
+import PrivacyPolicy from './components/pages/footerPages/PrivacyPolicy';
+import TermsOfService from './components/pages/footerPages/TermsOfService';
+import PreviousTerms from './components/pages/footerPages/PreviousTerms';
 import Home from './components/pages/Home';
 import NoticePage from './components/pages/NoticePage/NoticePage';
 import ExerciseUser from './components/pages/exercise/ExerciseUser';
 import CustomerServicePage from './components/pages/customerServicePage/CustomerServicePage';
-import MyPage from './components/pages/MyPage/MyPage';
+import YouthProtectionPolicy from './components/pages/footerPages/YouthProtectionPolicy';
+import BrandProtectionPolicy from './components/pages/footerPages/BrandProtectionPolicy';
+import Report from './components/pages/footerPages/Report';
+import Announcement from './components/pages/footerPages/Announcement';
+import CyberAuditOffice from './components/pages/footerPages/CyberAuditOffice';
+import ContactUs from './components/pages/footerPages/ContactUs';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -64,7 +69,12 @@ function App() {
           <Route path='/noticePage' element={<NoticePage />} />
           <Route path='/exerciseUser' element={<ExerciseUser />} />
           <Route path='/customerServicePage' element={<CustomerServicePage />} />
-          <Route path='/MyPage' element={<MyPage />} />
+          <Route path="/youthProtectionPolicy" element={<YouthProtectionPolicy/>} />
+          <Route path="/brandProtectionPolicy" element={<BrandProtectionPolicy/>} />
+          <Route path="/report" element={<Report/>} />
+          <Route path="/announcement" element={<Announcement/>} />
+          <Route path="/cyberAuditOffice" element={<CyberAuditOffice/>} />
+          <Route path="/contactUs" element={<ContactUs/>} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
