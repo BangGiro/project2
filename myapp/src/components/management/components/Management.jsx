@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import UserList from './UserList';
 import AddUserModal from './AddUserModal';
-import EditUserModal from './EditUserModal'; // 수정 모달 추가
+import EditUserModal from './EditUserModal';
 import './Management.css';
 
-function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
+function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers }) {
   const [users, setUsers] = useState([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -46,7 +46,6 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
   return (
     <div className='mainmanagement'>
       <div className="container">
-        <h1>회원 관리</h1>
         <input
           type="text"
           placeholder="사용자 이름 검색"
@@ -63,6 +62,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
           />
         </div>
         <button onClick={() => setIsAddModalOpen(true)}>회원 추가</button>
+        <button className="delete-all-button" onClick={onDeleteAllUsers}>전체 삭제</button>
         {isAddModalOpen && (
           <AddUserModal
             onClose={() => setIsAddModalOpen(false)}
