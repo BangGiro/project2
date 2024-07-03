@@ -1,6 +1,4 @@
 .Header {
-    background-color: #f8f8f8;
-    
     a {
         color:black;
         padding: 25px;
@@ -17,7 +15,7 @@
 
     .navbar {
         display: flex;
-        background-color: #fff;
+        background-color: rgb(253, 253, 253);
         color: #000;
         padding: 10px 20px;
         height: 13vh;
