@@ -1,0 +1,124 @@
+.MyService{
+    width: 10rem;
+    background-color: #f0f0f0;
+    float: left;
+}
+
+.MyService > div {
+    margin: 1rem;
+    font-size: 1.2em;
+}
+
+.renderMyService{
+    width: 50vw;
+    height: auto;
+    min-height: 1rem;
+    margin: auto;
+}
+
+/* //================================================================================================   */
+/* 기본 정보 */
+
+.MyInfoBox {
+    width: 100%;
+    height: 30rem;
+    
+    box-sizing: border-box;
+    
+    border: 1px solid #d8d8d8;
+    
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+
+    margin: 5rem 0 5rem 0;
+
+} 
+
+.MyProfile {
+    grid-column: 1 / 2;
+    background-color: rgb(217, 217, 217);
+    height: 12em;
+    width: 12em;
+    border-radius: 3rem;
+}
+
+.MyInfoList{
+    grid-column: 2 / 3;
+    border-radius: 1rem;
+    padding: 1rem;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    align-items: center;
+}
+
+.MyInfoList > div {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border-bottom: 1px solid #8a8a8a;
+}
+
+
+/* =========================================================================== */
+/* 구독 정보 */
+
+.MySubscribeBox {
+    width: 100%;
+
+    box-sizing: border-box;
+    border: 1px solid #d8d8d8;
+
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+    gap: 2rem;
+
+    margin: 5rem 0 5rem 0;
+}
+
+.MySubscribeBox > div {
+    width: 100%;
+    display: flex;
+}
+
+.CurrentSubscription {
+    height: 10rem;
+
+    background-color: dodgerblue;
+    border-radius: 2rem;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: larger;
+    font-weight: bold;
+}
+
+.SubscriptionPayment {
+    width: 100%;
+    height:auto;
+
+    justify-content: space-between;
+}
+
+.SubscriptionPayment > div {
+    width: 48%;
+    height: 10rem;
+    background-color: rgb(138, 138, 138);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+
+.CancelSubscription {
+    width: 5rem;
+    height: 2rem;
+    margin: auto; 
+}
+
+
+

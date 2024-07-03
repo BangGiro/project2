@@ -9,7 +9,7 @@ const QnAPage = () => {
     
     // =================================================================================================
     // 데이터 불러오기 파트
-    const userData = localStorage.getItem('userData');
+    const userEmail = localStorage.getItem('memberLoggedInData');
     const categoryOptions = QnAdata.map((data) => data.category);
     const savedData = localStorage.getItem('personalQnA');
     const [dropDownData, setDropDownData] = useState({category:'' , details:''});
@@ -18,11 +18,8 @@ const QnAPage = () => {
 
 
     useEffect(() => {
-        if(userData) {
-            const ParsedUserData = JSON.parse(userData);
-            if(ParsedUserData.email) {
-                document.getElementById('QnA_email').value = ParsedUserData.email;
-            }
+        if(userEmail) {
+            document.getElementById('QnA_email').value = userEmail;
         }
     } , []);    
     
@@ -52,13 +49,15 @@ const QnAPage = () => {
         const title = document.getElementById('QnA_title').value;
         const content = document.getElementById('QnA_textarea').value;
         const email = document.getElementById('QnA_email').value;
+        const userEmail = localStorage.getItem('memberLoggedInData');
 
         // Create a new QnA object
         const newQnA = {
             email,
             category, //0번째는 유형 1번째는 상세구분
             title,
-            content
+            content,
+            userEmail
         };
 
         // Update the state with the new QnA object

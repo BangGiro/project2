@@ -1,14 +1,44 @@
-export default function Myinfo() {
+import React, { useState, useEffect } from 'react';
+
+
+export default function MyInfo() {
+    //===============================================================================
+    // 데이터 불러오기 파트
+    const [MyData, setMyData] = useState(null);
+
+    useEffect(() => {
+        let userData = localStorage.getItem('user');
+        if(userData) {
+            setMyData (JSON.parse(userData));
+        }
+    }, []);
+    //===============================================================================
+
     return (
         <div className="MyInfo">
-            <h1>My Info</h1>
+            <h1>내 정보</h1>
 
             <section className="MyInfoBox">
-                <div>프로필사진</div>
-                <div>이름</div>
-                <div>이메일</div>
-                <div>가입일</div>
-                <div>회원 타입</div>
+                <div className="MyProfile"></div>
+                <div className="MyInfoList">
+                    <div>
+                        <span>이름</span>
+                        <p>{MyData ? MyData.name : ''}</p> 
+                        {/* 비동기 방어코드 필수!! */}
+                    </div>
+                    <div>
+                        <span>이메일</span>
+                        <p>{MyData ? MyData.email : ''}</p>
+                    </div>
+                    <div>
+                        <span>가입일</span>
+                        <p>2021.04.23</p>
+                    </div>
+                    <div>
+                        <span>회원 타입</span>
+                        <p>{MyData ? MyData.loginType : ''}</p>
+                    </div>
+                </div>
             </section>    
         </div>
     )
