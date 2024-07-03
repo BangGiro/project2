@@ -9,6 +9,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (loggedInEmail) {
@@ -38,12 +39,24 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser }) {
     setIsEditModalOpen(false);
   };
 
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className='mainmanagement'>
       <div className="container">
+        <h1>회원 관리</h1>
+        <input
+          type="text"
+          placeholder="사용자 이름 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="search-input"
+        />
         <div className="user-list">
           <UserList
-            users={users}
+            users={filteredUsers}
             onDeleteUser={handleDeleteUser}
             onEditUser={setUserToEdit}
             onOpenEditModal={() => setIsEditModalOpen(true)}
