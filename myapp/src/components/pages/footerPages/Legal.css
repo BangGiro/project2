@@ -9,6 +9,7 @@
     background-color: #f9f9f9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
     line-height: 1.6; /* 줄 간격 */
+    list-style: none;
 }
 
 .legal-content h2 {
@@ -37,6 +38,3 @@
     padding-left: 20px; /* 들여쓰기 */
 }
 
-.legal-content ul li {
-    list-style-type: disc; /* 리스트 스타일 */
-}
