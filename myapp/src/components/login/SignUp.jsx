@@ -95,14 +95,14 @@ export default function SignUp() {
     useEffect(() => {
         const createDummyUsers = (count) => {
             const dummyUsers = [];
-            const names = ["folder"];
+            const names = ["권시은","김경래","참이슬","김민정","김하준","이서연","최지아","한도윤","김동희","김민서","김민지","김서연","김수현","김예은","김유진","김지민","김지우","김지현","김하윤","김현지","박서연","박수빈","박지민","박지윤","박하윤","박현지","송서연","송수빈","송지민","송지윤","송하윤","송현지","이서연","이수빈","이지민","이지윤","이하윤","이현지","정서연","정수빈","정지민","정지윤","정하윤","정현지","조서연","조수빈","조지민","조지윤","조하윤","조현지","최서연","최수빈","최지민","최지윤","최하윤","최현지","김서연","김수빈","김지민","김지윤","김하윤","김현지","박서연","박수빈","박지민","박지윤","박하윤","박현지","송서연","송수빈","송지민","송지윤","송하윤","송현지","이서연","이수빈","이지민","이지윤","이하윤","이현지","정서연","정수빈","정지민","정지윤","정하윤","정현지","조서연","조수빈","조지민","조지윤","조하윤","조현지","최서연","최수빈","최지민","최지윤"];
             const domains = ["test.com"];
             const genders = ["남자", "여자"];
             const loginTypes = ["일반", "트레이너", "비지니스"];
 
             for (let i = 0; i < count; i++) {
                 const randomName = names[Math.floor(Math.random() * names.length)];
-                const randomEmail = `${randomName}${i}@${domains[Math.floor(Math.random() * domains.length)]}`;
+                const randomEmail = `dummy${i}@${domains[Math.floor(Math.random() * domains.length)]}`;
                 const randomGender = genders[Math.floor(Math.random() * genders.length)];
                 const randomLoginType = loginTypes[Math.floor(Math.random() * loginTypes.length)];
                 const randomBirth = `19${Math.floor(Math.random() * 50) + 50}-01-01`;
