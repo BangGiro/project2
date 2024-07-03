@@ -4,30 +4,36 @@ import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
 import './Management.css';
 
-function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers }) {
-  const [users, setUsers] = useState([]);
+function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, users: initialUsers }) {
+  const [users, setUsers] = useState(initialUsers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    if (loggedInEmail) {
-      const storedUsers = JSON.parse(localStorage.getItem(`users_${loggedInEmail}`)) || [];
-      setUsers(storedUsers);
-    }
-  }, [loggedInEmail]);
+    setUsers(initialUsers);
+  }, [initialUsers]);
 
   const handleAddUser = (user, memo) => {
     onAddUser(user, memo);
     const updatedUsers = [...users, { ...user, memo }];
     setUsers(updatedUsers);
+    localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
+    // Update selectedUser in localStorage
+    localStorage.setItem('selectedUser', JSON.stringify({ ...user, memo }));
   };
 
   const handleDeleteUser = (email) => {
     onDeleteUser(email);
     const updatedUsers = users.filter(user => user.email !== email);
     setUsers(updatedUsers);
+    localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
+    // Remove selectedUser from localStorage if it matches the deleted user
+    const selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
+    if (selectedUser && selectedUser.email === email) {
+      localStorage.removeItem('selectedUser');
+    }
   };
 
   const handleEditUser = (updatedUser) => {
@@ -36,6 +42,11 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers }
     );
     setUsers(updatedUsers);
     localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
+    // Update selectedUser in localStorage if it matches the edited user
+    const selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
+    if (selectedUser && selectedUser.email === updatedUser.email) {
+      localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
+    }
     setIsEditModalOpen(false);
   };
 
@@ -46,6 +57,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers }
   return (
     <div className='mainmanagement'>
       <div className="container">
+        <h1>회원 관리</h1>
         <input
           type="text"
           placeholder="사용자 이름 검색"
@@ -62,7 +74,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers }
           />
         </div>
         <button onClick={() => setIsAddModalOpen(true)}>회원 추가</button>
-        <button className="delete-all-button" onClick={onDeleteAllUsers}>전체 삭제</button>
+        <button className="delete-all-button" onClick={() => { onDeleteAllUsers(); setUsers([]); }}>전체 삭제</button>
         {isAddModalOpen && (
           <AddUserModal
             onClose={() => setIsAddModalOpen(false)}
