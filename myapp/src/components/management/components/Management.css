@@ -5,6 +5,9 @@
         align-items: center;
         width: 100%;
         box-sizing: border-box; 
+        h1{
+            margin-bottom: 20px;
+        }
 
         .search-input {
             margin-bottom: 20px;
