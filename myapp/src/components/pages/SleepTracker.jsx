@@ -146,7 +146,6 @@ const SleepTracker = ({ loggedInEmail }) => {
 
         setRecords(updatedRecords);
         setErrorMessage('');
-        closeModal();
     };
 
     const getTileContent = ({ date, view }) => {
