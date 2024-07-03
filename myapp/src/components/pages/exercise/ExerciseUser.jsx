@@ -166,7 +166,7 @@ function ExerciseUser() {
 
   const handleSave = () => {
     if (selectedUser) {
-      const updatedExercises = exercises.map(day => 
+      const updatedExercises = exercises.map(day =>
         day.day === selectedDate.toLocaleDateString()
           ? { ...day, exercises: currentExercises }
           : day
@@ -200,10 +200,10 @@ function ExerciseUser() {
       <div className='every'>
         <div className='exerciseMainBody'>
           <div className="header">
-            <h1>운동</h1>
-            <hr/>
+            {selectedUser && <h1>{selectedUser.name}님</h1>}
+            <hr />
           </div>
-          <div className='exerciseMain'> 
+          <div className='exerciseMain'>
             <div className="calendarContainer">
               <Calendar
                 onChange={handleDateChange}
@@ -215,21 +215,21 @@ function ExerciseUser() {
               <div className="statsBars">
                 <div className="weeks">
                   <div className="day">{selectedDate.toLocaleDateString()}</div>
-                  <hr/>
+                  <hr />
                   {currentExercises.map((exercise, exerciseIndex) => (
                     <div key={exerciseIndex} className="exerciseEntry">
-                      <img src={exercise.image} alt={exercise.name} className="exerciseImage"/>
+                      <img src={exercise.image} alt={exercise.name} className="exerciseImage" />
                       <p>{exercise.name}</p>
                       <li>
-                      <label>&nbsp;무게</label>
-                      <input
-                        type="number"
-                        min="1"
-                        placeholder="(kg)"
-                        value={exercise.weight}
-                        onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
-                        className="weightInput"
-                      />
+                        <label>&nbsp;무게</label>
+                        <input
+                          type="number"
+                          min="1"
+                          placeholder="(kg)"
+                          value={exercise.weight}
+                          onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
+                          className="weightInput"
+                        />
                       </li>
                       <li>
                         <label>&nbsp;횟수</label>
@@ -243,7 +243,7 @@ function ExerciseUser() {
                         />
                       </li>
                       <li>
-                      <label>&nbsp;세트 수</label>
+                        <label>&nbsp;세트 수</label>
                         <input
                           type="number"
                           min="1"
