@@ -5,9 +5,6 @@
         align-items: center;
         width: 100%;
         box-sizing: border-box; 
-        h1{
-            margin-bottom: 20px;
-        }
 
         .search-input {
             margin-bottom: 20px;
@@ -30,6 +27,15 @@
 
         button:hover {
             background-color: #0056b3;
+        }
+
+        .delete-all-button {
+            margin-top: 20px;
+            background-color: #dc3545; 
+        }
+
+        .delete-all-button:hover {
+            background-color: #c82333; 
         }
     }
 
