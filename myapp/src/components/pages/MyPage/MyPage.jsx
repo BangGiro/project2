@@ -1,6 +1,6 @@
 import { useEffect , useState } from "react";
 import './MyPage.css';
-import MyInfo from "./components/MyInfo";
+import MyInfo from "./components/Myinfo";
 import MySubscribe from "./components/MySubscription";
 
 
