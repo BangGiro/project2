@@ -64,6 +64,7 @@ function ManagementContainer() {
                     onAddUser={handleAddUser}
                     onDeleteUser={handleDeleteMember}
                     onDeleteAllUsers={handleDeleteAllUsers}
+                    users={users}
                 />
             </div>
         </div>
