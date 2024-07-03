@@ -81,16 +81,13 @@ footer {
 
 .footer-bottom ul li {
     margin: 5px 10px;
-}
-
-.footer-bottom ul li a {
-    text-decoration: none;
     color: #666;
-    transition: color 0.3s;
+    transition: 0.3s;
 }
 
-.footer-bottom ul li a:hover {
+.footer-bottom ul li:hover {
     color: #000;
+    transform: scale(1.05);
 }
 
 .footer-bottom p {
@@ -98,4 +95,10 @@ footer {
     color: #999;
     font-size: 14px;
     margin-top: 20px;
+}
+
+.footer-bottom a{
+    color: #666;
+    text-decoration: none;
+    
 }
