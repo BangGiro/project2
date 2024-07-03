@@ -5,7 +5,7 @@ import CustomDropdown from './components/customDropdown';
 
 const QnAPage = () => {
     // =================================================================================================
-    console.log('rendering QnAPage');
+
     
     // =================================================================================================
     // 데이터 불러오기 파트
@@ -50,6 +50,7 @@ const QnAPage = () => {
         const content = document.getElementById('QnA_textarea').value;
         const email = document.getElementById('QnA_email').value;
         const userEmail = localStorage.getItem('memberLoggedInData');
+        const date = new Date().toLocaleDateString();
 
         // Create a new QnA object
         const newQnA = {
@@ -57,7 +58,8 @@ const QnAPage = () => {
             category, //0번째는 유형 1번째는 상세구분
             title,
             content,
-            userEmail
+            userEmail,
+            date
         };
 
         // Update the state with the new QnA object

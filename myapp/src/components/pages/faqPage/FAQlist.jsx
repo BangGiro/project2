@@ -11,8 +11,6 @@ import FAQsearch from './FAQsearch.jsx';
 
 export default function FAQlist({isMini}){
 
-    console.log('FAQlist 렌더링');
-
 //==============================================================================
 //카테고리별 출력 제어함수(카테고리 선택박스)
 

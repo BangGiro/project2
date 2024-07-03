@@ -11,6 +11,7 @@
 
 .renderMyService{
     width: 50vw;
+    min-width: 800px;
     height: auto;
     min-height: 1rem;
     margin: auto;
@@ -108,17 +109,91 @@
 .SubscriptionPayment > div {
     width: 48%;
     height: 10rem;
+
     background-color: rgb(138, 138, 138);
+    color: white;
+
     border-radius: 1rem;
     padding: 1rem;
-}
 
+    display: flex;
+    flex-direction: column;
+}
 
 .CancelSubscription {
     width: 5rem;
     height: 2rem;
-    margin: auto; 
+    margin: auto;
 }
 
 
 
+
+/* ================================================================================== */
+/* 문의 내역 */
+
+
+.InquiryBox {
+    padding: 1rem;
+    width: 100%;
+    border: 1px solid #d8d8d8;
+    border-radius: 1rem;
+
+    margin: 5rem 0 5rem 0;
+}
+
+.InquiryTable {
+    display: grid;
+    grid-template-columns: .5fr 1fr 5fr 1fr;
+    align-items: center;
+    
+    /* padding-left: 1rem; */
+    background-color: #d8d8d8;
+    height: 3rem;
+}
+
+.InquiryTable > span {
+    height: 100%;
+    width: 100%;
+    line-height: 3rem;
+    border-right: 1px white solid;
+    text-align: center;
+}
+
+.Inquiry {
+    width: 100%;
+    height: 3.4rem;
+    margin: .5rem 0 .5rem 0;
+
+    border: 1px solid #8a8a8a;
+    border-radius: .5rem;
+
+    display: grid;
+    grid-template-columns: .3fr 1fr 5fr 1fr;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 1rem;
+}
+
+.Inquiry> span{
+    justify-self: center;
+}
+
+.Inquiry > p:nth-child(2) {
+    width: 7rem;
+    color: #000000;
+}
+
+.Inquiry > p:nth-child(3) {
+    font-weight: bold;
+}
+
+.noInquiry {
+    width: 100%;
+    height: 3rem;
+    line-height: 3rem;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #8a8a8a;
+}

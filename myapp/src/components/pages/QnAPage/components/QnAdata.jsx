@@ -68,7 +68,6 @@ const QnAdata = [
     }
 ];
 
-console.log(QnAdata);
 
 
 export default QnAdata;
