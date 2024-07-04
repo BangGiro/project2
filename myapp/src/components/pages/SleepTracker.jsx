@@ -24,37 +24,33 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [records, setRecords] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedRecord, setSelectedRecord] = useState(null);
+    const [currentRecords, setCurrentRecords] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalAnimation, setModalAnimation] = useState('');
     const [sleepQuality, setSleepQuality] = useState('');
+    const [sleepAdvice, setSleepAdvice] = useState('');
 
     useEffect(() => {
         if (loggedInEmail) {
-            const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`)) || [];
-            setRecords(savedRecords);
+            const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`));
+            if (savedRecords) {
+                setRecords(savedRecords);
+            }
         }
     }, [loggedInEmail]);
 
     useEffect(() => {
-        if (loggedInEmail) {
+        if (loggedInEmail && records.length > 0) {
             localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
         }
     }, [records, loggedInEmail]);
 
     useEffect(() => {
-        const record = records.find(record => new Date(record.date).toLocaleDateString() === selectedDate.toLocaleDateString());
-        setSelectedRecord(record);
-        if (record) {
-            setStartTime(record.startTime);
-            setEndTime(record.endTime);
-            setSleepDuration(record.sleepDuration);
-            setSleepQuality(record.sleepQuality || '');
+        const selectedDateData = records.find(record => record.date === selectedDate.toLocaleDateString());
+        if (selectedDateData) {
+            setCurrentRecords(selectedDateData);
         } else {
-            setStartTime('');
-            setEndTime('');
-            setSleepDuration(null);
-            setSleepQuality('');
+            setCurrentRecords([]);
         }
     }, [selectedDate, records]);
 
@@ -68,12 +64,13 @@ const SleepTracker = ({ loggedInEmail }) => {
         setTimeout(() => {
             setIsModalOpen(false);
             setModalAnimation('');
-            resetFormFields();
         }, 500);
+        setEditIndex(null); // 모달이 닫힐 때 editIndex 초기화
     };
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        setEditIndex(null); // 날짜가 변경될 때 editIndex 초기화
         openModal();
     };
 
@@ -118,6 +115,7 @@ const SleepTracker = ({ loggedInEmail }) => {
         setEndTime(record.endTime);
         setSleepDuration(record.sleepDuration);
         setSleepQuality(record.sleepQuality || '');
+        setSelectedDate(new Date(record.date)); // 선택된 날짜를 기록의 날짜로 설정
         setEditIndex(index);
         openModal();
     };
@@ -134,12 +132,11 @@ const SleepTracker = ({ loggedInEmail }) => {
 
         const date = new Date(selectedDate).toLocaleDateString();
         const newRecord = { date, startTime, endTime, sleepDuration: duration, sleepQuality };
-        const existingRecordIndex = records.findIndex(record => record.date === date);
         let updatedRecords;
 
-        if (existingRecordIndex !== -1) {
+        if (editIndex !== null) {
             updatedRecords = records.map((record, index) =>
-                index === existingRecordIndex ? newRecord : record
+                index === editIndex ? newRecord : record
             );
         } else {
             updatedRecords = [...records, newRecord];
@@ -149,7 +146,10 @@ const SleepTracker = ({ loggedInEmail }) => {
 
         setRecords(updatedRecords);
         setErrorMessage('');
+        setSleepDuration(duration);
+        setSleepAdvice(getSleepAdvice(duration)); // 수면 조언 업데이트
         alert('수면 데이터가 저장되었습니다.');
+        closeModal();
     };
 
     const getTileContent = ({ date, view }) => {
@@ -222,14 +222,6 @@ const SleepTracker = ({ loggedInEmail }) => {
         setSleepQuality(quality);
     };
 
-    const resetFormFields = () => {
-        setStartTime('');
-        setEndTime('');
-        setSleepDuration(null);
-        setSleepQuality('');
-        setErrorMessage('');
-    };
-
     return (
         <div className='SleepTrackerTrue'>
             <div className="sleepTracker">
@@ -293,7 +285,7 @@ const SleepTracker = ({ loggedInEmail }) => {
                         {sleepDuration !== null && (
                             <div className="sleepTrackerResult">
                                 <h2>수면 시간: {sleepDuration}h</h2>
-                                <p>{getSleepAdvice(sleepDuration)}</p>
+                                <p>{sleepAdvice}</p> {/* 수면 조언 표시 */}
                             </div>
                         )}
                         {errorMessage && (
