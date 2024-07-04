@@ -65,10 +65,12 @@ const SleepTracker = ({ loggedInEmail }) => {
             setIsModalOpen(false);
             setModalAnimation('');
         }, 500);
+        setEditIndex(null); // 모달이 닫힐 때 editIndex 초기화
     };
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        setEditIndex(null); // 날짜가 변경될 때 editIndex 초기화
         openModal();
     };
 
@@ -113,6 +115,7 @@ const SleepTracker = ({ loggedInEmail }) => {
         setEndTime(record.endTime);
         setSleepDuration(record.sleepDuration);
         setSleepQuality(record.sleepQuality || '');
+        setSelectedDate(new Date(record.date)); // 선택된 날짜를 기록의 날짜로 설정
         setEditIndex(index);
         openModal();
     };
@@ -129,12 +132,11 @@ const SleepTracker = ({ loggedInEmail }) => {
 
         const date = new Date(selectedDate).toLocaleDateString();
         const newRecord = { date, startTime, endTime, sleepDuration: duration, sleepQuality };
-        const existingRecordIndex = records.findIndex(record => record.date === date);
         let updatedRecords;
 
-        if (existingRecordIndex !== -1) {
+        if (editIndex !== null) {
             updatedRecords = records.map((record, index) =>
-                index === existingRecordIndex ? newRecord : record
+                index === editIndex ? newRecord : record
             );
         } else {
             updatedRecords = [...records, newRecord];
@@ -147,6 +149,7 @@ const SleepTracker = ({ loggedInEmail }) => {
         setSleepDuration(duration);
         setSleepAdvice(getSleepAdvice(duration)); // 수면 조언 업데이트
         alert('수면 데이터가 저장되었습니다.');
+        closeModal();
     };
 
     const getTileContent = ({ date, view }) => {
