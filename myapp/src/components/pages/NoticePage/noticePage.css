@@ -6,27 +6,52 @@
 /* ===================================================== */
 
 
+.notice_page > h1 {
+    height: 15rem;
+    line-height: 15rem;
+    text-indent: 20vw;
+    background-color: rgb(218, 231, 255);
+    position: relative;
+    overflow: hidden;
+}
+
+.notice_page img {
+    height: 100%;
+    position: absolute;
+
+    right: 25vw;
+    top: 10%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.noticesBox {
+    width: 60vw;
+    min-width: 800px;
+    margin: auto;
+}
+
 .notice_item {
     width: 100%;
     height: 3rem;
-    /* margin-top: -1px; */
 
     display: grid;
-    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-columns: 1.2fr 4.8fr 1fr;
     align-content: center;
     justify-items: center;
 
-    border: 1px solid black;
+    border-bottom: 1px solid rgb(153, 153, 153);
     box-sizing: border-box;
     user-select: none;
 
     cursor: pointer;
 }
 
-.notice_item > p {
+.notice_item > p,
+.notice_item > h3{
     justify-self: start;
     font-size: 1em;
-    font-weight: bold;
+    font-weight: lighter;
 }
 
 .notice_page {
@@ -36,10 +61,13 @@
 
     margin: auto;
     height: auto;
-    width: 1200px;
     box-sizing: border-box;
     background-color: rgb(255, 255, 255);
+
+    margin-bottom: 5rem;
 }
+
+
 
 .pagination {
     display: flex;
@@ -133,13 +161,15 @@
 /* 분류, 검색 */
 
 .notice_tabs {
-display: flex;    
-
+display: flex;
+flex-flow: column wrap;    
+height: 3rem;
+width: 100%;
 }
 
 .notice_tab {
     padding: .5rem;
-    width: 7rem;
+    height: 3rem;
     font-size: 1.2rem;
 
     box-sizing: border-box;

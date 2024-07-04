@@ -129,7 +129,9 @@ const QnAPage = () => {
 
     return (        
         <div className="QnA_page">
-            <h1>문의하기</h1>
+            <h1>문의하기
+                <img src="/image/unDrawSVG/undraw_personal_opinions.svg" alt="" />
+            </h1>
             <form className='QnA_form'>
                 <div className='QnA_inputs'>
                     <label className='QnA_label' htmlFor="QnA_name">이메일 주소</label>

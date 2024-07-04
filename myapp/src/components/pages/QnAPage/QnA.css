@@ -14,7 +14,7 @@
     
     margin: auto;
     height: 900px;
-    width: 1000px;
+
     box-sizing: border-box;
 
     background-color: rgb(255, 255, 255);
@@ -22,11 +22,27 @@
 
 .QnA_page > h1 {
     font-size: 2rem;
-    margin-bottom: 3rem;
+
+    height: 15rem;
+    line-height: 15rem;
+
+    text-indent: 22.5vw;
+
+    position: relative;
+    background-color: rgb(218, 231, 255);
+
+}
+
+.QnA_page img {
+    height: 100%;
+    position: absolute;
+    left: 60%;
 }
 
 .QnA_form {
-    width: 100%;
+    width: 55vw;
+    min-width: 600px;
+    margin: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
