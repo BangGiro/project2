@@ -52,7 +52,7 @@ const Home = () => {
       <section className="hero-section">
         <div className="hero-text">
           <h1>더 이상 쉬워지지 않습니다.<br/> 당신이 더 나아질 뿐입니다.</h1>
-          <button>모든 챌린지 보기</button>
+          <button><Link to="/ExerciseMain">모든 챌린지 보기</Link></button>
         </div>
         <img src="/image/home/background.webp" alt="Hero" className="hero-image" />
       </section>
@@ -66,7 +66,7 @@ const Home = () => {
                 <h3>챌린지 {i+1}기</h3>
                 <p>참가자 {i+5}명</p>
                 <p>무료</p>
-                <button>참여하기</button>
+                <Link to="/ExerciseMain"><button>참여하기</button></Link>
               </div>
             </div>
           ))}
@@ -83,7 +83,7 @@ const Home = () => {
                 <h3>챌린지 {i+4}기</h3>
                 <p>참가자 {i+4}명</p>
                 <p>유료</p>
-                <button>참여하기</button>
+                <Link to="/ExerciseMain"><button>참여하기</button></Link>
               </div>
             </div>
           ))}
