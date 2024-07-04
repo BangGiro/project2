@@ -249,6 +249,7 @@ const SleepTracker = ({ loggedInEmail }) => {
                     </div>
                 </div>
                 <Modal
+                    ariaHideApp={false}
                     isOpen={isModalOpen}
                     onRequestClose={closeModal}
                     contentLabel="수면 기록"
