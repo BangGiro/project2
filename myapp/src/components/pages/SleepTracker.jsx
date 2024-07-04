@@ -28,8 +28,8 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalAnimation, setModalAnimation] = useState('');
     const [sleepQuality, setSleepQuality] = useState('');
+    const [sleepAdvice, setSleepAdvice] = useState('');
 
-    // 로컬 스토리지에서 데이터를 불러오는 useEffect
     useEffect(() => {
         if (loggedInEmail) {
             const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`));
@@ -39,14 +39,12 @@ const SleepTracker = ({ loggedInEmail }) => {
         }
     }, [loggedInEmail]);
 
-    // 로컬 스토리지에 데이터를 저장하는 useEffect
     useEffect(() => {
         if (loggedInEmail && records.length > 0) {
             localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
         }
     }, [records, loggedInEmail]);
 
-    // 선택된 날짜의 기록을 설정하는 useEffect
     useEffect(() => {
         const selectedDateData = records.find(record => record.date === selectedDate.toLocaleDateString());
         if (selectedDateData) {
@@ -146,6 +144,9 @@ const SleepTracker = ({ loggedInEmail }) => {
 
         setRecords(updatedRecords);
         setErrorMessage('');
+        setSleepDuration(duration);
+        setSleepAdvice(getSleepAdvice(duration)); // 수면 조언 업데이트
+        alert('수면 데이터가 저장되었습니다.');
     };
 
     const getTileContent = ({ date, view }) => {
@@ -281,7 +282,7 @@ const SleepTracker = ({ loggedInEmail }) => {
                         {sleepDuration !== null && (
                             <div className="sleepTrackerResult">
                                 <h2>수면 시간: {sleepDuration}h</h2>
-                                <p>{getSleepAdvice(sleepDuration)}</p>
+                                <p>{sleepAdvice}</p> {/* 수면 조언 표시 */}
                             </div>
                         )}
                         {errorMessage && (
