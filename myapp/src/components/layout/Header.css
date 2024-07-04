@@ -48,7 +48,7 @@
         position: relative;
         list-style: none;
         padding: 10px 0px;
-        font-size: 1vw;
+        font-size: 16px;
         color: #000;
         width: 7vw;
         text-align: center;
@@ -71,7 +71,7 @@
     }
 
     .navbar .submenu li {
-        font-size: 1vw;
+        font-size: 16px;
         color: #000;
     }
 
@@ -167,7 +167,7 @@
         }
 
         .navbar .menu li {
-            font-size: 2vw;
+            font-size: 20px;
             width: auto;
         }
 
@@ -203,7 +203,7 @@
         }
 
         .navbar .menu li {
-            font-size: 4vw;
+            font-size: 22px;
             width: auto;
         }
 
@@ -214,7 +214,7 @@
         }
 
         .navbar .submenu li {
-            font-size: 3vw;
+            font-size: 16px;
         }
 
         .login_btn {

@@ -493,16 +493,12 @@
     width: 6vw;
   }
 
-  .navbar .menu li {
-    font-size: 1.5vw;
-  }
 
   /* 요소가 영역을 벗어나지 않도록 조정 */
   .hero-text h1,
   .hero-text button,
   .floating-button,
-  .floating-options button,
-  .navbar .menu li {
+  .floating-options button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -568,16 +564,12 @@
     width: 8vw;
   }
 
-  .navbar .menu li {
-    font-size: 3vw;
-  }
 
   /* 요소가 영역을 벗어나지 않도록 조정 */
   .hero-text h1,
   .hero-text button,
   .floating-button,
-  .floating-options button,
-  .navbar .menu li {
+  .floating-options button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -625,16 +617,12 @@
     width: 10vw;
   }
 
-  .navbar .menu li {
-    font-size: 4vw;
-  }
 
   /* 요소가 영역을 벗어나지 않도록 조정 */
   .hero-text h1,
   .hero-text button,
   .floating-button,
-  .floating-options button,
-  .navbar .menu li {
+  .floating-options button {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
