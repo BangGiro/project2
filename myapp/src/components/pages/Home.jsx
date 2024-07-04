@@ -76,7 +76,7 @@ const Home = () => {
       <section className="more-challenges">
         <h2>더 많은 챌린지</h2>
         <div className="challenges visible">
-          {[...Array(10)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <div className="challenge-card" key={i+4}>
               <img src={`/image/home/${i+4}.jpg`} alt={`Challenge ${i+4}`} />
               <div className="challenge-info">
