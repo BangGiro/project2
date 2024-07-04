@@ -12,6 +12,14 @@ const NoticePage = ({isMini}) => {
     const indexOfFirstNotice = indexOfLastNotice - noticesPerPage;
     let currentNotices = notices.slice(indexOfFirstNotice, indexOfLastNotice);
     //================================================================================================= 
+    // const updateNotices = () => {
+    //     notices.map(notice => {
+    //       if (notice.category === '업데이트') { // 조건에 맞는 경우
+    //         return { ...notice, color: 'red' }; // color 속성 추가/수정
+    //     }
+    //         return notice;
+    //     });
+    // };
 
 
     // =================================================================================================    
@@ -25,15 +33,21 @@ const NoticePage = ({isMini}) => {
 
     // 공지사항 클릭 시 해당 공지사항의 ID를 NoticeView로 전달
     const sendData = (e) => {
-        let closest = e.target.closest('.notice_item');
-        if (closest) {
-            setNoticeID(closest.getAttribute('data-notice-id'));
-        } 
-        window.scrollTo(0,0);
+        setTimeout(() => {
+        
+            let closest = e.target.closest('.notice_item');
+            if (closest) {
+                setNoticeID(closest.getAttribute('data-notice-id'));
+            } 
+            window.scrollTo(0,0);
+    
+
+        }, 200); 
+            
+            
     }
 
     //탭 클릭시 카테고리 변경
-    // let previousCategory = true;
     const previousCategory = useRef(null);
 
     
@@ -68,12 +82,16 @@ const NoticePage = ({isMini}) => {
         setCurrentPage(1); // 카테고리가 변경될 때마다 첫 페이지로 리셋
     }, [category]);
 
+    //=================================================================================================
+    // 공지사항 리스트
+    let ctg = useRef(null);
+
     function NoticeList() {
         let CheckedCurrentNotices = currentList.filter(notice => notice.title.includes(searchText));
 
         if(CheckedCurrentNotices.length > 0) {
             if (category === '전체') {
-                    return currentNotices.filter(notice => notice.title.includes(searchText)).map((notice) => (
+                    return currentNotices.filter(notice => notice.title.includes(searchText)).reverse().map((notice) => (
                         <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
                             <span>{notice.category}</span>
                             <p>{notice.title}</p>
@@ -82,7 +100,7 @@ const NoticePage = ({isMini}) => {
             ))} else {
                 currentNotices = notices.filter(notice => notice.category === category ).slice(indexOfFirstNotice, indexOfLastNotice);
                 
-                return currentNotices.filter(notice => notice.title.includes(searchText)).map((notice) => (
+                return currentNotices.filter(notice => notice.title.includes(searchText)).reverse().map((notice) => (
                     <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
                         <span>{notice.category}</span>
                         <h3>{notice.title}</h3>
@@ -126,29 +144,33 @@ const NoticePage = ({isMini}) => {
     //기본스타일
         return (
             <div className="notice_page">
-                <h1>공지사항</h1>
+                <h1>공지사항
+                    <img src="/image/unDrawSVG/undraw_online_information.svg" alt="" />
+                </h1>
                 {/* 공지 뷰어 */}
-                <NoticeView noticeID={noticeID} setNoticeID={setNoticeID}/>
-                {/* 카테고리 탭 */}
-                <div className="notice_tabs" onClick={tabs}>
-                    <button className="notice_tab">전체</button>
-                    <button className="notice_tab">업데이트</button>
-                    <button className="notice_tab">점검</button>
-                    <button className="notice_tab">이벤트</button>
-                    <button className="notice_tab">일반</button>
-                </div>
-                {/* 리스트 */}
-                <NoticeList/>
-                {/* 검색 */}
-                <SearchBar detectSearch={detectSearch} upDate={category}/>    
-                {/* 페이지 네이션 */}
-                <div className="pagination">
-                    {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
-                        <button key={index} onClick={() => paginate(index + 1)}>
-                            {index + 1}
-                        </button> 
-                    ))}
-                </div>
+                <section className="noticesBox">
+                    <NoticeView noticeID={noticeID} setNoticeID={setNoticeID}/>
+                    {/* 카테고리 탭 */}
+                    <div className="notice_tabs">
+                        <button className="notice_tab" onClick={tabs}>전체</button>
+                        <button className="notice_tab" onClick={tabs}>업데이트</button>
+                        <button className="notice_tab" onClick={tabs}>점검</button>
+                        <button className="notice_tab" onClick={tabs}>이벤트</button>
+                        <button className="notice_tab" onClick={tabs}>일반</button>
+                    </div>
+                    {/* 리스트 */}
+                    <NoticeList/>
+                    {/* 검색 */}
+                    <SearchBar detectSearch={detectSearch} upDate={category}/>    
+                    {/* 페이지 네이션 */}
+                    <div className="pagination">
+                        {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
+                            <button key={index} onClick={() => paginate(index + 1)}>
+                                {index + 1}
+                            </button> 
+                        ))}
+                    </div>
+                </section>
             </div>
         );
     }

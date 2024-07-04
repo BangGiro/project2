@@ -35,7 +35,7 @@
 
 .FAQtitle {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 1rem);
     margin-left: 17.5vw;
 }
 
