@@ -19,7 +19,6 @@ export default function FAQlist({isMini}){
 
     function categoryOut(e) {
         setCategory(e.target.value);
-        console.log(category);
     }
 
 //==============================================================================    
@@ -145,7 +144,6 @@ function openList(e){
     let FAQlistICON = content[0].children[2];
     const InnerHeight = answer.scrollHeight
 
-    console.log('render됨')
 
     //이전요소 찾아서 닫기
     if (FAQctn != FAQlastClick && FAQlastClick != true) {

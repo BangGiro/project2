@@ -106,9 +106,9 @@
     margin: auto;
 
     background-color: white;
-    
-    border: 1px solid;
-    
+
+    border-bottom: 1px solid rgb(153, 153, 153);
+
     overflow: hidden;
     transition: height .5s;
 }
@@ -118,7 +118,6 @@
     width: 100%;
     display: flex;
 }
-
 
 .FAQlist_category {
     width: 20%;
