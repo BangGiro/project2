@@ -6,7 +6,6 @@ const NoticeView = ({noticeID , isMini , setNoticeID}) => {
     const [currentNotice, setCurrentNotice] = useState(null);
     useEffect(() => {
         setCurrentNotice(notices.find(notice => notice.id === +noticeID));
-        console.log(`currentNotice=${currentNotice}`);
     }, [noticeID]); // noticeID가 변경될 때만 실행
 
     if (currentNotice) {

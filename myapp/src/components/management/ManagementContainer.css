@@ -6,17 +6,25 @@
 }
 
 .manacategory {
-    width: 20%; /* 필요에 따라 너비 조정 */
+    flex: 2; /* 카테고리 컨테이너의 너비를 2로 설정 */
     background-color: #f4f4f4; /* 카테고리 배경색을 연한 회색으로 설정 */
     border-right: 1px solid #ddd; /* 카테고리와 메인 콘텐츠를 구분하는 오른쪽 테두리 */
     padding: 20px; /* 더 나은 여백을 위한 패딩 추가 */
     box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+    min-width: 200px;
 }
 
 .maco {
-    width: 80%; /* 필요에 따라 너비 조정 */
+    min-width: 650px;
+    flex: 8;
     padding: 20px; /* 더 나은 여백을 위한 패딩 추가 */
     overflow-y: auto; /* 콘텐츠가 넘칠 경우 수직 스크롤 추가 */
     box-sizing: border-box; /* 패딩이 너비에 영향을 주지 않도록 설정 */
+}
+
+@media (max-width: 768px) {
+    .manacategory {
+        display: none; /* 너비가 768px 이하일 때 카테고리 컨테이너 숨기기 */
+    }
 }
 

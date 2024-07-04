@@ -5,7 +5,6 @@ const SearchBar = ({detectSearch , upDate}) => {
     
     const [searchText , setSearchText] = useState('');
     useEffect(()=> {
-        console.log('upDate changed:', upDate); // upDate 값 변경 확인
         setSearchText('');
     }, [upDate]);
 
@@ -15,7 +14,6 @@ const SearchBar = ({detectSearch , upDate}) => {
 
     function setValue( e ) {
         if(e.key == 'Enter' ) {
-            console.log(searchText);
             sessionStorage.setItem( 'searchedValue' , JSON.stringify(searchText) );
             detectSearch(searchText);
         }
