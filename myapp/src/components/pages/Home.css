@@ -14,7 +14,6 @@
   overflow-x: hidden;
   background: linear-gradient(#00123F, #3C4E7C);
   font-weight: bold;
-
 }
 
 .hero-section {
@@ -36,10 +35,10 @@
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
-.hero-image{
+.hero-image {
   width: 100%;
-  margin-top: 45vh;
-  
+  height: 150vh;
+  margin-top: 30vh;
 }
 
 .hero-text h1 {
@@ -75,10 +74,9 @@
 }
 
 /* 챌린지 섹션 스타일 */
-.training-club{
+.training-club {
   position: absolute;
-  top:95%;
-  left: -20%;
+  top: 85%;
 }
 
 .training-club,
@@ -88,14 +86,13 @@
   text-align: center;
   opacity: 0;
   transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-  width: 100%;
 }
 
 .training-club h2,
 .more-challenges h2,
 .customer-reviews h2,
 .new-section h2,
-.pricing-plans h2{
+.pricing-plans h2 {
   font-size: 2.5rem;
   margin-bottom: 90px;
   color: white;
@@ -188,27 +185,27 @@
   }
 }
 
-.more-challenges{
+.more-challenges {
   margin-top: 90vh;
-
 }
 
 .fade-in {
   animation: fadeIn 1.5s ease-out forwards;
 }
-.customer-reviews .reviews-grid{
-  place-items: center;
 
+.customer-reviews .reviews-grid {
+  place-items: center;
 }
-.customer-reviews{
+
+.customer-reviews {
   margin-top: 90vh;
 }
+
 /* 새로운 섹션 스타일 */
 .new-section {
   border-radius: 15px;
- text-align: center;
+  text-align: center;
   margin: auto;
-
 }
 
 .new-section .review-card {
@@ -314,6 +311,7 @@
   gap: 3px;
   margin-bottom: 40vh;
 }
+
 .reviews-grid .review-card {
   padding: 20px;
   border-radius: 10px;
@@ -328,8 +326,6 @@
 .reviews-grid .review-card:hover {
   transform: scale(1.1);
 }
-
-
 
 .reviews-grid .review-card i {
   font-size: 2rem;
@@ -347,12 +343,11 @@
   margin: 0;
 }
 
-.new-section .reviews-grid{
+.new-section .reviews-grid {
   place-items: center;
-
 }
 
-.new-section .review-card{
+.new-section .review-card {
   height: 450px;
 }
 
@@ -470,4 +465,178 @@
   background-color: #007bff;
   color: white;
   border: none;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1024px) {
+  .hero-text h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-text button {
+    font-size: 1.1rem;
+    padding: 9px 18px;
+  }
+
+  .floating-button {
+    width: 70px;
+    height: 70px;
+    font-size: 35px;
+    line-height: 70px;
+  }
+
+  .floating-options button {
+    font-size: 45px;
+  }
+
+  .login_btn video {
+    width: 6vw;
+  }
+
+  .navbar .menu li {
+    font-size: 1.5vw;
+  }
+
+  /* 요소가 영역을 벗어나지 않도록 조정 */
+  .hero-text h1,
+  .hero-text button,
+  .floating-button,
+  .floating-options button,
+  .navbar .menu li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .challenge-card,
+  .review-card,
+  .new-section .review-card,
+  .plan-card {
+    width: 250px;
+  }
+
+  .new-section .review-card {
+    height: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text button {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+
+  .challenge-card,
+  .review-card,
+  .plan-card {
+    width: 200px;
+  }
+
+  .new-section .review-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .training-club,
+  .more-challenges,
+  .customer-reviews,
+  .new-section {
+    padding: 40px 10px;
+  }
+
+  .floating-button {
+    width: 80px;
+    height: 80px;
+    font-size: 40px;
+    line-height: 80px;
+  }
+
+  .floating-options button {
+    font-size: 50px;
+  }
+
+  .login_btn {
+    top: 2vh;
+    right: 2vw;
+  }
+
+  .login_btn video {
+    width: 8vw;
+  }
+
+  .navbar .menu li {
+    font-size: 3vw;
+  }
+
+  /* 요소가 영역을 벗어나지 않도록 조정 */
+  .hero-text h1,
+  .hero-text button,
+  .floating-button,
+  .floating-options button,
+  .navbar .menu li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.5rem;
+  }
+
+  .hero-text button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .challenge-card,
+  .review-card,
+  .plan-card {
+    width: 150px;
+  }
+
+  .new-section .review-card {
+    width: 100%;
+    height: auto;
+  }
+
+  .floating-button {
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    line-height: 60px;
+  }
+
+  .floating-options button {
+    font-size: 35px;
+  }
+
+  .login_btn {
+    top: 2vh;
+    right: 2vw;
+  }
+
+  .login_btn video {
+    width: 10vw;
+  }
+
+  .navbar .menu li {
+    font-size: 4vw;
+  }
+
+  /* 요소가 영역을 벗어나지 않도록 조정 */
+  .hero-text h1,
+  .hero-text button,
+  .floating-button,
+  .floating-options button,
+  .navbar .menu li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

@@ -1,18 +1,17 @@
-.ExerciseMainTrue{
-    h1{
+.ExerciseMainTrue {
+    h1 {
         padding-top: 5vh;
         padding-bottom: 5vh;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-
     }
-    hr{
+    hr {
         width: 90%;
         background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
         height: 1.5px;
         margin-left: 5%;
-        border : none;
+        border: none;
     }
-    .every{
+    .every {
         display: flex;
         justify-content: center;
         font-weight: bold;
@@ -22,8 +21,8 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        width:70vw;
-        justify-content:space-evenly;
+        width: 70vw;
+        justify-content: space-evenly;
         margin-top: 5vh;
         margin-bottom: 5vh;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -36,7 +35,7 @@
         flex-direction: row;
         margin-top: 5vh;
         margin-bottom: 5vh;
-        justify-content:space-evenly;
+        justify-content: space-evenly;
     }
     /* Header */
     .header {
@@ -45,7 +44,6 @@
         text-align: center;
         border-radius: 10px 10px 0 0;
     }
-
     /* Daily Activity */
     .dailyActivity {
         display: flex;
@@ -55,7 +53,6 @@
         gap: 10px;
         justify-content: center;
     }
-
     .dailyActivity button {
         border: none;
         padding: 15px 30px;
@@ -63,17 +60,13 @@
         cursor: pointer;
         transition: 0.3s;
     }
-
     .dailyActivity button:hover {
         transform: translateY(-2px);
     }
-
     .dailyActivity > p {
         font-size: 20px;
         font-weight: bold;
-        
     }
-
     /* Weekly Stats */
     .weeklyStats {
         width: 30vw;
@@ -81,9 +74,7 @@
         display: flex;
         justify-content: center;
         border-radius: 10px;
-
     }
-
     h2 {
         padding-top: 5vh;
         padding-bottom: 5vh;
@@ -91,16 +82,13 @@
         justify-content: center;
         border-radius: 10px;
     }
-
     .statsBars {
         width: 100%;
         display: flex;
         justify-content: center;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 10px ;
-        
+        border-radius: 10px;
     }
-
     .statsBars .day {
         width: 30vw;
         height: 8vh;
@@ -109,26 +97,21 @@
         border-radius: 10px 10px 0 0;
         font-size: 20px;
         font-weight: bold;
-        
     }
-
     .weeks {
         width: 100%;
         transition: 0.5s;
         border-radius: 10px;
     }
-
-    .weeks input{
+    .weeks input {
         width: 80%;
     }
-
     .weeks p {
         padding-top: 10px;
         padding-bottom: 10px;
     }
-
     /* Buttons */
-    button:not(.react-calendar button){
+    button:not(.react-calendar button) {
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -136,14 +119,13 @@
         font-weight: bold;
         background-color: white;
     }
-
     .delete {
         margin-top: 10px;
         padding: 0px;
         color: red;
         transition: 0.5;
     }
-    .save{
+    .save {
         color: blue;
         border: 1px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -154,52 +136,40 @@
         border: 1px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
-    .clear{
+    .clear {
         color: blue;
         border: 1px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
     }
-    
     .redBtn {
         border: 1px;
         color: red;
         padding: 0px;
-        margin-right:7.5px;
-        margin-left:7.5px;
-
-        }
-    
-
+        margin-right: 7.5px;
+        margin-left: 7.5px;
+    }
     .blueBtn {
         border: 1px;
         padding: 0px;
-        margin-right:7.5px;
-        margin-left:7.5px;
-        color:blue
+        margin-right: 7.5px;
+        margin-left: 7.5px;
+        color: blue;
     }
-    
     .blueBtn:hover {
         transform: translateY(-2px);
     }
-
     .add:hover {
         transform: translateY(-2px);
     }
-
     .fa-solid {
         font-size: 40px;
     }
-
     .redBtn:hover {
         transform: translateY(-2px);
     }
-
     .delete:hover {
         transform: translateY(-2px);
     }
-
     .rowBox {
         display: flex;
         flex-direction: row;
@@ -218,7 +188,6 @@
         justify-content: center;
         align-items: center;
     }
-
     .modalContent {
         padding: 20px;
         background-color: white;
@@ -235,7 +204,6 @@
         outline-offset: -20px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
-
     /* Exercise List */
     .exerciseList {
         display: flex;
@@ -244,7 +212,6 @@
         gap: 15px;
         overflow-y: scroll;
     }
-
     .exerciseItem {
         position: relative;
         margin: 10px;
@@ -253,20 +220,17 @@
         flex: 1 1 100px;
         max-width: 150px;
     }
-
     .exerciseItem img {
         width: 70%;
         height: 70%;
         object-fit: 100%;
         border-radius: 5px;
     }
-
     .exerciseItem p {
         margin-top: 5px;
         font-size: 14px;
         font-weight: bold;
     }
-
     .checkMark {
         position: absolute;
         top: 5px;
@@ -275,12 +239,10 @@
         color: blue;
         font-weight: bold;
     }
-
     .weeks .buttons {
         display: flex;
         justify-content: space-between;
     }
-
     /* Category List */
     .categoryList {
         display: flex;
@@ -290,9 +252,7 @@
         margin-bottom: 2vh;
         margin-top: 2vh;
     }
-
     .categoryItem {
-
         border: none;
         width: 100px;
         height: 70px;
@@ -302,47 +262,40 @@
         font-size: 16px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-
     .categoryItem:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        
     }
-
     /* Exercise Entry */
     .exerciseEntry {
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 1vh;
-        padding:20px
+        padding: 20px;
     }
-
     .exerciseImage {
         width: 15%;
         height: 80px;
         object-fit: 100%;
         border-radius: 5px;
-        margin-left: 10PX;
+        margin-left: 10px;
         margin-right: 10px;
         margin-top: 1vh;
         margin-bottom: 2vh;
     }
-    .exerciseItem img{
+    .exerciseItem img {
         transition: 0.5s;
     }
-    .exerciseItem img:hover{
-        text-shadow:  0 10px 20px rgba(0, 0, 0, 0.2);
+    .exerciseItem img:hover {
+        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         transform: translateY(-2px);
     }
-
     .exerciseEntry p {
         width: 170px;
         font-size: 14px;
         font-weight: bold;
-        margin-right: 5px;
     }
-
     /* Search Input */
     .searchInput {
         width: 80%;
@@ -351,43 +304,36 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
-
-
-
-    /*캘린더*/
-
+    /* 캘린더 */
     .react-calendar {
         width: 30vw;
         height: 50vh;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border:none;
-        
+        border: none;
     }
-
     .dot {
-        position:relative;
+        position: relative;
         height: 8px;
         width: 8px;
-        background-color:rgb(7, 209, 7);
+        background-color: rgb(7, 209, 7);
         border-radius: 50%;
         display: inline-block;
         left: 7px;
-      }
-      
+    }
     .react-calendar__navigation {
         align-items: center;
         padding: 30px;
         border-radius: 10px 10px 0 0;
     }
-
     .react-calendar__navigation__label {
         font-size: 20px;
         font-weight: bold;
     }
-    
     /* 인풋 */
-    .repsInput, .setsInput, .weightInput{
+    .repsInput,
+    .setsInput,
+    .weightInput {
         width: 70px;
         height: 30px;
         padding: 5px;
@@ -396,10 +342,99 @@
         border-radius: 5px;
         font-size: 10.5px;
     }
-
-    ExerciseMain label{
+    ExerciseMain label {
         left: 0;
         bottom: 0;
         position: absolute;
+    }
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1024px) {
+    .ExerciseMainTrue h1,
+    .ExerciseMainTrue .every,
+    .ExerciseMainTrue .dailyActivity > p,
+    .ExerciseMainTrue h2,
+    .ExerciseMainTrue .statsBars .day,
+    .ExerciseMainTrue .weeks p,
+    .ExerciseMainTrue button:not(.react-calendar button),
+    .ExerciseMainTrue .categoryItem,
+    .ExerciseMainTrue .exerciseEntry p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ExerciseMainTrue h1 {
+        font-size: 2.5rem;
+    }
+    .ExerciseMainTrue .exerciseMainBody {
+        width: 80vw;
+    }
+    .ExerciseMainTrue .weeklyStats {
+        width: 40vw;
+    }
+    .ExerciseMainTrue .statsBars .day {
+        width: 25vw;
+        font-size: 1rem;
+    }
+    .ExerciseMainTrue .repsInput,
+    .ExerciseMainTrue .setsInput,
+    .ExerciseMainTrue .weightInput {
+        width: 60px;
+        height: 25px;
+        font-size: 9px;
+    }
+    .react-calendar {
+        width: 35vw;
+        height: 45vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .ExerciseMainTrue h1,
+    .ExerciseMainTrue .every,
+    .ExerciseMainTrue .dailyActivity > p,
+    .ExerciseMainTrue h2,
+    .ExerciseMainTrue .statsBars .day,
+    .ExerciseMainTrue .weeks p,
+    .ExerciseMainTrue button:not(.react-calendar button),
+    .ExerciseMainTrue .categoryItem,
+    .ExerciseMainTrue .exerciseEntry p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .ExerciseMainTrue h1 {
+        font-size: 2rem;
+    }
+    .ExerciseMainTrue .exerciseMainBody {
+        width: 90vw;
+    }
+    .ExerciseMainTrue .weeklyStats {
+        width: 50vw;
+        overflow: hidden;
+
+    }
+    .ExerciseMainTrue .statsBars .day {
+        width: 30vw;
+        font-size: 0.8rem;
+    }
+    .ExerciseMainTrue .repsInput,
+    .ExerciseMainTrue .setsInput,
+    .ExerciseMainTrue .weightInput {
+        width: 50px;
+        height: 20px;
+        font-size: 8px;
+    }
+    .react-calendar {
+        width: 40vw;
+        height: 40vh;
+        overflow: hidden;
+    }
+    .ExerciseMainTrue .exerciseImage {
+        width: 20%;
+        height: 60px;
     }
 }

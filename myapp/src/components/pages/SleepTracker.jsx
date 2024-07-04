@@ -32,14 +32,12 @@ const SleepTracker = ({ loggedInEmail }) => {
     useEffect(() => {
         if (loggedInEmail) {
             const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`)) || [];
-            console.log('Loaded records from local storage:', savedRecords);
             setRecords(savedRecords);
         }
     }, [loggedInEmail]);
 
     useEffect(() => {
         if (loggedInEmail) {
-            console.log('Saving records to local storage:', records);
             localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
         }
     }, [records, loggedInEmail]);
