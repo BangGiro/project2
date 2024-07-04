@@ -25,6 +25,7 @@ import Report from './components/pages/footerPages/Report';
 import Announcement from './components/pages/footerPages/Announcement';
 import CyberAuditOffice from './components/pages/footerPages/CyberAuditOffice';
 import ContactUs from './components/pages/footerPages/ContactUs';
+import MyPage from './components/pages/MyPage/MyPage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -75,6 +76,7 @@ function App() {
           <Route path="/announcement" element={<Announcement/>} />
           <Route path="/cyberAuditOffice" element={<CyberAuditOffice/>} />
           <Route path="/contactUs" element={<ContactUs/>} />
+          <Route path="/myPage" element={<MyPage />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

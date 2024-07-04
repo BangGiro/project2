@@ -13,12 +13,26 @@ const MyPage = () => {
 //=================================================================================================
 // 이벤트 핸들러
 
+const[tabs , setTabs] = useState('기본 정보');
 // 탭 전환
     function ChangeMyService(e) {
         let eventTarget = e.target.closest('div');
-        let tabs = eventTarget.innerText;
+        setTabs(eventTarget.innerText);
     }
-    
+
+    function renderMyService() {
+        if(tabs === '기본 정보') {
+            return <MyInfo/>
+        } else if(tabs === '구독 정보') {
+            return <MySubscribe/>
+        } else if(tabs === '문의 내역') {
+            return <MyInquiry/>
+        } else if(tabs === '결제 내역') {
+            return <p> 서비스 준비중입니다 </p>
+        } else if(tabs === '회원탈퇴') {
+            return <p> 서비스 준비중입니다 </p>
+        }
+    }     
 //=================================================================================================
 // 렌더링 파트
     return (
@@ -29,14 +43,11 @@ const MyPage = () => {
                     <div onClick={ChangeMyService}>기본 정보</div>
                     <div onClick={ChangeMyService}>구독 정보</div>
                     <div onClick={ChangeMyService}>문의 내역</div>
-                    <div onClick={ChangeMyService}>결제 내역</div>
-                    <div onClick={ChangeMyService}>회원탈퇴</div>
+                    <div onClick={ChangeMyService}>보안</div>
                 </section>
 
                 <div className="renderMyService">
-                    <MyInfo/>
-                    <MySubscribe/>
-                    <MyInquiry/>
+                    {renderMyService()}
                 </div>
 
             </div>

@@ -9,7 +9,7 @@ export default function MySubscription() {
                 </h2>
 
                 <div className="CurrentSubscription">
-                    <p> 트레이너 (개인용)</p>
+                    <img src="/image/unDrawSVG/undraw_personal_trainer_re_cnua.svg" alt="" />
                 </div>
 
                 <div>
@@ -23,7 +23,7 @@ export default function MySubscription() {
                         <p>12,000원</p>
                     </div>
                     <div >
-                        <span>결제 방법</span>
+                        <span>정기 결제 수단</span>
                         <p>카드 결제</p>
                     </div>
                 </div>

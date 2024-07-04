@@ -21,7 +21,7 @@ export default function MyInquiry() {
             return inquiryList.map((inquiry, index) => {
                 return (
                     <div key={index} className="Inquiry">
-                            <span>{index + 1}</span>
+                            <p>{index + 1}</p>
 
                             <p>{inquiry.category.category}</p>
 
