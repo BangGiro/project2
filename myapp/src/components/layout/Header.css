@@ -140,3 +140,90 @@
     color: blue; /* 현재 페이지를 나타내는 스타일 */
     font-weight: bold;
 }
+
+
+/* 기본 스타일 */
+
+/* 데스크탑 */
+@media (min-width: 1025px) {
+}
+
+/* 태블릿 */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .Header {
+        .navbar {
+            height: auto;
+            padding: 10px;
+        }
+
+        .logo img {
+            width: 10vh;
+            margin-right: 0;
+            margin-left: 2vw;
+        }
+
+        .navbar .menu {
+            gap: 2vw;
+        }
+
+        .navbar .menu li {
+            font-size: 2vw;
+            width: auto;
+        }
+
+        .login_btn {
+            top: 2vh;
+            right: 2vw;
+        }
+
+        .login_btn video {
+            width: 6vw;
+        }
+    }
+}
+
+/* 모바일 */
+@media (max-width: 767px) {
+    .Header {
+        .navbar {
+            height: auto;
+            padding: 10px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .logo img {
+            width: 8vh;
+            margin-right: 0;
+            margin-left: 2vw;
+        }
+
+        .navbar .menu {
+            gap: 2vw;
+        }
+
+        .navbar .menu li {
+            font-size: 4vw;
+            width: auto;
+        }
+
+        .navbar .submenu {
+            position: absolute;
+            top: 100%;
+            padding: 5px 0;
+        }
+
+        .navbar .submenu li {
+            font-size: 3vw;
+        }
+
+        .login_btn {
+            top: 2vh;
+            right: 2vw;
+        }
+
+        .login_btn video {
+            width: 8vw;
+        }
+    }
+}

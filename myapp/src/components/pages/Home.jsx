@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
@@ -173,7 +173,7 @@ const Home = () => {
       </section>
 
       <section className="pricing-plans">
-        <h2>무제한</h2>
+        <h2>구독 결제하기</h2>
         <div className="toggle-switch">
           <button className={`toggle-button ${paymentPlan === 'annual' ? 'active' : ''}`} onClick={() => handleTogglePlan('annual')}>연간결제</button>
           <button className={`toggle-button ${paymentPlan === 'monthly' ? 'active' : ''}`} onClick={() => handleTogglePlan('monthly')}>월간결제</button>
@@ -232,7 +232,7 @@ const Home = () => {
             </ul>
           </div>
         </div>
-        <button className="download-button">무료 체험하기</button>
+        <button className="download-button"><Link to="/Management">무료 체험하기</Link></button>
       </section>
 
       <div className={`floating-container ${isExpanded ? 'expanded' : ''}`}>

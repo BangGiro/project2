@@ -1,7 +1,9 @@
 import React from 'react';
 import './Footer.css';
 import { Link } from 'react-router-dom';
-
+const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 function Footer() {
     return (
         <footer>
@@ -58,15 +60,15 @@ function Footer() {
                 </div>
                 <div className="footer-bottom">
                     <ul>
-                        <li><Link to="/privacyPolicy">개인정보처리방침</Link></li>
-                        <li><Link to="/termsOfService">이용약관</Link></li>
-                        <li><Link to="/previousTerms">이전약관</Link></li>
-                        <li><Link to="/youthProtectionPolicy">청소년보호정책</Link></li>
-                        <li><Link to="/brandProtectionPolicy">브랜드보호정책</Link></li>
-                        <li><Link to="/report">권리침해신고안내</Link></li>
-                        <li><Link to="/announcement">공지사항</Link></li>
-                        <li><Link to="/cyberAuditOffice">사이버윤리실</Link></li>
-                        <li><Link to="/contactUs">Contact Us</Link></li>
+                        <li onClick={scrollToTop}><Link to="/privacyPolicy">개인정보처리방침</Link></li>
+                        <li onClick={scrollToTop}><Link to="/termsOfService">이용약관</Link></li>
+                        <li onClick={scrollToTop}><Link to="/previousTerms">이전약관</Link></li>
+                        <li onClick={scrollToTop}><Link to="/youthProtectionPolicy">청소년보호정책</Link></li>
+                        <li onClick={scrollToTop}><Link to="/brandProtectionPolicy">브랜드보호정책</Link></li>
+                        <li onClick={scrollToTop}><Link to="/report">권리침해신고안내</Link></li>
+                        <li onClick={scrollToTop}><Link to="/announcement">공지사항</Link></li>
+                        <li onClick={scrollToTop}><Link to="/cyberAuditOffice">사이버윤리실</Link></li>
+                        <li onClick={scrollToTop}><Link to="/contactUs">Contact Us</Link></li>
                     </ul>
                     <p>&copy; 올인원 피트니스. All rights reserved.</p>
                 </div>

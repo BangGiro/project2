@@ -1,16 +1,15 @@
-
-.dietPlannerTrue{
-    .dietPlanner{
+.dietPlannerTrue {
+    .dietPlanner {
         height: 70vh;
         display: flex;
         justify-content: center;
         align-items: center;
     }
-    button{
+    button {
         transition: 0.3s;
         background-color: white;
     }
-    .mainBody{
+    .mainBody {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -19,18 +18,19 @@
         border-radius: 10px;
         padding: 20px;
     }
-    .mainBody h2{
-    width: 100%;
-    height: 10vh;
-    align-items: center;
-    }
-    .mainBody hr{
+    .mainBody h2 {
         width: 100%;
-        background: linear-gradient(to left, rgb(25, 128, 246),skyblue );
+        height: 10vh;
+        align-items: center;
+    }
+    .mainBody hr {
+        width: 100%;
+        background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
         height: 1.5px;
         border: none;
     }
-    .maleButton, .femaleButton {
+    .maleButton,
+    .femaleButton {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -46,27 +46,25 @@
         opacity: 0.5;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
-        
     }
-
-    .maleButton:hover, .femaleButton:hover{
+    .maleButton:hover,
+    .femaleButton:hover {
         opacity: 1;
         scale: 1.05;
     }
-
     .genderButtons {
         display: flex;
         justify-content: center;
         flex-direction: row;
+        flex-wrap: wrap;
     }
-
-    .ageButtons{
+    .ageButtons {
         display: flex;
         justify-content: center;
         flex-direction: row;
-        
+        flex-wrap: wrap;
     }
-    .ageButton{
+    .ageButton {
         opacity: 0.7;
         width: 120px;
         height: 100px;
@@ -76,25 +74,24 @@
         cursor: pointer;
         border: none;
         font-weight: bold;
+        flex: 1 1 calc(25% - 20px);
+        box-sizing: border-box;
     }
-
-    .ageButton:hover{
+    .ageButton:hover {
         scale: 1.05;
         opacity: 1;
     }
-
-    h2{
+    h2 {
         display: flex;
         justify-content: center;
     }
-
-    .goalButtons{
+    .goalButtons {
         display: flex;
         justify-content: center;
         flex-direction: row;
+        flex-wrap: wrap;
     }
-
-    .goalButton{
+    .goalButton {
         opacity: 0.7;
         width: 100px;
         height: 100px;
@@ -106,13 +103,11 @@
         border: none;
         font-weight: bold;
     }
-
-    .goalButton:hover{
+    .goalButton:hover {
         scale: 1.05;
         opacity: 1;
     }
-
-    .dietRecommendation{
+    .dietRecommendation {
         text-align: center;
         margin: 10vh;
         border-radius: 10px;
@@ -121,5 +116,78 @@
         border-radius: 10px;
         line-height: 4vh;
         font-weight: bold;
+    }
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 1024px) {
+    .dietPlannerTrue .mainBody h2,
+    .dietPlannerTrue .maleButton,
+    .dietPlannerTrue .femaleButton,
+    .dietPlannerTrue .ageButton,
+    .dietPlannerTrue .goalButton,
+    .dietPlannerTrue .dietRecommendation {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dietPlannerTrue .maleButton,
+    .dietPlannerTrue .femaleButton {
+        width: 200px;
+        height: 200px;
+        font-size: 20px;
+    }
+    .dietPlannerTrue .ageButton {
+        width: 100px;
+        height: 80px;
+        font-size: 16px;
+        flex: 1 1 calc(33.33% - 20px);
+    }
+    .dietPlannerTrue .goalButton {
+        width: 80px;
+        height: 80px;
+        font-size: 2vh;
+    }
+    .dietPlannerTrue .dietRecommendation {
+        padding: 20px;
+        margin: 5vh;
+        font-size: 1.5vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .dietPlannerTrue .mainBody h2,
+    .dietPlannerTrue .maleButton,
+    .dietPlannerTrue .femaleButton,
+    .dietPlannerTrue .ageButton,
+    .dietPlannerTrue .goalButton,
+    .dietPlannerTrue .dietRecommendation {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .dietPlannerTrue .maleButton,
+    .dietPlannerTrue .femaleButton {
+        width: 150px;
+        height: 150px;
+        font-size: 16px;
+    }
+    .dietPlannerTrue .ageButton {
+        width: 80px;
+        height: 60px;
+        font-size: 14px;
+        flex: 1 1 calc(50% - 20px);
+    }
+    .dietPlannerTrue .goalButton {
+        width: 60px;
+        height: 60px;
+        font-size: 1.8vh;
+    }
+    .dietPlannerTrue .dietRecommendation {
+        padding: 15px;
+        margin: 3vh;
+        font-size: 1.2vh;
     }
 }

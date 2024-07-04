@@ -357,3 +357,74 @@
     color: #333;
     text-align: center;
 }
+
+/* 미디어 쿼리 */
+@media (max-width: 1024px) {
+    .sleepTracker {
+        width: 80%;
+    }
+    .sleepTracker h1,
+    .sleepTracker h2,
+    .sleepTrackerTips h2 {
+        font-size: 1.5rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .sleepTrackerInputGroup label,
+    .sleepTrackerRecordInfo,
+    .sleepTrackerResult,
+    .sleepTrackerErrorMessage {
+        font-size: 1rem;
+    }
+    .sleepTrackerButton {
+        font-size: 1rem;
+        padding: 8px;
+    }
+    .sleepTrackerRecord {
+        flex-direction: column;
+        text-align: center;
+    }
+    .sleepTrackerRecordButtons {
+        margin-top: 10px;
+    }
+    .sleepTrackerButtonGroup {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sleepTracker {
+        width: 90%;
+    }
+    .sleepTracker h1,
+    .sleepTracker h2,
+    .sleepTrackerTips h2 {
+        font-size: 1.2rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .sleepTrackerInputGroup label,
+    .sleepTrackerRecordInfo,
+    .sleepTrackerResult,
+    .sleepTrackerErrorMessage {
+        font-size: 0.8rem;
+    }
+    .sleepTrackerButton {
+        font-size: 0.8rem;
+        padding: 6px;
+    }
+    .sleepTrackerRecord {
+        flex-direction: column;
+        text-align: center;
+    }
+    .sleepTrackerRecordButtons {
+        margin-top: 10px;
+    }
+    .sleepTrackerButtonGroup {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
