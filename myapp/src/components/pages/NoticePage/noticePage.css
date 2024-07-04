@@ -54,6 +54,10 @@
     font-weight: lighter;
 }
 
+.notice_item:hover {
+    background-color: rgb(231, 231, 231);
+}
+
 .notice_page {
     display: flex;
     flex-direction: column;
@@ -165,17 +169,23 @@ display: flex;
 flex-flow: column wrap;    
 height: 3rem;
 width: 100%;
+margin-bottom: 2rem;
+margin-top: 3rem;
 }
 
 .notice_tab {
-    padding: .5rem;
-    height: 3rem;
+    height: 100%;
     font-size: 1.2rem;
 
     box-sizing: border-box;
-    border: 1px solid black;
-    background-color: white;
-    cursor: pointer;
+    border: 1px solid rgb(218, 219, 225);
+    border-width: 1px 1px 2px 0px;
+    background-color: rgb(236, 242, 249);
+    cursor: pointer rgb(179, 179, 179);
+    text-align: center;
+    line-height: 3rem;
+
+    color: rgb(123, 123, 123);
 }
 
 .NoticeSearchBar {
@@ -188,5 +198,7 @@ width: 100%;
 /* 이벤트 핸들러 */
 
 .noticeActive {
-    background-color: lightgray !important;
+    background-color: rgb(255, 255, 255) !important;
+    border-bottom: 0;
+    color: black;
 }

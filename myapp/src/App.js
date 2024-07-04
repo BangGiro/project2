@@ -76,7 +76,7 @@ function App() {
           <Route path="/announcement" element={<Announcement/>} />
           <Route path="/cyberAuditOffice" element={<CyberAuditOffice/>} />
           <Route path="/contactUs" element={<ContactUs/>} />
-          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/myPage" element={<PrivateRoute element={<MyPage loggedInEmail={loggedInEmail} />} />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

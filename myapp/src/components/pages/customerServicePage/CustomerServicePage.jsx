@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const CustomerServicePage = () => {
     return (
         <div className="CustomerServicePage">
-            <h1>고객지원</h1>
+
             <div className='customerServices'>
                 <section className='CTM_notice'>
                     <h3>📢공지사항
@@ -26,16 +26,17 @@ const CustomerServicePage = () => {
                     </h3>
                     <FAQlist isMini={true}/>
                 </section>
-                <section className='CTM_qna'>
-                    <img src="/image/undraw_questions.svg" alt="" />
-                    <p>
-                    해결되지 않는 문제가 있으신가요? 
-                    </p>
-                    <Link className='CTMtoQnA' to="/QnAPage">
-                    📧1:1 문의하기
-                    </Link>
-                </section>
             </div>
+
+            <section className='CTM_qna'>
+                <img src="/image/undraw_questions.svg" alt="" />
+                <p>
+                해결되지 않는 문제가 있으신가요? 
+                </p>
+                <Link className='CTMtoQnA' to="/QnAPage">
+                📧1:1 문의하기
+                </Link>
+            </section>
         </div>
     )
 }
