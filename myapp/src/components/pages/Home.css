@@ -6,14 +6,15 @@
 
 .home img {
   display: block;
-  width: 100%;
-  height: 100vh;
 }
 
 .home {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background: linear-gradient(#00123F, #3C4E7C);
+  font-weight: bold;
+
 }
 
 .hero-section {
@@ -27,12 +28,18 @@
 
 .hero-text {
   position: absolute;
-  top: 30%;
-  left: 50%;
+  top: 40%;
+  left: 30%;
   transform: translate(-50%, -50%);
   z-index: 3;
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hero-image{
+  width: 100%;
+  margin-top: 45vh;
+  
 }
 
 .hero-text h1 {
@@ -68,11 +75,16 @@
 }
 
 /* 챌린지 섹션 스타일 */
+.training-club{
+  position: absolute;
+  top:95%;
+  left: -20%;
+}
+
 .training-club,
 .more-challenges,
 .customer-reviews,
 .new-section {
-  padding: 60px 20px;
   text-align: center;
   opacity: 0;
   transition: opacity 1.5s ease-out, transform 1.5s ease-out;
@@ -82,9 +94,11 @@
 .training-club h2,
 .more-challenges h2,
 .customer-reviews h2,
-.new-section h2 {
+.new-section h2,
+.pricing-plans h2{
   font-size: 2.5rem;
-  margin-bottom: 40px;
+  margin-bottom: 90px;
+  color: white;
 }
 
 .challenges,
@@ -174,80 +188,56 @@
   }
 }
 
+.more-challenges{
+  margin-top: 90vh;
+
+}
+
 .fade-in {
   animation: fadeIn 1.5s ease-out forwards;
 }
+.customer-reviews .reviews-grid{
+  place-items: center;
 
+}
+.customer-reviews{
+  margin-top: 90vh;
+}
 /* 새로운 섹션 스타일 */
 .new-section {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  background-color: #e9f7ff;
   border-radius: 15px;
-  padding: 20px;
+ text-align: center;
+  margin: auto;
+
 }
 
-.new-section .category {
-  background-color: rgba(255, 255, 255, 0.8);
+.new-section .review-card {
   border-radius: 10px;
-  padding: 20px;
-  width: 20%;
-  min-width: 200px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 500px; /* 고정 너비 설정 */
+  height: 250px; /* 고정 높이 설정 */
   margin: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left;
-  position: relative;
 }
 
-.new-section .category h2 {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+.new-section .review-card:hover {
+  transform: scale(1.1);
+}
+
+.new-section .review-card i {
+  font-size: 2rem;
+  margin-bottom: 10px;
   color: #007bff;
 }
 
-.new-section .category ul {
-  list-style: none;
-  padding: 0;
+.new-section .review-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.new-section .review-card p {
+  font-size: 1rem;
   margin: 0;
-}
-
-.new-section .category ul li {
-  margin: 10px 0;
-  font-size: 1rem;
-  color: #333;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.new-section .category ul li:after {
-  content: '>';
-  color: #007bff;
-  margin-left: 10px;
-}
-
-.new-section .category button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-top: 20px;
-  display: block;
-  width: 100%;
-  font-size: 1rem;
-}
-
-.new-section .category button:hover {
-  background-color: #0056b3;
-}
-
-.new-section .mypage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* 플로팅 버튼 스타일 */
@@ -315,4 +305,169 @@
 
 .floating-options button:hover {
   background-color: #0056b3;
+}
+
+/* 새로운 고객 리뷰 섹션 스타일 */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3px;
+  margin-bottom: 40vh;
+}
+.reviews-grid .review-card {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  width: 300px; /* 고정 너비 설정 */
+  height: auto; /* 자동 높이 설정 */
+  margin-bottom: 10vh;
+}
+
+.reviews-grid .review-card:hover {
+  transform: scale(1.1);
+}
+
+
+
+.reviews-grid .review-card i {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #007bff;
+}
+
+.reviews-grid .review-card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.reviews-grid .review-card p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.new-section .reviews-grid{
+  place-items: center;
+
+}
+
+.new-section .review-card{
+  height: 450px;
+}
+
+.pricing-plans {
+  text-align: center;
+  margin: 50px auto;
+  padding: 50px 0;
+}
+
+.plans-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.plan-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  padding: 20px;
+  text-align: left;
+  background-color: white;
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.plan-header span {
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.plan-header h3 {
+  font-size: 1.5rem;
+  margin: 10px 0;
+}
+
+.plan-price {
+  text-align: center;
+  font-size: 1.25rem;
+  margin: 20px 0;
+}
+
+.plan-price small {
+  display: block;
+  font-size: 0.875rem;
+  color: gray;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.plan-features li {
+  margin: 10px 0;
+}
+
+.plan-features .unlimited {
+  background-color: #007bff;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  margin-left: 5px;
+}
+
+.plan-features .disabled {
+  color: red;
+}
+
+.download-button {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.download-button:hover {
+  background-color: #0056b3;
+}
+
+.toggle-switch {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.toggle-button {
+  background-color: white;
+  color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 20px 0 0 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button + .toggle-button {
+  border-radius: 0 20px 20px 0;
+  margin-left: -1px; /* To avoid double border */
+}
+
+.toggle-button.active {
+  background-color: #007bff;
+  color: white;
+  border: none;
 }
