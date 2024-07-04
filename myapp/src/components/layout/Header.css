@@ -48,7 +48,6 @@
         position: relative;
         list-style: none;
         padding: 10px 0px;
-        font-size: 16px;
         color: #000;
         width: 7vw;
         text-align: center;
@@ -71,7 +70,6 @@
     }
 
     .navbar .submenu li {
-        font-size: 16px;
         color: #000;
     }
 
@@ -145,8 +143,6 @@
 /* 기본 스타일 */
 
 /* 데스크탑 */
-@media (min-width: 1025px) {
-}
 
 /* 태블릿 */
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -167,7 +163,6 @@
         }
 
         .navbar .menu li {
-            font-size: 16px;
             width: auto;
         }
 
@@ -203,7 +198,6 @@
         }
 
         .navbar .menu li {
-            font-size: 16px;
             width: auto;
         }
 
@@ -213,9 +207,6 @@
             padding: 5px 0;
         }
 
-        .navbar .submenu li {
-            font-size: 16px;
-        }
 
         .login_btn {
             top: 2vh;
