@@ -48,11 +48,16 @@ const NoticePage = ({isMini}) => {
     }
 
     //탭 클릭시 카테고리 변경
-    // let firstTab = document.querySelector('.notice_tab');
     const previousCategory = useRef(null);
     
+    useEffect(() => {
+        let firstTab = document.querySelector('.notice_tab');
+        previousCategory.current = firstTab;
+        if(previousCategory.current) {
+            previousCategory.current.classList.add('noticeActive');
+        }
+    },[]);
 
-    
     function tabs(e) {
         let clickedBtn = e.target.closest('.notice_tab');
 
