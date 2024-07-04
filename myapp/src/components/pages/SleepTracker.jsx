@@ -24,37 +24,35 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [records, setRecords] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
     const [selectedDate, setSelectedDate] = useState(new Date());
-    const [selectedRecord, setSelectedRecord] = useState(null);
+    const [currentRecords, setCurrentRecords] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalAnimation, setModalAnimation] = useState('');
     const [sleepQuality, setSleepQuality] = useState('');
 
+    // 로컬 스토리지에서 데이터를 불러오는 useEffect
     useEffect(() => {
         if (loggedInEmail) {
-            const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`)) || [];
-            setRecords(savedRecords);
+            const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`));
+            if (savedRecords) {
+                setRecords(savedRecords);
+            }
         }
     }, [loggedInEmail]);
 
+    // 로컬 스토리지에 데이터를 저장하는 useEffect
     useEffect(() => {
-        if (loggedInEmail) {
+        if (loggedInEmail && records.length > 0) {
             localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
         }
     }, [records, loggedInEmail]);
 
+    // 선택된 날짜의 기록을 설정하는 useEffect
     useEffect(() => {
-        const record = records.find(record => new Date(record.date).toLocaleDateString() === selectedDate.toLocaleDateString());
-        setSelectedRecord(record);
-        if (record) {
-            setStartTime(record.startTime);
-            setEndTime(record.endTime);
-            setSleepDuration(record.sleepDuration);
-            setSleepQuality(record.sleepQuality || '');
+        const selectedDateData = records.find(record => record.date === selectedDate.toLocaleDateString());
+        if (selectedDateData) {
+            setCurrentRecords(selectedDateData);
         } else {
-            setStartTime('');
-            setEndTime('');
-            setSleepDuration(null);
-            setSleepQuality('');
+            setCurrentRecords([]);
         }
     }, [selectedDate, records]);
 
@@ -68,7 +66,6 @@ const SleepTracker = ({ loggedInEmail }) => {
         setTimeout(() => {
             setIsModalOpen(false);
             setModalAnimation('');
-            resetFormFields();
         }, 500);
     };
 
@@ -149,7 +146,6 @@ const SleepTracker = ({ loggedInEmail }) => {
 
         setRecords(updatedRecords);
         setErrorMessage('');
-        alert('수면 데이터가 저장되었습니다.');
     };
 
     const getTileContent = ({ date, view }) => {
@@ -220,14 +216,6 @@ const SleepTracker = ({ loggedInEmail }) => {
 
     const handleQualityChange = (quality) => {
         setSleepQuality(quality);
-    };
-
-    const resetFormFields = () => {
-        setStartTime('');
-        setEndTime('');
-        setSleepDuration(null);
-        setSleepQuality('');
-        setErrorMessage('');
     };
 
     return (
