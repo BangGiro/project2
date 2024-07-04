@@ -149,7 +149,6 @@ const SleepTracker = ({ loggedInEmail }) => {
         setSleepDuration(duration);
         setSleepAdvice(getSleepAdvice(duration)); // 수면 조언 업데이트
         alert('수면 데이터가 저장되었습니다.');
-        closeModal();
     };
 
     const getTileContent = ({ date, view }) => {
