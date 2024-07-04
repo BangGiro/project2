@@ -7,12 +7,14 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     margin: auto;
+
+    margin-top: 2rem;
 }
 
 .CTM_notice, 
 .CTM_faq{
     position: relative;
-    width: 48%;
+    width: 47%;
     overflow: hidden;
 }
 
@@ -27,9 +29,7 @@
 }
 
 .CTM_qna {
-
-    width: 1600px;
-
+    width: 100%;
     display: flex;
     position: relative;
     justify-content: center;
@@ -51,12 +51,16 @@
 .CTMtoQnA {
     font-size: larger;
     margin-right: 2rem;
-    color: black;
+    font-weight: 600;
+    color: rgb(37, 88, 255);
+}
+
+.CTMtoQnA:hover {
+    text-decoration: underline;
 }
 
 .CTMlinks {
     position: absolute;
     right: 1rem;
     text-decoration: none;
-    
 }

@@ -48,11 +48,13 @@ const NoticePage = ({isMini}) => {
     }
 
     //탭 클릭시 카테고리 변경
+    // let firstTab = document.querySelector('.notice_tab');
     const previousCategory = useRef(null);
+    
 
     
     function tabs(e) {
-        let clickedBtn = e.target.closest('button');
+        let clickedBtn = e.target.closest('.notice_tab');
 
         setCategory(e.target.innerText);
         setSearchText('');
@@ -152,11 +154,11 @@ const NoticePage = ({isMini}) => {
                     <NoticeView noticeID={noticeID} setNoticeID={setNoticeID}/>
                     {/* 카테고리 탭 */}
                     <div className="notice_tabs">
-                        <button className="notice_tab" onClick={tabs}>전체</button>
-                        <button className="notice_tab" onClick={tabs}>업데이트</button>
-                        <button className="notice_tab" onClick={tabs}>점검</button>
-                        <button className="notice_tab" onClick={tabs}>이벤트</button>
-                        <button className="notice_tab" onClick={tabs}>일반</button>
+                        <div className="notice_tab" onClick={tabs} red={previousCategory}>전체</div>
+                        <div className="notice_tab" onClick={tabs}>업데이트</div>
+                        <div className="notice_tab" onClick={tabs}>점검</div>
+                        <div className="notice_tab" onClick={tabs}>이벤트</div>
+                        <div className="notice_tab" onClick={tabs}>일반</div>
                     </div>
                     {/* 리스트 */}
                     <NoticeList/>
