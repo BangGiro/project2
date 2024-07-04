@@ -8,6 +8,7 @@ import './ManagementContainer.css';
 function ManagementContainer() {
     const [memberNames, setMemberNames] = useState([]);
     const [users, setUsers] = useState([]);
+    const [isCategoryVisible, setIsCategoryVisible] = useState(true); // 카테고리 표시 여부 상태 추가
     const user = getLoggedInUser();
     const navigate = useNavigate();
 
@@ -49,15 +50,37 @@ function ManagementContainer() {
         }
     };
 
+    // 미디어 쿼리 변경 감지 및 상태 업데이트
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 768) {
+                setIsCategoryVisible(false);
+            } else {
+                setIsCategoryVisible(true);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // 초기 상태 설정
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     if (!isLoggedIn()) {
         return <Navigate to="/login" />;
     }
 
     return (
         <div className="management-container">
-            <div className='manacategory'>
-                <CategoryContainer memberNames={memberNames} />
-            </div>
+            {isCategoryVisible && (
+                <div className='manacategory'>
+                    <CategoryContainer memberNames={memberNames} />
+                </div>
+            )}
             <div className='maco'>
                 <Management
                     loggedInEmail={user.email}
