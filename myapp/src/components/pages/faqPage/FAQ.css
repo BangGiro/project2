@@ -8,53 +8,85 @@
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 .FAQpage {
-    width: 1000px;
-    min-width: 1000px;
+    min-width: 800px;
     margin: auto;
     font-family: 'Nanum Gothic', sans-serif;
-
 }
 
 
 /* ============================================================================== */
 
 .FAQheader {
-    height: 20rem;
+    width: 100vw;
+    height: 15rem;
+    background-color: rgb(218, 231, 255);
 
-    text-align: center;
-    line-height: 20rem;
-
-    background-image: url(https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/971/8d8be64f9d82cd3325a545627dcd1e99_res.jpeg);
-    background-repeat: no-repeat;
-    background-position:left;
-    background-size: contain;
-
+    position: relative;
 }
 
+.FAQheader > img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    margin-left: 300px;
+}
+
+
 .FAQtitle {
-    text-indent: 300px;
+    position: absolute;
+    top: 50%;
+    margin-left: 17.5vw;
 }
 
 /* =============================================================================== */
 
-.FAQsearchBar {
-    height: 2em;
-    width: 20em;
-}
-
-.FAQselect {
-    height: 2em;
-}
 
 .FAQsearchContainer {
-    width: 100%;
+    width: 65vw;
+    min-width: 800px;
+    margin: auto;
+
     display: flex;
     align-items: center;
     justify-content: center;
 
-    height: 4em;    
+    height: 4em;   
+    margin-bottom: 1rem;
+
+    border-bottom: 2px rgb(153, 153, 153) solid;
 }
 
+.FAQsearchBar {
+    width: 55vw;
+    
+    padding-left: 1rem;
+
+    min-width: 680px;
+    font-size: 1.4rem;
+    
+    border: 0;
+    outline: none;
+}
+
+
+
+.FAQselect {
+    width: 10vw;
+    min-width: 120px;
+
+    margin-bottom: -2px;
+
+    font-weight: bold;
+
+    text-align: center;
+    font-size: 1.3rem;
+}
+
+.FAQselect,
+.FAQsearchBar{
+    height: 4rem;
+}
 
 /* ================================================================ */
 
@@ -68,15 +100,17 @@
     position: relative;
 
     height: 3rem;
-    width: 100%;
+    width: 65vw;
+    min-width: 800px;
+
+    margin: auto;
 
     background-color: white;
     
     border: 1px solid;
-    /* margin-top: -1px; */
     
     overflow: hidden;
-    transition: .5s;
+    transition: height .5s;
 }
 
 .FAQ_container>li:nth-child(1) {
@@ -118,30 +152,12 @@
 }
 
 .showList {
-    transition: .5s;
+    transition: height .5s;
 }
 
 
 /* =============================================================================== */
 
-.FAQsearchBar {
-    height: 2.5rem;
-    width: 30rem;
-    font-size: 1rem;
-}
-
-.FAQselect {
-    height: 2.725rem;
-    width: 10rem;
-    font-size: 1rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.FAQselect,
-.FAQsearchBar{
-    margin-bottom: 1rem;
-}
 
 
 .FAQaddList {
