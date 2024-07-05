@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Management from './components/Management';
 import CategoryContainer from './components/CategoryContainer';
-import { getLoggedInUser, isLoggedIn } from '../../helpers/auth';
+import { getLoggedInUser, isLoggedIn } from '../helpers/auth';
 import { Navigate, useNavigate } from 'react-router-dom';
 import './ManagementContainer.css';
 

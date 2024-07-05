@@ -3,7 +3,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import './Login.css';
-import { loginUser } from '../../helpers/auth';
+import { loginUser } from '../helpers/auth';
 
 export default function Login({ onLogin }) {
     const [email, setEmail] = useState('');
