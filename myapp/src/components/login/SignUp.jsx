@@ -194,6 +194,8 @@ export default function SignUp() {
                                 value={userData.birth}
                                 onChange={handleChange}
                                 required
+                                max="9999-12-31" 
+                                min="1900-01-01"
                             />
                         </label>
                         <div>성별</div>
