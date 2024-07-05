@@ -3,6 +3,7 @@ import notices from './components/notices';
 import './noticePage.css';
 import NoticeView from './components/NoticeView';
 import SearchBar from './components/SearchBar';
+import PageNation from './components/PageNation';
 
 const NoticePage = ({isMini}) => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -40,11 +41,8 @@ const NoticePage = ({isMini}) => {
                 setNoticeID(closest.getAttribute('data-notice-id'));
             } 
             window.scrollTo(0,0);
-    
 
         }, 200); 
-            
-            
     }
 
     //탭 클릭시 카테고리 변경
@@ -116,7 +114,7 @@ const NoticePage = ({isMini}) => {
             ))}
 
         } else {
-            return <div>검색 결과가 없습니다.</div>
+            return <div className='NothingOnSearchingNTC'>검색 결과가 없습니다.</div>
         }
     }
 
@@ -170,13 +168,7 @@ const NoticePage = ({isMini}) => {
                     {/* 검색 */}
                     <SearchBar detectSearch={detectSearch} upDate={category}/>    
                     {/* 페이지 네이션 */}
-                    <div className="pagination">
-                        {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) }, (_, index) => (
-                            <button key={index} onClick={() => paginate(index + 1)}>
-                                {index + 1}
-                            </button> 
-                        ))}
-                    </div>
+                    <PageNation currentList={currentList} noticesPerPage={noticesPerPage} paginate={paginate}/>
                 </section>
             </div>
         );
@@ -186,4 +178,4 @@ const NoticePage = ({isMini}) => {
 
 
 export default NoticePage;
-// export { NoticeList };
+
