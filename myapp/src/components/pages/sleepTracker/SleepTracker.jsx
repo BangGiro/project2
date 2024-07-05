@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import 'react-calendar/dist/Calendar.css';
 import './SleepTracker.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import FloatingButton from '../../layout/FloatingButton';
 
 ChartJS.register(
     CategoryScale,
@@ -225,6 +226,7 @@ const SleepTracker = ({ loggedInEmail }) => {
         <div className='SleepTrackerTrue'>
             <div className="sleepTracker">
                 <h1>수면 관리</h1>
+                <FloatingButton/>
                 <hr/>
                 <div className='sleepTrackerMain'>
                     <Calendar
