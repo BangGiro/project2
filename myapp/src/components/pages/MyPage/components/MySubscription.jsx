@@ -4,9 +4,6 @@ export default function MySubscription() {
             <h1>구독 정보</h1>
 
             <div className="MySubscribeBox">
-                <h2>
-                    구독중인 상품
-                </h2>
 
                 <div className="CurrentSubscription">
                     <img src="/image/unDrawSVG/undraw_personal_trainer_re_cnua.svg" alt="" />

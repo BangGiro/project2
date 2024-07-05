@@ -54,12 +54,14 @@
     height: 4em;   
     margin-bottom: 1rem;
 
-    border-bottom: 2px rgb(153, 153, 153) solid;
+    border-bottom: 2px rgb(116, 189, 253) solid;
 }
 
 .FAQsearchBar {
     width: 55vw;
-    
+
+    box-sizing: border-box;
+
     padding-left: 1rem;
 
     min-width: 680px;
@@ -74,8 +76,6 @@
     width: 10vw;
     min-width: 120px;
 
-    margin-bottom: -2px;
-
     font-weight: bold;
 
     text-align: center;
@@ -87,7 +87,7 @@
 
 .FAQselect,
 .FAQsearchBar{
-    height: 4rem;
+    height: 3.6rem;
     outline: none;
 }
 
