@@ -167,7 +167,6 @@ function ExerciseMain({ loggedInEmail }) {
     if (loggedInEmail) {
       localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
     }
-    alert('운동 데이터가 저장되었습니다.');
 
   };
 
