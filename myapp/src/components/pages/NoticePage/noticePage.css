@@ -204,3 +204,7 @@ margin-top: 3rem;
     border-bottom: 0;
     color: black;
 }
+
+.PageNationActive {
+    background-color: rgb(192, 192, 192) !important;
+}   
