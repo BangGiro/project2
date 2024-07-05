@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
+import FloatingButton from '../../layout/FloatingButton';
 
 const initialExerciseData = [];
 
@@ -11,8 +12,8 @@ export const availableExercises = [
   { name: "런지", category: "하체", image: "/image/exercisePictogram/lunge.png" },
   { name: "레그 프레스", category: "하체", image: "/image/exercisePictogram/legpress.png" },
   { name: "레그 컬", category: "하체", image: "/image/exercisePictogram/legcurl.png" },
-  { name: "이너 타이", category: "하체", image: "/image/exercisePictogram/innerThigh.png" },
-  { name: "카프 레이즈", category: "하체", image: "/image/exercisePictogram/calfRaise.png" },
+  { name: "이너 타이", category: "하체", image: "/image/exercisePictogram/innerthigh.png" },
+  { name: "카프 레이즈", category: "하체", image: "/image/exercisePictogram/calfraise.png" },
   { name: "풀업", category: "등", image: "/image/exercisePictogram/pullup.png" },
   { name: "풀 오버", category: "등", image: "/image/exercisePictogram/pullover.png" },
   { name: "시티드 로우", category: "등", image: "/image/exercisePictogram/seatedrow.png" },
@@ -25,9 +26,9 @@ export const availableExercises = [
   { name: "케이블 크로스오버", category: "가슴", image: "/image/exercisePictogram/cablecrossover.png" },
   { name: "푸쉬업", category: "가슴", image: "/image/exercisePictogram/pushup.png" },
   { name: "딥스", category: "가슴", image: "/image/exercisePictogram/dips.png" },
-  { name: "팩덱플라이", category: "가슴", image: "/image/exercisePictogram/packDeckFly.png" },
+  { name: "팩덱플라이", category: "가슴", image: "/image/exercisePictogram/packDeckfly.png" },
   { name: "숄더 프레스", category: "어깨", image: "/image/exercisePictogram/shoulderpress.png" },
-  { name: "사이드 레터럴 레이즈", category: "어깨", image: "/image/exercisePictogram/sideLateralRaise.png" },
+  { name: "사이드 레터럴 레이즈", category: "어깨", image: "/image/exercisePictogram/sidelateralraise.png" },
   { name: "밀리터리 프레스", category: "어깨", image: "/image/exercisePictogram/militarypress.png" },
   { name: "컨센트레이션컬", category: "팔", image: "/image/exercisePictogram/concentrationcurl.png" },
   { name: "바벨 컬", category: "팔", image: "/image/exercisePictogram/barbellcurl.png" },
@@ -189,6 +190,7 @@ function ExerciseMain({ loggedInEmail }) {
         <div className='exerciseMainBody'>
           <div className="header">
             <h1>운동</h1>
+            <FloatingButton/>
             <hr/>
           </div>
           <div className='exerciseMain'> 

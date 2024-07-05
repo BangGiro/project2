@@ -1,0 +1,65 @@
+.floating-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  
+  .floating-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    line-height: 60px; /* 버튼 내용이 중앙에 위치하도록 설정 */
+  }
+  
+  .floating-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.1);
+  }
+  
+  .floating-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+  }
+  
+  .floating-container.expanded .floating-options {
+    max-height: 500px; /* 충분히 큰 값으로 설정 */
+    opacity: 1;
+  }
+  
+  .floating-options button {
+    border: none;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 40px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: none;
+  }
+  
+  .floating-options button:hover {
+    background-color: #0056b3;
+  }
