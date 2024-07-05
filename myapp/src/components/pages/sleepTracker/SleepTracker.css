@@ -178,9 +178,10 @@
 }
 
 .sleepTrackerModal {
-    position: absolute;
-    top: 30%;
-    left: 37%;
+    position: fixed; 
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
     right: auto;
     bottom: auto;
     background-color: white;

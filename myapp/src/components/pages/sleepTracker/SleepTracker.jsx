@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import 'react-calendar/dist/Calendar.css';
 import './SleepTracker.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import FloatingButton from '../../layout/FloatingButton';
 
 ChartJS.register(
     CategoryScale,
@@ -29,6 +30,8 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [modalAnimation, setModalAnimation] = useState('');
     const [sleepQuality, setSleepQuality] = useState('');
     const [sleepAdvice, setSleepAdvice] = useState('');
+    const [currentPage, setCurrentPage] = useState(1);
+    const recordsPerPage = 10;
 
     useEffect(() => {
         if (loggedInEmail) {
@@ -221,11 +224,23 @@ const SleepTracker = ({ loggedInEmail }) => {
         setSleepQuality(quality);
     };
 
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    const paginatedRecords = records.slice(
+        (currentPage - 1) * recordsPerPage,
+        currentPage * recordsPerPage
+    );
+
+    const pageCount = Math.ceil(records.length / recordsPerPage);
+
     return (
         <div className='SleepTrackerTrue'>
             <div className="sleepTracker">
                 <h1>수면 관리</h1>
-                <hr/>
+                <FloatingButton />
+                <hr />
                 <div className='sleepTrackerMain'>
                     <Calendar
                         onChange={handleDateChange}
@@ -292,11 +307,16 @@ const SleepTracker = ({ loggedInEmail }) => {
                         )}
                     </form>
                 </Modal>
-                <hr/>
+                <hr />
                 <SleepRecords
-                    records={records}
+                    records={paginatedRecords}
                     editRecord={editRecord}
                     deleteRecord={deleteRecord}
+                />
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={pageCount}
+                    onPageChange={handlePageChange}
                 />
             </div>
         </div>
@@ -332,6 +352,27 @@ const SleepRecords = ({ records, editRecord, deleteRecord }) => {
                     </li>
                 ))}
             </ul>
+        </div>
+    );
+};
+
+const Pagination = ({ currentPage, totalPages, onPageChange }) => {
+    const pageNumbers = [];
+    for (let i = 1; i <= totalPages; i++) {
+        pageNumbers.push(i);
+    }
+
+    return (
+        <div className="pagination">
+            {pageNumbers.map(number => (
+                <button
+                    key={number}
+                    className={`pageNumber ${number === currentPage ? 'active' : ''}`}
+                    onClick={() => onPageChange(number)}
+                >
+                    {number}
+                </button>
+            ))}
         </div>
     );
 };

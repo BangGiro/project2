@@ -111,7 +111,7 @@
         padding-bottom: 10px;
     }
     /* Buttons */
-    button:not(.react-calendar button) {
+    button:not(.react-calendar button, .floating-button) {
         border: none;
         border-radius: 5px;
         cursor: pointer;

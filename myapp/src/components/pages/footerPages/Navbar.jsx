@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './Navbar.css';
+import FloatingButton from '../../layout/FloatingButton';
 
 function Navbar() {
     return (
         <nav className="legalNavbar">
+            <FloatingButton/>
             <ul>
                 <li>
                     <NavLink 

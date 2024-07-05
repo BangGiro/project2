@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Home.css';
+import FloatingButton from '../../layout/FloatingButton';
 
 const Home = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -27,21 +28,7 @@ const Home = () => {
     };
   }, []);
 
-  const toggleFloatingButton = () => {
-    setIsExpanded(!isExpanded);
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const scrollToBottom = () => {
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
-  };
-
-  const goToHome = () => {
-    navigate('/customerServicePage');
-  };
+  
 
   const handleTogglePlan = (plan) => {
     setPaymentPlan(plan);
@@ -49,6 +36,7 @@ const Home = () => {
 
   return (
     <div className="home">
+      <FloatingButton/>
       <section className="hero-section">
         <div className="hero-text">
           <h1>더 이상 쉬워지지 않습니다.<br/> 당신이 더 나아질 뿐입니다.</h1>
@@ -235,16 +223,6 @@ const Home = () => {
         <button className="download-button"><Link to="/Management">무료 체험하기</Link></button>
       </section>
 
-      <div className={`floating-container ${isExpanded ? 'expanded' : ''}`}>
-        <button className="floating-button" onClick={toggleFloatingButton}>
-          {isExpanded ? '-' : '+'}
-        </button>
-        <div className="floating-options">
-          <button onClick={scrollToTop}><i className="fa-regular fa-circle-up fa-flip"></i></button>
-          <button onClick={scrollToBottom}><i className="fa-regular fa-circle-down fa-flip"></i></button>
-          <button onClick={goToHome}><i className="fa-solid fa-headset"></i></button>
-        </div>
-      </div>
     </div>
   );
 };
