@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
+import FloatingButton from '../../layout/FloatingButton';
 
 const initialExerciseData = [];
 
@@ -190,6 +191,7 @@ function ExerciseMain({ loggedInEmail }) {
         <div className='exerciseMainBody'>
           <div className="header">
             <h1>운동</h1>
+            <FloatingButton/>
             <hr/>
           </div>
           <div className='exerciseMain'> 
