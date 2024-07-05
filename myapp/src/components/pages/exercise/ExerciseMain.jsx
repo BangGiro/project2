@@ -250,7 +250,6 @@ function ExerciseMain({ loggedInEmail }) {
                   ))}
                   <div className="dailyActivity">
                     <button className="add" onClick={openModal}>운동 추가하기</button>
-                    <button className="save" onClick={handleSave}>저장하기</button>
                     <button className="clear" onClick={handleClear}>초기화</button>
                   </div>
                 </div>
