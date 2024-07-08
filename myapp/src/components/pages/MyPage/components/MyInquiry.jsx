@@ -12,6 +12,20 @@ export default function MyInquiry() {
             setInquiryList(JSON.parse(inquiryData));
         }
     }, []);
+
+//=================================================================================================
+// 이벤트 핸들러 파트
+
+    function open(e) {
+        
+        if(e.target.closest('.Inquiry').classList.contains('InquiryOpen')) {
+            e.target.closest('.Inquiry').classList.remove('InquiryOpen');
+        } else {
+            e.target.closest('.Inquiry').classList.add('InquiryOpen');
+        }
+    
+    }
+
     
 //=================================================================================================
 // 데이터 매핑 
@@ -20,12 +34,13 @@ export default function MyInquiry() {
         if(inquiryList.length > 0) {
             return inquiryList.map((inquiry, index) => {
                 return (
-                    <div key={index} className="Inquiry">
+                    <div key={index} className="Inquiry" onClick={(e)=> {open(e)}}>
                             <p>{index + 1}</p>
                             <p>{inquiry.category.category}</p>
                             <p>{inquiry.title}</p>
                             <p>{inquiry.date}</p>
                             <p>답변대기중</p>
+                            <div>{inquiry.content}</div>
                     </div>
                 );
             })

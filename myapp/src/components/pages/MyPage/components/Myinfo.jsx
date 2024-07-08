@@ -32,7 +32,7 @@ export default function MyInfo() {
                     </div>
                     <div>
                         <span>가입일</span>
-                        <p>2021.04.23</p>
+                        <p>{MyData ? MyData.registrationDate.split('T')[0] : ''}</p>
                     </div>
                     <div>
                         <span>회원 타입</span>
