@@ -24,7 +24,7 @@ function ContactUs() {
                 </label>
                 <label>
                     메시지:
-                    <textarea name="message"></textarea>
+                    <textarea className="reSize" name="message"></textarea>
                 </label>
                 <button type="submit">제출</button>
             </form>
