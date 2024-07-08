@@ -16,7 +16,9 @@
     padding: 40px;
     border-radius: 10px;
     text-align: center;
-    width: 300px;
+    width: 80%;
+    min-width: 300px;
+    max-width: 600px;
 }
 
 .login_main h1 {

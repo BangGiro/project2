@@ -1,3 +1,4 @@
+// ManagementContainer 컴포넌트
 import React, { useEffect, useState } from 'react';
 import Management from './components/Management';
 import CategoryContainer from './components/CategoryContainer';
@@ -8,7 +9,7 @@ import './ManagementContainer.css';
 function ManagementContainer() {
     const [memberNames, setMemberNames] = useState([]);
     const [users, setUsers] = useState([]);
-    const [isCategoryVisible, setIsCategoryVisible] = useState(true); // 카테고리 표시 여부 상태 추가
+    const [isCategoryVisible, setIsCategoryVisible] = useState(true);
     const user = getLoggedInUser();
     const navigate = useNavigate();
 
@@ -44,13 +45,13 @@ function ManagementContainer() {
 
     const handleDeleteAllUsers = () => {
         if (window.confirm('모든 회원을 삭제하시겠습니까?')) {
-            setUsers([]);
-            setMemberNames([]);
+            const updatedUsers = [];
+            setUsers(updatedUsers);
+            setMemberNames(updatedUsers);
             localStorage.removeItem(`users_${user.email}`);
         }
     };
 
-    // 미디어 쿼리 변경 감지 및 상태 업데이트
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth <= 768) {
@@ -62,7 +63,6 @@ function ManagementContainer() {
 
         window.addEventListener('resize', handleResize);
 
-        // 초기 상태 설정
         handleResize();
 
         return () => {

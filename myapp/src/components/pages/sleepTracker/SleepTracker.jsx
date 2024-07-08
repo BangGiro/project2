@@ -313,11 +313,7 @@ const SleepTracker = ({ loggedInEmail }) => {
                     editRecord={editRecord}
                     deleteRecord={deleteRecord}
                 />
-                <Pagination
-                    currentPage={currentPage}
-                    totalPages={pageCount}
-                    onPageChange={handlePageChange}
-                />
+                
             </div>
         </div>
     );
@@ -356,25 +352,8 @@ const SleepRecords = ({ records, editRecord, deleteRecord }) => {
     );
 };
 
-const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-    const pageNumbers = [];
-    for (let i = 1; i <= totalPages; i++) {
-        pageNumbers.push(i);
-    }
 
-    return (
-        <div className="pagination">
-            {pageNumbers.map(number => (
-                <button
-                    key={number}
-                    className={`pageNumber ${number === currentPage ? 'active' : ''}`}
-                    onClick={() => onPageChange(number)}
-                >
-                    {number}
-                </button>
-            ))}
-        </div>
-    );
-};
+
+   
 
 export default SleepTracker;
