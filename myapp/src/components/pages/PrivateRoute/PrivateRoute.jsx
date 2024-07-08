@@ -5,7 +5,7 @@ import { Navigate } from 'react-router-dom';
 import { isLoggedIn } from '../helpers/auth';
 
 const PrivateRoute = ({ element }) => {
-  return isLoggedIn() ? element : <Navigate to="/login" />;
+  return isLoggedIn() ? element : <Navigate to="/login" replace />;
 };
 
 export default PrivateRoute;
