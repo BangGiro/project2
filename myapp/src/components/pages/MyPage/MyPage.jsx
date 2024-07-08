@@ -39,10 +39,10 @@ const[tabs , setTabs] = useState('기본 정보');
 
             <div >
                 <section className="MyService" onClick={ChangeMyService}>
-                    <div onClick={ChangeMyService}><i class="fa-regular fa-user"></i><p>기본 정보</p></div>
-                    <div onClick={ChangeMyService}><i class="fa-regular fa-id-card"></i><p>구독 정보</p></div>
-                    <div onClick={ChangeMyService}><i class="fa-solid fa-table-list"></i><p>문의 내역</p></div>
-                    <div onClick={ChangeMyService}><i class="fa-solid fa-lock"></i><p>보안</p></div>
+                    <div onClick={ChangeMyService}><i className="fa-regular fa-user"></i><p>기본 정보</p></div>
+                    <div onClick={ChangeMyService}><i className="fa-regular fa-id-card"></i><p>구독 정보</p></div>
+                    <div onClick={ChangeMyService}><i className="fa-solid fa-table-list"></i><p>문의 내역</p></div>
+                    <div onClick={ChangeMyService}><i className="fa-solid fa-lock"></i><p>보안</p></div>
                 </section>
 
                 <div className="renderMyService">

@@ -44,6 +44,25 @@ useMemo(()=> setItemLength(5), [ category ])
 
     };
 
+//==============================================================================
+//닫기 버튼 
+    function CloseList() {
+        
+        function closeAll() {
+            setItemLength(5);
+        };
+        
+        if(ItemLength > 5){
+            return <div className='FAQcloseList' onClick={closeAll}> - 전부 닫기 </div>
+        } else {
+            return null;
+        };
+
+    };
+
+
+
+
 //=============================================================================
 //렌더링 파트
 
@@ -121,10 +140,13 @@ useMemo(()=> setItemLength(5), [ category ])
                     <FAQsearch categoryOut={categoryOut} detectSearch={detectSearch}/>
                     { FAQfilterOBJ().map(mapItem).length === 0 ? 
                     <FAQNothingOnSearch/> : 
-                    FAQfilterOBJ().map(mapItem) }
-                <AddList />
-            </div>
+                    FAQfilterOBJ().map(mapItem)}
 
+                <div className='listSetUpBTNs'>
+                    <AddList />
+                    <CloseList/>
+                </div>
+            </div>
         )
     }
 };

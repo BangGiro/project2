@@ -1,6 +1,6 @@
 import './CustomerServicePage.css'
 import NoticePage from '../NoticePage/NoticePage';
-import FAQlist from '../faqPage/FAQlist';
+import FAQlist from '../faqPage/components/FAQlist';
 import QnAPage from '../QnAPage/QnAPage';
 import { Link } from 'react-router-dom';
 

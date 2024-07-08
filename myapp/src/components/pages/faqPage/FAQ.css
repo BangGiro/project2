@@ -160,11 +160,9 @@
 
 /* =============================================================================== */
 
-
-
-.FAQaddList {
+.FAQaddList,
+.FAQcloseList{
     cursor: pointer;
-    /* background-color: rgb(145, 191, 255); */
     opacity: 0.8;
     
     margin: auto;
@@ -181,7 +179,8 @@
     color: rgb(0, 0, 0);
 }
 
-.FAQaddList:hover {
+.FAQaddList:hover,
+.FAQcloseList:hover  {
     font-weight: bolder;
     opacity: 1;
 }

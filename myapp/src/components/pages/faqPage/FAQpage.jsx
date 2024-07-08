@@ -1,6 +1,7 @@
-import FAQlist from './FAQlist'
-import FAQheader from './FAQheader';
+import FAQlist from './components/FAQlist'
+import FAQheader from './components/FAQheader';
 import './FAQ.css';
+import FloatingButton from '../../layout/FloatingButton';
 import { useCallback, useEffect } from 'react';
 
 
@@ -10,6 +11,7 @@ const FAQpage = function() {
         <div className="FAQpage">
             <FAQheader />
             <FAQlist />
+            <FloatingButton />
         </div>
     )
 };
@@ -17,19 +19,3 @@ const FAQpage = function() {
 export default FAQpage;
 
 
-//===================================================================
-//계륵 코드
-
-// let ScrollbarDetected = false;
-// let FAQpageTag = document.querySelector('.FAQpage');
-
-// function DetectScrollbar() {
-//     ScrollbarDetected = document.documentElement.scrollHeight > document.documentElement.clientHeight ?
-//     true : null ;
-
-//     if(ScrollbarDetected) {
-//         FAQpageTag.style.marginRight='-19px'
-//     } 
-// }
-
-// useCallback(()=> DetectScrollbar(), [document.documentElement.scrollHeight])
