@@ -1,13 +1,21 @@
 import { useState } from 'react';
-import './Login.css'
+import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function FindPw() {
     const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    const [birth, setBirth] = useState("");
     const navigate = useNavigate();
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
+    };
+    const handleBirthChange = (e) => {
+        setBirth(e.target.value);
+    };
+    const handleNameChange = (e) => {
+        setName(e.target.value);
     };
 
     function CompareLoginData(e) {
@@ -16,14 +24,16 @@ export default function FindPw() {
         const CompareLocalLoginData = localStorage.getItem("userData");
         const parsedCompareLocalLoginData = JSON.parse(CompareLocalLoginData) || [];
 
-        // userData 배열에서 입력된 이메일과 일치하는 사용자 찾기
-        const matchedUser = parsedCompareLocalLoginData.find(user => user.email === email);
+        // 세 개의 조건을 모두 만족하는 사용자 찾기
+        const matchedUser = parsedCompareLocalLoginData.find(user =>
+            user.email === email && user.name === name && user.birth === birth
+        );
 
         if (matchedUser) {
             alert("비밀번호는 " + matchedUser.password + " 입니다.");
             navigate("/login");
         } else {
-            alert("존재하지 않는 이메일입니다.");
+            alert("사용자가 존재하지 않습니다.");
         }
     }
 
@@ -36,6 +46,12 @@ export default function FindPw() {
                         <form className="login-form" onSubmit={CompareLoginData}>
                             <label>
                                 <input type="email" placeholder="이메일 입력" onChange={handleEmailChange} required />
+                            </label>
+                            <label>
+                                <input type="text" placeholder="이름 입력" onChange={handleNameChange} required />
+                            </label>
+                            <label>생년월일 입력
+                                <input type="date" placeholder="생년월일 입력" onChange={handleBirthChange} max="9999-12-31" min="1900-01-01" required />
                             </label>
                             <button type="submit">비밀번호 찾기</button>
                         </form>
