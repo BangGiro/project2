@@ -21,11 +21,10 @@ export default function MySubscription() {
                     </div>
                 </div>
 
-
                 <div className="SubscriptionPayment">
                     <div >
-                        <span>정기 결제 수단</span>
-                        <p>카드 결제</p>
+                        <p>다음 결제 예정일: </p>
+                        <p>결제 방식:</p>
                     </div>
                 </div>
             </div>

@@ -39,10 +39,6 @@
     background-color: rgb(181, 181, 181);
 }
 
-/* .MyService div:hover .MyService::after {
-    width: 100%;
-} */
-
 .renderMyService{
     width: 50vw;
     min-width: 800px;
@@ -131,11 +127,16 @@
     font-weight: bold;
 
     border: 1px solid black;
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    animation: SubscriptionOpen 1s;
 }
 
 .CurrentSubscription > img {
     height: 100%;
-    width: 25%;
+    width: 15rem;
     object-fit: contain;
     background-color: rgba(49, 148, 255, 0.859);
     border-radius: 1rem;
@@ -325,4 +326,27 @@
 
 .InquiryOpen {
     height: auto;
+}
+
+/* ======================================================================= */
+/* 애니메이션 */
+
+@keyframes SubscriptionOpen {
+    from {
+        width: 15rem;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes smoothUp {
+    from {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
 }
