@@ -72,7 +72,9 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, 
           />
         </div>
         <button onClick={() => setIsAddModalOpen(true)}>회원 추가</button>
-        <button className="delete-all-button" onClick={onDeleteAllUsers}>전체 삭제</button>
+        {users.length > 0 && (
+          <button className="delete-all-button" onClick={onDeleteAllUsers}>전체 삭제</button>
+        )}
         {isAddModalOpen && (
           <AddUserModal
             onClose={() => setIsAddModalOpen(false)}
