@@ -8,7 +8,6 @@
 @import url('http://fonts.googleapis.com/earlyaccess/nanumgothic.css');
 
 .FAQpage {
-    min-width: 800px;
     margin: auto;
     font-family: 'Nanum Gothic', sans-serif;
 }
@@ -44,7 +43,6 @@
 
 .FAQsearchContainer {
     width: 65vw;
-    min-width: 800px;
     margin: auto;
 
     display: flex;
@@ -64,7 +62,6 @@
 
     padding-left: 1rem;
 
-    min-width: 680px;
     font-size: 1.4rem;
     
     border: 0;
@@ -104,7 +101,6 @@
 
     height: 3rem;
     width: 65vw;
-    min-width: 800px;
 
     margin: auto;
 
@@ -190,4 +186,37 @@
     text-align: center;
     padding: 1rem;
     height: 30vh;
+}
+
+/* =============================================================================== */       
+/* 미디어쿼리 */
+
+@media screen and (max-width: 900px) {
+    .FAQ_container,
+    .FAQsearchContainer,
+    .FAQsearchBar {
+        width: 95vw;
+    }
+
+
+}
+
+@media screen and (max-width: 580px) {
+    .FAQsearchBar {
+        font-size: 1rem;
+    }
+
+    .FAQtitle {
+        position: absolute;
+        top: calc(50% - 1rem);
+        margin-left: 5vw;
+    }
+
+    .FAQheader {
+        width: calc(100vw - 17px);
+    }
+
+    .FAQheader > img {
+        display: none;
+    }
 }
