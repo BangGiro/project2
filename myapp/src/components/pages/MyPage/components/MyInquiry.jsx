@@ -22,12 +22,10 @@ export default function MyInquiry() {
                 return (
                     <div key={index} className="Inquiry">
                             <p>{index + 1}</p>
-
                             <p>{inquiry.category.category}</p>
-
                             <p>{inquiry.title}</p>
-
                             <p>{inquiry.date}</p>
+                            <p>답변대기중</p>
                     </div>
                 );
             })
@@ -49,6 +47,7 @@ export default function MyInquiry() {
                     <span>분류</span>
                     <span>문의 제목</span>
                     <span>작성일</span>
+                    <span>처리여부</span>
                 </div>
                 { inquiryMapping() }
             </div>

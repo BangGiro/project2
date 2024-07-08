@@ -45,7 +45,7 @@ useMemo(()=> setItemLength(5), [ category ])
     };
 
 //==============================================================================
-//닫기 버튼 
+//리스트 닫기 버튼 
     function CloseList() {
         
         function closeAll() {

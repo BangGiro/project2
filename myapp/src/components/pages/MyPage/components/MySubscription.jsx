@@ -7,27 +7,31 @@ export default function MySubscription() {
 
                 <div className="CurrentSubscription">
                     <img src="/image/unDrawSVG/undraw_personal_trainer_re_cnua.svg" alt="" />
+                    
+                    <div className="SubscriptionInfo">
+                        <p>트레이너 플랜</p>
+                        <span>월 12,900원</span>
+                        <ul>
+                            <li><i className="fa-solid fa-check"></i>일정 관리</li>
+                            <li><i className="fa-solid fa-check"></i>회원 관리</li>
+                            <li><i className="fa-solid fa-check"></i>용량 20gb</li>
+                            <li><i className="fa-solid fa-xmark"></i>무제한 회원추가</li>
+                            <li><i className="fa-solid fa-xmark"></i>직원 관리 지원</li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div>
-                    <span>구독 기간: </span>
-                    <p> &nbsp; 2021.04.23 ~ 2022.04.23</p>
-                </div>
 
                 <div className="SubscriptionPayment">
-                    <div>
-                        <span>결제 금액</span>
-                        <p>12,000원</p>
-                    </div>
                     <div >
                         <span>정기 결제 수단</span>
                         <p>카드 결제</p>
                     </div>
                 </div>
-                    <button className="CancelSubscription">
-                            구독해지
-                    </button>
             </div>
+                <button className="CancelSubscription">
+                        구독해지
+                </button>
         </section>
     )
 }
