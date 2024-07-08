@@ -130,17 +130,17 @@ const QnAPage = () => {
     return (        
         <div className="QnA_page">
             <h1>문의하기
-                <img src="/image/unDrawSVG/undraw_personal_opinions.svg" alt="" />
+                <img src="/image/unDrawSVG/undraw_personal_opinions.svg" alt="배너" />
             </h1>
             <form className='QnA_form'>
                 <div className='QnA_inputs'>
                     <label className='QnA_label' htmlFor="QnA_name">이메일 주소</label>
                     <input type="text" id='QnA_email' placeholder='답장받을 이메일 입력' />
 
-                    <label className='QnA_label' htmlFor="QnA_Category_select">문의 유형</label>
+                    <label className='QnA_label'>문의 유형</label>
                     <CustomDropdown QnA_getValue={QnA_getCategory} QnAdata={categoryOptions}/>
 
-                    <label className='QnA_label' htmlFor="QnA_Category_select_detail">상세 구분</label>
+                    <label className='QnA_label'>상세 구분</label>
                     <CustomDropdown QnA_getValue={QnA_getDetails} QnAdata={details}/>
 
                     <label className='QnA_label' htmlFor="QnA_title">제목</label>
