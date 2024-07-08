@@ -14,8 +14,7 @@ export default function SignUp() {
         gender: "",
         loginType: "",
         businessNumber: "",
-        time: "",
-        trainer: "",
+        registrationDate: ""
     });
 
     const [errorMessage, setErrorMessage] = useState("");
@@ -86,7 +85,12 @@ export default function SignUp() {
             return;
         }
 
-        const updatedUsers = [...storedUsers, userData];
+        const newUserData = {
+            ...userData,
+            registrationDate: new Date().toISOString()
+        };
+
+        const updatedUsers = [...storedUsers, newUserData];
         localStorage.setItem("userData", JSON.stringify(updatedUsers));
 
         navigate("/login");
@@ -95,9 +99,9 @@ export default function SignUp() {
     useEffect(() => {
         const createDummyUsers = (count) => {
             const dummyUsers = [];
-            const names = ["권시은","김경래","참이슬","김민정","김하준","이서연","최지아","한도윤","김동희","김민서","김민지","김서연",
+            const names = ["권시은", "김경래", "참이슬", "김민정", "김하준", "이서연", "최지아", "한도윤", "김동희", "김민서", "김민지", "김서연",
                 "김민수", "이지아", "박영희", "최철수", "정미경", "홍길동", "이순신", "김철수", "박미영", "최영희", "정민수", "홍지아", "이철수",
-                "박한율","조영인","처음처럼","박카스","핫식스","이름뭐적지","직박구리","우샤코프","피자헛","오늘점심뭐먹지","내일점심뭐먹지","치킨먹고싶다",];
+                "박한율", "조영인", "처음처럼", "박카스", "핫식스", "이름뭐적지", "직박구리", "우샤코프", "피자헛", "오늘점심뭐먹지", "내일점심뭐먹지", "치킨먹고싶다",];
             const domains = ["test.com"];
             const genders = ["남자", "여자"];
             const loginTypes = ["일반", "트레이너", "비지니스"];
@@ -119,8 +123,7 @@ export default function SignUp() {
                     gender: randomGender,
                     loginType: randomLoginType,
                     businessNumber: randomBusinessNumber,
-                    time: "",
-                    trainer: "",
+                    registrationDate: new Date().toISOString()
                 });
             }
 
@@ -194,7 +197,7 @@ export default function SignUp() {
                                 value={userData.birth}
                                 onChange={handleChange}
                                 required
-                                max="9999-12-31" 
+                                max="9999-12-31"
                                 min="1900-01-01"
                             />
                         </label>
