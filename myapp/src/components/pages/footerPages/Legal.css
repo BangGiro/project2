@@ -38,3 +38,10 @@
     padding-left: 20px; /* 들여쓰기 */
 }
 
+.reSize{
+    resize: none;
+    width: 35%;
+    position: relative;
+    top: 10px;
+    margin-right: 10px;
+}
