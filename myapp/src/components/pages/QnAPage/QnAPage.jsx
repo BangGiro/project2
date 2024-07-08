@@ -101,9 +101,9 @@ const QnAPage = () => {
     //유효성 검사 함수
     function CheckValues(e) {
         const categoryData = dropDownData;
-        const email = document.getElementById('QnA_email').value;
-        const title = document.getElementById('QnA_title').value;
-        const content = document.getElementById('QnA_textarea').value;
+        const email = document.getElementById('QnA_email').value.trim();
+        const title = document.getElementById('QnA_title').value.trim();
+        const content = document.getElementById('QnA_textarea').value.trim();
 
         
         if(categoryData.category === '' || categoryData.details === '') {

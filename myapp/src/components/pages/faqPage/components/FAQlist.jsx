@@ -52,7 +52,7 @@ useMemo(()=> setItemLength(5), [ category ])
             setItemLength(5);
         };
         
-        if(ItemLength > 5){
+        if(ItemLength >= FAQfilterOBJ().map(mapItem).length){
             return <div className='FAQcloseList' onClick={closeAll}> - 전부 닫기 </div>
         } else {
             return null;
