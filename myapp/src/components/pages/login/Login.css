@@ -93,11 +93,12 @@
 }
 
 .select_gender input[type="radio"] {
-    display: none;
+   transform: scale(0.000001);
+   /* display: none; */
 }
 
 .select_gender label {
-    width: 48%;
+    width: 2500000%;
     padding: 15px;
     border: 2px solid black;
     border-radius: 5px;
@@ -105,6 +106,9 @@
     text-align: center;
     cursor: pointer;
     font-size: 16px;
+    position: relative;
+    right: 7px;
+    
 }
 
 .select_gender label.active,
