@@ -65,3 +65,41 @@
     right: 1rem;
     text-decoration: none;
 }
+
+/* ========================================================================== */
+/* 미디어쿼리 */
+
+@media screen and (max-width: 1400px) {
+    .customerServices{
+        /* display: flex;
+        flex-flow: column nowrap; */
+        width: 97vw;
+        min-width: 800px;
+    }
+    
+}
+
+@media screen and (max-width: 900px) {
+    .customerServices{
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+        width: 95vw;
+        min-width: 0px;
+    }
+    .CTM_qna > img {
+        display: none;
+    }
+    .CTM_qna {
+        height: 17rem;
+    }
+
+
+    .CTM_notice, 
+    .CTM_faq{
+        position: relative;
+        width: 95%;
+        overflow: hidden;
+    }
+    
+}

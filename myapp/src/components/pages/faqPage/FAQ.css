@@ -42,7 +42,7 @@
 
 
 .FAQsearchContainer {
-    width: 65vw;
+    width: 100%;
     margin: auto;
 
     display: flex;
@@ -94,13 +94,16 @@
 .FAQlist {
     height: auto;
     padding: 1rem 0rem 2rem 0rem;
+    margin: auto;
+    width: 65vw;
+    min-width: 1000px;
 }
 
 .FAQ_container {
     position: relative;
 
     height: 3rem;
-    width: 65vw;
+    width: 100%;
 
     margin: auto;
 
@@ -191,11 +194,13 @@
 /* =============================================================================== */       
 /* 미디어쿼리 */
 
-@media screen and (max-width: 900px) {
-    .FAQ_container,
+@media screen and (max-width: 1000px) {
+
     .FAQsearchContainer,
-    .FAQsearchBar {
+    .FAQsearchBar,
+    .FAQlist {
         width: 95vw;
+        min-width: 0px;
     }
 }
 

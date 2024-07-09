@@ -89,31 +89,39 @@ const NoticePage = ({isMini}) => {
 
     //=================================================================================================
     // 공지사항 리스트
-    let ctg = useRef(null);
 
-    function NoticeList() {
+    function NoticeList({isMini}) {
         let CheckedCurrentNotices = currentList.filter(notice => notice.title.includes(searchText));
 
         if(CheckedCurrentNotices.length > 0) {
-            if (category === '전체') {
-                    return currentNotices.filter(notice => notice.title.includes(searchText)).reverse().map((notice) => (
-                        <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
-                            <span>{notice.category}</span>
-                            <p>{notice.title}</p>
-                            <span>{notice.date}</span>
-                        </div>
-            ))} else {
-                currentNotices = notices.filter(notice => notice.category === category ).slice(indexOfFirstNotice, indexOfLastNotice);
-                
+            if(isMini) {
                 return currentNotices.filter(notice => notice.title.includes(searchText)).reverse().map((notice) => (
                     <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
                         <span>{notice.category}</span>
-                        <h3>{notice.title}</h3>
-                        <span>{notice.date}</span>
+                        <p>{notice.title}</p>
+                        <span>{notice.date.replace('20','')}</span>
                     </div>
-            ))}
-
-        } else {
+                ))} else {   
+                if (category === '전체') {
+                        return currentNotices.filter(notice => notice.title.includes(searchText)).reverse().map((notice) => (
+                            <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
+                                <span>{notice.category}</span>
+                                <p>{notice.title}</p>
+                                <span>{notice.date}</span>
+                            </div>
+                ))} else {
+                    currentNotices = notices.filter(notice => notice.category === category ).slice(indexOfFirstNotice, indexOfLastNotice);
+                    
+                    return currentNotices.filter(notice => notice.title.includes(searchText)).reverse().map((notice) => (
+                        <div key={notice.id} data-notice-id={notice.id} className="notice_item" onClick={sendData}>
+                            <span>{notice.category}</span>
+                            <h3>{notice.title}</h3>
+                            <span>{notice.date}</span>
+                        </div>
+                ))}
+            } 
+            
+        }  else {
             return <div className='NothingOnSearchingNTC'>검색 결과가 없습니다.</div>
         }
     }
@@ -138,7 +146,7 @@ const NoticePage = ({isMini}) => {
         return (
             <>
                 <NoticeView noticeID={noticeID} isMini={isMini} setNoticeID={setNoticeID}/>
-                <NoticeList/>
+                <NoticeList isMini={isMini}/>
                 {/* 페이지 네이션 */}
                 <div className="pagination">
                     {Array.from({ length: Math.ceil(currentList.length / noticesPerPage) })}
