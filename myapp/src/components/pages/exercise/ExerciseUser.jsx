@@ -178,7 +178,6 @@ function ExerciseUser() {
 
       setExercises(updatedExercises);
       localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(updatedExercises));
-      alert('운동 데이터가 저장되었습니다.');
     }
   };
 
@@ -260,7 +259,6 @@ function ExerciseUser() {
                   ))}
                   <div className="dailyActivity">
                     <button className="add" onClick={openModal}>운동 추가하기</button>
-                    <button className="save" onClick={handleSave}>저장하기</button>
                     <button className="clear" onClick={handleClear}>초기화</button>
                   </div>
                 </div>
