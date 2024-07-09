@@ -67,6 +67,7 @@
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
         z-index: 2;
+        border-radius: 3px;
     }
 
     .navbar .submenu li {
