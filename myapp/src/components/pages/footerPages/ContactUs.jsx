@@ -11,6 +11,8 @@ function ContactUs() {
                 <li>이메일: support@company.com</li>
                 <li>전화번호: 02-1234-5678</li>
                 <li>주소: Silicon Valley, CA</li>
+                <li>회사명: 올인원 삐뜨니쓰</li>
+                <li>사업자명: 컴포Nan트 CA</li>
             </ul>
             <h2>문의 양식</h2>
             <form>
