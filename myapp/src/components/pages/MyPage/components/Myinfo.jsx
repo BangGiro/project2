@@ -35,7 +35,7 @@ export default function MyInfo() {
                         <p>{MyData ? MyData.registrationDate.split('T')[0] : ''}</p>
                     </div>
                     <div>
-                        <span>회원 타입</span>
+                        <span>유형</span>
                         <p>{MyData ? MyData.loginType : ''}</p>
                     </div>
                 </div>

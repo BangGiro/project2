@@ -28,9 +28,7 @@ export default function MySubscription() {
                     </div>
                 </div>
             </div>
-                <button className="CancelSubscription">
-                        구독해지
-                </button>
+
         </section>
     )
 }

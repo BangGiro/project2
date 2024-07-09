@@ -11,6 +11,9 @@
 
 .MyService{
     background-color: #f0f0f0;
+    display: flex;
+    flex-flow: column nowrap;
+    width: 290px;
     float: left;
 }
 
@@ -23,25 +26,19 @@
     border-top: 1px white solid;
 }
 
+.MyService > div:hover {
+    background-color: #c1c1c1;
+    cursor: pointer;
+}
+
 .MyService i,
 .MyService p {
     margin-right: 2rem;
     z-index: 2;
 }
 
-.MyService div::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    width: 10%;
-    height: 100%;
-    background-color: rgb(181, 181, 181);
-}
-
 .renderMyService{
-    width: 50vw;
-    min-width: 800px;
+    width: 900px;
     height: auto;
     min-height: 1rem;
     margin: auto;
@@ -65,7 +62,6 @@
     padding: 2rem;
 
     margin: 5rem 0 5rem 0;
-
 } 
 
 .MyProfile {
@@ -348,5 +344,91 @@
     to {
         opacity: 1;
         transform: translateY(0%);
+    }
+}
+
+/* ======================================================================= */   
+/* 미디어쿼리 */
+
+@media screen and (max-width: 1550px) {
+    .renderMyService{
+        width: 900px;
+        height: auto;
+        min-height: 1rem;
+        margin-left: 300px;
+    }
+    
+}
+
+@media screen and (max-width: 1270px) {
+
+    .renderMyService{
+        width: 70vw;
+        height: auto;
+        min-height: 1rem;
+        margin-left: 300px;
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+        .MyService{
+        width: 95vw;
+        margin: auto;
+
+        display: flex;
+        flex-flow: row nowrap;
+        /* justify-content: space-between; */
+
+        min-width: 0px;
+        float: none;
+
+        margin-bottom: 2rem;
+        }
+
+        .renderMyService{
+            width: 95vw;
+            margin: auto;
+            height: auto;
+            min-height: 1rem;
+        }
+
+        .MyService i {
+            display: none;
+        }
+
+        .MyService > div {
+            padding: 1rem 0rem 1rem 0rem;
+            font-size: 1.2rem;
+            display:inline-block;
+            width: 25%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 1px white solid;
+        }
+
+        .MyService p {
+            margin-right: 0;
+        }
+
+        .Inquiry {
+            font-size: .8rem;
+            grid-template-columns: .5fr 1fr 4fr 1.5fr 1.5fr;
+        }
+        .InquiryTable {
+            font-size: .8rem;
+            grid-template-columns: .5fr 1fr 4fr 1.5fr 1.5fr;
+        }
+}
+
+@media screen and (max-width: 660px) {
+    .CurrentSubscription > img {
+        display: none;
+    }
+
+    .MyProfile {
+        height: 9rem;
+        width: 9rem;
     }
 }

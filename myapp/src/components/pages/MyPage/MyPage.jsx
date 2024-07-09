@@ -17,7 +17,9 @@ const MyPage = () => {
 const[tabs , setTabs] = useState('기본 정보');
 // 탭 전환
     function ChangeMyService(e) {
-        let eventTarget = e.target.closest('div');
+        let eventTarget = e.target.closest('.tabBTN');
+        console.log(eventTarget.innerText);
+        if(eventTarget.innerText) 
         setTabs(eventTarget.innerText);
     }
 
@@ -38,11 +40,11 @@ const[tabs , setTabs] = useState('기본 정보');
         <div className="MyPage">
 
             <div >
-                <section className="MyService" onClick={ChangeMyService}>
-                    <div onClick={ChangeMyService}><i className="fa-regular fa-user"></i><p>기본 정보</p></div>
-                    <div onClick={ChangeMyService}><i className="fa-regular fa-id-card"></i><p>구독 정보</p></div>
-                    <div onClick={ChangeMyService}><i className="fa-solid fa-table-list"></i><p>문의 내역</p></div>
-                    <div onClick={ChangeMyService}><i className="fa-solid fa-lock"></i><p>보안</p></div>
+                <section className="MyService">
+                    <div className="tabBTN" onClick={ChangeMyService}><i className="fa-regular fa-user"></i><p>기본 정보</p></div>
+                    <div className="tabBTN" onClick={ChangeMyService}><i className="fa-regular fa-id-card"></i><p>구독 정보</p></div>
+                    <div className="tabBTN" onClick={ChangeMyService}><i className="fa-solid fa-table-list"></i><p>문의 내역</p></div>
+                    <div className="tabBTN" onClick={ChangeMyService}><i className="fa-solid fa-lock"></i><p>보안</p></div>
                 </section>
 
                 <div className="renderMyService">
