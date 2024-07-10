@@ -118,6 +118,9 @@ const QnAPage = () => {
             e.preventDefault();
             alert('모든 항목을 입력해주세요');
             return;
+        } else if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,3}$/i.test(email)) {
+            alert('유효한 이메일 주소를 입력해주세요');
+            return;
         } else {
             QnA_handleSubmit();
         }
