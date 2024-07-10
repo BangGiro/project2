@@ -65,6 +65,8 @@ const QnAPage = () => {
         // Update the state with the new QnA object
         setPersonalQnA([...personalQnA, newQnA]);
 
+        alert('접수되었습니다');
+
 
         // Clear the form fields
         document.getElementById('QnA_title').value = '';
