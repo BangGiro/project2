@@ -23,21 +23,22 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	UserService uservice;
+
 	
-//	@GetMapping("/selectAll")
-//	public void uList() {
-//		System.out.println(uservice.selectName());
-//	} //mList
-	
-	
+	//로그인======================================================================================
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Users entity, HttpSession session ) {
 		String password = entity.getPassword();
 		//=>나중에 처리할 것
+		
 		log.info("entity 값 확인 =>" +entity.getUserId());
 		
+		//서비스 처리
 		entity = uservice.findUsersById(entity.getUserId());
-    	if(entity != null) {
+		
+		//로그인 성공/실패 처리
+    	if(entity != null && password.equals(entity.getPassword())) {
+    
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
     		

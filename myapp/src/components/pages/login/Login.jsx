@@ -19,6 +19,7 @@ export default function Login({ onLogin }) {
         setUserPassword(e.target.value);
     };
 
+    // 로그인 전송 & 처리
     function SubmitLogin(userId, userPassword) {
         let uri = "/users/login"
         let method = "post";
@@ -26,10 +27,12 @@ export default function Login({ onLogin }) {
 
         apiCall(uri, method, data, null)
         .then((response) => {
-            alert('로그인 완료');
+
+            console.log(response.data);
+            alert('로그인 성공');
             navigate("/");
         }).catch((err)=>{
-            alert('로그인 실패');
+            alert('로그인 실패'+err.message);
         })
     };
 
