@@ -19,4 +19,9 @@ public class UserServiceImpl implements UserService {
 		return uRepository.findById();
 	}
 	
+	@Override
+	public Users selectOne(String id) {
+		return uRepository.selectOne(id);
+	}
+	
 }
