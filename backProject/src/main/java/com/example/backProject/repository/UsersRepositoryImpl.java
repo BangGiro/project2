@@ -15,9 +15,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsersRepositoryImpl implements UsersRepository{
 	private final EntityManager em;
+	
 	@Override
 	public List<Users> findById() {
 		return em.createQuery("select u from Users u ",Users.class)
 		.getResultList();
 	}
+	
+	@Override
+	public Users selectOne(String id) {
+		return em.createQuery("select u from Users u where u.id=:id", Users.class)
+				.setParameter("id", id).getSingleResult();
+	}
+	
 }

@@ -6,4 +6,6 @@ import com.example.backProject.entity.Users;
 
 public interface UserService {
 	List<Users> selectName();
+	
+	Users selectOne(String id);
 }
