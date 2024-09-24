@@ -24,27 +24,23 @@ public class UserController {
 
 	UserService uservice;
 	
-	@GetMapping("/selectAll")
-	public void uList() {
-		System.out.println(uservice.selectName());
-	} //mList
+//	@GetMapping("/selectAll")
+//	public void uList() {
+//		System.out.println(uservice.selectName());
+//	} //mList
 	
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Users entity, HttpSession session ) {
-		
 		String password = entity.getPassword();
-		entity = uservice.selectOne(entity.getUserId());
+		//=>나중에 처리할 것
+		log.info("entity 값 확인 =>" +entity.getUserId());
+		
+		entity = uservice.findUsersById(entity.getUserId());
     	if(entity != null) {
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
-    		//token생성
-//    		final String token = tokenProvider.create(entity.getUserId()); 
-    		//token parser확인
-//    		log.info("token parser확인 ➡️"+tokenProvider.vaildateAndGetUserId(token));
     		
-    		
-    		//전송할 UserDTO 객체생성
     		final UsersDTO usersDTO = UsersDTO.builder()
 //    				.token(token)
     				.userId(entity.getUserId())

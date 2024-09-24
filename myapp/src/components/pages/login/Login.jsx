@@ -3,36 +3,34 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import './Login.css';
+import { apiCall } from "../../../service/apiService";
 import { loginUser } from '../helpers/auth';
 
 export default function Login({ onLogin }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [userId, setUserID] = useState('');
+    const [userPassword, setUserPassword] = useState('');
     const navigate = useNavigate();
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+    const handleUserIdChange = (e) => {
+        setUserID(e.target.value);
     };
 
     const handlePasswordChange = (e) => {
-        setPassword(e.target.value);
+        setUserPassword(e.target.value);
     };
 
-    const CompareLoginData = (e) => {
-        e.preventDefault();
+    function SubmitLogin(userId, userPassword) {
+        let uri = "/users/login"
+        let method = "post";
+        const data = {userId:userId, password:userPassword};
 
-        const CompareLocalLoginData = localStorage.getItem('userData');
-        const parsedCompareLocalLoginData = JSON.parse(CompareLocalLoginData) || [];
-
-        const matchedUser = parsedCompareLocalLoginData.find(user => user.email === email && user.password === password);
-
-        if (matchedUser) {
-            loginUser(matchedUser);
-            onLogin(email);
-            navigate('/');
-        } else {
-            alert('이메일 또는 비밀번호를 다시 확인해주세요.');
-        }
+        apiCall(uri, method, data, null)
+        .then((response) => {
+            alert('로그인 완료');
+            navigate("/");
+        }).catch((err)=>{
+            alert('로그인 실패');
+        })
     };
 
     return (
@@ -41,14 +39,17 @@ export default function Login({ onLogin }) {
                 <div className="login-container">
                     <div className="login_main">
                         <h1>로그인</h1>
-                        <form className="login-form" onSubmit={CompareLoginData}>
+                        <form className="login-form" onSubmit={ (e) => {
+                            e.preventDefault();
+                            SubmitLogin(userId, userPassword);
+                        }}>
                             <label>
-                                <input type="email" placeholder="이메일 입력" onChange={handleEmailChange} required />
+                                <input type="text" placeholder="아이디 입력" onChange={handleUserIdChange} required />
                             </label>
                             <label>
                                 <input type="password" placeholder="비밀번호 입력" onChange={handlePasswordChange} required />
                             </label>
-                            <button type="submit">로그인</button>
+                            <button type="submit" className="loginBtn">로그인</button>
                         </form>
                     </div>
                     <div className="login-links">
