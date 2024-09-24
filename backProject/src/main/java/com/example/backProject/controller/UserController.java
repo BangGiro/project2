@@ -50,7 +50,7 @@ public class UserController {
     				.userId(entity.getUserId())
     				.name(entity.getName())
     				.build();
-    				
+    			
     		log.info("로그인 성공 =>" +HttpStatus.OK);
     		return ResponseEntity.ok(usersDTO);
     		
