@@ -36,7 +36,8 @@ public class WebMVCconfig implements WebMvcConfigurer{
 		// 모든 경로에 대해 적용
 		registry.addMapping("/**")
 				.allowedOrigins("Http://localhost:3000")
-				.allowedMethods("GET","POST","PUT","FATCH","DELETE","OPTIONS")
+				.allowedMethods("*")
+//				.allowedMethods("GET","POST","PUT","FATCH","DELETE","OPTIONS")
 				.allowedHeaders("*")
 				.allowCredentials(true)
 				.maxAge(MAX_AGE_SECS);
