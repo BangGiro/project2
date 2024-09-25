@@ -26,6 +26,7 @@ import Announcement from './components/pages/footerPages/Announcement';
 import CyberAuditOffice from './components/pages/footerPages/CyberAuditOffice';
 import ContactUs from './components/pages/footerPages/ContactUs';
 import MyPage from './components/pages/MyPage/MyPage';
+import { axios } from 'axios';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
