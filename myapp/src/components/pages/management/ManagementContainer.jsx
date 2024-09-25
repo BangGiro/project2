@@ -1,9 +1,7 @@
-// ManagementContainer 컴포넌트
 import React, { useEffect, useState } from 'react';
 import Management from './components/Management';
 import CategoryContainer from './components/CategoryContainer';
-import { getLoggedInUser, isLoggedIn } from '../helpers/auth';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { getLoggedInUser } from '../helpers/auth'; // isLoggedIn 삭제
 import './ManagementContainer.css';
 
 function ManagementContainer() {
@@ -11,7 +9,6 @@ function ManagementContainer() {
     const [users, setUsers] = useState([]);
     const [isCategoryVisible, setIsCategoryVisible] = useState(true);
     const user = getLoggedInUser();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (user && user.email) {
@@ -19,14 +16,7 @@ function ManagementContainer() {
             setUsers(storedUsers);
             setMemberNames(storedUsers.map(user => ({ name: user.name, email: user.email })));
         }
-    }, [user.email]);
-
-    useEffect(() => {
-        if (isLoggedIn() && user.loginType !== '트레이너') {
-            alert('접근 권한이 없습니다.');
-            navigate('/');
-        }
-    }, [user, navigate]);
+    }, [user?.email]); // Optional chaining 사용
 
     const handleAddUser = (newUser, memo) => {
         const updatedUser = { ...newUser, memo, trainer: user.email };
@@ -70,10 +60,6 @@ function ManagementContainer() {
         };
     }, []);
 
-    if (!isLoggedIn()) {
-        return <Navigate to="/login" />;
-    }
-
     return (
         <div className="management-container">
             {isCategoryVisible && (
@@ -83,7 +69,7 @@ function ManagementContainer() {
             )}
             <div className='maco'>
                 <Management
-                    loggedInEmail={user.email}
+                    loggedInEmail={user?.email}
                     onAddUser={handleAddUser}
                     onDeleteUser={handleDeleteMember}
                     onDeleteAllUsers={handleDeleteAllUsers}

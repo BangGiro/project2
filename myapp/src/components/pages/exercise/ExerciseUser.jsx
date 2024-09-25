@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
-
-export const availableExercises = [
+const availableExercises = [
   { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
   { name: "데드리프트", category: "하체", image: "/image/exercisePictogram/deadlift.png" },
   { name: "런지", category: "하체", image: "/image/exercisePictogram/lunge.png" },
@@ -39,290 +38,322 @@ export const availableExercises = [
   { name: "로잉", category: "유산소", image: "/image/exercisePictogram/rowing.png" },
 ];
 
-const categories = [
-  "하체", "등", "가슴", "어깨", "팔", "유산소"
-];
+const categories = ["하체", "등", "가슴", "어깨", "팔", "유산소"];
+
+// API 호출 함수들
+const fetchExerciseLogs = async (userId, date, setCurrentExercises) => {
+    try {
+        const response = await fetch(`/exercises/logs?userId=${userId}&date=${date}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch exercise logs');
+        }
+        const data = await response.json();
+        setCurrentExercises(data);
+    } catch (error) {
+        console.error(error.message);
+    }
+};
+
+const saveExerciseLog = async (log) => {
+    try {
+        const response = await fetch('/exercises/log', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(log),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to save exercise log');
+        }
+        console.log('Exercise log saved successfully');
+    } catch (error) {
+        console.error(error.message);
+    }
+};
 
 function ExerciseUser() {
-  const [exercises, setExercises] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [pendingExercises, setPendingExercises] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [currentExercises, setCurrentExercises] = useState([]);
-  const [selectedUser, setSelectedUser] = useState(null);
+    const [exercises, setExercises] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [pendingExercises, setPendingExercises] = useState([]);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [currentExercises, setCurrentExercises] = useState([]);
+    const [selectedUser, setSelectedUser] = useState(null);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('selectedUser'));
-    if (user) {
-      setSelectedUser(user);
-      const storedExercises = JSON.parse(localStorage.getItem(`exercises_${user.email}`));
-      if (storedExercises) {
-        setExercises(storedExercises);
-      }
-    }
-  }, []);
+    // 사용자가 선택된 경우, 저장된 운동 기록 불러오기
+    useEffect(() => {
+        const user = JSON.parse(localStorage.getItem('selectedUser'));
+        if (user) {
+            setSelectedUser(user);
+            const storedExercises = JSON.parse(localStorage.getItem(`exercises_${user.email}`));
+            if (storedExercises) {
+                setExercises(storedExercises);
+            }
+        }
+    }, []);
 
-  useEffect(() => {
-    if (selectedUser) {
-      localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(exercises));
-    }
-  }, [exercises, selectedUser]);
+    // 선택된 날짜와 사용자가 변경될 때마다 운동 기록을 불러옴
+    useEffect(() => {
+        if (selectedUser) {
+            const userId = selectedUser.id; // 사용자의 ID
+            const date = selectedDate.toLocaleDateString('en-CA'); // YYYY-MM-DD 형식
+            fetchExerciseLogs(userId, date, setCurrentExercises); // Spring Boot API 호출
+        }
+    }, [selectedDate, selectedUser]);
 
-  useEffect(() => {
-    const selectedDateData = exercises.find(day => day.day === selectedDate.toLocaleDateString());
-    if (selectedDateData) {
-      setCurrentExercises(selectedDateData.exercises);
-    } else {
-      setCurrentExercises([]);
-    }
-  }, [selectedDate, exercises]);
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
 
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedCategory(null);
+        setSearchTerm('');
+        setPendingExercises([]);
+    };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedCategory(null);
-    setSearchTerm('');
-    setPendingExercises([]);
-  };
+    const handleCategorySelect = (category) => {
+        setSelectedCategory(category);
+    };
 
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
-  };
+    const handleAddExercise = (exerciseName, exerciseImage) => {
+        setPendingExercises([...pendingExercises, { name: exerciseName, image: exerciseImage, weight: '', reps: '', sets: '' }]);
+    };
 
-  const handleAddExercise = (exerciseName, exerciseImage) => {
-    setPendingExercises([...pendingExercises, { name: exerciseName, image: exerciseImage, weight: '', reps: '', sets: '' }]);
-  };
+    const handleRemoveExercise = (exerciseName) => {
+        setPendingExercises(pendingExercises.filter(exercise => exercise.name !== exerciseName));
+    };
 
-  const handleRemoveExercise = (exerciseName) => {
-    setPendingExercises(pendingExercises.filter(exercise => exercise.name !== exerciseName));
-  };
+    const handleConfirmExercises = () => {
+        const updatedExercises = exercises.map((day) =>
+            day.day === selectedDate.toLocaleDateString()
+                ? { ...day, exercises: [...day.exercises, ...pendingExercises] }
+                : day
+        );
+        if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
+            updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: pendingExercises });
+        }
+        setExercises(updatedExercises);
+        closeModal();
+    };
 
-  const handleConfirmExercises = () => {
-    const updatedExercises = exercises.map((day) =>
-      day.day === selectedDate.toLocaleDateString()
-        ? { ...day, exercises: [...day.exercises, ...pendingExercises] }
-        : day
+    const deleteExercise = (exerciseIndex) => {
+        const updatedExercises = exercises.map((day) =>
+            day.day === selectedDate.toLocaleDateString()
+                ? { ...day, exercises: day.exercises.filter((_, i) => i !== exerciseIndex) }
+                : day
+        );
+        setExercises(updatedExercises);
+    };
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value.replace(/\s+/g, '').toLowerCase());
+    };
+
+    const handleExerciseSelect = (exerciseName, exerciseImage) => {
+        if (pendingExercises.find(exercise => exercise.name === exerciseName)) {
+            handleRemoveExercise(exerciseName);
+        } else {
+            handleAddExercise(exerciseName, exerciseImage);
+        }
+    };
+
+    const handleInputChange = (index, field, value) => {
+        const updatedExercises = [...currentExercises];
+        updatedExercises[index] = { ...updatedExercises[index], [field]: value };
+        setCurrentExercises(updatedExercises);
+
+        const updatedAllExercises = exercises.map((day) =>
+            day.day === selectedDate.toLocaleDateString()
+                ? { ...day, exercises: updatedExercises }
+                : day
+        );
+        setExercises(updatedAllExercises);
+    };
+
+    const filteredExercises = availableExercises.filter(exercise =>
+        (selectedCategory ? exercise.category === selectedCategory : true) &&
+        exercise.name.replace(/\s+/g, '').toLowerCase().includes(searchTerm)
     );
-    if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
-      updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: pendingExercises });
-    }
-    setExercises(updatedExercises);
-    closeModal();
-  };
 
-  const deleteExercise = (exerciseIndex) => {
-    const updatedExercises = exercises.map((day) =>
-      day.day === selectedDate.toLocaleDateString()
-        ? { ...day, exercises: day.exercises.filter((_, i) => i !== exerciseIndex) }
-        : day
-    );
-    setExercises(updatedExercises);
-  };
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value.replace(/\s+/g, '').toLowerCase());
-  };
+    // 저장 버튼을 눌렀을 때 운동 기록을 Spring Boot 서버에 저장
+    const handleSave = async () => {
+        if (selectedUser) {
+            const logsToSave = currentExercises.map(exercise => ({
+                userId: selectedUser.id,
+                exerciseName: exercise.name,
+                weight: exercise.weight,
+                reps: exercise.reps,
+                sets: exercise.sets,
+                date: selectedDate.toLocaleDateString('en-CA')
+            }));
 
-  const handleExerciseSelect = (exerciseName, exerciseImage) => {
-    if (pendingExercises.find(exercise => exercise.name === exerciseName)) {
-      handleRemoveExercise(exerciseName);
-    } else {
-      handleAddExercise(exerciseName, exerciseImage);
-    }
-  };
+            for (const log of logsToSave) {
+                await saveExerciseLog(log); // Spring Boot API 호출
+            }
 
-  const handleInputChange = (index, field, value) => {
-    const updatedExercises = [...currentExercises];
-    updatedExercises[index] = { ...updatedExercises[index], [field]: value };
-    setCurrentExercises(updatedExercises);
+            const updatedExercises = exercises.map(day =>
+                day.day === selectedDate.toLocaleDateString()
+                    ? { ...day, exercises: currentExercises }
+                    : day
+            );
 
-    const updatedAllExercises = exercises.map((day) =>
-      day.day === selectedDate.toLocaleDateString()
-        ? { ...day, exercises: updatedExercises }
-        : day
-    );
-    setExercises(updatedAllExercises);
-  };
+            if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
+                updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: currentExercises });
+            }
 
-  const filteredExercises = availableExercises.filter(exercise =>
-    (selectedCategory ? exercise.category === selectedCategory : true) &&
-    exercise.name.replace(/\s+/g, '').toLowerCase().includes(searchTerm)
-  );
+            setExercises(updatedExercises);
+            localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(updatedExercises));
+        }
+    };
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-    const selectedDayData = exercises.find(day => day.day === date.toLocaleDateString());
-    if (selectedDayData) {
-      setCurrentExercises(selectedDayData.exercises);
-    } else {
-      setCurrentExercises([]);
-    }
-  };
+    const handleClear = () => {
+        const updatedExercises = exercises.filter(day => day.day !== selectedDate.toLocaleDateString());
+        setExercises(updatedExercises);
+        setCurrentExercises([]);
+    };
 
-  const handleSave = () => {
-    if (selectedUser) {
-      const updatedExercises = exercises.map(day =>
-        day.day === selectedDate.toLocaleDateString()
-          ? { ...day, exercises: currentExercises }
-          : day
-      );
+    const tileContent = ({ date, view }) => {
+        if (view === 'month' && exercises.some(day => day.day === date.toLocaleDateString())) {
+            return <div className="dot"></div>;
+        }
+        return null;
+    };
 
-      if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
-        updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: currentExercises });
-      }
-
-      setExercises(updatedExercises);
-      localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(updatedExercises));
-    }
-  };
-
-  const handleClear = () => {
-    const updatedExercises = exercises.filter(day => day.day !== selectedDate.toLocaleDateString());
-    setExercises(updatedExercises);
-    setCurrentExercises([]);
-  };
-
-  const tileContent = ({ date, view }) => {
-    if (view === 'month' && exercises.some(day => day.day === date.toLocaleDateString())) {
-      return <div className="dot"></div>;
-    }
-    return null;
-  };
-
-  return (
-    <div className='ExerciseMainTrue'>
-      <div className='every'>
-        <div className='exerciseMainBody'>
-          <div className="header">
-            {selectedUser && <h1>{selectedUser.name}님</h1>}
-            <hr />
-          </div>
-          <div className='exerciseMain'>
-            <div className="calendarContainer">
-              <Calendar
-                onChange={handleDateChange}
-                value={selectedDate}
-                tileContent={tileContent}
-              />
-            </div>
-            <div className="weeklyStats">
-              <div className="statsBars">
-                <div className="weeks">
-                  <div className="day">{selectedDate.toLocaleDateString()}</div>
-                  <hr />
-                  {currentExercises.map((exercise, exerciseIndex) => (
-                    <div key={exerciseIndex} className="exerciseEntry">
-                      <img src={exercise.image} alt={exercise.name} className="exerciseImage" />
-                      <p>{exercise.name}</p>
-                      <li>
-                        <label>&nbsp;무게</label>
-                        <input
-                          type="number"
-                          min="1"
-                          placeholder="(kg)"
-                          value={exercise.weight}
-                          onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
-                          className="weightInput"
-                        />
-                      </li>
-                      <li>
-                        <label>&nbsp;횟수</label>
-                        <input
-                          type="number"
-                          min="1"
-                          placeholder="횟수"
-                          value={exercise.reps}
-                          onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
-                          className="repsInput"
-                        />
-                      </li>
-                      <li>
-                        <label>&nbsp;세트 수</label>
-                        <input
-                          type="number"
-                          min="1"
-                          placeholder="세트 수"
-                          value={exercise.sets}
-                          onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
-                          className="setsInput"
-                        />
-                      </li>
-                      <button className="delete" onClick={() => deleteExercise(exerciseIndex)}>
-                        <i className="fa-solid fa-circle-minus"></i>
-                      </button>
-                    </div>
-                  ))}
-                  <div className="dailyActivity">
-                    <button className="add" onClick={openModal}>운동 추가하기</button>
-                    <button className="clear" onClick={handleClear}>초기화</button>
+    return (
+      <div className='ExerciseMainTrue'>
+          <div className='every'>
+              <div className='exerciseMainBody'>
+                  <div className="header">
+                      {selectedUser && <h1>{selectedUser.name}님</h1>}
+                      <hr />
                   </div>
-                </div>
+                  <div className='exerciseMain'>
+                      <div className="calendarContainer">
+                          <Calendar
+                              onChange={handleDateChange}
+                              value={selectedDate}
+                              tileContent={tileContent}
+                          />
+                      </div>
+                      <div className="weeklyStats">
+                          <div className="statsBars">
+                              <div className="weeks">
+                                  <div className="day">{selectedDate.toLocaleDateString()}</div>
+                                  <hr />
+                                  {currentExercises.map((exercise, exerciseIndex) => (
+                                      <div key={exerciseIndex} className="exerciseEntry">
+                                          <img src={exercise.image} alt={exercise.name} className="exerciseImage" />
+                                          <p>{exercise.name}</p>
+                                          <li>
+                                              <label>&nbsp;무게</label>
+                                              <input
+                                                  type="number"
+                                                  min="1"
+                                                  placeholder="(kg)"
+                                                  value={exercise.weight}
+                                                  onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
+                                                  className="weightInput"
+                                              />
+                                          </li>
+                                          <li>
+                                              <label>&nbsp;횟수</label>
+                                              <input
+                                                  type="number"
+                                                  min="1"
+                                                  placeholder="횟수"
+                                                  value={exercise.reps}
+                                                  onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
+                                                  className="repsInput"
+                                              />
+                                          </li>
+                                          <li>
+                                              <label>&nbsp;세트 수</label>
+                                              <input
+                                                  type="number"
+                                                  min="1"
+                                                  placeholder="세트 수"
+                                                  value={exercise.sets}
+                                                  onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
+                                                  className="setsInput"
+                                              />
+                                          </li>
+                                          <button className="delete" onClick={() => deleteExercise(exerciseIndex)}>
+                                              <i className="fa-solid fa-circle-minus"></i>
+                                          </button>
+                                      </div>
+                                  ))}
+                                  <div className="dailyActivity">
+                                      <button className="add" onClick={openModal}>운동 추가하기</button>
+                                      <button className="clear" onClick={handleClear}>초기화</button>
+                                      <button className="save" onClick={handleSave}>저장하기</button> {/* 저장하기 버튼 추가 */}
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
               </div>
-            </div>
-          </div>
-        </div>
-        {isModalOpen && (
-          <div className="modal">
-            <div className="modalContent">
-              <h2>운동 선택</h2>
-              <input
-                type="text"
-                placeholder="운동 검색"
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="searchInput"
-              />
-              {!selectedCategory && searchTerm === '' ? (
-                <div className="categoryList">
-                  {categories.map((category, index) => (
-                    <button
-                      key={index}
-                      className="categoryItem"
-                      onClick={() => handleCategorySelect(category)}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <div className="exerciseList">
-                  {filteredExercises.map((exercise, index) => (
-                    <div
-                      key={index}
-                      className="exerciseItem"
-                      onClick={() => handleExerciseSelect(exercise.name, exercise.image)}
-                    >
-                      <img src={exercise.image} alt={exercise.name} />
-                      <p>{exercise.name}</p>
-                      {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
-                        <div className="checkMark">&#10003;</div>
-                      )}
-                    </div>
-                  ))}
-                </div>
+              {isModalOpen && (
+                  <div className="modal">
+                      <div className="modalContent">
+                          <h2>운동 선택</h2>
+                          <input
+                              type="text"
+                              placeholder="운동 검색"
+                              value={searchTerm}
+                              onChange={handleSearchChange}
+                              className="searchInput"
+                          />
+                          {!selectedCategory && searchTerm === '' ? (
+                              <div className="categoryList">
+                                  {categories.map((category, index) => (
+                                      <button
+                                          key={index}
+                                          className="categoryItem"
+                                          onClick={() => handleCategorySelect(category)}
+                                      >
+                                          {category}
+                                      </button>
+                                  ))}
+                              </div>
+                          ) : (
+                              <div className="exerciseList">
+                                  {filteredExercises.map((exercise, index) => (
+                                      <div
+                                          key={index}
+                                          className="exerciseItem"
+                                          onClick={() => handleExerciseSelect(exercise.name, exercise.image)}
+                                      >
+                                          <img src={exercise.image} alt={exercise.name} />
+                                          <p>{exercise.name}</p>
+                                          {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
+                                              <div className="checkMark">&#10003;</div>
+                                          )}
+                                      </div>
+                                  ))}
+                              </div>
+                          )}
+                          <div className="rowBox">
+                              <button className="redBtn" onClick={() => { setSelectedCategory(null); setSearchTerm(''); }}>
+                                  <i className="fa-solid fa-circle-arrow-left"></i>
+                              </button>
+                              <button className="redBtn" onClick={closeModal}>
+                                  <i className="fa-solid fa-circle-xmark"></i>
+                              </button>
+                              <button className="blueBtn" onClick={handleConfirmExercises}>
+                                  <i className="fa-solid fa-circle-check"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
               )}
-              <div className="rowBox">
-                <button className="redBtn" onClick={() => { setSelectedCategory(null); setSearchTerm(''); }}>
-                  <i className="fa-solid fa-circle-arrow-left"></i>
-                </button>
-                <button className="redBtn" onClick={closeModal}>
-                  <i className="fa-solid fa-circle-xmark"></i>
-                </button>
-                <button className="blueBtn" onClick={handleConfirmExercises}>
-                  <i className="fa-solid fa-circle-check"></i>
-                </button>
-              </div>
-            </div>
           </div>
-        )}
       </div>
-    </div>
   );
-}
+}  
 
 export default ExerciseUser;

@@ -3,6 +3,8 @@ package com.example.backProject.entity;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
@@ -21,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class OrderItems implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
 	@Id
 	private String productId;
