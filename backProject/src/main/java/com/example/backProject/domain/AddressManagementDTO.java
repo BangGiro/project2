@@ -1,5 +1,7 @@
 package com.example.backProject.domain;
 
+import com.example.backProject.entity.Users;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +15,7 @@ public class AddressManagementDTO {
 	
 	//멤버 변수
 	private int shippingAddress;
-	private String userId;
+	private Users user;
 	private String address;
 	private String detailAddress;
 	private String zipCode;
