@@ -105,46 +105,6 @@ export default function SignUp() {
         navigate("/login");
     };
 
-    useEffect(() => {
-        const storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
-        if (storedUsers.length === 0) {
-            const dummyUsers = createDummyUsers(50);
-            localStorage.setItem("userData", JSON.stringify(dummyUsers));
-        }
-    }, []);
-
-    const createDummyUsers = (count) => {
-        const dummyUsers = [];
-        const names = ["권시은", "김경래", "참이슬", "김민정", "김하준", "이서연", "최지아", "한도윤", "김동희", "김민서", "김민지", "김서연",
-            "김민수", "이지아", "박영희", "최철수", "정미경", "홍길동", "이순신", "김철수", "박미영", "최영희", "정민수", "홍지아", "이철수",
-            "박한율", "조영인", "처음처럼", "박카스", "핫식스", "이름뭐적지", "직박구리", "우샤코프", "피자헛", "오늘점심뭐먹지", "내일점심뭐먹지", "치킨먹고싶다",];
-        const domains = ["test.com"];
-        const genders = ["남자", "여자"];
-        const loginTypes = ["일반", "트레이너", "비지니스"];
-
-        for (let i = 0; i < count; i++) {
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomEmail = `dummy${i}@${domains[Math.floor(Math.random() * domains.length)]}`;
-            const randomGender = genders[Math.floor(Math.random() * genders.length)];
-            const randomLoginType = loginTypes[Math.floor(Math.random() * loginTypes.length)];
-            const randomBirth = `19${Math.floor(Math.random() * 50) + 50}-01-01`;
-            const randomBusinessNumber = randomLoginType === "비지니스" ? `123-45-${Math.floor(Math.random() * 10000).toString().padStart(4, '0')}` : "";
-
-            dummyUsers.push({
-                email: randomEmail,
-                password: "password",
-                confirmPassword: "password",
-                name: randomName,
-                birth: randomBirth,
-                gender: randomGender,
-                loginType: randomLoginType,
-                businessNumber: randomBusinessNumber,
-                registrationDate: new Date().toISOString()
-            });
-        }
-
-        return dummyUsers;
-    };
 
     return (
         <div className="login_true_location-container">
