@@ -3,10 +3,11 @@ package com.example.backProject.entity;
 import java.io.Serializable;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,11 +24,14 @@ import lombok.NoArgsConstructor;
 public class OrderItems implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int orderId;
-	@Id
-	private String productId;
+	@ManyToOne(fetch = FetchType.LAZY)  // Order와 연관 관계 설정
+	@JoinColumn(name = "order_id", nullable = false)
+    private Orders order;
 	
+	@Id
+    @ManyToOne(fetch = FetchType.LAZY)  // Product와 연관 관계 설정
+    @JoinColumn(name = "product_id", nullable = false)
+    private Products product;
 	
 	private int quantity;
 	private float weight;
