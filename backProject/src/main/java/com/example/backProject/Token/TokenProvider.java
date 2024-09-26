@@ -17,14 +17,14 @@ public class TokenProvider {
 	private static final String SECRET_KEY ="qkdrlfh188tpscl";
 	
 	//추후 수정예정 ~ 회원타입 에 반응해서 권한 줄 예정
-	public String createToken(String id) {
+	public String createToken(String userId) {
 		
 		Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
 		
 		return Jwts.builder()
 					.signWith(SignatureAlgorithm.HS512, SECRET_KEY)
 					.setClaims(null)
-					.setSubject(id)
+					.setSubject(userId)
 					.setIssuer("allinone")
 					.setIssuedAt(new Date())
 					.setExpiration(expiryDate)
