@@ -77,7 +77,7 @@ export function getStorageData() {
      지속적으로 필요한 데이터 (자동 로그인을 위한 사용자 정보)는 로컬 스토리지에 저장. 
      그러나 비밀번호와 같은 중요 정보는 절대저장해서는 안됨 ( 클라이언트에 저장하는 것이므로 보안취약 )
 ​= > 메소드
-	- localStorage.setItem(키, 값) : 로컬 스토리지에 저장
+	- localStorage.setItem(키, 값) : 로컬 스토리./지에 저장
 	- localStorage.getItem(키) : 로컬 스토리지에서 해당 키의 값 조회
 	- localStorage.removeItem(키) : 로컬 스토리지에 해당 키가 지워짐
 	- localStorage.clear( ) : 로컬 스토리지 전체가 비워짐

@@ -32,7 +32,7 @@ export default function Login({ onLogin }) {
                 console.log("login axios response 확인 ➡️ "+response.userId +response.token); //오류테스트 용으로 남겨줄 것
 
                 sessionStorage.setItem("loginInfo",JSON.stringify(response));
-                onLogin(parsedResponse.userId);
+                onLogin(parsedResponse);
                 alert('로그인 성공');
                 navigate("/");
             } else {
