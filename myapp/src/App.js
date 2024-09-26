@@ -27,46 +27,38 @@ import CyberAuditOffice from './components/pages/footerPages/CyberAuditOffice';
 import ContactUs from './components/pages/footerPages/ContactUs';
 import MyPage from './components/pages/MyPage/MyPage';
 import { axios } from 'axios';
-import ProductList from './components/pages/Shop/ProductList';
-import ProductDetail from './components/pages/Shop/ProductDetail';
-import Cart from './components/pages/Shop/Cart';
+import { apiCall } from './service/apiService';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loggedInEmail, setLoggedInEmail] = useState('');
+  const [loggedInfo, setLoggedInfo] = useState('');
+  const [loggedId, setLoggedId] = useState('');
 
+    //로그인상태 확인
   useEffect(() => {
-    const storedLoggedIn = localStorage.getItem('loggedIn') === 'true';
-    const storedEmail = localStorage.getItem('memberLoggedInData') || '';
+    const storedLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+    const storedId = localStorage.getItem('memberLoggedInData') || '';
     setLoggedIn(storedLoggedIn);
-    setLoggedInEmail(storedEmail);
-  }, []);
-
-  const handleLogin = (email) => {
+    setLoggedId(storedId);
+  }, [loggedInf]);
+  
+  
+  const handleLogin = (response) => {
     setLoggedIn(true);
-    setLoggedInEmail(email);
+    setLoggedInfo(response);
     localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('memberLoggedInData', email);
+    localStorage.setItem('memberLoggedInData', userId);
   };
-
+  
+  
   const handleLogout = () => {
     setLoggedIn(false);
     setLoggedInEmail('');
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('memberLoggedInData');
   };
-   
-  const [cartItems, setCartItems] = useState([]);  // 장바구니 항목 상태
-
-  // 장바구니에 제품 추가하는 함수
-  const handleAddToCart = (product) => {
-    setCartItems(prevItems => [...prevItems, product]);
-  };
-
-  const handleRemoveFromCart = (id) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  };
-
+  
+  
   return (
     <div className="App">
       <Routes>
@@ -92,9 +84,6 @@ function App() {
           <Route path="/cyberAuditOffice" element={<CyberAuditOffice/>} />
           <Route path="/contactUs" element={<ContactUs/>} />
           <Route path="/myPage" element={<MyPage  />} />
-          <Route path="/shop" element={<ProductList />} />
-          <Route path="/shop/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
-          <Route path="/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
