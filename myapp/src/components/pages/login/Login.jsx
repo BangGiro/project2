@@ -19,7 +19,7 @@ export default function Login({ onLogin }) {
         setUserPassword(e.target.value);
     };
 
-    // 로그인 전송 & 처리
+    // 로그인 서버 전송 & response 처리 & session에 저장
     function SubmitLogin(userId, userPassword) {
         let uri = "/users/login"
         let method = "post";
@@ -28,10 +28,11 @@ export default function Login({ onLogin }) {
         apiCall(uri, method, data, null)
         .then((response) => {
             if(response !=  null) {
-                const temp = JSON.stringify(response); //axios여도 json파싱필수
-                console.log("login axios response 확인 ➡️ "+response.userId); //오류테스트 용으로 남겨줄 것
+                const parsedResponse = JSON.stringify(response); //axios여도 json파싱필수
+                console.log("login axios response 확인 ➡️ "+response.userId +response.token); //오류테스트 용으로 남겨줄 것
 
                 sessionStorage.setItem("loginInfo",JSON.stringify(response));
+                onLogin(parsedResponse.userId);
                 alert('로그인 성공');
                 navigate("/");
             } else {

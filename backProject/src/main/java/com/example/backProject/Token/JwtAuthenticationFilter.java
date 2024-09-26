@@ -44,12 +44,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 			String token = parseBearerToken(request);
 			log.info("JwtAuthenticationFilter doFilterInternal(), token 확인 => "+token);
 			
-			if(token != null && token.equalsIgnoreCase("null")){//토큰 존재여부 확인
+			if(token != null && !token.equalsIgnoreCase("null")){//토큰 존재여부 확인
 				
 				Map<String,Object> claims = tokenProvider.vaildateAndGetUserId(token);//비밀키 검증하고 claims반환
-				log.info("tokenFilterCheck claims ➡️ "+claims);
+				log.info("토큰체크 tokenFilterCheck claims ➡️ "+claims);
 				String userId = (String) claims.get("userId"); 
-				log.info("tokenFilterCheck claims.userId ➡️ "+userId);
+				log.info("토큰체크 tokenFilterCheck claims.userId ➡️ "+userId);
 				
 				
 				AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
@@ -59,7 +59,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 				SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
 				securityContext.setAuthentication(authentication);
 				SecurityContextHolder.setContext(securityContext);
-				
 			}
 			
 		} catch (Exception e) {
