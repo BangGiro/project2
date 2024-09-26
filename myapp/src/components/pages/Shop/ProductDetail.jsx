@@ -28,14 +28,17 @@ const ProductDetail = ({ userId }) => {
   const handleAddToCart = async () => {
     try {
       const cartItem = {
-        user: { userId: userId }, // 로그인된 사용자 ID 사용
+        user: { userId: userId }, // 로그인된 사용자 ID
         productId: product.productId,
         createdAt: new Date().toISOString()
       };
-      await axios.post('/api/cart/add', cartItem); // 장바구니에 추가하는 API 호출
+      
+      // 장바구니 추가 API 호출
+      await axios.post('/api/cart/add', cartItem);
       alert('장바구니에 추가되었습니다!');
     } catch (error) {
       console.error('장바구니에 추가하는 데 실패했습니다.', error);
+      alert('장바구니에 추가하지 못했습니다.');
     }
   };
 
