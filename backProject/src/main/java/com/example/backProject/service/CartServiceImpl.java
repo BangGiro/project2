@@ -19,11 +19,11 @@ public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final ProductsRepository productRepository;
-    private final UsersRepository userRepository; // User 정보를 가져오기 위해 필요
+    private final UsersRepository userRepository;
 
     @Override
     public Cart addToCart(CartDTO cartDTO) {
-        Users user = userRepository.findById(cartDTO.getUser().getUserId()).orElseThrow();
+        Users user = userRepository.findById(cartDTO.getUser().getUserId()).orElseThrow();  // String userId 그대로 사용
         Cart cart = Cart.builder()
                 .user(user)
                 .createdAt(cartDTO.getCreatedAt())
@@ -32,7 +32,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Cart> getUserCart(String userId) {
+    public List<Cart> getUserCart(String userId) {  // String userId 그대로 사용
         Users user = userRepository.findById(userId).orElseThrow();
         return cartRepository.findByUser(user);
     }
@@ -41,4 +41,6 @@ public class CartServiceImpl implements CartService {
     public void removeFromCart(int cartId) {
         cartRepository.deleteById(cartId);
     }
+    
+    
 }

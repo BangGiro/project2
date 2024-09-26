@@ -25,7 +25,7 @@ public class CartController {
 
     // 사용자 ID로 장바구니 항목 조회
     @GetMapping("/{userId}")
-    public ResponseEntity<List<Cart>> getUserCart(@PathVariable String userId) {
+    public ResponseEntity<List<Cart>> getUserCart(@PathVariable String userId) {  // userId 타입 유지
         List<Cart> cartItems = cartService.getUserCart(userId);
         return ResponseEntity.ok(cartItems);
     }
