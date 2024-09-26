@@ -55,12 +55,9 @@ public class UserController {
     			
     		log.info("로그인 성공 =>" +HttpStatus.OK);
     		log.info("반환값 확인=>"+usersDTO);
-    		try {
-    			return ResponseEntity.ok(usersDTO);
-			} catch (Exception e) {
-				log.info("login오류"+e.getMessage());
-				return null;
-			}
+
+    		return ResponseEntity.ok(usersDTO);
+
     		
     	} else {
     		log.info("로그인 실패 =>" +HttpStatus.BAD_GATEWAY);
