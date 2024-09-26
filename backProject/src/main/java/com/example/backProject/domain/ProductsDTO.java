@@ -25,5 +25,5 @@ public class ProductsDTO {
 	private double shippingCost;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
-	
+	private String productsImages;
 }

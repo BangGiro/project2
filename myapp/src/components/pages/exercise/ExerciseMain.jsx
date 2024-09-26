@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
-import FloatingButton from '../../layout/FloatingButton';
-
-const initialExerciseData = [];
+import axios from 'axios'; // Axios import 추가
 
 export const availableExercises = [
   { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
@@ -45,6 +43,29 @@ export const availableExercises = [
 const categories = [
   "하체", "등", "가슴", "어깨", "팔", "유산소"
 ];
+
+// API 호출 함수들
+const fetchExerciseLogs = async (userId, date, setCurrentExercises) => {
+  try {
+    const response = await axios.get(`/exercises/logs`, {
+      params: { userId, date }
+    });
+    setCurrentExercises(response.data);
+  } catch (error) {
+    console.error('운동 기록 조회에 실패했습니다:', error);
+  }
+};
+
+const saveExerciseLog = async (log) => {
+  try {
+    const response = await axios.post('/exercises/log', log, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    console.log('운동 기록이 성공적으로 저장되었습니다');
+  } catch (error) {
+    console.error('운동 기록 저장에 실패했습니다:', error);
+  }
+};
 
 function ExerciseMain({ loggedInEmail }) {
   const [exercises, setExercises] = useState([]);
@@ -164,11 +185,34 @@ function ExerciseMain({ loggedInEmail }) {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (loggedInEmail) {
-      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(exercises));
-    }
+      const logsToSave = currentExercises.map(exercise => ({
+        userId: loggedInEmail,
+        exerciseName: exercise.name,
+        weight: exercise.weight,
+        reps: exercise.reps,
+        sets: exercise.sets,
+        date: selectedDate.toLocaleDateString('en-CA')
+      }));
 
+      for (const log of logsToSave) {
+        await saveExerciseLog(log); // Axios를 통한 운동 기록 저장
+      }
+
+      const updatedExercises = exercises.map(day =>
+        day.day === selectedDate.toLocaleDateString()
+          ? { ...day, exercises: currentExercises }
+          : day
+      );
+
+      if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
+        updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: currentExercises });
+      }
+
+      setExercises(updatedExercises);
+      localStorage.setItem(`exercises_${loggedInEmail}`, JSON.stringify(updatedExercises));
+    }
   };
 
   const handleClear = () => {
@@ -190,10 +234,9 @@ function ExerciseMain({ loggedInEmail }) {
         <div className='exerciseMainBody'>
           <div className="header">
             <h1>운동</h1>
-            <FloatingButton/>
-            <hr/>
+            <hr />
           </div>
-          <div className='exerciseMain'> 
+          <div className='exerciseMain'>
             <div className="calendarContainer">
               <Calendar
                 onChange={handleDateChange}
@@ -205,21 +248,21 @@ function ExerciseMain({ loggedInEmail }) {
               <div className="statsBars">
                 <div className="weeks">
                   <div className="day">{selectedDate.toLocaleDateString()}</div>
-                  <hr/>
+                  <hr />
                   {currentExercises.map((exercise, exerciseIndex) => (
                     <div key={exerciseIndex} className="exerciseEntry">
-                      <img src={exercise.image} alt={exercise.name} className="exerciseImage"/>
+                      <img src={exercise.image} alt={exercise.name} className="exerciseImage" />
                       <p>{exercise.name}</p>
                       <li>
-                      <label>&nbsp;무게</label>
-                      <input
-                        type="number"
-                        min="1"
-                        placeholder="(kg)"
-                        value={exercise.weight}
-                        onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
-                        className="weightInput"
-                      />
+                        <label>&nbsp;무게</label>
+                        <input
+                          type="number"
+                          min="1"
+                          placeholder="(kg)"
+                          value={exercise.weight}
+                          onChange={(e) => handleInputChange(exerciseIndex, 'weight', e.target.value)}
+                          className="weightInput"
+                        />
                       </li>
                       <li>
                         <label>&nbsp;횟수</label>
@@ -233,7 +276,7 @@ function ExerciseMain({ loggedInEmail }) {
                         />
                       </li>
                       <li>
-                      <label>&nbsp;세트 수</label>
+                        <label>&nbsp;세트 수</label>
                         <input
                           type="number"
                           min="1"
@@ -251,6 +294,7 @@ function ExerciseMain({ loggedInEmail }) {
                   <div className="dailyActivity">
                     <button className="add" onClick={openModal}>운동 추가하기</button>
                     <button className="clear" onClick={handleClear}>초기화</button>
+                    <button className="save" onClick={handleSave}>저장하기</button>
                   </div>
                 </div>
               </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
+import axios from 'axios';
 const availableExercises = [
   { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
   { name: "데드리프트", category: "하체", image: "/image/exercisePictogram/deadlift.png" },

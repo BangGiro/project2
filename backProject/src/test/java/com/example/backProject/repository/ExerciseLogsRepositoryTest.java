@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.backProject.entity.ExerciseLogs;
+import com.example.backProject.entity.Users;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -22,7 +23,7 @@ public class ExerciseLogsRepositoryTest {
 	void insertTest() {
 		ExerciseLogs exerciseLogs = ExerciseLogs.builder()
 				.exerciseId(2)
-				.userId("user01")
+				 .user(Users.builder().userId("user01").build())
 				.exerciseDate(LocalDateTime.now())
 				.exercise_type("벤치프레스")
 				.weight_used(30)

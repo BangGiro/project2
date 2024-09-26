@@ -19,7 +19,7 @@ public class ExerciseLogsServiceImpl implements ExerciseLogsService {
 	private final  UsersRepository userRepository;
 	
 	public List<ExerciseLogs> getExerciseLogsByDate(String userId, LocalDateTime date) {
-        return eRepository.findByUserIdAndExerciseDate(userId, date);
+        return eRepository.findByUser_UserIdAndExerciseDate(userId, date);
     }
 
     public void saveExerciseLog(ExerciseLogs exerciseLog) {

@@ -2,6 +2,8 @@ package com.example.backProject.domain;
 
 import java.time.LocalDateTime;
 
+import com.example.backProject.entity.Users;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +17,7 @@ public class OrdersDTO {
 	
 	//멤버 변수
 	private int orderId;
-	private String userId;
+	private Users user;
 	private LocalDateTime orderDate;
 	private double totalAmount;
 	private String shippingAddress;
