@@ -45,8 +45,10 @@ public class UserController {
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
     
+    		 
     		final String token = tokenProvider.createToken(entity.getUserId());
     		
+    	
     		final UsersDTO usersDTO = UsersDTO.builder()
     				.token(token)
     				.userId(entity.getUserId())
