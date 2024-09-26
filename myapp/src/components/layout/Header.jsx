@@ -81,6 +81,9 @@ function Header({ loggedIn, onLogout }) {
                         <li>
                             <NavLink to="/MyPage">MYPAGE</NavLink>
                         </li>
+                        <li>
+                            <NavLink to="/Shop">SHOP</NavLink>
+                        </li>
                     </ul>
                     <div className="login_btn">
                         <Link to={loggedIn ? "/" : "/Login"}>

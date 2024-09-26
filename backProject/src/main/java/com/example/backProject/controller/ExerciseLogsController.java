@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.backProject.entity.ExerciseLogs;
+import com.example.backProject.entity.Users;
 import com.example.backProject.service.ExerciseLogsService;
 
 @RestController

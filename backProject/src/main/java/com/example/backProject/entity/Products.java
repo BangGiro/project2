@@ -40,6 +40,7 @@ public class Products {
 	private double shippingCost;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private String productsImages;
 	@PrePersist
 	protected void onCreate() {
 		this.createdAt = LocalDateTime.now();

@@ -35,13 +35,12 @@ public class WebMVCconfig implements WebMvcConfigurer{
 	public void addCorsMappings(CorsRegistry registry) {
 		// 모든 경로에 대해 적용
 		registry.addMapping("/**")
-				.allowedOrigins("Http://localhost:3000")
-				.allowedMethods("*")
-//				.allowedMethods("GET","POST","PUT","FATCH","DELETE","OPTIONS")
-				.allowedHeaders("*")
-				.allowCredentials(true)
-				.maxAge(MAX_AGE_SECS);
-	}
+        .allowedOrigins("http://localhost:3000")  // 소문자로 수정
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // 명시적인 허용 메서드
+        .allowedHeaders("*")
+        .allowCredentials(true)
+        .maxAge(MAX_AGE_SECS);
+}
 	
 	
 	

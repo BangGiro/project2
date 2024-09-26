@@ -27,6 +27,9 @@ import CyberAuditOffice from './components/pages/footerPages/CyberAuditOffice';
 import ContactUs from './components/pages/footerPages/ContactUs';
 import MyPage from './components/pages/MyPage/MyPage';
 import { axios } from 'axios';
+import ProductList from './components/pages/Shop/ProductList';
+import ProductDetail from './components/pages/Shop/ProductDetail';
+import Cart from './components/pages/Shop/Cart';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -53,6 +56,16 @@ function App() {
     localStorage.removeItem('memberLoggedInData');
   };
    
+  const [cartItems, setCartItems] = useState([]);
+
+  const handleAddToCart = (product) => {
+    setCartItems([...cartItems, product]);
+  };
+
+  const handleRemoveFromCart = (id) => {
+    setCartItems(cartItems.filter(item => item.id !== id));
+  };
+
   return (
     <div className="App">
       <Routes>
@@ -78,6 +91,9 @@ function App() {
           <Route path="/cyberAuditOffice" element={<CyberAuditOffice/>} />
           <Route path="/contactUs" element={<ContactUs/>} />
           <Route path="/myPage" element={<MyPage  />} />
+          <Route path="/shop" element={<ProductList />} />
+          <Route path="/shop/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
+          <Route path="/shop/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

@@ -3,6 +3,7 @@ package com.example.backProject.entity;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,9 +27,9 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartId;
 	
-	 @ManyToOne
-	 @JoinColumn(name = "user_id", nullable = false)
-	private String userId;
+	@ManyToOne(fetch = FetchType.LAZY)  // ManyToOne 관계 설정
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;  // Users 엔티티 참조로 변경
 	private LocalDateTime createdAt;
 	
 }

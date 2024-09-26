@@ -13,20 +13,20 @@ import lombok.NoArgsConstructor;
 public class OrderItemsId implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private int orderId;
-	private String productId;
+	private Orders order;
+	private Products product;
 	
 	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         OrderItemsId that = (OrderItemsId) o;
-        return orderId == that.orderId && Objects.equals(productId, that.productId);
+        return  Objects.equals(order, that.order) && Objects.equals(product, that.product);
     }
 
     // hashCode 메서드 구현
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, productId);
+        return Objects.hash(order, product);
     }
 }
