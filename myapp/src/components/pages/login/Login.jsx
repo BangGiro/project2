@@ -27,8 +27,8 @@ export default function Login({ onLogin }) {
 
         apiCall(uri, method, data, null)
         .then((response) => {
-
-            console.log(response.data);
+            console.log("response ➡️ "+response);
+            console.log("response.data ➡️ "+response.data);
             alert('로그인 성공');
             navigate("/");
         }).catch((err)=>{

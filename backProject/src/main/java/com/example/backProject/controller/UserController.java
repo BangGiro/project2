@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backProject.Token.TokenProvider;
 import com.example.backProject.domain.UsersDTO;
 import com.example.backProject.entity.Users;
 import com.example.backProject.service.UserService;
@@ -22,7 +23,8 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	UserService uservice;
-
+	TokenProvider tokenProvider;
+	
 	
 	//로그인======================================================================================
 	@PostMapping("/login")
@@ -35,20 +37,30 @@ public class UserController {
 		//서비스 처리
 		entity = uservice.findUsersById(entity.getUserId());
 		
+		//토큰발행
+		
 		//로그인 성공/실패 처리
     	if(entity != null && password.equals(entity.getPassword())) {
-    
+
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
+    
+    		final String token = tokenProvider.createToken(entity.getUserId());
     		
     		final UsersDTO usersDTO = UsersDTO.builder()
-//    				.token(token)
+    				.token(token)
     				.userId(entity.getUserId())
     				.name(entity.getName())
     				.build();
     			
     		log.info("로그인 성공 =>" +HttpStatus.OK);
-    		return ResponseEntity.ok(usersDTO);
+    		log.info("반환값 확인=>"+usersDTO);
+    		try {
+    			return ResponseEntity.ok(usersDTO);
+			} catch (Exception e) {
+				log.info("login오류"+e.getMessage());
+				return null;
+			}
     		
     	} else {
     		log.info("로그인 실패 =>" +HttpStatus.BAD_GATEWAY);
