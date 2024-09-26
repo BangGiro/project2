@@ -57,4 +57,12 @@ public class UserController {
     		return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("아이디나 비밀번호 오류");
     	}
 	}
+	
+	//로그아웃======================================================================================
+	@PostMapping("/logout")
+	public ResponseEntity<?> logout(@RequestBody Users entity, HttpSession session ) {
+		session.invalidate();
+		
+		return ResponseEntity.ok(null);
+	}	
 }
