@@ -83,6 +83,11 @@ function Header({ loggedIn, onLogout }) {
                         </li>
                         <li>
                             <NavLink to="/Shop">SHOP</NavLink>
+                            <ul className="submenu">
+                                    <li><NavLink to="/shop">상품보기</NavLink></li>
+                                    <li><NavLink to="/cart">장바구니</NavLink></li>
+                                    
+                                </ul>
                         </li>
                     </ul>
                     <div className="login_btn">

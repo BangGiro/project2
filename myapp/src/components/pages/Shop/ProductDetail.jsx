@@ -1,39 +1,65 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import './ProductDetail.css';
 
-const ProductDetail = ({ onAddToCart }) => {
-  const { id } = useParams();  // URL에서 전달된 id를 가져옴
+const ProductDetail = ({ userId }) => {
+  const { id } = useParams(); // URL에서 상품 ID 가져오기
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
+  // 상품 데이터 불러오기
   useEffect(() => {
-    // 상품 데이터를 API로부터 불러오는 로직 (여기서는 하드코딩 예시)
     const fetchProduct = async () => {
-      const fetchedProduct = {
-        id,
-        name: '노트북',
-        price: 1000000,
-        description: '고성능 노트북입니다.',
-        image: '/images/laptop.jpg'
-      };
-      setProduct(fetchedProduct);  // 실제로는 백엔드에서 데이터를 가져와야 합니다.
+      try {
+        const response = await axios.get(`/api/products/${id}`); // 상품 데이터 가져오기
+        setProduct(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError('상품 데이터를 불러오는 데 실패했습니다.');
+        setLoading(false);
+      }
     };
-
     fetchProduct();
   }, [id]);
 
-  if (!product) {
-    return <div>로딩 중...</div>;  // 데이터 로딩 중 메시지
+  // 장바구니에 추가
+  const handleAddToCart = async () => {
+    try {
+      const cartItem = {
+        user: { userId: userId }, // 로그인된 사용자 ID 사용
+        productId: product.productId,
+        createdAt: new Date().toISOString()
+      };
+      await axios.post('/api/cart/add', cartItem); // 장바구니에 추가하는 API 호출
+      alert('장바구니에 추가되었습니다!');
+    } catch (error) {
+      console.error('장바구니에 추가하는 데 실패했습니다.', error);
+    }
+  };
+
+  if (loading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
   }
 
   return (
     <div className="product-detail">
-      <img src={product.image} alt={product.name} />
-      <div className="detail-info">
-        <h1>{product.name}</h1>
-        <p>{product.price.toLocaleString()} 원</p>
-        <p>{product.description}</p>
-        <button onClick={() => onAddToCart(product)}>장바구니에 추가</button>
-      </div>
+      {product && (
+        <>
+          <img src={`/image/shop/${product.productsImages}`} alt={product.productName} />
+          <div className="detail-info">
+            <h1>{product.productName}</h1>
+            <p>{product.price.toLocaleString()} 원</p>
+            <p>{product.description}</p>
+            <button onClick={handleAddToCart}>장바구니에 추가</button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

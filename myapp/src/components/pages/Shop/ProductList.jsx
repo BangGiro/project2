@@ -12,6 +12,7 @@ const ProductList = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products'); // API 호출
+        console.log('Products Data:', response.data); // 응답 데이터를 확인
         setProducts(response.data);
         setLoading(false);
       } catch (error) {
@@ -42,11 +43,11 @@ const ProductList = () => {
       <h1>상품 목록</h1>
       <div className="products">
         {products.map(product => (
-          <div key={product.id} className="product-item">
-            <img src={product.image} alt={product.name} />
-            <h2>{product.name}</h2>
+          <div key={product.productId} className="product-item"> {/* productId를 key로 설정 */}
+            <img src={`/image/shop/${product.productsImages}`} alt={product.productName} />
+            <h2>{product.productName}</h2> {/* 필드명이 productName임을 확인 */}
             <p>{product.price.toLocaleString()} 원</p>
-            <Link to={`/shop/product/${product.id}`}>
+            <Link to={`/shop/product/${product.productId}`}>
               <button>상품 보기</button>
             </Link>
           </div>

@@ -56,14 +56,15 @@ function App() {
     localStorage.removeItem('memberLoggedInData');
   };
    
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);  // 장바구니 항목 상태
 
+  // 장바구니에 제품 추가하는 함수
   const handleAddToCart = (product) => {
-    setCartItems([...cartItems, product]);
+    setCartItems(prevItems => [...prevItems, product]);
   };
 
   const handleRemoveFromCart = (id) => {
-    setCartItems(cartItems.filter(item => item.id !== id));
+    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
   return (
@@ -93,7 +94,7 @@ function App() {
           <Route path="/myPage" element={<MyPage  />} />
           <Route path="/shop" element={<ProductList />} />
           <Route path="/shop/product/:id" element={<ProductDetail onAddToCart={handleAddToCart} />} />
-          <Route path="/shop/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
+          <Route path="/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
         </Route>
         {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
