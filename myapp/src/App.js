@@ -10,7 +10,6 @@ import Login from './components/pages/login/Login';
 import FindPw from './components/pages/login/FindPw';
 import SignUp from './components/pages/login/SignUp';
 import Management from './components/pages/management/ManagementContainer';
-import PrivateRoute from './components/pages/PrivateRoute/PrivateRoute';
 import QnAPage from './components/pages/QnAPage/QnAPage';
 import PrivacyPolicy from './components/pages/footerPages/PrivacyPolicy';
 import TermsOfService from './components/pages/footerPages/TermsOfService';
@@ -26,66 +25,86 @@ import Announcement from './components/pages/footerPages/Announcement';
 import CyberAuditOffice from './components/pages/footerPages/CyberAuditOffice';
 import ContactUs from './components/pages/footerPages/ContactUs';
 import MyPage from './components/pages/MyPage/MyPage';
-import { axios } from 'axios';
-import { apiCall } from './service/apiService';
+import ProductList from './components/pages/Shop/ProductList';
+import ProductDetail from './components/pages/Shop/ProductDetail';
+import Cart from './components/pages/Shop/Cart';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loggedInfo, setLoggedInfo] = useState('');
+  const [loggedInfo, setLoggedInfo] = useState(null); // null로 초기화
   const [loggedId, setLoggedId] = useState('');
 
-    //로그인상태 확인
+  // 로그인 상태 확인
   useEffect(() => {
     const storedLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
     const storedId = localStorage.getItem('memberLoggedInData') || '';
     setLoggedIn(storedLoggedIn);
     setLoggedId(storedId);
-  }, [loggedInf]);
-  
-  
+  }, []);
+
+  // 로그인 처리
   const handleLogin = (response) => {
     setLoggedIn(true);
     setLoggedInfo(response);
+    console.log(response.userId);
     localStorage.setItem('loggedIn', 'true');
-    localStorage.setItem('memberLoggedInData', userId);
+    localStorage.setItem('memberLoggedInData', response.userId); // userId 저장
+    setLoggedId(response.userId); // loggedId 상태에 userId 저장
   };
-  
-  
+
+  // 로그아웃 처리
   const handleLogout = () => {
     setLoggedIn(false);
-    setLoggedInEmail('');
+    setLoggedInfo(null);
+    setLoggedId('');
+    sessionStorage.removeItem('loggedIn');
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('memberLoggedInData');
   };
-  
-  
+
+  // 장바구니 항목 상태
+  const [cartItems, setCartItems] = useState([]);
+
+  // 장바구니에 제품 추가하는 함수
+  const handleAddToCart = (product) => {
+    setCartItems((prevItems) => [...prevItems, product]);
+  };
+
+  // 장바구니에서 제품 제거하는 함수
+  const handleRemoveFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
   return (
     <div className="App">
       <Routes>
-        {/* 헤더랑 푸터가 포함된 페이지 */}
-        <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} />}>
+        {/* 헤더와 푸터가 포함된 페이지 */}
+        <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} loggedId={loggedId} />}>
           <Route path="/" element={<Home />} />
-          <Route path="/exerciseMain" element={<ExerciseMain  />} />
+          <Route path="/exerciseMain" element={<ExerciseMain />} />
           <Route path="/dietPlanner" element={<DietPlanner />} />
           <Route path="/FAQpage" element={<FAQpage />} />
-          <Route path="/sleepTracker" element={<SleepTracker  />} />
-          <Route path="/management" element={ <Management  />} />
+          <Route path="/sleepTracker" element={<SleepTracker />} />
+          <Route path="/management" element={<Management />} />
           <Route path="/QnAPage" element={<QnAPage />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/termsOfService" element={<TermsOfService />} />
           <Route path="/previousTerms" element={<PreviousTerms />} />
-          <Route path='/noticePage' element={<NoticePage />} />
-          <Route path='/exerciseUser' element={<ExerciseUser />} />
-          <Route path='/customerServicePage' element={<CustomerServicePage />} />
-          <Route path="/youthProtectionPolicy" element={<YouthProtectionPolicy/>} />
-          <Route path="/brandProtectionPolicy" element={<BrandProtectionPolicy/>} />
-          <Route path="/report" element={<Report/>} />
-          <Route path="/announcement" element={<Announcement/>} />
-          <Route path="/cyberAuditOffice" element={<CyberAuditOffice/>} />
-          <Route path="/contactUs" element={<ContactUs/>} />
-          <Route path="/myPage" element={<MyPage  />} />
+          <Route path="/noticePage" element={<NoticePage />} />
+          <Route path="/exerciseUser" element={<ExerciseUser />} />
+          <Route path="/customerServicePage" element={<CustomerServicePage />} />
+          <Route path="/youthProtectionPolicy" element={<YouthProtectionPolicy />} />
+          <Route path="/brandProtectionPolicy" element={<BrandProtectionPolicy />} />
+          <Route path="/report" element={<Report />} />
+          <Route path="/announcement" element={<Announcement />} />
+          <Route path="/cyberAuditOffice" element={<CyberAuditOffice />} />
+          <Route path="/contactUs" element={<ContactUs />} />
+          <Route path="/myPage" element={<MyPage />} />
+          <Route path="/shop" element={<ProductList />} />
+          <Route path="/shop/product/:id" element={<ProductDetail userId={loggedId} onAddToCart={handleAddToCart} />} />
+          <Route path="/cart" element={<Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
         </Route>
-        {/* 헤더랑 푸터가 포함되지 않은 페이지 */}
+        {/* 헤더와 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/findPw" element={<FindPw />} />
