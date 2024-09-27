@@ -17,7 +17,7 @@ public class ExerciseLogsDTO {
 	
 	//멤버 변수
 	private int exerciseId;
-	private Users user;
+	private String userId;
 	private LocalDateTime exerciseDate;
 	private String exercise_type;
 	private double weight_used;

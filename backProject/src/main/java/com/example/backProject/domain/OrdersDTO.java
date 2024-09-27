@@ -17,7 +17,7 @@ public class OrdersDTO {
 	
 	//멤버 변수
 	private int orderId;
-	private Users user;
+	private String userId;
 	private LocalDateTime orderDate;
 	private double totalAmount;
 	private String shippingAddress;

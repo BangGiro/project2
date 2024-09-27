@@ -15,7 +15,7 @@ public class AddressManagementDTO {
 	
 	//멤버 변수
 	private int shippingAddress;
-	private Users user;
+	private String userId;
 	private String address;
 	private String detailAddress;
 	private String zipCode;

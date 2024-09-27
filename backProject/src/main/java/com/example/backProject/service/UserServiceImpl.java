@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
 	private final UsersRepository uRepository;
 	
 	@Override
-	public Users findUsersById(String Id) {
-		Optional<Users> result = uRepository.findById(Id);
+	public Users findUsersById(String userId) {
+		Optional<Users> result = uRepository.findById(userId);
 		
 		if(result.isPresent()) {
 			log.info("조회성공"+result.get());

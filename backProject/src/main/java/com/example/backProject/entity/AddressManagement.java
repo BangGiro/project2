@@ -23,9 +23,7 @@ public class AddressManagement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int shippingAddress;
-	@ManyToOne  // ManyToOne 관계: 다수의 address_management가 한 명의 user에 연결됨
-    @JoinColumn(name = "user_id", nullable = false)  // users 테이블의 user_id를 참조
-	private Users user;
+	private String userId;
 	
 	
 	private String address;

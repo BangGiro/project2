@@ -23,7 +23,7 @@ public class ExerciseLogsRepositoryTest {
 	void insertTest() {
 		ExerciseLogs exerciseLogs = ExerciseLogs.builder()
 				.exerciseId(2)
-				 .user(Users.builder().userId("user01").build())
+				.userId("05")
 				.exerciseDate(LocalDateTime.now())
 				.exercise_type("벤치프레스")
 				.weight_used(30)

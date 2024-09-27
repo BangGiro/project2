@@ -26,9 +26,7 @@ public class Orders {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private Users user; // userId 대신 Users 객체 사용
+	private String userId;
 
 	private LocalDateTime orderDate;
 	private double totalAmount;

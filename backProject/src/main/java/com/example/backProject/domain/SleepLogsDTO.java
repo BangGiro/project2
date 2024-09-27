@@ -17,7 +17,7 @@ public class SleepLogsDTO {
 	
 	//멤버 변수
 	private int sleepId;
-	private Users user;
+	private String userId;
 	private LocalDateTime sleepDate;
 	private LocalDateTime sleepStart;
 	private LocalDateTime sleepEnd;

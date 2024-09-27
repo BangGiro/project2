@@ -17,7 +17,7 @@ public class CartDTO {
 	
 	//멤버 변수
 	private int cartId;
-	private Users user;
+	private String userId;
 	private LocalDateTime createdAt;
 	
 }

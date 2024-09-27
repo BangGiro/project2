@@ -9,6 +9,7 @@ import com.example.backProject.entity.ExerciseLogs;
 
 public interface ExerciseLogsRepository extends JpaRepository<ExerciseLogs, Integer> {
 
-	List<ExerciseLogs> findByUser_UserIdAndExerciseDate(String userId, LocalDateTime exerciseDate);
+	List<ExerciseLogs> findByUserIdAndExerciseDate(String userId, LocalDateTime exerciseDate);
+
 
 }

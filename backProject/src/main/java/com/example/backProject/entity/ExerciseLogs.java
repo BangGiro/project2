@@ -28,9 +28,7 @@ public class ExerciseLogs {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int exerciseId;
 	
-	@ManyToOne(fetch = FetchType.LAZY)  // 성능 최적화를 위해 지연 로딩 사용
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user;
+	private String userId;
 	
 	@Column(name = "exercise_date", nullable = false)
     private LocalDateTime exerciseDate;

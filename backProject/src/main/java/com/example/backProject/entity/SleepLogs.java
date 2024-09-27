@@ -29,9 +29,7 @@ public class SleepLogs {
 	private int sleepId;
 	
 	// Users 엔티티와의 관계 설정
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private Users user; // userId 대신 Users 객체 사용
+    private String userId;
 	private LocalDateTime sleepDate;
 	private LocalDateTime sleepStart;
 	private LocalDateTime sleepEnd;
