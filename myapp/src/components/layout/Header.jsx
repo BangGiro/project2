@@ -11,6 +11,10 @@ function Header({ loggedIn, onLogout }) {
     }, [loggedIn]);
 
     useEffect(() => {
+        setVideoSrc(loggedIn ? "/image/header/logout.mp4" : "/image/header/free-animated-icon-login-8717908.mp4");
+    }, []);
+
+    useEffect(() => {
         const handleUserInteraction = () => {
             setUserInteracted(true);
             document.removeEventListener('click', handleUserInteraction);

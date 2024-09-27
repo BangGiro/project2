@@ -12,6 +12,7 @@ import com.example.backProject.domain.UsersDTO;
 import com.example.backProject.entity.Users;
 import com.example.backProject.service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -46,8 +47,7 @@ public class UserController {
     		session.setAttribute("loginName", entity.getName());
     
     		 
-    		final String token = tokenProvider.createToken(entity.getUserId());
-    		
+    		final String token = tokenProvider.createToken(entity.claimList());
     	
     		final UsersDTO usersDTO = UsersDTO.builder()
     				.token(token)
@@ -74,4 +74,8 @@ public class UserController {
 		
 		return ResponseEntity.ok(null);
 	}	
+	
+	
+	
+	
 }

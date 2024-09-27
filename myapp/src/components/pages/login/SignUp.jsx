@@ -116,9 +116,9 @@ export default function SignUp() {
                     <form className="login-form" onSubmit={handleSubmit}>
                         <label>
                             <input
-                                type="email"
-                                name="email"
-                                placeholder="이메일 입력"
+                                type="text"
+                                name="signUserId"
+                                placeholder="아이디 입력"
                                 value={userData.email}
                                 onChange={handleChange}
                                 required
