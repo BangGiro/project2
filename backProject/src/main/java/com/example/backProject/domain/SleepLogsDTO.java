@@ -2,8 +2,6 @@ package com.example.backProject.domain;
 
 import java.time.LocalDateTime;
 
-import com.example.backProject.entity.Users;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

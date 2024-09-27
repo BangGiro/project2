@@ -1,13 +1,21 @@
 package com.example.backProject.controller;
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.backProject.domain.CartDTO;
 import com.example.backProject.entity.Cart;
 import com.example.backProject.service.CartService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,8 +33,10 @@ public class CartController {
 
     // 사용자 ID로 장바구니 항목 조회
     @GetMapping("/{userId}")
-    public ResponseEntity<List<Cart>> getUserCart(String userId) {  // userId 타입 유지
-        List<Cart> cartItems = cartService.getUserCart(userId);
+    public ResponseEntity<List<CartDTO>> getUserCart(@PathVariable String userId) {  // userId 타입 유지
+    	System.out.println("================아이디==================="+userId);
+        List<CartDTO> cartItems = cartService.getUserCart(userId);
+        System.out.println("=================="+cartItems);
         return ResponseEntity.ok(cartItems);
     }
 
