@@ -1,7 +1,5 @@
 package com.example.backProject.domain;
 
-import com.example.backProject.entity.Users;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

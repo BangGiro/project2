@@ -30,18 +30,12 @@ const ProductDetail = ({ userId }) => {
   // 장바구니에 추가
   const handleAddToCart = async (productId) => {
     try {
-      // userId가 존재하는지 확인
-      if (!userId) {
-        throw new Error('Invalid user ID');
-      }
-      
-      // productId가 존재하는지 확인
-      if (!productId) {
-        throw new Error('Invalid product ID');
+      if (!userId || !productId) {
+        throw new Error('Invalid user ID or product ID');
       }
   
-      const loginInfo = JSON.parse(sessionStorage.getItem('loginInfo')); // sessionStorage에서 loginInfo를 가져옴
-      const token = loginInfo ? loginInfo.token : null; // 토큰 추출
+      const loginInfo = JSON.parse(sessionStorage.getItem('loginInfo'));
+      const token = loginInfo ? loginInfo.token : null;
   
       if (!token) {
         throw new Error('JWT token not found. Please login again.');
@@ -51,16 +45,23 @@ const ProductDetail = ({ userId }) => {
         { productId, userId }, 
         {
           headers: {
-            Authorization: `Bearer ${token}`, // JWT 토큰을 헤더에 추가
+            Authorization: `Bearer ${token}`,
           },
         }
       );
   
-      console.log('장바구니에 추가되었습니다.');
+      if (response.status === 200) {
+        console.log('장바구니에 추가되었습니다.', response.data);
+        console.log(response.data);
+      } else {
+        console.error('장바구니 추가에 실패했습니다.', response.data);
+        console.log(response.data);
+      }
     } catch (error) {
       console.error('장바구니에 추가하는 데 실패했습니다.', error);
     }
   };
+  
   
   if (loading) {
     return <div>로딩 중...</div>;
