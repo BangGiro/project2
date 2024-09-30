@@ -52,7 +52,7 @@ const ProductDetail = ({ userId }) => {
   
       if (response.status === 200) {
         console.log('장바구니에 추가되었습니다.', response.data);
-        console.log(response.data);
+       alert('장바구니에 추가되었습니다!');
       } else {
         console.error('장바구니 추가에 실패했습니다.', response.data);
         console.log(response.data);

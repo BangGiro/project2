@@ -2,44 +2,82 @@
 .product-detail {
   display: flex;
   justify-content: center;
+  align-items: flex-start; /* 이미지와 텍스트의 상단을 맞춤 */
   padding: 50px;
-  gap: 30px;
+  gap: 40px; /* 간격을 좀 더 넉넉하게 */
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f9f9f9; /* 배경색 추가 */
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
 }
 
 .product-detail img {
-  max-width: 400px;
-  height: auto;
-  border-radius: 10px;
+  width: 400px; /* 이미지의 크기를 통일 */
+  height: 400px; /* 정사각형으로 고정 */
+  object-fit: cover; /* 이미지를 비율에 맞게 자름 */
+  border-radius: 15px;
+  border: 1px solid #ddd; /* 약간의 테두리 추가 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
 }
 
 .detail-info {
-  max-width: 400px;
-  padding: 20px;
+  max-width: 500px; /* 정보 박스의 너비를 넉넉하게 */
+  padding: 30px;
+  background-color: white; /* 흰색 배경 */
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 부드러운 그림자 */
+  text-align: left; /* 왼쪽 정렬 */
 }
 
 .detail-info h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 25px;
 }
 
 .detail-info p {
   font-size: 18px;
-  margin-bottom: 20px;
+  line-height: 1.6;
+  color: #666;
+  margin-bottom: 30px;
 }
 
 .detail-info button {
-  padding: 10px 20px;
+  padding: 15px 25px;
   background-color: #28a745;
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 16px;
+  border-radius: 50px; /* 버튼을 더 부드럽게 */
+  font-size: 18px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 버튼에 약간의 그림자 */
 }
 
 .detail-info button:hover {
   background-color: #218838;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 호버 시 그림자 확대 */
+  transform: translateY(-2px); /* 호버 시 약간의 부드러운 이동 효과 */
+}
+
+.detail-info .price {
+  font-size: 28px;
+  color: #e60023; /* 가격에 강조 색상 */
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.detail-info .features {
+  font-size: 16px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.detail-info .features ul {
+  list-style-type: disc;
+  padding-left: 20px;
 }
