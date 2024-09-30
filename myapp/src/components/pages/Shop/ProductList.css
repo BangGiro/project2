@@ -8,8 +8,8 @@
     margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
-    gap: 80px;
-    height: 682px;
+    gap: 20px;
+    height: 600px;
     justify-content: center;
   }
   
@@ -19,7 +19,7 @@
     padding: 20px;
     text-align: center;
     height: 300px;
-    width: 250px;
+    width: 300px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
   }
