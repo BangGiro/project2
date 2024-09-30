@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './AddUserModal.css';
+import { apiCall } from "../../../../service/apiService";
 
 function AddUserModal({ onClose, onAddUser, existingUsers }) {
-    const [email, setEmail] = useState('');
+    const [searchUserId, setUserId] = useState('');
     const [memo, setMemo] = useState('');
     const [user, setUser] = useState(null);
 
@@ -20,46 +21,41 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [email]);
+    }, []);
 
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
+    const handleUserIdChange = (e) => {
+        setUserId(e.target.value);
     };
 
-    const handleFindUser = () => {
-        const loggedInEmail = localStorage.getItem('loggedInEmail');
+    const handleFindUser = (e) => {
 
-        if (email === loggedInEmail) {
-            alert('본인은 추가할 수 없습니다.');
-            return;
-        }
+        const uri = "/users/finduser";
+        const method = "post";
+        const data = { userId : searchUserId };
 
-        if (existingUsers.some((u) => u.email === email)) {
-            alert('이미 추가된 회원입니다.');
-            return;
-        }
-
-        const storedUsers = JSON.parse(localStorage.getItem('dummyUserData')) || [];
-        const storedpUsers = JSON.parse(localStorage.getItem('userData')) || [];
-
-        const allUsers = [...storedUsers, ...storedpUsers]; // 두 배열을 합침
-
-        const matchedUser = allUsers.find((u) => u.email === email);
-        if (matchedUser) {
-            setUser(matchedUser);
-        } else {
-            setUser(null);
-            alert('사용자를 찾을 수 없습니다.');
-        }
+        apiCall(uri, method, data, null)
+        .then((Response) =>{
+            
+            setUser(Response);
+        }).catch((err)=>{
+            alert("회원찾기 실패");
+        })
     };
 
     const handleSubmit = () => {
         if (user) {
-            const memberLoggedInData = JSON.parse(localStorage.getItem('MemberLoggedInData')) || [];
-            if (!memberLoggedInData.includes(user.email)) {
-                const updatedMemberLoggedInData = [...memberLoggedInData, user.email];
-                localStorage.setItem('MemberLoggedInData', JSON.stringify(updatedMemberLoggedInData));
-            }
+
+            const uri = "/users/adduser";
+            const method = "put";
+            const data = { userId : searchUserId , trainerId : localStorage.getItem('memberLoggedInData') };
+
+            apiCall(uri, method, data, null)
+            .then((Response) =>{
+                setUser(Response);
+                alert("회원추가 성공");
+            }).catch((err)=>{
+                alert("회원추가 실패");
+            })
 
             onAddUser(user, memo);
             handleClose();
@@ -69,7 +65,7 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
     };
 
     const handleClose = () => {
-        setEmail('');
+        setUserId('');
         setMemo('');
         setUser(null);
         onClose();
@@ -82,16 +78,16 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
                     <span className="close" onClick={handleClose}>&times;</span>
                     <h2>회원 추가</h2>
                     <input
-                        type="email"
-                        value={email}
-                        onChange={handleEmailChange}
+                        type="text"
+                        value={searchUserId}
+                        onChange={handleUserIdChange}
                         placeholder="이메일 입력"
                     />
                     <button onClick={handleFindUser}>사용자 찾기</button>
                     {user && (
                         <div>
                             <p>이름: {user.name}</p>
-                            <p>성별: {user.gender}</p>
+                            <p>성별: {user.phoneNumber}</p>
                             <textarea
                                 value={memo}
                                 onChange={(e) => setMemo(e.target.value)}

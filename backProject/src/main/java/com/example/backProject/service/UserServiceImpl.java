@@ -1,5 +1,6 @@
 package com.example.backProject.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -31,5 +32,17 @@ public class UserServiceImpl implements UserService {
 		}
 //		return uRepository.findById(Id).orElse(null);
 	} 
+	
+	@Override
+	public List<Users> findByTrainerId(String TrainerId) {
+		
+		List<Users> list = uRepository.findByTrainerId(TrainerId);
+		
+		if(list != null) {
+			return list;
+		} else {
+			return null;
+		}
+	}//findByTrainerId
 	
 }

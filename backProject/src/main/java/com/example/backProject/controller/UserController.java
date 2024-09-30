@@ -1,8 +1,12 @@
 package com.example.backProject.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +17,6 @@ import com.example.backProject.entity.Users;
 import com.example.backProject.repository.UsersRepository;
 import com.example.backProject.service.UserService;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -78,14 +81,56 @@ public class UserController {
 	}	
 	
 	//회원가입=======================================================================================
+	//임시 코드임 추후 보강필요
 	@PostMapping("/signUp")
 	public ResponseEntity<?> signUp(@RequestBody Users entity, HttpSession session ) {
 		
 		userRepository.save(entity);
 		
-		return ResponseEntity.ok(entity);
+		return ResponseEntity.ok(null);
 	}
 	
+	//회원추가=======================================================================================
+	//GPT코드임(임시) 추후 보강필요
+	@PostMapping("/finduser")
+	public ResponseEntity<?> findUser(@RequestBody Users entity, HttpSession session){
+		
+		Users user = userService.findUsersById(entity.getUserId());
+		
+		log.info("findUser ➡️ "+user);
+		
+//        List<UsersDTO> usersDTOList = userslist.stream().map(user -> {
+//            UsersDTO dto = new UsersDTO();
+//            dto.setName(user.getName());
+//            dto.setPhoneNumber(user.getPhoneNumber());
+//            return dto;
+//        }).collect(Collectors.toList());
+		
+		return ResponseEntity.ok(user);
+	}
 	
+	//내회원으로등록====================================================================================
+	@PutMapping("/adduser")
+	public ResponseEntity<?> addUser(@RequestBody Map<String, String> request, HttpSession session){
+		
+		Users finduser = userService.findUsersById(request.get("userId"));
+		log.info("adduser ➡️ "+finduser);
+		
+		finduser.setTrainerId(request.get("trainerId"));
+		
+		userRepository.save(finduser);
+		log.info("adduser trainerId➡️ "+finduser.getTrainerId());
+		
+		return ResponseEntity.ok(null);
+	}
+	
+	//유저리스트 불러오기=================================================================================
+	@PostMapping("/finduserlist")
+	public ResponseEntity<?> findUserList(@RequestBody Users entity, HttpSession session){
+		
+		List<Users> list = userService.findByTrainerId(entity.getTrainerId());
+		
+		return ResponseEntity.ok(list);
+	}
 	
 }
