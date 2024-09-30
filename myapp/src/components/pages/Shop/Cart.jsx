@@ -33,9 +33,7 @@ const Cart = ({ userId }) => {
     }
   };
   console.log("==========cartdata========",cartData);
-  if (cartData.length === 0) {
-    return <div>장바구니가 비어 있습니다.</div>;
-  }
+ 
 
   return (
     <div className='cartCss'>

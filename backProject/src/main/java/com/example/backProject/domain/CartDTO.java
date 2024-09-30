@@ -14,7 +14,7 @@ public class CartDTO {
 	//멤버 변수
 	private int cartId;
 	private String userId;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd    HH:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm")
 	private LocalDateTime createdAt;
 	private int productId;
 	private String productName;

@@ -5,9 +5,11 @@
   }
   
   .products {
+    margin-top: 30px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 80px;
+    height: 682px;
     justify-content: center;
   }
   
@@ -16,7 +18,8 @@
     border-radius: 8px;
     padding: 20px;
     text-align: center;
-    width: 200px;
+    height: 300px;
+    width: 250px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
   }
@@ -26,7 +29,7 @@
   }
   
   .product-item img {
-    width: 100%;
+    width: 70%;
     height: 150px;
     object-fit: cover;
     margin-bottom: 10px;
@@ -56,3 +59,4 @@
     background-color: #0056b3;
   }
   
+ 

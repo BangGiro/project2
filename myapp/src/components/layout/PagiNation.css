@@ -1,0 +1,52 @@
+/* 페이지네이션의 기본 스타일 */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  /* 각 페이지 아이템의 기본 스타일 */
+  .page-item {
+    margin: 0 5px;
+  }
+  
+  /* 페이지 링크 기본 스타일 */
+  .page-link {
+    display: block;
+    padding: 8px 16px;
+    color: #007bff;
+    text-decoration: none;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* 페이지 링크 호버 시 스타일 */
+  .page-link:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  /* 비활성화된 페이지 아이템 스타일 */
+  .page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+  }
+  
+  /* 활성화된 페이지 아이템 스타일 */
+  .page-item.active .page-link {
+    z-index: 1;
+    color: white;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  /* <<, >> 아이콘의 스타일 */
+  .page-link span {
+    font-size: 16px;
+  }
+  
