@@ -3,71 +3,91 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './ProductList.css';
 import PagiNation from '../../layout/PagiNation';
+import ProductSearch from './ProductSearch';
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(0);  // 현재 페이지 상태 추가
-  const [totalPages, setTotalPages] = useState(1);    // 전체 페이지 수 상태 추가
+  const [products, setProducts] = useState([]);   // 상품 데이터
+  const [loading, setLoading] = useState(false);  // 로딩 상태
+  const [error, setError] = useState(null);       // 에러 상태
+  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
+  const [totalPages, setTotalPages] = useState(1);   // 전체 페이지 수
+  const [keyword, setKeyword] = useState('');        // 검색어
+  const [prevProducts, setPrevProducts] = useState([]); // 이전 상품 데이터를 유지
+  
+  // 상품 데이터를 가져오는 함수
+  const fetchProducts = async (page = 0, searchKeyword = '') => {
+    setLoading(true); // 로딩 상태 시작
+    try {
+      const response = await axios.get(`/api/products/paging`, {
+        params: {
+          page: page,
+          size: 10,
+          keyword: searchKeyword, // 검색어 추가
+        },
+      });
+      setPrevProducts(products); // 이전 상품 데이터를 저장
+      setProducts(response.data.content); // 새로운 데이터 설정
+      setTotalPages(response.data.totalPages); // 전체 페이지 수 설정
+    } catch (error) {
+      setError('상품을 불러오는 데 실패했습니다.');
+    } finally {
+      setLoading(false); // 로딩 상태 종료
+    }
+  };
 
+  // 검색어나 페이지가 변경될 때마다 상품 목록을 가져옴
   useEffect(() => {
-    const fetchProducts = async (page = 0) => {
-      try {
-        const response = await axios.get(`/api/products/paging`, {
-          params: {
-            page: page,    // 페이지 번호
-            size: 10       // 한 페이지에 보여줄 데이터 수
-          }
-        }); // API 호출
-        console.log('Products Data:', response.data); // 응답 데이터를 확인
-        setProducts(response.data.content);           // 현재 페이지의 상품 목록
-        setTotalPages(response.data.totalPages);      // 전체 페이지 수
-        setLoading(false);
-      } catch (error) {
-        if (error.response) {
-          console.error('Error status', error.response.status);
-          console.error('Error data', error.response.data);
-          setError('상품을 불러오는 데 실패했습니다.');
-        } else {
-          console.error('Error message', error.message);
-          setError('서버에 연결할 수 없습니다.');
-        }
-        setLoading(false);
-      }
-    };
-    fetchProducts(currentPage); // 현재 페이지에 해당하는 데이터 가져오기
-  }, [currentPage]);
-
-  if (loading) {
-    return <div>로딩 중...</div>;
-  }
-
-  if (error) {
-    return <div>{error}</div>;
-  }
+    fetchProducts(currentPage, keyword);  // 페이지 및 검색어에 따라 상품 목록 로드
+  }, [currentPage, keyword]);
 
   const handlePageChange = (page) => {
-    setCurrentPage(page);  // 페이지 변경 시 상태 업데이트
+    setCurrentPage(page); // 페이지 변경 시 상태 업데이트
+  };
+
+  const handleSearch = (searchKeyword) => {
+    setKeyword(searchKeyword);  // 검색어 변경 시 상태 업데이트
+    setCurrentPage(0);          // 검색 시 페이지를 0으로 리셋
   };
 
   return (
     <div>
       <div className="product-list">
         <h1>상품 목록</h1>
+        {/* 검색 컴포넌트에 검색어 업데이트 핸들러 전달 */}
+        <ProductSearch onSearch={handleSearch} />
+        
+        {/* 로딩 상태일 때도 이전 데이터를 보여줌 */}
         <div className="products">
-          {products.map(product => (
-            <div key={product.productId} className="product-item">
-              <img src={`/image/shop/${product.productsImages}`} alt={product.productName} />
-              <h2>{product.productName}</h2>
-              <p>{product.price.toLocaleString()} 원</p>
-              <Link to={`/shop/product/${product.productId}`}>
-                <button>상품 보기</button>
-              </Link>
-            </div>
-          ))}
+          {loading ? (
+            prevProducts.map((product) => (
+              <div key={product.productId} className="product-item">
+                <img src={`/image/shop/${product.productsImages}`} alt={product.productName} />
+                <h2>{product.productName}</h2>
+                <p>{product.price.toLocaleString()} 원</p>
+                <Link to={`/shop/product/${product.productId}`}>
+                  <button>상품 보기</button>
+                </Link>
+              </div>
+            ))
+          ) : (
+            products.length > 0 ? (
+              products.map((product) => (
+                <div key={product.productId} className="product-item">
+                  <img src={`/image/shop/${product.productsImages}`} alt={product.productName} />
+                  <h2>{product.productName}</h2>
+                  <p>{product.price.toLocaleString()} 원</p>
+                  <Link to={`/shop/product/${product.productId}`}>
+                    <button>상품 보기</button>
+                  </Link>
+                </div>
+              ))
+            ) : (
+              <div>검색된 상품이 없습니다.</div>
+            )
+          )}
         </div>
-        {/* 페이지 네이션 컴포넌트에 현재 페이지와 전체 페이지 수 전달 */}
+        
+        {/* 페이지네이션 컴포넌트 */}
         <PagiNation
           currentPage={currentPage}
           totalPages={totalPages}
