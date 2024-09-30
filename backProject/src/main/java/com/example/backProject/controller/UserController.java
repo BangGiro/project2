@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.backProject.Token.TokenProvider;
 import com.example.backProject.domain.UsersDTO;
 import com.example.backProject.entity.Users;
+import com.example.backProject.repository.UsersRepository;
 import com.example.backProject.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UserController {
 
-	UserService uservice;
+	UserService userService;
+	UsersRepository userRepository;
 	TokenProvider tokenProvider;
 	
 	
@@ -36,7 +38,7 @@ public class UserController {
 		log.info("entity 값 확인 =>" +entity.getUserId());
 		
 		//서비스 처리
-		entity = uservice.findUsersById(entity.getUserId());
+		entity = userService.findUsersById(entity.getUserId());
 		
 		//토큰발행
 		
@@ -75,6 +77,14 @@ public class UserController {
 		return ResponseEntity.ok(null);
 	}	
 	
+	//회원가입=======================================================================================
+	@PostMapping("/signUp")
+	public ResponseEntity<?> signUp(@RequestBody Users entity, HttpSession session ) {
+		
+		userRepository.save(entity);
+		
+		return ResponseEntity.ok(entity);
+	}
 	
 	
 	

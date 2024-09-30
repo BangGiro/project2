@@ -1,60 +1,55 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { apiCall } from "../../../service/apiService";
 
 export default function SignUp() {
     const [userData, setUserData] = useState({
-        email: "",
+        userId: "",
         password: "",
         confirmPassword: "",
         name: "",
-        birth: "",
         gender: "",
         loginType: "",
-        businessNumber: "",
-        registrationDate: ""
+        joinDate: ""
     });
 
     const [errorMessage, setErrorMessage] = useState("");
     const [duplicateMessage, setDuplicateMessage] = useState("");
+    const [signZipCode, setZipCode] = useState("");
+    const [signAddress, setAddress] = useState("");
+    const [detailAddress, setDetailAddress] = useState("");
     const [isEmailChecked, setIsEmailChecked] = useState(false);
     const navigate = useNavigate();
 
+    //다음주소 API scropt임포트
+    useEffect(() => {
+        const script = document.createElement("script");
+        script.src = "//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js";
+        script.async = true;
+        document.body.appendChild(script);
+        },[]);
+
+    //다음 주소 api실행코드
+    const daumAddrAPI = (e) => {
+        e.preventDefault();
+        new window.daum.Postcode({ //왜 window붙여야 사용이 되는거지??어렵네
+            oncomplete: function(data) {
+                setZipCode(data.zonecode);
+                setAddress(data.address);
+            }
+        }).open();
+    }
+
+    //비동기 값 변화 일괄 관리
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData(prevState => ({
             ...prevState,
             [name]: value
         }));
-
-        if (name === "email") {
-            setIsEmailChecked(false);
-            setDuplicateMessage("");
-        }
     };
 
-    const validateEmail = (email) => {
-        const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return re.test(String(email).toLowerCase());
-    };
-
-    const handleEmailCheck = () => {
-        if (!validateEmail(userData.email)) {
-            setDuplicateMessage("유효한 이메일 주소를 입력하세요.");
-            setIsEmailChecked(false);
-            return;
-        }
-
-        const storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
-        const isDuplicate = storedUsers.some(user => user.email === userData.email);
-        if (isDuplicate) {
-            setDuplicateMessage("이미 사용중인 이메일입니다.");
-            setIsEmailChecked(false);
-        } else {
-            setDuplicateMessage("사용 가능한 이메일입니다.");
-            setIsEmailChecked(true);
-        }
-    };
 
     const validatePassword = (password, confirmPassword) => {
         if (password.length < 6) {
@@ -68,43 +63,44 @@ export default function SignUp() {
         return true;
     };
 
+    //submit 코드
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!isEmailChecked) {
-            setErrorMessage("이메일 중복 체크를 해주세요.");
-            return;
-        }
-        if (!validateEmail(userData.email)) {
-            setErrorMessage("유효한 이메일 주소를 입력하세요.");
-            return;
-        }
+
         if (!validatePassword(userData.password, userData.confirmPassword)) {
             return;
         }
-        if (userData.loginType === "비지니스" && !userData.businessNumber) {
-            setErrorMessage("사업자 번호를 입력하세요.");
-            return;
-        }
-        setErrorMessage("");
 
-        const storedUsers = JSON.parse(localStorage.getItem("userData")) || [];
-        const isDuplicate = storedUsers.some(user => user.email === userData.email);
-        if (isDuplicate) {
-            setErrorMessage("이미 사용중인 이메일입니다.");
-            return;
-        }
+        setErrorMessage("");
 
         const newUserData = {
             ...userData,
-            registrationDate: new Date().toISOString()
+            joinDate: new Date().toISOString(),
+            zipCode: signZipCode,
+            address: signAddress
         };
 
-        const updatedUsers = [...storedUsers, newUserData];
-        localStorage.setItem("userData", JSON.stringify(updatedUsers));
+        let uri = "/users/signUp"
+        let method = "post";
+        const data = newUserData;
 
-        navigate("/login");
+        apiCall(uri, method, data, null)
+        .then((response) => {
+            if(response !=  null) {
+                console.log("login axios response 확인 ➡️ "+response.name); //오류테스트 용으로 남겨줄 것
+                
+                console.log(response);
+                alert('회원가입 성공');
+            } else {
+                alert('회원가입 실패');
+            }
+        }).catch((err)=>{
+            alert('회원가입 실패'+err.message);
+            console.log(userData);
+        })
+
+        // navigate("/login");
     };
-
 
     return (
         <div className="login_true_location-container">
@@ -117,13 +113,12 @@ export default function SignUp() {
                         <label>
                             <input
                                 type="text"
-                                name="signUserId"
+                                name="userId"
                                 placeholder="아이디 입력"
-                                value={userData.email}
                                 onChange={handleChange}
                                 required
                             />
-                            <button type="button" onClick={handleEmailCheck}>중복 체크</button>
+                            <button type="button" disabled>중복 체크</button>
                         </label>
                         <label>
                             <input
@@ -159,17 +154,44 @@ export default function SignUp() {
                                 required
                             />
                         </label>
-                        <label>생년월일
+                        <label>전화번호
                             <input
-                                type="date"
-                                name="birth"
-                                value={userData.birth}
+                                type="text"
+                                name="phoneNumber"
+                                placeholder="예시) 01011112222"
+                                value={userData.phoneNumber}
                                 onChange={handleChange}
                                 required
-                                max="9999-12-31"
-                                min="1900-01-01"
                             />
                         </label>
+                        <div className="addrBox">
+                        <label>주소
+                            <input
+                                type="text"
+                                name="zipCode"
+                                placeholder="우편번호"
+                                value={signZipCode}
+                                onClick={daumAddrAPI}
+                                readOnly
+                            />
+                            <button onClick={daumAddrAPI}>우편번호찾기</button>
+                            <input
+                                type="text"
+                                name="address"
+                                className="address"
+                                placeholder="주소"
+                                value={signAddress}
+                                readOnly
+                            />
+                            <input
+                                type="text"
+                                className="detailAddress"
+                                placeholder="상세주소"
+                                name="detailAddress"
+                                onChange={handleChange}
+                            />
+                        </label>
+                        </div>
                         <div>성별</div>
                         <div className="select_gender">
                             <input
@@ -196,29 +218,16 @@ export default function SignUp() {
                         <div>회원 유형 선택</div>
                         <label>
                             <select
-                                name="loginType"
-                                value={userData.loginType}
+                                name="memberType"
+                                value={userData.memberType}
                                 onChange={handleChange}
                                 required
                             >
                                 <option value="">선택하세요</option>
                                 <option value="일반">일반</option>
                                 <option value="트레이너">트레이너</option>
-                                <option value="비지니스">비지니스</option>
                             </select>
                         </label>
-                        {userData.loginType === "비지니스" && (
-                            <label>
-                                <input
-                                    type="text"
-                                    name="businessNumber"
-                                    placeholder="사업자 번호 입력"
-                                    value={userData.businessNumber}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </label>
-                        )}
                         <button type="submit">회원가입</button>
                     </form>
                     <div className="login-links">
@@ -230,4 +239,4 @@ export default function SignUp() {
             </div>
         </div>
     );
-}
+}//signUP
