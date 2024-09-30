@@ -37,10 +37,12 @@ function App() {
 
   // 로그인 상태 확인
   useEffect(() => {
-    const storedLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
+    setLoggedIn(false);
+    const storedLoggedIn = localStorage.getItem('loggedIn') === 'true';
     const storedId = localStorage.getItem('memberLoggedInData') || '';
     setLoggedIn(storedLoggedIn);
     setLoggedId(storedId);
+    console.log("loggedId"+loggedId);
   }, []);
 
   // 로그인 처리
@@ -51,7 +53,7 @@ function App() {
     localStorage.setItem('loggedIn', 'true');
     localStorage.setItem('memberLoggedInData', response.userId); // userId 저장
     setLoggedId(response.userId); // loggedId 상태에 userId 저장
-  };
+    };
 
   // 로그아웃 처리
   const handleLogout = () => {
@@ -61,6 +63,7 @@ function App() {
     sessionStorage.removeItem('loggedIn');
     localStorage.removeItem('loggedIn');
     localStorage.removeItem('memberLoggedInData');
+    localStorage.removeItem('JwtToken');
   };
 
   // 장바구니 항목 상태

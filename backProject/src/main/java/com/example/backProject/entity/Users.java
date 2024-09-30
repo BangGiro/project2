@@ -1,6 +1,8 @@
 package com.example.backProject.entity;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,4 +39,11 @@ public class Users {
 	private String trainerId;
 	private String courseTicketId;
 	
+	public Map<String , Object> claimList() {
+		Map<String, Object>dataMap = new HashMap<>();
+		dataMap.put("userId",this.userId);
+//		dataMap.put("roleList", this.roleList); //아직 미구현
+		
+		return dataMap;
+	}
 }

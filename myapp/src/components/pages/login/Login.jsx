@@ -28,10 +28,10 @@ export default function Login({ onLogin }) {
         apiCall(uri, method, data, null)
         .then((response) => {
             if(response !=  null) {
-                
                 console.log("login axios response 확인 ➡️ "+response.userId +response.token); //오류테스트 용으로 남겨줄 것
-
-                sessionStorage.setItem("loginInfo",JSON.stringify(response));
+                
+                localStorage.setItem("JwtToken", response.token);
+                
                 onLogin(response);
                 alert('로그인 성공');
                 navigate("/");
