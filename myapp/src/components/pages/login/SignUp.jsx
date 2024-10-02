@@ -50,8 +50,7 @@ export default function SignUp() {
 
     //아이디 검증
     const validateUserId = (e) => {
-        
-
+        return true
     }
 
     //비밀번호 검증
@@ -103,9 +102,9 @@ export default function SignUp() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (!validatePassword(userData.password, userData.confirmPassword)) {
-            return;
-        }
+        // if (!validatePassword(userData.password, userData.confirmPassword)) {
+        //     return;
+        // }
 
         setErrorMessage("");
 
@@ -134,7 +133,7 @@ export default function SignUp() {
             alert('회원가입 실패'+err.message);
             console.log(userData);
         })
-        // navigate("/login");
+        navigate("/login");
     };
 
     return (
