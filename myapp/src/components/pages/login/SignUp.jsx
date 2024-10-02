@@ -7,7 +7,6 @@ export default function SignUp() {
     const [userData, setUserData] = useState({
         userId: "",
         password: "",
-        confirmPassword: "",
         name: "",
         gender: "",
         loginType: "",
@@ -19,7 +18,6 @@ export default function SignUp() {
     const [signZipCode, setZipCode] = useState("");
     const [signAddress, setAddress] = useState("");
     const [detailAddress, setDetailAddress] = useState("");
-    const [isEmailChecked, setIsEmailChecked] = useState(false);
     const navigate = useNavigate();
 
     //다음주소 API scropt임포트
@@ -50,18 +48,56 @@ export default function SignUp() {
         }));
     };
 
+    //아이디 검증
+    const validateUserId = (e) => {
+        
 
-    const validatePassword = (password, confirmPassword) => {
+    }
+
+    //비밀번호 검증
+    const validatePassword = (e) => {
+        let password = e.target.value;
+
         if (password.length < 6) {
             setErrorMessage("비밀번호는 최소 6자 이상이어야 합니다.");
+            e.target.focus();
+            return false;
+        } else if (!(/^(?=.*[a-zA-Z])(?=.*[0-9])/).test(password)) {
+            setErrorMessage("비밀번호는 영문자+숫자 조합이어야 합니다.");
+            e.target.focus();
             return false;
         }
-        if (password !== confirmPassword) {
+        setErrorMessage("");
+        return true;
+    };
+
+    const validatePassword2 = (e) => {
+        if (userData.password !== e.target.value) {
             setErrorMessage("비밀번호가 일치하지 않습니다.");
             return false;
         }
-        return true;
-    };
+        setErrorMessage("");
+        return true
+    }
+    
+
+    //전화번호 검증 및 자동완성
+    const validatePhoneNum = (e) => {
+        let phoneNum = e.target.value;
+
+        if(!phoneNum.includes('-')){
+            phoneNum = phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        } else {
+            phoneNum = phoneNum.replace(/-+/g,'-');
+        }
+
+        phoneNum.length != 13 ?
+        setErrorMessage('전화번호를 다시 확인하세요') :
+        setUserData(prevState => ({
+            ...prevState,
+            phoneNumber : phoneNum
+        }));
+    }
 
     //submit 코드
     const handleSubmit = (e) => {
@@ -98,7 +134,6 @@ export default function SignUp() {
             alert('회원가입 실패'+err.message);
             console.log(userData);
         })
-
         // navigate("/login");
     };
 
@@ -118,7 +153,7 @@ export default function SignUp() {
                                 onChange={handleChange}
                                 required
                             />
-                            <button type="button" disabled>중복 체크</button>
+                            <button type="button" onClick={validateUserId}>중복 체크</button>
                         </label>
                         <label>
                             <input
@@ -127,6 +162,7 @@ export default function SignUp() {
                                 placeholder="비밀번호 입력 (6 ~ 15자리)"
                                 value={userData.password}
                                 onChange={handleChange}
+                                onBlur={validatePassword}
                                 maxLength={15}
                                 minLength={6}
                                 required
@@ -137,8 +173,7 @@ export default function SignUp() {
                                 type="password"
                                 name="confirmPassword"
                                 placeholder="비밀번호 확인 (6 ~ 15자리)"
-                                value={userData.confirmPassword}
-                                onChange={handleChange}
+                                onBlur={validatePassword2}
                                 maxLength={15}
                                 minLength={6}
                                 required
@@ -161,6 +196,7 @@ export default function SignUp() {
                                 placeholder="예시) 01011112222"
                                 value={userData.phoneNumber}
                                 onChange={handleChange}
+                                onBlur={validatePhoneNum}
                                 required
                             />
                         </label>

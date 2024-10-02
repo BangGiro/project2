@@ -2,14 +2,18 @@ package com.example.backProject.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException.BadGateway;
 
 import com.example.backProject.Token.TokenProvider;
 import com.example.backProject.domain.UsersDTO;
@@ -29,6 +33,7 @@ public class UserController {
 
 	UserService userService;
 	UsersRepository userRepository;
+	PasswordEncoder passwordEncoder;
 	TokenProvider tokenProvider;
 	
 	
@@ -46,12 +51,11 @@ public class UserController {
 		//토큰발행
 		
 		//로그인 성공/실패 처리
-    	if(entity != null && password.equals(entity.getPassword())) {
+    	if(entity != null && passwordEncoder.matches(password, entity.getPassword())) {
 
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
     
-    		 
     		final String token = tokenProvider.createToken(entity.claimList());
     	
     		final UsersDTO usersDTO = UsersDTO.builder()
@@ -84,6 +88,8 @@ public class UserController {
 	//임시 코드임 추후 보강필요
 	@PostMapping("/signUp")
 	public ResponseEntity<?> signUp(@RequestBody Users entity, HttpSession session ) {
+		
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 		
 		userRepository.save(entity);
 		
@@ -131,6 +137,15 @@ public class UserController {
 		List<Users> list = userService.findByTrainerId(entity.getTrainerId());
 		
 		return ResponseEntity.ok(list);
+	}
+	
+	//유저개인정보 불러오기================================================================================
+	@GetMapping("/{userId}")
+	public ResponseEntity<?> findUserDetail(Users entity){
+		
+		Users user = userService.findUsersById(entity.getUserId());
+		
+		return ResponseEntity.ok(user);
 	}
 	
 }
