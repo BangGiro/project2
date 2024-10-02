@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,7 @@ public class UserController {
 
 	UserService userService;
 	UsersRepository userRepository;
+	PasswordEncoder passwordEncoder;
 	TokenProvider tokenProvider;
 	
 	
@@ -46,7 +48,7 @@ public class UserController {
 		//토큰발행
 		
 		//로그인 성공/실패 처리
-    	if(entity != null && password.equals(entity.getPassword())) {
+    	if(entity != null && passwordEncoder.matches(password, entity.getPassword())) {
 
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
@@ -84,6 +86,8 @@ public class UserController {
 	//임시 코드임 추후 보강필요
 	@PostMapping("/signUp")
 	public ResponseEntity<?> signUp(@RequestBody Users entity, HttpSession session ) {
+		
+		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 		
 		userRepository.save(entity);
 		
