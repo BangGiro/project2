@@ -4,7 +4,7 @@
 }
 
 .login-location-container {
-    text-align: center;
+    /* text-align: center; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,6 +86,21 @@
     text-decoration: underline;
 }
 
+
+/* 회원가입======================================================================================== */
+.signUp-container>h1 {
+    text-align: center;
+}
+
+.signUp-container label {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.signUp-container input {
+    margin-top: 1rem;
+}
+
 .select_gender {
     display: flex;
     justify-content: space-between;
@@ -108,11 +123,15 @@
     font-size: 16px;
     position: relative;
     right: 7px;
-    
 }
 
 .select_gender label.active,
 .select_gender input[type="radio"]:checked+label {
     background-color: #007bff;
     color: white;
+}
+
+.SignErrorMessage {
+    color: red;
+    font-weight: lighter;
 }
