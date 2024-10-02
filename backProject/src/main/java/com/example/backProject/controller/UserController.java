@@ -2,15 +2,18 @@ package com.example.backProject.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpServerErrorException.BadGateway;
 
 import com.example.backProject.Token.TokenProvider;
 import com.example.backProject.domain.UsersDTO;
@@ -53,7 +56,6 @@ public class UserController {
     		session.setAttribute("loginID", entity.getUserId());
     		session.setAttribute("loginName", entity.getName());
     
-    		 
     		final String token = tokenProvider.createToken(entity.claimList());
     	
     		final UsersDTO usersDTO = UsersDTO.builder()
@@ -135,6 +137,15 @@ public class UserController {
 		List<Users> list = userService.findByTrainerId(entity.getTrainerId());
 		
 		return ResponseEntity.ok(list);
+	}
+	
+	//유저개인정보 불러오기================================================================================
+	@GetMapping("/{userId}")
+	public ResponseEntity<?> findUserDetail(Users entity){
+		
+		Users user = userService.findUsersById(entity.getUserId());
+		
+		return ResponseEntity.ok(user);
 	}
 	
 }
