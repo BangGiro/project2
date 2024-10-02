@@ -53,6 +53,7 @@ const ProductList = () => {
     <div>
       <div className="product-list">
         <h1>상품 목록</h1>
+        
         {/* 검색 컴포넌트에 검색어 업데이트 핸들러 전달 */}
         <ProductSearch onSearch={handleSearch} />
         

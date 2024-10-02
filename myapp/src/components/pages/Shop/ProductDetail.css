@@ -177,3 +177,27 @@
 .reviews-section li strong {
   color: #333;
 }
+
+/* 버튼 공통 스타일 적용 */
+.common-button {
+  width: 100%; /* 부모 요소의 너비를 차지하게 함 */
+  padding: 10px;
+  background-color: #28a745; /* 초록색 버튼 배경 */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+}
+
+.common-button:hover {
+  background-color: #218838;
+}
+
+/* 주문하기 버튼의 링크 스타일도 통일 */
+.link-button {
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}

@@ -21,6 +21,7 @@
     border: 1px solid #dee2e6;
     border-radius: 4px;
     transition: background-color 0.3s, color 0.3s;
+    cursor: pointer;
   }
   
   /* 페이지 링크 호버 시 스타일 */

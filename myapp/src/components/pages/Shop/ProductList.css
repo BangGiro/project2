@@ -9,7 +9,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    height: 600px;
     justify-content: center;
   }
   

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
-
+import { Link } from 'react-router-dom';
 const ProductDetail = ({ userId }) => {
   const { id } = useParams(); // URL에서 상품 ID 가져오기
   const [product, setProduct] = useState(null);
@@ -108,7 +108,6 @@ const ProductDetail = ({ userId }) => {
       );
 
       if (response.status === 200) {
-        alert('주문이 성공적으로 완료되었습니다!');
         console.log('Order created:', response.data);
       } else {
         console.error('주문 생성에 실패했습니다.', response.data);
@@ -140,7 +139,7 @@ const ProductDetail = ({ userId }) => {
               <p>가격: {product.price.toLocaleString()} 원</p>
               <p>설명: {product.description}</p>
               <p>브랜드: {product.brand}</p>
-              <p>재고: {product.stockQuantity > 0 ? '재고 있음' : '재고 없음'}</p>
+              <p>재고: {product.stockQuantity > 0 ? product.stockQuantity : '재고 없음'}</p>
               <p>무게: {product.weight} kg</p>
               <p>배송비: {product.shippingCost.toLocaleString()} 원</p>
 
@@ -152,13 +151,16 @@ const ProductDetail = ({ userId }) => {
                   id="quantity"
                   value={quantity}
                   min="1"
+                  max={product.stockQuantity}
                   onChange={handleQuantityChange}
                 />
               </div>
               <p>총 가격: {calculateTotalPrice()} 원 (배송비 포함)</p>
 
-              <button onClick={() => handleAddToCart(product.productId)}>장바구니에 추가</button>
-              <button onClick={handleOrder}>주문하기</button> {/* 주문하기 버튼 추가 */}
+              <button onClick={() =>{ handleAddToCart(product.productId); console.log("장바구니에 추가된 상품:", product);}} >장바구니에 추가</button>
+              <Link to="/checkout" className='link-button' >
+              <button onClick={handleOrder} className='common-button'>주문하기</button> {/* 주문하기 버튼 추가 */}
+              </Link>
             </div>
           </div>
 

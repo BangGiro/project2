@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Switch.css';  // 스타일 파일 가져오기
+import './Switch.css';  
 
 const Switch = ({ onCategoryChange }) => {
     const [selectedCategories, setSelectedCategories] = useState([]);

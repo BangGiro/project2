@@ -29,12 +29,13 @@ import MyPage from './components/pages/MyPage/MyPage';
 import ProductList from './components/pages/Shop/ProductList';
 import ProductDetail from './components/pages/Shop/ProductDetail';
 import Cart from './components/pages/Shop/Cart';
+import CheckoutPage from './components/pages/Shop/CheckoutPage';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInfo, setLoggedInfo] = useState(null); // null로 초기화
   const [loggedId, setLoggedId] = useState('');
-
+  
   // 로그인 상태 확인
   useEffect(() => {
     setLoggedIn(false);
@@ -42,7 +43,7 @@ function App() {
     const storedId = localStorage.getItem('memberLoggedInData') || '';
     setLoggedIn(storedLoggedIn);
     setLoggedId(storedId);
-    console.log("loggedId"+loggedId);
+    console.log("loggedId" + loggedId);
   }, []);
 
   // 로그인 처리
@@ -53,7 +54,7 @@ function App() {
     localStorage.setItem('loggedIn', 'true');
     localStorage.setItem('memberLoggedInData', response.userId); // userId 저장
     setLoggedId(response.userId); // loggedId 상태에 userId 저장
-    };
+  };
 
   // 로그아웃 처리
   const handleLogout = () => {
@@ -107,6 +108,7 @@ function App() {
           <Route path="/shop" element={<ProductList />} />
           <Route path="/shop/product/:id" element={<ProductDetail userId={loggedId} onAddToCart={handleAddToCart} />} />
           <Route path="/shop/cart" element={<Cart userId={loggedId} cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
+          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
         </Route>
         {/* 헤더와 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
