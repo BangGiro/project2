@@ -20,9 +20,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, 
     onAddUser(user, memo);
     const updatedUsers = [...users, { ...user, memo }];
     setUsers(updatedUsers);
-    localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
-    localStorage.setItem('selectedUser', JSON.stringify({ ...user, memo }));
-  };
+    };
 
   const handleDeleteUser = (email) => {
     onDeleteUser(email);
