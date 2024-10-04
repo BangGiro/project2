@@ -46,4 +46,8 @@ public class OrdersServiceImpl implements OrdersService {
     public List<Orders> findOrdersByUserId(String userId) {
         return ordersRepository.findByUserId(userId);
     }
+    
+    public void deleteOrderById(int orderId) {
+        ordersRepository.deleteById(orderId);
+    }
 }

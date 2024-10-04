@@ -13,9 +13,11 @@ const PagiNation = ({ currentPage, totalPages, onPageChange }) => {
     onPageChange(totalPages - 1);
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page, event) => {
+    event.preventDefault();
     if (page >= 0 && page < totalPages) {
       onPageChange(page);  // 부모 컴포넌트로 페이지 변경 알림
+      
     }
   };
 
@@ -24,21 +26,21 @@ const PagiNation = ({ currentPage, totalPages, onPageChange }) => {
       <ul className="pagination">
         {/* 첫 페이지로 이동 */}
         <li className={`page-item ${currentPage === 0 ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={goToFirstPage}>
+          <button type='button' className="page-link" onClick={goToFirstPage}>
             &laquo;
           </button>
         </li>
         
         {/* 이전 페이지로 이동 */}
         <li className={`page-item ${currentPage === 0 ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>
+          <button type='button' className="page-link" onClick={(e) => handlePageChange(currentPage - 1,e)}>
             &lsaquo;
           </button>
         </li>
         
         {Array.from({ length: totalPages }, (_, index) => (
           <li key={index} className={`page-item ${currentPage === index ? 'active' : ''}`}>
-            <button className="page-link" onClick={() => handlePageChange(index)}>
+            <button type='button' className="page-link" onClick={(e) => handlePageChange(index,e)}>
               {index + 1}
             </button>
           </li>
@@ -46,14 +48,14 @@ const PagiNation = ({ currentPage, totalPages, onPageChange }) => {
         
         {/* 다음 페이지로 이동 */}
         <li className={`page-item ${currentPage === totalPages - 1 ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>
+          <button type='button' className="page-link" onClick={(e) => handlePageChange(currentPage + 1,e)}>
           &rsaquo;
           </button>
         </li>
         
         {/* 마지막 페이지로 이동 */}
         <li className={`page-item ${currentPage === totalPages - 1 ? 'disabled' : ''}`}>
-          <button className="page-link" onClick={goToLastPage}>
+          <button type='button' className="page-link" onClick={goToLastPage}>
             &raquo;
           </button>
         </li>

@@ -8,4 +8,5 @@ import com.example.backProject.entity.Orders;
 public interface OrdersService {
     OrdersDTO createOrder(OrdersDTO ordersDTO);
     public List<Orders> findOrdersByUserId(String userId); 
+    public void deleteOrderById(int orderId);
 }

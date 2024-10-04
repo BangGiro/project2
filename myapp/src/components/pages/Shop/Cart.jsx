@@ -20,7 +20,7 @@ const Cart = ({ userId }) => {
         console.log("UserId:", userId);
       }
     };
-
+      
     // 주문 데이터 불러오기
     const fetchOrderData = async () => {
       try {
@@ -36,13 +36,23 @@ const Cart = ({ userId }) => {
     fetchOrderData();
   }, [userId]);
 
+    //총 주문 금액
+    const totalAmount = orderData.reduce((total, order) => total + order.totalAmount, 0);
+
   // 장바구니에서 항목 삭제
-  const handleRemoveFromCart = async (id) => {
+  const handleRemoveFromCart = async (cartId, orderId) => {
     try {
-      await axios.delete(`/api/cart/${id}`);
-      setCartData(cartData.filter(item => item.cartId !== id));
+      // Cart에서 항목 삭제
+      await axios.delete(`/api/cart/${cartId}`);
+      setCartData(cartData.filter(item => item.cartId !== cartId));
+
+      // Order에서 항목 삭제
+      if (orderId) {
+        await axios.delete(`/api/orders/${orderId}`);
+        setOrderData(orderData.filter(order => order.orderId !== orderId));
+      }
     } catch (error) {
-      console.error('장바구니에서 항목을 제거하는 중 오류 발생:', error);
+      console.error('항목을 제거하는 중 오류 발생:', error);
     }
   };
 
@@ -60,17 +70,18 @@ const Cart = ({ userId }) => {
                 {orderData[index] && (
                   <div>
                     <h3>주문 날짜: {orderData[index].orderDate }</h3>
-                    <p>총 금액: {orderData[index+1].totalAmount?.toLocaleString()} 원</p>
-                    <p>수량: {orderData[index+1].quantity }</p>
+                    <p>총 금액: {orderData[index].totalAmount?.toLocaleString()} 원</p>
+                    <p>수량: {orderData[index].quantity }</p>
                   </div>
                 )}
-                <button onClick={() => handleRemoveFromCart(item.cartId)}>제거</button>
+                 <button onClick={() => handleRemoveFromCart(item.cartId, orderData[index]?.orderId)}>제거</button>
 
                 {/* orderData에서 값을 뽑아서 사용 (순서대로 매칭 없이 출력) */}
               </div>
             </li>
           ))}
         </ul>
+        <h3>총 주문 금액:{totalAmount.toLocaleString()} 원</h3>
 
         <Link
           to={{

@@ -88,11 +88,24 @@
   background-color: #218838;
 }
 
+#quantity{
+  width: 25%;
+  height: 5vh;
+  font-size: 1.5em;
+  text-align: right;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 1;
+    height: 50px;
+    width: 50px;
+}
 /* 이미지 */
 .product-image {
   flex: 4;
   max-width: 900px;
-  height: 600px;
+  height: 868.25px;
   border-radius: 15px;
   border: 2px solid #ddd; /* 이미지를 더욱 강조 */
   margin-right: 30px;

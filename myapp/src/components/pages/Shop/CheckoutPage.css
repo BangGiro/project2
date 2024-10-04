@@ -1,195 +1,201 @@
 /* 전체 결제 페이지 컨테이너 */
-.checkout-page {
-  width: 50%;
-  max-width: 1200px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-/* 결제 버튼 */
-.submit-button {
-  width: 50%;
-  height: 50px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #45a049;
-}
-
-.checkout-page h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 28px;
-  color: #333;
-  font-weight: 600;
-}
-
-/* 구매자 정보 섹션 */
-.user-info {
-  text-align: left;
-  margin-bottom: 40px;
-}
-
-.user-info h2 {
-  font-size: 24px;
-  color: #333;
-  font-weight: 500;
-}
-
-.user-info p {
-  font-size: 18px;
-  color: #555;
-  margin: 5px 0;
-}
-
-/* 장바구니 섹션 */
-.cart-info {
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-.cart-info h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-  font-weight: 500;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-li {
-  display: flex;
-  align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #eee;
-  transition: background-color 0.3s ease;
-}
-
-li:hover {
-  background-color: #fafafa;
-}
-
-/* 이미지 스타일 */
-li img {
-  width: 120px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-right: 20px;
-}
-
-/* 텍스트와 버튼의 레이아웃 */
-li div {
-  flex-grow: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-li h2 {
-  margin: 0;
-  font-size: 20px;
-  color: #333;
-  font-weight: 500;
-}
-
-li p {
-  margin: 10px 0 0;
-  font-size: 18px;
-  font-weight: 400;
-  color: #555;
-}
-
-/* 가격 정보 및 제거 버튼 */
-li .cart-item-details {
-  flex-grow: 1;
-  padding-left: 20px;
-}
-
-li .cart-item-actions {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.cart-item-actions p {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-}
-
-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #ff6b6b;
-  border: none;
-  border-radius: 8px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #ff4d4d;
-}
-
-/* 배송 정보 및 결제 정보 폼 */
-.checkout-form {
-  text-align: left;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #333;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-/* 반응형 스타일 */
-@media (max-width: 768px) {
-  li {
-    flex-direction: column;
-    align-items: flex-start;
+.checkout-pageCss {
+  .checkout-page {
+    width: 60%;
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
   }
 
+  .text-right{
+    margin-top: 3vh;
+    text-align: right;
+  }
+  /* 결제 버튼 */
+  .submit-button {
+    width: 100%;
+    height: 50px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .submit-button:hover {
+    background-color: #45a049;
+  }
+
+  .checkout-page h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 28px;
+    color: #333;
+    font-weight: 600;
+  }
+
+  /* 구매자 정보 섹션 */
+  .user-info {
+    text-align: left;
+    margin-bottom: 40px;
+  }
+
+  .user-info h2 {
+    font-size: 24px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .user-info p {
+    font-size: 18px;
+    color: #555;
+    margin: 5px 0;
+  }
+
+  /* 장바구니 섹션 */
+  .cart-info {
+    margin-bottom: 30px;
+    text-align: left;
+  }
+
+  .cart-info h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center; /* 모든 항목을 수평으로 맞춤 */
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+    transition: background-color 0.3s ease;
+  }
+
+  li:hover {
+    background-color: #fafafa;
+  }
+
+  /* 이미지 스타일 */
   li img {
-    width: 100px;
+    width: 100px; /* 이미지 크기를 적절히 줄임 */
     height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+  }
+
+  /* 텍스트와 버튼의 레이아웃 */
+  li div {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  li h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+    font-weight: 500;
+  }
+
+  li p {
+    margin: 0 10px 0; /* 상하 여백 제거 */
+    font-size: 18px;
+    font-weight: 400;
+    color: #555;
+  }
+
+  /* 가격 정보 및 제거 버튼 */
+  li .cart-item-details {
+    flex-grow: 1;
+    padding-left: 20px;
   }
 
   li .cart-item-actions {
-    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .cart-item-actions p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
   }
 
   button {
-    align-self: flex-end;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  button:hover {
+    background-color: #ff4d4d;
+  }
+
+  /* 배송 정보 및 결제 정보 폼 */
+  .checkout-form {
+    text-align: left;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+
+  /* 반응형 스타일 */
+  @media (max-width: 768px) {
+    li {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    li img {
+      width: 80px;
+      height: 80px;
+    }
+
+    li .cart-item-actions {
+      align-items: flex-start;
+    }
+
+    button {
+      align-self: flex-end;
+    }
   }
 }

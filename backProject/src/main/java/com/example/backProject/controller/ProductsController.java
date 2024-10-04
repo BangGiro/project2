@@ -47,7 +47,6 @@ public class ProductsController {
 	}
 
 
-
 	//페이징 적용
 	@GetMapping("/paging")
     public ResponseEntity<Page<Products>> getProducts(
