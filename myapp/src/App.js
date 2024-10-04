@@ -108,7 +108,8 @@ function App() {
           <Route path="/shop" element={<ProductList />} />
           <Route path="/shop/product/:id" element={<ProductDetail userId={loggedId} onAddToCart={handleAddToCart} />} />
           <Route path="/shop/cart" element={<Cart userId={loggedId} cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
-          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} />} />
+          <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} userId={loggedId}/>} />
+
         </Route>
         {/* 헤더와 푸터가 포함되지 않은 페이지 */}
         <Route path="/login" element={<Login onLogin={handleLogin} />} />

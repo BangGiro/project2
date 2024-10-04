@@ -25,7 +25,7 @@ public class Orders {
 	private int orderId;
 
 	private String userId;
-
+	private int quantity;
 	private LocalDateTime orderDate;
 	private double totalAmount;
 	private String shippingAddress;

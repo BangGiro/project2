@@ -1,9 +1,12 @@
 package com.example.backProject.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +32,7 @@ public class OrdersController{
 	        Orders order = Orders.builder()
 	            .userId(orderData.getUserId())
 	            .orderDate(LocalDateTime.now())
+	            .quantity(orderData.getQuantity())
 	            .totalAmount(orderData.getTotalAmount())
 	            .shippingAddress(orderData.getShippingAddress())
 	            .deliveryAddress(orderData.getDeliveryAddress())
@@ -40,5 +44,10 @@ public class OrdersController{
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create order");
 	    }
+	}
+	
+	@GetMapping("/{userId}")
+	public List<Orders> getOrders(@PathVariable String userId) {
+	    return ordersService.findOrdersByUserId(userId);
 	}
 	}

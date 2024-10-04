@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Cart = ({ userId }) => {
   const [cartData, setCartData] = useState([]);
+  const [orderData, setOrderData] = useState([]);
 
   // 장바구니 데이터 불러오기
   useEffect(() => {
@@ -12,14 +13,27 @@ const Cart = ({ userId }) => {
       try {
         const response = await axios.get(`/api/cart/${userId}`); // 사용자 ID로 장바구니 불러오기
         setCartData(response.data);
-        console.log("==========response.data========", response.data);
+        console.log("==========cartData========", response.data);
         console.log("UserId:", userId);
       } catch (error) {
         console.error('장바구니 데이터를 불러오는 중 오류 발생:', error);
         console.log("UserId:", userId);
       }
     };
+
+    // 주문 데이터 불러오기
+    const fetchOrderData = async () => {
+      try {
+        const response = await axios.get(`/api/orders/${userId}`); // 사용자 ID로 주문 데이터 불러오기
+        setOrderData(response.data);
+        console.log("==========orderData========", response.data);
+      } catch (error) {
+        console.error('주문 데이터를 불러오는 중 오류 발생:', error);
+      }
+    };
+
     fetchCartItems();
+    fetchOrderData();
   }, [userId]);
 
   // 장바구니에서 항목 삭제
@@ -37,22 +51,31 @@ const Cart = ({ userId }) => {
       <div className="cart">
         <h1>장바구니</h1>
         <ul>
-          {cartData.map((item) => (
+          {cartData.map((item, index) => (
             <li key={item.cartId}>
               <img src={`/image/shop/${item.productsImages}`} alt={item.productName} />
               <div>
                 <h2>{item.productName}</h2>
-                <p>{item.price.toLocaleString()} 원</p>
-                <p>{item.createdAt} </p>
+                {/* item.price가 존재하는지 확인 */}
+                {orderData[index] && (
+                  <div>
+                    <h3>주문 날짜: {orderData[index].orderDate }</h3>
+                    <p>총 금액: {orderData[index+1].totalAmount?.toLocaleString()} 원</p>
+                    <p>수량: {orderData[index+1].quantity }</p>
+                  </div>
+                )}
                 <button onClick={() => handleRemoveFromCart(item.cartId)}>제거</button>
+
+                {/* orderData에서 값을 뽑아서 사용 (순서대로 매칭 없이 출력) */}
               </div>
             </li>
           ))}
         </ul>
+
         <Link
           to={{
             pathname: "/checkout",
-            state: { cartItems: cartData },  // cartData를 전달
+            state: { cartItems: cartData, userId: userId }, // cartData를 전달
           }}
         >
           <button className='checkoutbtn'>결제하기</button> {/* 결제 페이지로 이동하는 버튼 */}

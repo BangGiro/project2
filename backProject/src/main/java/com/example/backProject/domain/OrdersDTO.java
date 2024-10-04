@@ -21,5 +21,6 @@ public class OrdersDTO {
 	private String shippingAddress;
 	private String status;
 	private String deliveryAddress;
+	private int quantity;
 	
 }

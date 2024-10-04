@@ -1,10 +1,14 @@
 package com.example.backProject.service;
 
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.example.backProject.domain.OrdersDTO;
 import com.example.backProject.entity.Orders;
 import com.example.backProject.repository.OrdersRepository;
+
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
@@ -37,5 +41,9 @@ public class OrdersServiceImpl implements OrdersService {
                 .status(savedOrder.getStatus())
                 .deliveryAddress(savedOrder.getDeliveryAddress())
                 .build();
+    }
+    @Override
+    public List<Orders> findOrdersByUserId(String userId) {
+        return ordersRepository.findByUserId(userId);
     }
 }

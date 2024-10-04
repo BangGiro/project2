@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
 import { Link } from 'react-router-dom';
+
 const ProductDetail = ({ userId }) => {
   const { id } = useParams(); // URL에서 상품 ID 가져오기
   const [product, setProduct] = useState(null);
@@ -40,8 +41,8 @@ const ProductDetail = ({ userId }) => {
     return totalPrice.toLocaleString();
   };
 
-  // 장바구니에 추가
-  const handleAddToCart = async (productId) => {
+  // 장바구니에 추가 및 주문 테이블에 저장
+  const handleAddToCartAndOrder = async (productId) => {
     try {
       if (!userId || !productId) {
         throw new Error('Invalid user ID or product ID');
@@ -55,7 +56,8 @@ const ProductDetail = ({ userId }) => {
   
       console.log(`Adding product ID: ${productId} for user ID: ${userId}`);
   
-      const response = await axios.post(
+      // 장바구니에 추가
+      const cartResponse = await axios.post(
         'http://localhost:3000/api/cart/add', 
         { productId, userId, quantity },  // 수량 추가
         {
@@ -65,57 +67,43 @@ const ProductDetail = ({ userId }) => {
         }
       );
   
-      if (response.status === 200) {
-        console.log('장바구니에 추가되었습니다.', response.data);
+      if (cartResponse.status === 200) {
+        console.log('장바구니에 추가되었습니다.', cartResponse.data);
         alert('장바구니에 추가되었습니다!');
       } else {
-        console.error('장바구니 추가에 실패했습니다.', response.data);
-      }
-    } catch (error) {
-      console.error('장바구니에 추가하는 데 실패했습니다.', error.message);
-      if (error.response) {
-        console.error('Server Response:', error.response.data);
-      }
-    }
-  };
-
-  // 주문하기 (주문 데이터를 서버로 전송)
-  const handleOrder = async () => {
-    try {
-      const token = localStorage.getItem('JwtToken');
-      if (!token) {
-        throw new Error('JWT token not found. Please login again.');
+        console.error('장바구니 추가에 실패했습니다.', cartResponse.data);
       }
 
-      // 주문 정보를 서버에 전송
+      // 주문 생성 요청
       const orderData = {
         userId,
-        productId: product.productId,
+        productId,
         quantity,
         totalAmount: (product.price * quantity) + product.shippingCost, // 총 주문 금액
         shippingAddress: '사용자가 입력한 배송지', // 이 부분은 입력 폼으로 받아올 수 있음
         deliveryAddress: '사용자가 입력한 배달지', // 이 부분도 사용자가 입력
       };
 
-      const response = await axios.post(
-        'http://localhost:3000/api/orders/create',
-        orderData,
+      const orderResponse = await axios.post(
+        'http://localhost:3000/api/orders/create', 
+        orderData, 
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,  // JWT 토큰을 헤더에 포함
           },
         }
       );
-
-      if (response.status === 200) {
-        console.log('Order created:', response.data);
+  
+      if (orderResponse.status === 200) {
+        console.log('주문이 생성되었습니다.', orderResponse.data);
       } else {
-        console.error('주문 생성에 실패했습니다.', response.data);
+        console.error('주문 생성에 실패했습니다.', orderResponse.data);
       }
+
     } catch (error) {
-      console.error('주문 생성 중 오류 발생:', error.message);
+      console.error('장바구니에 추가 및 주문 생성 실패:', error.message);
       if (error.response) {
-        console.error('Server Response:', error.response.data);
+        console.error('서버 응답:', error.response.data);
       }
     }
   };
@@ -157,9 +145,9 @@ const ProductDetail = ({ userId }) => {
               </div>
               <p>총 가격: {calculateTotalPrice()} 원 (배송비 포함)</p>
 
-              <button onClick={() =>{ handleAddToCart(product.productId); console.log("장바구니에 추가된 상품:", product);}} >장바구니에 추가</button>
-              <Link to="/checkout" className='link-button' >
-              <button onClick={handleOrder} className='common-button'>주문하기</button> {/* 주문하기 버튼 추가 */}
+              <button onClick={() => handleAddToCartAndOrder(product.productId)}>장바구니에 추가 및 주문</button>
+              <Link to="/checkout" className='link-button'>
+                <button className='common-button'>결제하기</button>
               </Link>
             </div>
           </div>
