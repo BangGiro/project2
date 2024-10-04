@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Cart.css';
 import { Link } from 'react-router-dom';
-
+import FloatingButton from '../../layout/FloatingButton';
 const Cart = ({ userId }) => {
   const [cartData, setCartData] = useState([]);
   const [orderData, setOrderData] = useState([]);

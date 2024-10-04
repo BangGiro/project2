@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
+import FloatingButton from '../../layout/FloatingButton';
 
 const ProductDetail = ({ userId }) => {
   const { id } = useParams(); // URL에서 상품 ID 가져오기

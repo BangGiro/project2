@@ -73,6 +73,17 @@ function Header({ loggedIn, onLogout }) {
                                 </ul>
                             
                         </li>
+                        
+                        <li>
+                            <NavLink to="/Shop">SHOP</NavLink>
+                            <ul className="submenu">
+                                    <li><NavLink to="/shop">상품보기</NavLink></li>
+                                    <li><NavLink to="/shop/cart">장바구니</NavLink></li>
+                                    <li><NavLink to="/checkout">결제하기</NavLink></li>
+                                    
+                                </ul>
+                        </li>
+                        
                         <li>
                             <NavLink to="/customerServicePage">고객센터</NavLink>
                                 <ul className="submenu">
@@ -84,15 +95,6 @@ function Header({ loggedIn, onLogout }) {
                         </li>
                         <li>
                             <NavLink to="/MyPage">MYPAGE</NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/Shop">SHOP</NavLink>
-                            <ul className="submenu">
-                                    <li><NavLink to="/shop">상품보기</NavLink></li>
-                                    <li><NavLink to="/shop/cart">장바구니</NavLink></li>
-                                    <li><NavLink to="/checkout">결제하기</NavLink></li>
-                                    
-                                </ul>
                         </li>
                     </ul>
                     <div className="login_btn">

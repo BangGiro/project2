@@ -86,7 +86,8 @@ function App() {
         {/* 헤더와 푸터가 포함된 페이지 */}
         <Route path="/" element={<Layout loggedIn={loggedIn} onLogout={handleLogout} loggedId={loggedId} />}>
           <Route path="/" element={<Home />} />
-          <Route path="/exerciseMain" element={<ExerciseMain />} />
+          <Route path="/exerciseMain" element={<ExerciseMain userId={loggedId}/>} />
+          <Route path="/exerciseUser" element={<ExerciseUser userId={loggedId}/>} />
           <Route path="/dietPlanner" element={<DietPlanner />} />
           <Route path="/FAQpage" element={<FAQpage />} />
           <Route path="/sleepTracker" element={<SleepTracker />} />
@@ -96,7 +97,6 @@ function App() {
           <Route path="/termsOfService" element={<TermsOfService />} />
           <Route path="/previousTerms" element={<PreviousTerms />} />
           <Route path="/noticePage" element={<NoticePage />} />
-          <Route path="/exerciseUser" element={<ExerciseUser />} />
           <Route path="/customerServicePage" element={<CustomerServicePage />} />
           <Route path="/youthProtectionPolicy" element={<YouthProtectionPolicy />} />
           <Route path="/brandProtectionPolicy" element={<BrandProtectionPolicy />} />

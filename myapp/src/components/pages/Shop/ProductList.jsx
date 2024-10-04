@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './ProductList.css';
 import PagiNation from '../../layout/PagiNation';
 import ProductSearch from './ProductSearch';
+import FloatingButton from '../../layout/FloatingButton';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);   // 상품 데이터

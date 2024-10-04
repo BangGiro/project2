@@ -17,8 +17,10 @@ public class ExerciseLogsDTO {
 	private int exerciseId;
 	private String userId;
 	private LocalDateTime exerciseDate;
-	private String exercise_type;
-	private double weight_used;
+	private String exerciseType;
+	private double weightUsed;
+	private String exerciseName;
+	private String imagePath;
 	private int reps;
 	private int sets;
 }

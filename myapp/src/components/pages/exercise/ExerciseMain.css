@@ -1,9 +1,9 @@
 .ExerciseMainTrue {
     h1 {
-        padding-top: 5vh;
-        padding-bottom: 5vh;
+        padding: 5vh 0;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     }
+
     hr {
         width: 90%;
         background: linear-gradient(to left, rgb(25, 128, 246), skyblue);
@@ -11,32 +11,32 @@
         margin-left: 5%;
         border: none;
     }
+
     .every {
         display: flex;
         justify-content: center;
         font-weight: bold;
     }
+
     .exerciseMainBody {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         width: 70vw;
-        justify-content: space-evenly;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
+        margin: 5vh 0;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         padding: 20px;
     }
+
     .exerciseMain {
         width: 100%;
         display: flex;
-        flex-direction: row;
-        margin-top: 5vh;
-        margin-bottom: 5vh;
         justify-content: space-evenly;
+        margin: 5vh 0;
     }
+
     /* Header */
     .header {
         padding: 20px 0;
@@ -44,15 +44,17 @@
         text-align: center;
         border-radius: 10px 10px 0 0;
     }
+
     /* Daily Activity */
     .dailyActivity {
         display: flex;
-        background-color: white;
         padding: 15px;
+        background-color: white;
         border-radius: 0 0 10px 10px;
         gap: 10px;
         justify-content: center;
     }
+
     .dailyActivity button {
         border: none;
         padding: 15px 30px;
@@ -60,28 +62,24 @@
         cursor: pointer;
         transition: 0.3s;
     }
+
     .dailyActivity button:hover {
         transform: translateY(-2px);
     }
-    .dailyActivity > p {
-        font-size: 20px;
-        font-weight: bold;
-    }
+
     /* Weekly Stats */
     .weeklyStats {
         width: 30vw;
-        height: auto;
         display: flex;
         justify-content: center;
         border-radius: 10px;
     }
+
     h2 {
-        padding-top: 5vh;
-        padding-bottom: 5vh;
-        display: flex;
-        justify-content: center;
-        border-radius: 10px;
+        padding: 5vh 0;
+        text-align: center;
     }
+
     .statsBars {
         width: 100%;
         display: flex;
@@ -89,6 +87,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         border-radius: 10px;
     }
+
     .statsBars .day {
         width: 30vw;
         height: 8vh;
@@ -98,20 +97,23 @@
         font-size: 20px;
         font-weight: bold;
     }
+
     .weeks {
         width: 100%;
-        transition: 0.5s;
         border-radius: 10px;
+        transition: 0.5s;
     }
+
     .weeks input {
         width: 80%;
     }
+
     .weeks p {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding: 10px 0;
     }
-    /* Buttons */
-    button:not(.react-calendar button, .floating-button) {
+
+    /* General Buttons */
+    button:not(.react-calendar button) {
         border: none;
         border-radius: 5px;
         cursor: pointer;
@@ -119,63 +121,52 @@
         font-weight: bold;
         background-color: white;
     }
+
     .delete {
-        margin-top: 10px;
-        padding: 0px;
         color: red;
-        transition: 0.5;
+        margin-top: 10px;
+        padding: 0;
     }
-    .save {
-        color: blue;
-        border: 1px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    .add {
-        color: blue;
-        width: 33%;
-        border: 1px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+
+    .save,
+    .add,
     .clear {
         color: blue;
-        border: 1px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+
+    .blueBtn,
     .redBtn {
-        border: 1px;
-        color: red;
-        padding: 0px;
-        margin-right: 7.5px;
-        margin-left: 7.5px;
+        padding: 0;
+        margin: 0 7.5px;
+        cursor: pointer;
     }
+
+    .redBtn {
+        color: red;
+    }
+
     .blueBtn {
-        border: 1px;
-        padding: 0px;
-        margin-right: 7.5px;
-        margin-left: 7.5px;
         color: blue;
     }
-    .blueBtn:hover {
-        transform: translateY(-2px);
-    }
-    .add:hover {
-        transform: translateY(-2px);
-    }
-    .fa-solid {
-        font-size: 40px;
-    }
-    .redBtn:hover {
-        transform: translateY(-2px);
-    }
+
+    .blueBtn:hover,
+    .redBtn:hover,
+    .add:hover,
     .delete:hover {
         transform: translateY(-2px);
     }
+
+    .fa-solid {
+        font-size: 40px;
+    }
+
     .rowBox {
         display: flex;
-        flex-direction: row;
-        margin-top: 3vh;
-        margin-bottom: 3vh;
+        margin: 3vh 0;
+        justify-content: center;
     }
+
     /* Modal */
     .modal {
         position: fixed;
@@ -188,22 +179,23 @@
         justify-content: center;
         align-items: center;
     }
+
     .modalContent {
         padding: 20px;
         background-color: white;
         border-radius: 5px;
-        text-align: center;
-        align-items: center;
         width: 90vw;
         max-width: 600px;
         height: 65vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
         outline: 3px solid rgba(0, 0, 0, 0.1);
         outline-offset: -20px;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
+
     /* Exercise List */
     .exerciseList {
         display: flex;
@@ -212,6 +204,7 @@
         gap: 15px;
         overflow-y: scroll;
     }
+
     .exerciseItem {
         position: relative;
         margin: 10px;
@@ -220,117 +213,73 @@
         flex: 1 1 100px;
         max-width: 150px;
     }
+
     .exerciseItem img {
         width: 70%;
         height: 70%;
-        object-fit: 100%;
         border-radius: 5px;
+        transition: 0.5s;
     }
+
     .exerciseItem p {
         margin-top: 5px;
         font-size: 14px;
         font-weight: bold;
     }
+
     .checkMark {
         position: absolute;
         top: 5px;
         left: 5px;
         font-size: 30px;
         color: blue;
-        font-weight: bold;
     }
-    .weeks .buttons {
-        display: flex;
-        justify-content: space-between;
-    }
+
     /* Category List */
     .categoryList {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 70px;
-        margin-bottom: 2vh;
-        margin-top: 2vh;
+        margin: 2vh 0;
     }
+
     .categoryItem {
-        border: none;
         width: 100px;
         height: 70px;
-        cursor: pointer;
-        transition: 0.3s;
         border-radius: 5px;
         font-size: 16px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
     }
+
     .categoryItem:hover {
         transform: translateY(-2px);
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
+
     /* Exercise Entry */
     .exerciseEntry {
         display: flex;
         align-items: center;
-        justify-content: center;
         margin-top: 1vh;
         padding: 20px;
     }
+
     .exerciseImage {
         width: 15%;
         height: 80px;
-        object-fit: 100%;
         border-radius: 5px;
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 1vh;
-        margin-bottom: 2vh;
+        margin: 10px;
     }
-    .exerciseItem img {
-        transition: 0.5s;
-    }
-    .exerciseItem img:hover {
-        text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        transform: translateY(-2px);
-    }
+
     .exerciseEntry p {
         width: 170px;
         font-size: 14px;
         font-weight: bold;
     }
-    /* Search Input */
-    .searchInput {
-        width: 80%;
-        padding: 10px;
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    /* 캘린더 */
-    .react-calendar {
-        width: 30vw;
-        height: 50vh;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border: none;
-    }
-    .dot {
-        position: relative;
-        height: 8px;
-        width: 8px;
-        background-color: rgb(7, 209, 7);
-        border-radius: 50%;
-        display: inline-block;
-        left: 7px;
-    }
-    .react-calendar__navigation {
-        align-items: center;
-        padding: 30px;
-        border-radius: 10px 10px 0 0;
-    }
-    .react-calendar__navigation__label {
-        font-size: 20px;
-        font-weight: bold;
-    }
-    /* 인풋 */
+
+    /* Input Fields */
     .repsInput,
     .setsInput,
     .weightInput {
@@ -342,49 +291,73 @@
         border-radius: 5px;
         font-size: 10.5px;
     }
-    ExerciseMain label {
-        left: 0;
-        bottom: 0;
-        position: absolute;
+
+    /* Search Input */
+    .searchInput {
+        width: 80%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    /* Calendar */
+    .react-calendar {
+        width: 30vw;
+        height: 50vh;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border: none;
+    }
+
+    .react-calendar__navigation {
+        padding: 30px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .react-calendar__navigation__label {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .dot {
+        position: relative;
+        height: 8px;
+        width: 8px;
+        background-color: rgb(7, 209, 7);
+        border-radius: 50%;
+        display: inline-block;
+        left: 7px;
     }
 }
 
-/* 미디어 쿼리 */
+/* Responsive Media Queries */
 @media (max-width: 1024px) {
-    .ExerciseMainTrue h1,
-    .ExerciseMainTrue .every,
-    .ExerciseMainTrue .dailyActivity > p,
-    .ExerciseMainTrue h2,
-    .ExerciseMainTrue .statsBars .day,
-    .ExerciseMainTrue .weeks p,
-    .ExerciseMainTrue button:not(.react-calendar button),
-    .ExerciseMainTrue .categoryItem,
-    .ExerciseMainTrue .exerciseEntry p {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     .ExerciseMainTrue h1 {
         font-size: 2.5rem;
     }
+
     .ExerciseMainTrue .exerciseMainBody {
         width: 80vw;
     }
+
     .ExerciseMainTrue .weeklyStats {
         width: 40vw;
     }
+
     .ExerciseMainTrue .statsBars .day {
         width: 25vw;
         font-size: 1rem;
     }
-    .ExerciseMainTrue .repsInput,
-    .ExerciseMainTrue .setsInput,
-    .ExerciseMainTrue .weightInput {
+
+    .repsInput,
+    .setsInput,
+    .weightInput {
         width: 60px;
         height: 25px;
         font-size: 9px;
     }
+
     .react-calendar {
         width: 35vw;
         height: 45vh;
@@ -392,48 +365,37 @@
 }
 
 @media (max-width: 768px) {
-    .ExerciseMainTrue h1,
-    .ExerciseMainTrue .every,
-    .ExerciseMainTrue .dailyActivity > p,
-    .ExerciseMainTrue h2,
-    .ExerciseMainTrue .statsBars .day,
-    .ExerciseMainTrue .weeks p,
-    .ExerciseMainTrue button:not(.react-calendar button),
-    .ExerciseMainTrue .categoryItem,
-    .ExerciseMainTrue .exerciseEntry p {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     .ExerciseMainTrue h1 {
         font-size: 2rem;
     }
+
     .ExerciseMainTrue .exerciseMainBody {
         width: 90vw;
     }
+
     .ExerciseMainTrue .weeklyStats {
         width: 50vw;
-        overflow: hidden;
-
     }
+
     .ExerciseMainTrue .statsBars .day {
         width: 30vw;
         font-size: 0.8rem;
     }
-    .ExerciseMainTrue .repsInput,
-    .ExerciseMainTrue .setsInput,
-    .ExerciseMainTrue .weightInput {
+
+    .repsInput,
+    .setsInput,
+    .weightInput {
         width: 50px;
         height: 20px;
         font-size: 8px;
     }
+
     .react-calendar {
         width: 40vw;
         height: 40vh;
-        overflow: hidden;
     }
-    .ExerciseMainTrue .exerciseImage {
+
+    .exerciseImage {
         width: 20%;
         height: 60px;
     }

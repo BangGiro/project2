@@ -3,14 +3,15 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
 import axios from 'axios';
-const availableExercises = [
+
+export const availableExercises = [
     { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
     { name: "데드리프트", category: "하체", image: "/image/exercisePictogram/deadlift.png" },
     { name: "런지", category: "하체", image: "/image/exercisePictogram/lunge.png" },
     { name: "레그 프레스", category: "하체", image: "/image/exercisePictogram/legpress.png" },
     { name: "레그 컬", category: "하체", image: "/image/exercisePictogram/legcurl.png" },
-    { name: "이너 타이", category: "하체", image: "/image/exercisePictogram/innerThigh.png" },
-    { name: "카프 레이즈", category: "하체", image: "/image/exercisePictogram/calfRaise.png" },
+    { name: "이너 타이", category: "하체", image: "/image/exercisePictogram/innerthigh.png" },
+    { name: "카프 레이즈", category: "하체", image: "/image/exercisePictogram/calfraise.png" },
     { name: "풀업", category: "등", image: "/image/exercisePictogram/pullup.png" },
     { name: "풀 오버", category: "등", image: "/image/exercisePictogram/pullover.png" },
     { name: "시티드 로우", category: "등", image: "/image/exercisePictogram/seatedrow.png" },
@@ -23,9 +24,9 @@ const availableExercises = [
     { name: "케이블 크로스오버", category: "가슴", image: "/image/exercisePictogram/cablecrossover.png" },
     { name: "푸쉬업", category: "가슴", image: "/image/exercisePictogram/pushup.png" },
     { name: "딥스", category: "가슴", image: "/image/exercisePictogram/dips.png" },
-    { name: "팩덱플라이", category: "가슴", image: "/image/exercisePictogram/packDeckFly.png" },
+    { name: "팩덱플라이", category: "가슴", image: "/image/exercisePictogram/packDeckfly.png" },
     { name: "숄더 프레스", category: "어깨", image: "/image/exercisePictogram/shoulderpress.png" },
-    { name: "사이드 레터럴 레이즈", category: "어깨", image: "/image/exercisePictogram/sideLateralRaise.png" },
+    { name: "사이드 레터럴 레이즈", category: "어깨", image: "/image/exercisePictogram/sidelateralraise.png" },
     { name: "밀리터리 프레스", category: "어깨", image: "/image/exercisePictogram/militarypress.png" },
     { name: "컨센트레이션컬", category: "팔", image: "/image/exercisePictogram/concentrationcurl.png" },
     { name: "바벨 컬", category: "팔", image: "/image/exercisePictogram/barbellcurl.png" },
@@ -39,39 +40,34 @@ const availableExercises = [
     { name: "로잉", category: "유산소", image: "/image/exercisePictogram/rowing.png" },
 ];
 
-const categories = ["하체", "등", "가슴", "어깨", "팔", "유산소"];
+const categories = [
+    "하체", "등", "가슴", "어깨", "팔", "유산소"
+];
 
 // API 호출 함수들
 const fetchExerciseLogs = async (userId, date, setCurrentExercises) => {
     try {
-        const response = await fetch(`/exercises/logs?userId=${userId}&date=${date}`);
-        if (!response.ok) {
-            throw new Error('Failed to fetch exercise logs');
-        }
-        const data = await response.json();
-        setCurrentExercises(data);
+        const response = await axios.get(`/api/exercises/logs`, {
+            params: { userId, date }
+        });
+        setCurrentExercises(response.data);
     } catch (error) {
-        console.error(error.message);
+        console.error('운동 기록 조회에 실패했습니다:', error);
     }
 };
 
 const saveExerciseLog = async (log) => {
     try {
-        const response = await fetch('/exercises/log', {
-            method: 'POST',
+        await axios.post('/api/exercises/log', log, {
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(log),
         });
-        if (!response.ok) {
-            throw new Error('Failed to save exercise log');
-        }
-        console.log('Exercise log saved successfully');
+        console.log('운동 기록이 성공적으로 저장되었습니다');
     } catch (error) {
-        console.error(error.message);
+        console.error('운동 기록 저장에 실패했습니다:', error);
     }
 };
 
-function ExerciseUser() {
+function ExerciseUser({ userId }) {  // 부모 컴포넌트에서 userId를 props로 전달받음
     const [exercises, setExercises] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -79,28 +75,12 @@ function ExerciseUser() {
     const [pendingExercises, setPendingExercises] = useState([]);
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [currentExercises, setCurrentExercises] = useState([]);
-    const [selectedUser, setSelectedUser] = useState(null);
 
-    // 사용자가 선택된 경우, 저장된 운동 기록 불러오기
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('selectedUser'));
-        if (user) {
-            setSelectedUser(user);
-            const storedExercises = JSON.parse(localStorage.getItem(`exercises_${user.email}`));
-            if (storedExercises) {
-                setExercises(storedExercises);
-            }
+        if (userId) {
+            fetchExerciseLogs(userId, selectedDate.toLocaleDateString('en-CA'), setCurrentExercises);
         }
-    }, []);
-
-    // 선택된 날짜와 사용자가 변경될 때마다 운동 기록을 불러옴
-    useEffect(() => {
-        if (selectedUser) {
-            const userId = selectedUser.id; // 사용자의 ID
-            const date = selectedDate.toLocaleDateString('en-CA'); // YYYY-MM-DD 형식
-            fetchExerciseLogs(userId, date, setCurrentExercises); // Spring Boot API 호출
-        }
-    }, [selectedDate, selectedUser]);
+    }, [userId, selectedDate]);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -126,25 +106,12 @@ function ExerciseUser() {
     };
 
     const handleConfirmExercises = () => {
-        const updatedExercises = exercises.map((day) =>
-            day.day === selectedDate.toLocaleDateString()
-                ? { ...day, exercises: [...day.exercises, ...pendingExercises] }
-                : day
-        );
-        if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
-            updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: pendingExercises });
-        }
-        setExercises(updatedExercises);
+        setCurrentExercises([...currentExercises, ...pendingExercises]);
         closeModal();
     };
 
     const deleteExercise = (exerciseIndex) => {
-        const updatedExercises = exercises.map((day) =>
-            day.day === selectedDate.toLocaleDateString()
-                ? { ...day, exercises: day.exercises.filter((_, i) => i !== exerciseIndex) }
-                : day
-        );
-        setExercises(updatedExercises);
+        setCurrentExercises(currentExercises.filter((_, index) => index !== exerciseIndex));
     };
 
     const handleSearchChange = (event) => {
@@ -163,13 +130,6 @@ function ExerciseUser() {
         const updatedExercises = [...currentExercises];
         updatedExercises[index] = { ...updatedExercises[index], [field]: value };
         setCurrentExercises(updatedExercises);
-
-        const updatedAllExercises = exercises.map((day) =>
-            day.day === selectedDate.toLocaleDateString()
-                ? { ...day, exercises: updatedExercises }
-                : day
-        );
-        setExercises(updatedAllExercises);
     };
 
     const filteredExercises = availableExercises.filter(exercise =>
@@ -179,13 +139,13 @@ function ExerciseUser() {
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
+        fetchExerciseLogs(userId, date.toLocaleDateString('en-CA'), setCurrentExercises);
     };
 
-    // 저장 버튼을 눌렀을 때 운동 기록을 Spring Boot 서버에 저장
     const handleSave = async () => {
-        if (selectedUser) {
+        if (userId) {
             const logsToSave = currentExercises.map(exercise => ({
-                userId: selectedUser.id,
+                userId: userId,
                 exerciseName: exercise.name,
                 weight: exercise.weight,
                 reps: exercise.reps,
@@ -194,32 +154,17 @@ function ExerciseUser() {
             }));
 
             for (const log of logsToSave) {
-                await saveExerciseLog(log); // Spring Boot API 호출
+                await saveExerciseLog(log);
             }
-
-            const updatedExercises = exercises.map(day =>
-                day.day === selectedDate.toLocaleDateString()
-                    ? { ...day, exercises: currentExercises }
-                    : day
-            );
-
-            if (!exercises.find(day => day.day === selectedDate.toLocaleDateString())) {
-                updatedExercises.push({ day: selectedDate.toLocaleDateString(), exercises: currentExercises });
-            }
-
-            setExercises(updatedExercises);
-            localStorage.setItem(`exercises_${selectedUser.email}`, JSON.stringify(updatedExercises));
         }
     };
 
     const handleClear = () => {
-        const updatedExercises = exercises.filter(day => day.day !== selectedDate.toLocaleDateString());
-        setExercises(updatedExercises);
         setCurrentExercises([]);
     };
 
     const tileContent = ({ date, view }) => {
-        if (view === 'month' && exercises.some(day => day.day === date.toLocaleDateString())) {
+        if (view === 'month' && currentExercises.some(exercise => new Date(exercise.date).toLocaleDateString() === date.toLocaleDateString())) {
             return <div className="dot"></div>;
         }
         return null;
@@ -230,7 +175,7 @@ function ExerciseUser() {
             <div className='every'>
                 <div className='exerciseMainBody'>
                     <div className="header">
-                        {selectedUser && <h1>{selectedUser.name}님</h1>}
+                        <h1>운동</h1>
                         <hr />
                     </div>
                     <div className='exerciseMain'>
@@ -291,7 +236,7 @@ function ExerciseUser() {
                                     <div className="dailyActivity">
                                         <button className="add" onClick={openModal}>운동 추가하기</button>
                                         <button className="clear" onClick={handleClear}>초기화</button>
-                                        <button className="save" onClick={handleSave}>저장하기</button> {/* 저장하기 버튼 추가 */}
+                                        <button className="save" onClick={handleSave}>저장하기</button>
                                     </div>
                                 </div>
                             </div>
