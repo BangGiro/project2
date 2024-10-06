@@ -57,7 +57,7 @@ export default function SignUp() {
     }
 
     //아이디 검증
-    const validateUserId = () => {
+    const validateUserId = async () => { //submit을 위한 비동기 처리
         let userId = userData.userId;
         let uri = `/users/${userId}`;
         let result = false
@@ -69,7 +69,7 @@ export default function SignUp() {
             } else {
                 handleErrorMessage('userId', "사용가능한 아이디 입니다");
                 result = true;
-            }
+            }    
         }).catch((err)=>{
                 alert("오류. 관리자에게 문의하세요")
         });
@@ -147,6 +147,7 @@ export default function SignUp() {
             setErrorMessage("");
         } else {
             alert("항목을 다시 확인하세요");
+            console.log(validateUserId());
             return;
         }
 

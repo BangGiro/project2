@@ -32,13 +32,16 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
         const uri = "/users/finduser";
         const method = "post";
         const data = { userId : searchUserId };
+        const token = localStorage.getItem("JwtToken");
 
-        apiCall(uri, method, data, null)
+        apiCall(uri, method, data, token)
         .then((Response) =>{
             
             setUser(Response);
+
+            alert("회원찾기 성공");
         }).catch((err)=>{
-            alert("회원찾기 실패");
+            alert("회원찾기 실패"+err);
         })
     };
 

@@ -2,7 +2,6 @@ package com.example.backProject.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +12,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpServerErrorException.BadGateway;
 
 import com.example.backProject.Token.TokenProvider;
-import com.example.backProject.domain.UsersDTO;
+import com.example.backProject.domain.LoginUserDTO;
+import com.example.backProject.domain.Roles;
 import com.example.backProject.entity.Users;
 import com.example.backProject.repository.UsersRepository;
 import com.example.backProject.service.UserService;
@@ -58,10 +57,10 @@ public class UserController {
     
     		final String token = tokenProvider.createToken(entity.claimList());
     	
-    		final UsersDTO usersDTO = UsersDTO.builder()
+    		final LoginUserDTO usersDTO = LoginUserDTO.builder()
     				.token(token)
     				.userId(entity.getUserId())
-    				.name(entity.getName())
+    				.userName(entity.getName())
     				.build();
     			
     		log.info("로그인 성공 =>" +HttpStatus.OK);
@@ -90,6 +89,13 @@ public class UserController {
 	public ResponseEntity<?> signUp(@RequestBody Users entity, HttpSession session ) {
 		
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
+		
+		switch(entity.getMemberType()) {
+		 case "트레이너": entity.addRole(Roles.TRAINER);
+		 				break;
+		 default: entity.addRole(Roles.MEMBER);
+		 				break;
+		}
 		
 		userRepository.save(entity);
 		

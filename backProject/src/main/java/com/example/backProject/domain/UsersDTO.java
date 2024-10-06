@@ -27,6 +27,4 @@ public class UsersDTO {
 	private String trainerId;
 	private String courseTicketId;
 	
-	//토큰
-	private String token;
 }

@@ -1,11 +1,14 @@
 package com.example.backProject.Token;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -50,11 +53,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 				log.info("토큰체크 tokenFilterCheck claims ➡️ "+claims);
 				String userId = (String) claims.get("userId"); 
 				log.info("토큰체크 tokenFilterCheck claims.userId ➡️ "+userId);
-				
-				
+				List<String> roleList = (List<String>)claims.get("roleList");
+				log.info("토큰체크 tokenFilterCheck claims.roleList ➡️ "+roleList);
 				AbstractAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userId, // 컨트롤러에서 @AuthenticationPrincipal 로 사용가능 (AuthController userDetail() 확인) 
-						null ); //password=null;
+						null,
+						roleList.stream()
+						.map(str -> new SimpleGrantedAuthority("ROLE_"+str))
+						.collect(Collectors.toList())); //password=null;
 				
 				SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
 				securityContext.setAuthentication(authentication);
