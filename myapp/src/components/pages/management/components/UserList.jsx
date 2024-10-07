@@ -14,7 +14,7 @@ function UserList({ users, onDeleteUser, onEditUser, onOpenEditModal }) {
                     <tr>
                         <th>프로필</th>
                         <th>이름</th>
-                        <th>이메일</th>
+                        <th>전화번호</th>
                         <th>성별</th>
                         <th>작업</th>
                     </tr>
@@ -22,7 +22,7 @@ function UserList({ users, onDeleteUser, onEditUser, onOpenEditModal }) {
                 <tbody>
                     {users.map((user, index) => (
                         <UserItem
-                            key={index}
+                            key={user.userId}
                             user={user}
                             onDeleteUser={onDeleteUser}
                             onEditUser={onEditUser}

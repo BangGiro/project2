@@ -26,7 +26,6 @@ public class UsersDTO {
 	private String zipCode;
 	private String trainerId;
 	private String courseTicketId;
+	private String gender;
 	
-	//토큰
-	private String token;
 }

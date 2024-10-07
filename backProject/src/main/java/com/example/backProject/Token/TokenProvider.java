@@ -17,7 +17,7 @@ public class TokenProvider {
 	private static final String SECRET_KEY ="qkdrlfh188tpscl";
 	
 	//추후 수정예정 ~ 회원타입 에 반응해서 권한 줄 예정
-	public String createToken(Map<String , Object > claimList) {
+	public String createToken(Map<String , Object> claimList) {
 		
 		Date expiryDate = Date.from(Instant.now().plus(1, ChronoUnit.DAYS));
 		

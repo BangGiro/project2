@@ -4,6 +4,7 @@ import CategoryContainer from './components/CategoryContainer';
 import { getLoggedInUser } from '../helpers/auth'; // isLoggedIn 삭제
 import './ManagementContainer.css';
 import { apiCall } from '../../../service/apiService';
+import { Navigate } from 'react-router-dom';
 
 function ManagementContainer() {
     const [memberNames, setMemberNames] = useState([]);
@@ -12,13 +13,15 @@ function ManagementContainer() {
     const user = localStorage.getItem("JwtToken");
 
     useEffect(() => {
+        
         if (user) {
 
             const uri = "/users/finduserlist";
             const method = "post";
-            const data = { userId : localStorage.getItem('memberLoggedInData') };
+            const data = { trainerId : localStorage.getItem('memberLoggedInData') };
+            const token = localStorage.getItem("JwtToken");
 
-            apiCall(uri, method, data, null)
+            apiCall(uri, method, data, token)
             .then((Response) =>{
                 
                 if(Response != null) {
@@ -30,7 +33,7 @@ function ManagementContainer() {
                 }
 
             }).catch((err)=>{
-                alert("회원찾기 실패");
+                alert("권한이 없습니다");
             })
 
         }
@@ -81,11 +84,6 @@ function ManagementContainer() {
 
     return (
         <div className="management-container">
-            {isCategoryVisible && (
-                <div className='manacategory'>
-                    <CategoryContainer memberNames={memberNames} />
-                </div>
-            )}
             <div className='maco'>
                 <Management
                     onAddUser={handleAddUser}

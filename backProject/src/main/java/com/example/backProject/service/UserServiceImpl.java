@@ -34,9 +34,9 @@ public class UserServiceImpl implements UserService {
 	} 
 	
 	@Override
-	public List<Users> findByTrainerId(String TrainerId) {
+	public List<Users> findByTrainerId(String trainerId) {
 		
-		List<Users> list = uRepository.findByTrainerId(TrainerId);
+		List<Users> list = uRepository.findByTrainerId(trainerId);
 		
 		if(list != null) {
 			return list;
@@ -45,4 +45,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}//findByTrainerId
 	
+	
+	@Override
+	public Users updateTrainerId(String userId) {
+		
+		
+		
+		return null;
+	}
 }

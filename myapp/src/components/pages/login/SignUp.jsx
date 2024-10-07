@@ -48,41 +48,70 @@ export default function SignUp() {
         }));
     };
 
+    //에러메세지 일괄 관리
+    const handleErrorMessage = (name , message) => {
+        setErrorMessage (prevState => ({
+            ...prevState,
+            [name]: [message]
+        }))
+    }
+
     //아이디 검증
-    const validateUserId = (e) => {
-        return true
+    const validateUserId = async () => { //submit을 위한 비동기 처리(어렵다)
+        let userId = userData.userId;
+        let uri = `/users/${userId}`;
+        let result = false
+
+        apiCall(uri,'get',null,null)
+        .then((response)=>{
+            if(response.userId != null) {
+                handleErrorMessage('userId','이미 존재하는 아이디 입니다');
+            } else {
+                handleErrorMessage('userId', "사용가능한 아이디 입니다");
+                result = true;
+            }    
+        }).catch((err)=>{
+                alert("오류. 관리자에게 문의하세요")
+        });
+
+        return result;
     }
 
     //비밀번호 검증
-    const validatePassword = (e) => {
-        let password = e.target.value;
+    const validatePassword = () => {
+        let password = userData.password;
+        let result = false;
 
         if (password.length < 6) {
-            setErrorMessage("비밀번호는 최소 6자 이상이어야 합니다.");
-            e.target.focus();
-            return false;
+            handleErrorMessage('password',"비밀번호는 최소 6자 이상이어야 합니다.");
         } else if (!(/^(?=.*[a-zA-Z])(?=.*[0-9])/).test(password)) {
-            setErrorMessage("비밀번호는 영문자+숫자 조합이어야 합니다.");
-            e.target.focus();
-            return false;
+            handleErrorMessage('password',"비밀번호는 영문자+숫자 조합이어야 합니다.");
+        } else {
+            handleErrorMessage('password',"");
+            result = true;
         }
-        setErrorMessage("");
-        return true;
+        
+        return result;
     };
 
-    const validatePassword2 = (e) => {
-        if (userData.password !== e.target.value) {
-            setErrorMessage("비밀번호가 일치하지 않습니다.");
-            return false;
+    const validatePassword2 = () => {
+        let result = false;
+
+        if (userData.password !== userData.confirmPassword) {
+            handleErrorMessage(`confirmPassword`,"비밀번호가 일치하지 않습니다.");
+        } else {
+            handleErrorMessage(`confirmPassword`,"");
+            result = true;
         }
-        setErrorMessage("");
-        return true
+
+        return result;
     }
     
 
     //전화번호 검증 및 자동완성
-    const validatePhoneNum = (e) => {
-        let phoneNum = e.target.value;
+    const validatePhoneNum = () => {
+        let phoneNum = userData.phoneNumber;
+        let result = false;
 
         if(!phoneNum.includes('-')){
             phoneNum = phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
@@ -90,23 +119,22 @@ export default function SignUp() {
             phoneNum = phoneNum.replace(/-+/g,'-');
         }
 
-        phoneNum.length != 13 ?
-        setErrorMessage('전화번호를 다시 확인하세요') :
-        setUserData(prevState => ({
-            ...prevState,
-            phoneNumber : phoneNum
-        }));
+        if(phoneNum.length != 13) {
+            handleErrorMessage(`phoneNumber`,"전화번호를 확인해주세요")
+        } else {
+            setErrorMessage(`phoneNumber`,"")
+            setUserData(prevState => ({
+                ...prevState,
+                phoneNumber : phoneNum
+            }));
+            result = true;
+        }
+        return result;
     }
 
     //submit 코드
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        // if (!validatePassword(userData.password, userData.confirmPassword)) {
-        //     return;
-        // }
-
-        setErrorMessage("");
 
         const newUserData = {
             ...userData,
@@ -114,6 +142,14 @@ export default function SignUp() {
             zipCode: signZipCode,
             address: signAddress
         };
+
+        if(validatePhoneNum() && validatePassword() && validatePassword2() && validateUserId() ) {
+            setErrorMessage("");
+        } else {
+            alert("항목을 다시 확인하세요");
+            console.log(validateUserId());
+            return;
+        }
 
         let uri = "/users/signUp"
         let method = "post";
@@ -139,119 +175,11 @@ export default function SignUp() {
     return (
         <div className="login_true_location-container">
             <div className="login-location-container">
-                <div className="login-container">
+                <div className="signUp-container">
                     <h1>회원가입</h1>
-                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                     {duplicateMessage && <p className="duplicate-message">{duplicateMessage}</p>}
                     <form className="login-form" onSubmit={handleSubmit}>
-                        <label>
-                            <input
-                                type="text"
-                                name="userId"
-                                placeholder="아이디 입력"
-                                onChange={handleChange}
-                                required
-                            />
-                            <button type="button" onClick={validateUserId}>중복 체크</button>
-                        </label>
-                        <label>
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="비밀번호 입력 (6 ~ 15자리)"
-                                value={userData.password}
-                                onChange={handleChange}
-                                onBlur={validatePassword}
-                                maxLength={15}
-                                minLength={6}
-                                required
-                            />
-                        </label>
-                        <label>
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="비밀번호 확인 (6 ~ 15자리)"
-                                onBlur={validatePassword2}
-                                maxLength={15}
-                                minLength={6}
-                                required
-                            />
-                        </label>
-                        <label>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="이름 입력"
-                                value={userData.name}
-                                onChange={handleChange}
-                                required
-                            />
-                        </label>
-                        <label>전화번호
-                            <input
-                                type="text"
-                                name="phoneNumber"
-                                placeholder="예시) 01011112222"
-                                value={userData.phoneNumber}
-                                onChange={handleChange}
-                                onBlur={validatePhoneNum}
-                                required
-                            />
-                        </label>
-                        <div className="addrBox">
-                        <label>주소
-                            <input
-                                type="text"
-                                name="zipCode"
-                                placeholder="우편번호"
-                                value={signZipCode}
-                                onClick={daumAddrAPI}
-                                readOnly
-                            />
-                            <button onClick={daumAddrAPI}>우편번호찾기</button>
-                            <input
-                                type="text"
-                                name="address"
-                                className="address"
-                                placeholder="주소"
-                                value={signAddress}
-                                readOnly
-                            />
-                            <input
-                                type="text"
-                                className="detailAddress"
-                                placeholder="상세주소"
-                                name="detailAddress"
-                                onChange={handleChange}
-                            />
-                        </label>
-                        </div>
-                        <div>성별</div>
-                        <div className="select_gender">
-                            <input
-                                type="radio"
-                                id="male"
-                                name="gender"
-                                value="남자"
-                                checked={userData.gender === "남자"}
-                                onChange={handleChange}
-                                required
-                            />
-                            <label htmlFor="male" className={userData.gender === "남자" ? "active" : ""}>남자</label>
-                            <input
-                                type="radio"
-                                id="female"
-                                name="gender"
-                                value="여자"
-                                checked={userData.gender === "여자"}
-                                onChange={handleChange}
-                                required
-                            />
-                            <label htmlFor="female" className={userData.gender === "여자" ? "active" : ""}>여자</label>
-                        </div>
-                        <div>회원 유형 선택</div>
-                        <label>
+                        <label>회원 유형 선택
                             <select
                                 name="memberType"
                                 value={userData.memberType}
@@ -263,6 +191,124 @@ export default function SignUp() {
                                 <option value="트레이너">트레이너</option>
                             </select>
                         </label>
+                        <label>아이디
+                            {errorMessage && <p className="SignErrorMessage">{errorMessage.userId}</p>}
+                            <input
+                                type="text"
+                                className="userId"
+                                name="userId"
+                                placeholder="아이디 입력"
+                                onChange={handleChange}
+                                required
+                            />
+                            <button type="button" onClick={validateUserId}>중복 체크</button>
+                        </label>
+                        <label>비밀번호
+                            {errorMessage && <p className="SignErrorMessage">{errorMessage.password}</p>}
+                            <input
+                                type="password"
+                                className="password"
+                                name="password"
+                                placeholder="비밀번호 입력 (6 ~ 15자리)"
+                                value={userData.password}
+                                onChange={handleChange}
+                                onBlur={validatePassword}
+                                maxLength={15}
+                                minLength={6}
+                                required
+                            />
+                        </label>
+                        <label>비밀번호 확인
+                            {errorMessage && <p className="SignErrorMessage">{errorMessage.confirmPassword}</p>}
+                            <input
+                                type="password"
+                                className="confirmPassword"
+                                name="confirmPassword"
+                                placeholder="비밀번호 확인 (6 ~ 15자리)"
+                                onChange={handleChange}
+                                onBlur={validatePassword2}
+                                maxLength={15}
+                                minLength={6}
+                                required
+                            />
+                        </label>
+                        <label>*이름
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="이름 입력"
+                                value={userData.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        </label>
+                        <label>*전화번호
+                        {errorMessage && <p className="SignErrorMessage">{errorMessage.phoneNumber}</p>}
+                            <input
+                                type="text"
+                                name="phoneNumber"
+                                className="phoneNumber"
+                                placeholder="예시) 01011112222"
+                                value={userData.phoneNumber}
+                                onChange={handleChange}
+                                onBlur={validatePhoneNum}
+                                required
+                            />
+                        </label>
+                        <div className="addrBox">
+                        <label>주소
+                            <input
+                                type="text"
+                                name="address"
+                                className="address"
+                                placeholder="주소"
+                                value={signAddress}
+                                onClick={daumAddrAPI}
+                            />
+                            <button onClick={daumAddrAPI}>주소찾기</button>
+                        </label>
+                        <label>우편번호
+                            <input
+                                type="text"
+                                name="zipCode"
+                                placeholder="우편번호"
+                                value={signZipCode}
+                                onClick={daumAddrAPI}
+                            />
+                        </label>
+                        <label>상세주소
+                            <input
+                                type="text"
+                                className="detailAddress"
+                                placeholder="상세주소"
+                                name="detailAddress"
+                                onChange={handleChange}
+                            />
+                        </label>
+                        </div>
+                        
+                        <div className="select_gender">
+                            <input
+                                type="radio"
+                                id="male"
+                                name="gender"
+                                value="남성"
+                                checked={userData.gender === "남성"}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label htmlFor="male" className={userData.gender === "남자" ? "active" : ""}>남자</label>
+                            <input
+                                type="radio"
+                                id="female"
+                                name="gender"
+                                value="여성"
+                                checked={userData.gender === "여성"}
+                                onChange={handleChange}
+                                required
+                            />
+                            <label htmlFor="female" className={userData.gender === "여자" ? "active" : ""}>여자</label>
+                        </div>
                         <button type="submit">회원가입</button>
                     </form>
                     <div className="login-links">

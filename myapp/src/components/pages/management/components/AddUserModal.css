@@ -13,6 +13,9 @@
     }
 
     .modal-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-evenly;
         background-color: white;
         padding: 20px;
         border-radius: 5px;
@@ -28,13 +31,16 @@
         cursor: pointer;
     }
 
+    p{
+        width: 100%;
+    }
+
     h2 {
         margin-bottom: 20px;
         text-align: center;
     }
 
-    input[type="email"],
-    textarea {
+    .addUserInput {
         width: 100%;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -50,11 +56,12 @@
     }
 
     button {
-        margin-right: 10px;
+
+        width: 30%;
+        margin-top: 10px;
         background-color: #007bff;
         color: white;
         border: none;
-        padding: 10px 20px;
         font-size: 16px;
         cursor: pointer;
         border-radius: 5px;

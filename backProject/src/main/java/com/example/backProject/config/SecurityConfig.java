@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -21,6 +23,20 @@ public class SecurityConfig {
 	
 	@Autowired
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
+	
+	
+	@Bean //계층권한 메서드
+	RoleHierarchy roleHierarchy() {
+
+	    return RoleHierarchyImpl.fromHierarchy(
+	    		"""
+	    		ROLE_MANAGER > ROLE_TRAINER
+	    		ROLE_TRAINER > ROLE_MEMBER
+	    		"""
+	    		);
+	}
+	
+	
 	
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -45,6 +61,9 @@ public class SecurityConfig {
 		        	-> 다양한 인가 규칙을 정의할수 있으며, 경로별로 다른 권한 설정이 가능.
 		         */  
 		        .authorizeHttpRequests(auth -> auth
+		        		.requestMatchers("/Management").hasRole("TRAINER")
+		        		.requestMatchers("/users/finduser").hasRole("TRAINER")
+		        		.requestMatchers("/users/removemember").hasRole("TRAINER")
 		        		.requestMatchers(HttpMethod.OPTIONS ,"/**").permitAll()
 		        		.anyRequest().permitAll()) //추후 권한추가예정
 		        .build();
@@ -54,5 +73,5 @@ public class SecurityConfig {
 	PasswordEncoder getPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}//passwordEncoder
-
+	
 }
