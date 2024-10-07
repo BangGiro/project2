@@ -45,4 +45,12 @@ public class UserServiceImpl implements UserService {
 		}
 	}//findByTrainerId
 	
+	
+	@Override
+	public Users updateTrainerId(String userId) {
+		
+		
+		
+		return null;
+	}
 }

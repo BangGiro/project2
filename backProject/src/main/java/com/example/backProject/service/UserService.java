@@ -10,4 +10,6 @@ public interface UserService {
 
 	public List<Users> findByTrainerId(String TrainerId);
 	
+	public Users updateTrainerId(String userId);
+	
 }

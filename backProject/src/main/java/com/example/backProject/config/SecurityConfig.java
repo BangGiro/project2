@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,16 +25,16 @@ public class SecurityConfig {
 	private JwtAuthenticationFilter jwtAuthenticationFilter;
 	
 	
-//	@Bean //계층권한 메서드
-//	RoleHierarchy roleHierarchy() {
-//
-//	    return RoleHierarchyImpl.fromHierarchy(
-//	    		"""
-//	    		ROLE_MANAGER > ROLE_TRAINER
-//	    		ROLE_TRAINER > ROLE_MEMBER
-//	    		"""
-//	    		);
-//	}
+	@Bean //계층권한 메서드
+	RoleHierarchy roleHierarchy() {
+
+	    return RoleHierarchyImpl.fromHierarchy(
+	    		"""
+	    		ROLE_MANAGER > ROLE_TRAINER
+	    		ROLE_TRAINER > ROLE_MEMBER
+	    		"""
+	    		);
+	}
 	
 	
 	
@@ -61,6 +63,7 @@ public class SecurityConfig {
 		        .authorizeHttpRequests(auth -> auth
 		        		.requestMatchers("/Management").hasRole("TRAINER")
 		        		.requestMatchers("/users/finduser").hasRole("TRAINER")
+		        		.requestMatchers("/users/removemember").hasRole("TRAINER")
 		        		.requestMatchers(HttpMethod.OPTIONS ,"/**").permitAll()
 		        		.anyRequest().permitAll()) //추후 권한추가예정
 		        .build();

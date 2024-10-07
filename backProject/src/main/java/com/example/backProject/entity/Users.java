@@ -46,6 +46,11 @@ public class Users {
 	private String zipCode;
 	private String trainerId;
 	private String courseTicketId;
+	private String gender;
+	
+	public void updateTrainerId(String trainerId) {
+		this.trainerId = trainerId;
+	}
 	
 	
 	@ElementCollection(fetch = FetchType.LAZY) //사용법 숙지할 것(알아보자)

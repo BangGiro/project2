@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.backProject.Token.TokenProvider;
 import com.example.backProject.domain.LoginUserDTO;
 import com.example.backProject.domain.Roles;
+import com.example.backProject.domain.UsersDTO;
 import com.example.backProject.entity.Users;
 import com.example.backProject.repository.UsersRepository;
 import com.example.backProject.service.UserService;
@@ -122,19 +124,31 @@ public class UserController {
 	}
 	
 	//내회원으로등록====================================================================================
-	@PutMapping("/adduser")
+	@PutMapping("/addmember")
 	public ResponseEntity<?> addUser(@RequestBody Map<String, String> request, HttpSession session){
 		
 		Users finduser = userService.findUsersById(request.get("userId"));
 		log.info("adduser ➡️ "+finduser);
 		
-		finduser.setTrainerId(request.get("trainerId"));
+		finduser.updateTrainerId(request.get("trainerId"));
 		
 		userRepository.save(finduser);
 		log.info("adduser trainerId➡️ "+finduser.getTrainerId());
 		
 		return ResponseEntity.ok(null);
 	}
+	
+	//트레이너 아이디 삭제(내 회원에서 지우기. 탈퇴 아님)=========================================================
+	@PatchMapping("/removemember/{userId}")
+	public ResponseEntity<?> patchMember(UsersDTO user){
+		
+		Users finduser = userService.findUsersById(user.getUserId());
+		finduser.updateTrainerId(null);
+		
+		userRepository.save(finduser);
+		return ResponseEntity.ok(null);
+	}
+	
 	
 	//유저리스트 불러오기=================================================================================
 	@PostMapping("/finduserlist")
@@ -153,5 +167,8 @@ public class UserController {
 		
 		return ResponseEntity.ok(user);
 	}
+	
+
+	
 	
 }

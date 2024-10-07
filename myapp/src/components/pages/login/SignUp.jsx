@@ -57,7 +57,7 @@ export default function SignUp() {
     }
 
     //아이디 검증
-    const validateUserId = async () => { //submit을 위한 비동기 처리
+    const validateUserId = async () => { //submit을 위한 비동기 처리(어렵다)
         let userId = userData.userId;
         let uri = `/users/${userId}`;
         let result = false
@@ -179,6 +179,18 @@ export default function SignUp() {
                     <h1>회원가입</h1>
                     {duplicateMessage && <p className="duplicate-message">{duplicateMessage}</p>}
                     <form className="login-form" onSubmit={handleSubmit}>
+                        <label>회원 유형 선택
+                            <select
+                                name="memberType"
+                                value={userData.memberType}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="">선택하세요</option>
+                                <option value="일반">일반</option>
+                                <option value="트레이너">트레이너</option>
+                            </select>
+                        </label>
                         <label>아이디
                             {errorMessage && <p className="SignErrorMessage">{errorMessage.userId}</p>}
                             <input
@@ -220,7 +232,7 @@ export default function SignUp() {
                                 required
                             />
                         </label>
-                        <label>이름
+                        <label>*이름
                             <input
                                 type="text"
                                 name="name"
@@ -230,7 +242,7 @@ export default function SignUp() {
                                 required
                             />
                         </label>
-                        <label>전화번호
+                        <label>*전화번호
                         {errorMessage && <p className="SignErrorMessage">{errorMessage.phoneNumber}</p>}
                             <input
                                 type="text"
@@ -252,7 +264,6 @@ export default function SignUp() {
                                 placeholder="주소"
                                 value={signAddress}
                                 onClick={daumAddrAPI}
-                                required
                             />
                             <button onClick={daumAddrAPI}>주소찾기</button>
                         </label>
@@ -263,7 +274,6 @@ export default function SignUp() {
                                 placeholder="우편번호"
                                 value={signZipCode}
                                 onClick={daumAddrAPI}
-                                required
                             />
                         </label>
                         <label>상세주소
@@ -273,7 +283,6 @@ export default function SignUp() {
                                 placeholder="상세주소"
                                 name="detailAddress"
                                 onChange={handleChange}
-                                required
                             />
                         </label>
                         </div>
@@ -283,8 +292,8 @@ export default function SignUp() {
                                 type="radio"
                                 id="male"
                                 name="gender"
-                                value="남자"
-                                checked={userData.gender === "남자"}
+                                value="남성"
+                                checked={userData.gender === "남성"}
                                 onChange={handleChange}
                                 required
                             />
@@ -293,26 +302,13 @@ export default function SignUp() {
                                 type="radio"
                                 id="female"
                                 name="gender"
-                                value="여자"
-                                checked={userData.gender === "여자"}
+                                value="여성"
+                                checked={userData.gender === "여성"}
                                 onChange={handleChange}
                                 required
                             />
                             <label htmlFor="female" className={userData.gender === "여자" ? "active" : ""}>여자</label>
                         </div>
-                        
-                        <label>회원 유형 선택
-                            <select
-                                name="memberType"
-                                value={userData.memberType}
-                                onChange={handleChange}
-                                required
-                            >
-                                <option value="">선택하세요</option>
-                                <option value="일반">일반</option>
-                                <option value="트레이너">트레이너</option>
-                            </select>
-                        </label>
                         <button type="submit">회원가입</button>
                     </form>
                     <div className="login-links">

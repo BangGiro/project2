@@ -4,6 +4,7 @@ import { apiCall } from "../../../../service/apiService";
 
 function AddUserModal({ onClose, onAddUser, existingUsers }) {
     const [searchUserId, setUserId] = useState('');
+    const [message , setMessage] = useState('');
     const [memo, setMemo] = useState('');
     const [user, setUser] = useState(null);
 
@@ -27,35 +28,51 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
         setUserId(e.target.value);
     };
 
+
+    //사용자 찾기
     const handleFindUser = (e) => {
 
         const uri = "/users/finduser";
         const method = "post";
         const data = { userId : searchUserId };
         const token = localStorage.getItem("JwtToken");
+        const trimStr = searchUserId.replaceAll(' ','');
 
-        apiCall(uri, method, data, token)
-        .then((Response) =>{
-            
-            setUser(Response);
+        if(trimStr === '') {
+            setMessage("검색어를 입력해주세요");
+            return;
+        } else {
+            apiCall(uri, method, data, token)
+            .then((Response) =>{
+                
+                setUser(Response);
+                user.userId != null ?
+                setMessage("회원찾기 성공"):
+                setMessage("해당하는 회원이 없습니다")
+            }).catch((err)=>{
+                alert("회원찾기 실패"+err);
+            })
+        }
 
-            alert("회원찾기 성공");
-        }).catch((err)=>{
-            alert("회원찾기 실패"+err);
-        })
+
     };
+
+    //사용자 추가
+    const handleAdduser = () => {
+
+        return null;
+    }
 
     const handleSubmit = () => {
         if (user) {
 
-            const uri = "/users/adduser";
+            const uri = "/users/addmember";
             const method = "put";
             const data = { userId : searchUserId , trainerId : localStorage.getItem('memberLoggedInData') };
 
             apiCall(uri, method, data, null)
             .then((Response) =>{
                 setUser(Response);
-                alert("회원추가 성공");
             }).catch((err)=>{
                 alert("회원추가 실패");
             })
@@ -82,11 +99,14 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
                     <h2>회원 추가</h2>
                     <input
                         type="text"
+                        className='addUserInput'
                         value={searchUserId}
                         onChange={handleUserIdChange}
-                        placeholder="이메일 입력"
+                        placeholder="아이디 입력"
                     />
-                    <button onClick={handleFindUser}>사용자 찾기</button>
+                    {message && <p>{message}</p>}
+                    <button onClick={handleFindUser}>찾기</button>
+                    <button onClick={handleAdduser}>추가</button>
                     {user && (
                         <div>
                             <p>이름: {user.name}</p>

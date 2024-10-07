@@ -1,5 +1,4 @@
 .login_true_location-container {
-    min-height: 100vh;
     height: 100vh;
 }
 
@@ -79,7 +78,7 @@
 .login-links a {
     color: #007bff;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 10px 10px 10rem 10px;
 }
 
 .login-links a:hover {
@@ -88,6 +87,13 @@
 
 
 /* 회원가입======================================================================================== */
+.signUp-container {
+    height: 100%;
+    width: 500px;
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+}
+
 .signUp-container>h1 {
     text-align: center;
 }
