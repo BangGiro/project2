@@ -84,11 +84,6 @@ function ManagementContainer() {
 
     return (
         <div className="management-container">
-            {isCategoryVisible && (
-                <div className='manacategory'>
-                    <CategoryContainer memberNames={memberNames} />
-                </div>
-            )}
             <div className='maco'>
                 <Management
                     onAddUser={handleAddUser}
