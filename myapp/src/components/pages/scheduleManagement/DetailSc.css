@@ -2,7 +2,9 @@
     padding: 5rem;
     display: flex;
     flex-flow: column;
+    align-content: space-between;
     width: 50%;
+    position: relative;
 }
 
 .dailySc_details{
@@ -10,4 +12,6 @@
     border: 1px black solid;
     border-radius: 1rem;
     padding: 1rem;
+    box-sizing: border-box;
 }
+

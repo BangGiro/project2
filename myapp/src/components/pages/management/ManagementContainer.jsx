@@ -1,15 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , createContext } from 'react';
 import Management from './components/Management';
-import CategoryContainer from './components/CategoryContainer';
+import UserDetail from './components/UserDetail';
 import { getLoggedInUser } from '../helpers/auth'; // isLoggedIn 삭제
 import './ManagementContainer.css';
 import { apiCall } from '../../../service/apiService';
 import { Navigate } from 'react-router-dom';
 
+export const UserContext = createContext();
+
 function ManagementContainer() {
     const [memberNames, setMemberNames] = useState([]);
     const [users, setUsers] = useState([]);
-    const [isCategoryVisible, setIsCategoryVisible] = useState(true);
+    const [userDetail, setUserDetail] = useState(null);
     const user = localStorage.getItem("JwtToken");
 
     useEffect(() => {
@@ -64,35 +66,22 @@ function ManagementContainer() {
         }
     };
 
-    useEffect(() => {
-        const handleResize = () => {
-            if (window.innerWidth <= 768) {
-                setIsCategoryVisible(false);
-            } else {
-                setIsCategoryVisible(true);
-            }
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        handleResize();
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
     return (
-        <div className="management-container">
-            <div className='maco'>
-                <Management
-                    onAddUser={handleAddUser}
-                    onDeleteUser={handleDeleteMember}
-                    onDeleteAllUsers={handleDeleteAllUsers}
-                    users={users}
-                />
+        <UserContext.Provider value={{ setUserDetail }}>
+            <div className="management-container">
+                <section className='sc1'>
+                    <Management
+                        onAddUser={handleAddUser}
+                        onDeleteUser={handleDeleteMember}
+                        onDeleteAllUsers={handleDeleteAllUsers}
+                        users={users}
+                        />
+                </section>
+                <section className='sc2'>
+                    <UserDetail selectUser={userDetail}/>
+                </section>
             </div>
-        </div>
+        </UserContext.Provider>
     );
 }
 

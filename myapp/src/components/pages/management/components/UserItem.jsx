@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './UserItem.css';
 import { apiCall } from '../../../../service/apiService';
+import { UserContext } from '../ManagementContainer';
 
 function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
+    const { setUserDetail } = useContext(UserContext);
+
     const navigate = useNavigate();
 
     const handleItemClick = () => {
         localStorage.setItem('selectedUser', JSON.stringify(user));
-        navigate('/exerciseUser'); // 링크 변경
+        navigate('/exerciseUser' , {state: {user}}); // 링크 변경
     };
 
-    const handleEditClick = (e) => {
+    const handleDetailClick = (e) => {
         e.stopPropagation();
-        onEditUser(user);
-        onOpenEditModal();
+        e.preventDefault();
+        setUserDetail(user);
     };
 
     const handleDeleteClick = (e) => {
@@ -38,7 +41,7 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
     
 
     const getProfileImage = (gender) => {
-        if (gender === '여자') {
+        if (gender === '여성') {
             return '/image/femaleprofile.PNG'; // 여자 프로필 이미지 경로 설정
         }
         return '/image/profile.webp'; // 남자 프로필 이미지 경로 설정
@@ -51,8 +54,8 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
             <td>{user.phoneNumber}</td>
             <td>{user.gender}</td>
             <td>
+                <button onClick={handleDetailClick}>상세</button>
                 <button onClick={handleDeleteClick} >삭제</button>
-                <button onClick={handleEditClick}>수정</button>
             </td>
         </tr>
     );

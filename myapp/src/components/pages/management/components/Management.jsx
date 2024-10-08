@@ -5,7 +5,7 @@ import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
 import './Management.css';
 
-function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, users: initialUsers }) {
+function Management({ loggedInEmail, onAddUser, onDeleteUser, selectUser ,users: initialUsers }) {
   const [users, setUsers] = useState(initialUsers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -16,9 +16,9 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, 
     setUsers(initialUsers);
   }, [initialUsers]);
 
-  const handleAddUser = (user, memo) => {
-    onAddUser(user, memo);
-    const updatedUsers = [...users, { ...user, memo }];
+  const handleAddUser = (user) => {
+    onAddUser(user);
+    const updatedUsers = [...users, { ...user }];
     setUsers(updatedUsers);
     };
 
@@ -33,19 +33,6 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, 
     }
   };
 
-  const handleEditUser = (updatedUser) => {
-    const updatedUsers = users.map(user =>
-      user.email === updatedUser.email ? updatedUser : user
-    );
-    setUsers(updatedUsers);
-    localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
-    const selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
-    if (selectedUser && selectedUser.email === updatedUser.email) {
-      localStorage.setItem('selectedUser', JSON.stringify(updatedUser));
-    }
-    setIsEditModalOpen(false);
-  };
-
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -53,7 +40,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, 
   return (
     <div className='mainmanagement'>
       <div className="container">
-        <h1>회원 관리</h1>
+        <h1>내 회원 목록</h1>
         <input
           type="text"
           placeholder="사용자 이름 검색"
@@ -70,21 +57,11 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, onDeleteAllUsers, 
           />
         </div>
         <button onClick={() => setIsAddModalOpen(true)}>회원 추가</button>
-        {users.length > 0 && (
-          <button className="delete-all-button" onClick={onDeleteAllUsers}>전체 삭제</button>
-        )}
         {isAddModalOpen && (
           <AddUserModal
             onClose={() => setIsAddModalOpen(false)}
             onAddUser={handleAddUser}
             existingUsers={users}
-          />
-        )}
-        {isEditModalOpen && userToEdit && (
-          <EditUserModal
-            onClose={() => setIsEditModalOpen(false)}
-            onEditUser={handleEditUser}
-            user={userToEdit}
           />
         )}
       </div>

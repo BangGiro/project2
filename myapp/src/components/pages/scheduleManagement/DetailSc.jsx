@@ -1,7 +1,11 @@
 import './DetailSc.css'
+import AddSc from './AddSc';
+import { useState } from 'react';
 
 function DetailSc() {
-    
+    const [openSwitch , setOpenSwitch] = useState(false);
+
+
     return (
 
         <div className="detailSc_container">
@@ -16,9 +20,10 @@ function DetailSc() {
                 </div>
             </div>
             
+            {openSwitch && <AddSc close={setOpenSwitch}/>}
+
             <div className="ScEdits">
-                
-                <button>일정 추가</button>
+                <button onClick={()=>{setOpenSwitch(true)}}>일정 추가</button>
             </div>
             
         </div>
