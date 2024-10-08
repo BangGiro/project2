@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
 import axios from 'axios';
+import {useLocation} from 'react-router-dom';
 
 export const availableExercises = [
     { name: "스쿼트", category: "하체", image: "/image/exercisePictogram/squat.png" },
@@ -81,6 +82,11 @@ function ExerciseUser({ userId }) {  // 부모 컴포넌트에서 userId를 prop
             fetchExerciseLogs(userId, selectedDate.toLocaleDateString('en-CA'), setCurrentExercises);
         }
     }, [userId, selectedDate]);
+
+    const location = useLocation();
+    const user = location.state; // 여기에서 state를 받아옵니다.
+    
+    console.log(user.name);
 
     const openModal = () => {
         setIsModalOpen(true);
