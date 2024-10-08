@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/react": "^6.1.15",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -12,6 +15,7 @@
     "chart.js": "^4.4.3",
     "create-react-app": "^5.0.1",
     "date-fns": "^3.6.0",
+    "fullcalendar": "^6.1.15",
     "react": "^18.3.1",
     "react-big-calendar": "^1.13.0",
     "react-bootstrap": "^2.10.5",

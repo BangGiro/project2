@@ -46,7 +46,7 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
             .then((Response) =>{
                 
                 setUser(Response);
-                user.userId != null ?
+                Response.userId != null ?
                 setMessage("회원찾기 성공"):
                 setMessage("해당하는 회원이 없습니다")
             }).catch((err)=>{
