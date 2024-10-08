@@ -1,0 +1,13 @@
+.detailSc_container{
+    padding: 5rem;
+    display: flex;
+    flex-flow: column;
+    width: 50%;
+}
+
+.dailySc_details{
+    width: 100%;
+    border: 1px black solid;
+    border-radius: 1rem;
+    padding: 1rem;
+}

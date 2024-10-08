@@ -1,0 +1,9 @@
+.fc_container{
+    padding: 5rem;
+    height: 50%;
+    width: 50%;
+}
+
+.Schedules_container{
+    display: flex;
+}
