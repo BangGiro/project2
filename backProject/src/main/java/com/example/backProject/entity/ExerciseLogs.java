@@ -29,8 +29,8 @@ public class ExerciseLogs {
 
     private String userId;
     @Column(nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime exerciseDate = LocalDateTime.now();
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  
+    private LocalDateTime exerciseDate;
     private String exerciseType;
     private double weightUsed;
     private int reps;

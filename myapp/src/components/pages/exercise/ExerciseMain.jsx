@@ -187,7 +187,7 @@ function ExerciseMain({ userId }) {  // 부모 컴포넌트에서 userId를 prop
             <div className='every'>
                 <div className='exerciseMainBody'>
                     <div className="header">
-                        <h1>운동</h1>
+                        <h1>내 운동</h1>
                         <hr />
                     </div>
                     <div className='exerciseMain'>
