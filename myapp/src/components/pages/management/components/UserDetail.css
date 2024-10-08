@@ -1,0 +1,36 @@
+.UD_container{
+    background-color: grey;
+    width: 100%;
+    height: 100%;
+    padding: 3rem 1rem;
+}
+
+.UD_basic_info,
+.UD_pass_info,
+.UD_logs,
+.UD_exercises {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+
+.UD_basic_info{
+    height: 10%;
+    background-color: white;
+}
+
+.UD_pass_info{
+    height: 10%;
+    background-color: white;
+}
+
+.UD_logs{
+    height: 10%;
+    background-color: white;
+}
+
+.UD_exercises{
+    height: 20%;
+    background-color: white;
+}

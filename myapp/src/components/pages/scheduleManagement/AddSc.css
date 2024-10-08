@@ -1,0 +1,23 @@
+.addScModalBg{
+    
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.345);
+    top: 0; /* 부모 요소의 위쪽 경계선에서 시작 */
+    left: 0; /* 부모 요소의 왼쪽 경계선에서 시작 */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.addScModal{
+
+    position: absolute;
+    background-color: white;
+    width: 50em;
+    height: 45em;
+    border: 1px black solid;
+
+}

@@ -3,6 +3,8 @@ import UserItem from './UserItem';
 import './UserList.css';
 
 function UserList({ users, onDeleteUser, onEditUser, onOpenEditModal }) {
+
+    
     if (!Array.isArray(users)) {
         return null;
     }
