@@ -1,6 +1,7 @@
 package com.example.backProject.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 // CORS 방침 설정 지원 -> addCorsMApping()
 
 @Configuration
+@EnableTransactionManagement
 public class WebMVCconfig implements WebMvcConfigurer{
 	
 	//=> CORS 방침 설정 -> addCorsMappings()
