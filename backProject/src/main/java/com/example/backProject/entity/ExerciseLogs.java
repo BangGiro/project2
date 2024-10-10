@@ -1,8 +1,6 @@
 package com.example.backProject.entity;
 
-import java.time.LocalDateTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,16 +27,13 @@ public class ExerciseLogs {
 
     private String userId;
     @Column(nullable = false)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime exerciseDate = LocalDateTime.now();
+    private LocalDate exerciseDate;
     private String exerciseType;
     private double weightUsed;
     private int reps;
     private int sets;
 
-    @ManyToOne
-    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
-    private ExerciseImages exerciseImage;
+    private int ImageId;
 
     private String exerciseName;
     private String imagePath;
