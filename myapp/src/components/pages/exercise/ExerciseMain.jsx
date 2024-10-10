@@ -167,11 +167,18 @@ function ExerciseMain({ userId }) {
 
   const deleteExercise = async (exerciseIndex) => {
     const exerciseId = currentExercises[exerciseIndex].exerciseId; // 삭제할 운동 기록의 ID
+    const exerciseDate = currentExercises[exerciseIndex].exerciseDate;// 삭제할 운동 기록의 date
     try {
       await axios.delete(`/api/exercises/logs/${exerciseId}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('JwtToken')}` }
       });
-      setCurrentExercises(currentExercises.filter((_, index) => index !== exerciseIndex));
+      const updatedExercises = currentExercises.filter((_, index) => index !== exerciseIndex);
+      setCurrentExercises(updatedExercises);
+      // 삭제 후 해당 날짜에 남은 운동 기록이 없는지 확인
+    if (updatedExercises.length === 0 || !updatedExercises.some(ex => ex.exerciseDate === exerciseDate)) {
+      const formattedDate = new Date(exerciseDate).toLocaleDateString('en-CA');
+      setExerciseDates(prevDates => prevDates.filter(date => date !== formattedDate)); // 해당 날짜 제거
+    }
     } catch (error) {
     }
   };
@@ -255,9 +262,9 @@ function ExerciseMain({ userId }) {
           params: { userId, date: formattedDate },
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        console.log(formattedDate);
         alert('운동 기록이 성공적으로 삭제되었습니다');
         setCurrentExercises([]);
+        setExerciseDates(prevDates => prevDates.filter(date => date !== formattedDate));
         localStorage.removeItem('isSaved'); // 기록 삭제 시 저장 상태 초기화
         setIsSaved(false);
       } catch (error) {
