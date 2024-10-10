@@ -81,14 +81,24 @@ function ExerciseMain({ userId }) {
 
   const fetchExerciseLogs = async (userId, date, setCurrentExercises, signal) => {
     const token = localStorage.getItem('JwtToken');
-    setCurrentExercises([]);
+    setCurrentExercises([]);// 현재 운동 기록 초기화
     try {
       const response = await axios.get(`/api/exercises/logs`, {
         params: { userId, date },
         headers: { Authorization: `Bearer ${token}` },
         signal: signal
       });
-      setCurrentExercises(response.data);
+      const exercises = response.data;
+
+    // 운동 기록이 없으면 isSaved를 false로, 있으면 true로 설정
+    if (exercises.length === 0) {
+      setIsSaved(false);  // 기록이 없으므로 수정 가능
+    } else {
+      setIsSaved(true);   // 기록이 있으므로 수정 불가능
+    }
+
+    setCurrentExercises(exercises);  // 불러온 운동 기록 설정
+      
     } catch (error) {
       if (axios.isCancel(error)) {
         console.log('요청이 취소되었습니다');
@@ -97,6 +107,7 @@ function ExerciseMain({ userId }) {
       }
     } finally {
       setLoading(false);
+      
     }
   };
 
@@ -206,14 +217,16 @@ function ExerciseMain({ userId }) {
       }));
 
       try {
-        await axios.put('/api/exercises/logs', logsToSave, {
+        const response = await axios.put('/api/exercises/logs', logsToSave, {
           headers: { 'Content-Type': 'application/json' },
         });
-        console.log('운동 기록이 성공적으로 업데이트되었습니다.');
+
+        console.log('운동 기록이 성공적으로 업데이트되었습니다.'+formattedDate);
         setIsSaved(true); // 저장 후 수정 불가능하게 전환
         localStorage.setItem('isSaved', 'true'); // 저장 상태를 localStorage에 저장
 
         fetchExerciseLogs(userId, formattedDate, setCurrentExercises);
+
       } catch (error) {
         console.error('운동 기록 업데이트에 실패했습니다:', error);
       }
@@ -224,11 +237,12 @@ function ExerciseMain({ userId }) {
     const token = localStorage.getItem('JwtToken');
     if (userId) {
       try {
-        const formattedDate = new Date(selectedDate).toISOString().split('T')[0];
+        const formattedDate = selectedDate.toLocaleDateString('en-CA');
         await axios.delete('/api/exercises/delete', {
           params: { userId, date: formattedDate },
           headers: { 'Authorization': `Bearer ${token}` }
         });
+        console.log(formattedDate);
         alert('운동 기록이 성공적으로 삭제되었습니다');
         setCurrentExercises([]);
         localStorage.removeItem('isSaved'); // 기록 삭제 시 저장 상태 초기화
