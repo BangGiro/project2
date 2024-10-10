@@ -11,7 +11,7 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
 
     const handleItemClick = () => {
         localStorage.setItem('selectedUser', JSON.stringify(user));
-        navigate('/exerciseUser' , {state: {user}}); // 링크 변경
+        navigate('/exerciseUser' , { state: user }); // 링크 변경
     };
 
     const handleDetailClick = (e) => {
@@ -32,9 +32,11 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
         .then((response)=>{
 
             alert("내 회원에서 제외했습니다");
+
         }).catch((err)=>{
 
             alert(err);
+
         })
         
     };
