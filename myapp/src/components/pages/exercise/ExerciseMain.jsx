@@ -61,8 +61,22 @@ function ExerciseMain({ userId }) {
   const [currentExercises, setCurrentExercises] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
-
+  const [exerciseDates, setExerciseDates] = useState([]);
   useEffect(() => {
+
+    const fetchExerciseDates = async () => {
+      const token = localStorage.getItem('JwtToken');
+      try {
+        const response = await axios.get(`/api/exercises/logs/dates`, {
+          params: { userId },
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        setExerciseDates(response.data);  // 운동 기록이 있는 모든 날짜를 저장
+      } catch (error) {
+        console.error('운동 날짜 조회에 실패했습니다:', error);
+      }
+    };
+    fetchExerciseDates();
     // localStorage에서 저장 상태를 가져옴
     const savedStatus = localStorage.getItem('isSaved') === 'true';
     setIsSaved(savedStatus);
@@ -217,16 +231,15 @@ function ExerciseMain({ userId }) {
       }));
 
       try {
-        const response = await axios.put('/api/exercises/logs', logsToSave, {
+        await axios.put('/api/exercises/logs', logsToSave, {
           headers: { 'Content-Type': 'application/json' },
         });
-
+        setExerciseDates(prevDates => [...new Set([...prevDates, formattedDate])]);
         console.log('운동 기록이 성공적으로 업데이트되었습니다.'+formattedDate);
         setIsSaved(true); // 저장 후 수정 불가능하게 전환
         localStorage.setItem('isSaved', 'true'); // 저장 상태를 localStorage에 저장
 
         fetchExerciseLogs(userId, formattedDate, setCurrentExercises);
-
       } catch (error) {
         console.error('운동 기록 업데이트에 실패했습니다:', error);
       }
@@ -254,12 +267,17 @@ function ExerciseMain({ userId }) {
   };
 
   const tileContent = ({ date, view }) => {
-    if (view === 'month' && currentExercises.some(exercise => new Date(exercise.date).toLocaleDateString() === date.toLocaleDateString())) {
-      return <div className="dot"></div>;
+    if (view === 'month') {
+      const selectedDateString = date.toLocaleDateString('en-CA');
+  
+      // exerciseDates에 해당 날짜가 있으면 dot을 표시
+      if (exerciseDates.includes(selectedDateString)) {
+        return <div className="dot"></div>;
+      }
     }
     return null;
   };
-
+  
   return (
     <div className='ExerciseMainTrue'>
       <div className='every'>

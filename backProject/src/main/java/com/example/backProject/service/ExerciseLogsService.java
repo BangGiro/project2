@@ -15,5 +15,5 @@ public interface ExerciseLogsService {
 	 @Transactional
 	 public void deleteExerciseLogsByDate(String userId, LocalDate date);
 	 public void deleteExerciseLogById(int exerciseId);
-	 
+	 public List<LocalDate> getExerciseDates(String userId);
 }
