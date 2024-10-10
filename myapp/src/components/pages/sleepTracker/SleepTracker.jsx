@@ -208,11 +208,14 @@ const SleepTracker = ({ userId }) => {
     const getTileContent = ({ date, view }) => {
         if (view === 'month') {
             const validRecords = Array.isArray(records) ? records : [];
-            const record = validRecords.find(record => new Date(record.date).toLocaleDateString() === date.toLocaleDateString());
+            const formattedDate = date.toLocaleDateString('en-CA');
+        
+            // 해당 날짜에 해당하는 기록을 찾음
+            const record = validRecords.find(record => record.sleepDate === formattedDate);
             if (record) {
                 return (
-                    <div className="sleepTrackerTileContent" style={{ backgroundColor: getRecordColor(record.sleepDuration) }}>
-                        <span>{record.sleepDuration}h</span>
+                    <div className="sleepTrackerTileContent" style={{ backgroundColor: getRecordColor(record.duration) }}>
+                        <span>{record.duration}h</span>
                     </div>
                 );
             }
