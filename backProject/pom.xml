@@ -135,7 +135,20 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
-
+        
+		<!-- Jackson 관련 종속성 -->
+	    <dependency>
+	        <groupId>com.fasterxml.jackson.core</groupId>
+	        <artifactId>jackson-databind</artifactId>
+	        <version>2.14.1</version> <!-- 최신 버전으로 설정 -->
+	    </dependency>
+	
+	    <!-- Jackson Hibernate 모듈 추가 -->
+	    <dependency>
+	        <groupId>com.fasterxml.jackson.datatype</groupId>
+	        <artifactId>jackson-datatype-hibernate5</artifactId>
+	        <version>2.14.1</version> <!-- Hibernate 버전에 맞게 설정 -->
+	    </dependency>
 		
 	</dependencies>
 

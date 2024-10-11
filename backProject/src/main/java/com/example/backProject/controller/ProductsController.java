@@ -30,14 +30,16 @@ public class ProductsController {
 
 	private final ProductsService productsService;
 
-	@GetMapping("/related/{id}")
-	public List<Products> getRelatedProducts(@PathVariable int id) {
-	    Products currentProduct = productsService.getProductById(id)
-	            .orElseThrow(() -> new ResourceNotFoundException("상품을 찾을 수 없습니다."));
-	    
-	    // getCategory().getCategoryId()로 카테고리 ID를 가져옴
-	    return productsService.findProductsByCategoryId(currentProduct.getCategory().getCategoryId());
-	}
+	@GetMapping("/categories")
+    public ResponseEntity<Page<Products>> getProductsByCategory(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) List<Integer> categories) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Products> products = productsService.getProductsByCategories(categories != null ? categories : List.of(), pageable);
+        return ResponseEntity.ok(products);
+    }
 	
 	// 모든 제품 조회
 	@GetMapping
@@ -49,24 +51,28 @@ public class ProductsController {
 
 	//페이징 적용
 	@GetMapping("/paging")
-    public ResponseEntity<Page<Products>> getProducts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String keyword) {
+	public ResponseEntity<Page<Products>> getProducts(
+	        @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "10") int size,
+	        @RequestParam(required = false) String keyword,
+	        @RequestParam(required = false) List<Integer> categories) {
 
-        Pageable pageable = PageRequest.of(page, size);
-        Page<Products> productsPage;
+	    Pageable pageable = PageRequest.of(page, size);
+	    Page<Products> productsPage;
 
-        if (keyword != null && !keyword.isEmpty()) {
-            // 검색어가 있을 경우 검색 결과에 대한 페이징 처리
-            productsPage = productsService.searchByKeyword(keyword, pageable);
-        } else {
-            // 검색어가 없을 경우 모든 제품 페이징 처리
-            productsPage = productsService.getProducts(pageable);
-        }
+	    if (categories != null && !categories.isEmpty()) {
+	        // 카테고리가 선택된 경우 해당 카테고리로 필터링
+	        productsPage = productsService.getProductsByCategories(categories, pageable);
+	    } else if (keyword != null && !keyword.isEmpty()) {
+	        // 검색어가 있을 경우 검색 결과에 대한 페이징 처리
+	        productsPage = productsService.searchByKeyword(keyword, pageable);
+	    } else {
+	        // 검색어와 카테고리가 없을 경우 모든 제품 페이징 처리
+	        productsPage = productsService.getProducts(pageable);
+	    }
 
-        return ResponseEntity.ok(productsPage);
-    }
+	    return ResponseEntity.ok(productsPage);
+	}
 
 	// ID로 제품 조회
 	@GetMapping("/{id}")

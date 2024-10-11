@@ -1,0 +1,41 @@
+/* 카테고리 필터를 중앙에 위치하게 설정하고, 내용물 크기에 맞게 조절 */
+.category-filter-container {
+    display: inline-flex; /* 내용물 크기에 맞춰 컨테이너 크기 자동 조절 */
+    flex-wrap: nowrap;
+    justify-content: center; /* 필터 항목들을 중앙 정렬 */
+    gap: 15px; /* 각 체크박스 간의 간격 */
+    padding: 15px; /* 필터 컨테이너의 내부 여백 */
+    background-color: #f9f9f9; /* 필터 배경색 */
+    border: 1px solid #ddd; /* 테두리 설정 */
+    border-radius: 8px; /* 둥근 모서리 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 살짝 그림자 */
+    margin: 20px auto; /* 상하단 여백과 중앙 정렬 */
+    width: auto; /* 내용물 크기에 맞게 자동으로 너비 조절 */
+}
+
+/* 카테고리 체크박스 스타일 */
+.category-checkbox {
+    display: flex;
+    align-items: center; /* 체크박스와 텍스트를 세로로 정렬 */
+    padding: 8px 12px; /* 체크박스 영역의 내부 여백 */
+    background-color: #fff; /* 체크박스 배경색 */
+    border: 1px solid #ddd; /* 테두리 */
+    border-radius: 6px; /* 체크박스 모서리 둥글게 */
+    transition: background-color 0.3s, border-color 0.3s; /* 부드러운 효과 */
+}
+
+.category-checkbox:hover {
+    background-color: #f0f0f0; /* 호버 시 배경색 변경 */
+    border-color: #bbb; /* 호버 시 테두리 색 변경 */
+}
+
+.category-checkbox input {
+    margin-right: 10px; /* 체크박스와 텍스트 사이 간격 */
+    cursor: pointer; /* 체크박스에 마우스 커서 */
+}
+
+.category-checkbox label {
+    font-size: 14px; /* 텍스트 크기 */
+    color: #333; /* 텍스트 색상 */
+    cursor: pointer; /* 텍스트 클릭 가능하게 커서 설정 */
+}

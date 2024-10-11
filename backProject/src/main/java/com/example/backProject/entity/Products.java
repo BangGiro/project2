@@ -2,7 +2,10 @@ package com.example.backProject.entity;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +35,8 @@ public class Products {
 	private String description;
 	private double price;
 	private int stockQuantity;
-	@ManyToOne
+	@JsonManagedReference // 이 방향은 직렬화가 가능하도록 유지
+	@ManyToOne(fetch = FetchType.LAZY) // FetchType.LAZY 적용
 	@JoinColumn(name = "category_id", nullable = false)
 	private Categories category; // categoryId 대신 Categories 객체 사용
 	private String brand;

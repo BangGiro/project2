@@ -18,8 +18,8 @@ public interface ProductsRepository extends JpaRepository<Products, Integer> {
     // 제품 이름으로 대소문자 구분 없이 검색
     Page<Products> findByProductNameContainingIgnoreCase(String productName, Pageable pageable);
 
-    // 카테고리 ID로 제품 목록 조회
-    List<Products> findByCategory_CategoryId(int categoryId); // 중복 없이 추가
+ // 카테고리 ID로 상품을 필터링
+    Page<Products> findByCategoryCategoryIdIn(List<Integer> categoryId, Pageable pageable);
 
     // 공백을 제거한 후 검색어와 일치하는 제품 조회
     @Query("SELECT p FROM Products p WHERE REPLACE(LOWER(p.productName), ' ', '') LIKE LOWER(CONCAT('%', REPLACE(:productName, ' ', ''), '%'))")
