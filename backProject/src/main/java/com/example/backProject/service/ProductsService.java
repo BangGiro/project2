@@ -16,4 +16,5 @@ public interface ProductsService {
     Products saveProduct(Products product);        // 제품 저장
     void deleteProductById(int id);                // ID로 제품 삭제
     public Page<Products> getProductsByCategories(List<Integer> categoryId, Pageable pageable);
+    
 }

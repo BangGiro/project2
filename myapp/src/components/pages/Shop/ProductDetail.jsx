@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
-import FloatingButton from '../../layout/FloatingButton';
+import './ReviewList.css';
+
+import ReviewList from './ReviewList';
 
 const ProductDetail = ({ userId }) => {
   const { id } = useParams(); // URL에서 상품 ID 가져오기
@@ -10,8 +12,6 @@ const ProductDetail = ({ userId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [quantity, setQuantity] = useState(1); // 수량 상태 추가
-  const [relatedProducts, setRelatedProducts] = useState([]); // 관련 상품 상태
-  const [reviews, setReviews] = useState([]); // 리뷰 상태
   const navigate = useNavigate(); // useNavigate를 사용하여 페이지 이동 처리
 
   // 상품 데이터 불러오기
@@ -19,6 +19,7 @@ const ProductDetail = ({ userId }) => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(`/api/products/${id}`); // 상품 데이터 가져오기
+
         setProduct(response.data);
         setLoading(false);
       } catch (error) {
@@ -136,7 +137,7 @@ const ProductDetail = ({ userId }) => {
         {product && (
           <>
             <div className="main-content">
-              <img src={`/image/shop/${product.productsImages}`} alt={product.productName} className="product-image"/>
+              <img src={`/image/shop/${product.productsImages}`} alt={product.productName} className="product-image" />
               <div className="detail-info">
                 <h1>{product.productName}</h1>
                 <p>가격: {product.price.toLocaleString()} 원</p>
@@ -166,39 +167,12 @@ const ProductDetail = ({ userId }) => {
               </div>
             </div>
 
-            {/* 같은 카테고리 상품 슬라이드 */}
-            <div className="related-products">
-              <h2>관련 상품</h2>
-              <div className="related-product-list">
-                {relatedProducts.length > 0 ? (
-                  relatedProducts.map((relatedProduct) => (
-                    <div key={relatedProduct.id} className="related-product-item">
-                      <img src={`/image/shop/${relatedProduct.productsImages}`} alt={relatedProduct.productName} />
-                      <h3>{relatedProduct.productName}</h3>
-                      <p>{relatedProduct.price.toLocaleString()} 원</p>
-                    </div>
-                  ))
-                ) : (
-                  <p>관련 상품이 없습니다.</p>
-                )}
-              </div>
-            </div>
-
             {/* 리뷰 섹션 */}
             <div className="reviews-section">
               <h2>리뷰</h2>
-              {reviews.length > 0 ? (
-                <ul>
-                  {reviews.map((review) => (
-                    <li key={review.id}>
-                      <strong>{review.reviewerName}</strong>: {review.comment} ({review.rating}/5)
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>아직 리뷰가 없습니다.</p>
-              )}
+              <ReviewList productId={product.productId} userId={userId} />
             </div>
+
           </>
         )}
       </div>
