@@ -124,25 +124,26 @@ const SleepTracker = ({ userId }) => {
 
 
     const editRecord = (index) => {
-        const record = records[index];
-        setStartTime(record.startTime);
-        setEndTime(record.endTime);
-        setSleepDuration(record.sleepDuration);
-        setSleepQuality(record.sleepQuality || '');
-        setSelectedDate(new Date(record.date)); // 선택된 날짜를 기록의 날짜로 설정
-        setEditIndex(index);
-        openModal();
+        const record = records[index]; // 수정할 기록 가져오기
+        setStartTime(record.sleepStart.split('T')[1].slice(0, 5)); // sleepStart에서 시간 부분만 설정
+        setEndTime(record.sleepEnd.split('T')[1].slice(0, 5)); // sleepEnd에서 시간 부분만 설정
+        setSleepQuality(record.sleepQuality);
+        setSelectedDate(new Date(record.sleepDate)); // 날짜 설정
+        setEditIndex(index); // 수정할 인덱스를 설정
+        openModal(); // 모달 열기
     };
 
     const deleteRecord = async (index) => {
-        const recordId = records[index].id;  // 서버로부터 받아온 기록 ID
+        const sleepId = records[index].sleepId;  // 서버로부터 받아온 기록 ID
         try {
-            await axios.delete(`/api/sleep/logs/${recordId}`);  // 서버에서 삭제
-            setRecords(records.filter((_, i) => i !== index));
+            await axios.delete(`/api/sleep/logs/${sleepId}`);  // 서버에서 삭제
+            setRecords(records.filter((_, i) => i !== index));// 삭제 후 상태 업데이트
         } catch (error) {
             console.error('수면 기록 삭제에 실패했습니다:', error);
         }
     };
+
+    
 
     const saveEditedRecord = async (event) => {
         event.preventDefault();
@@ -171,7 +172,7 @@ const SleepTracker = ({ userId }) => {
         };
     
         try {
-           const respose = await axios.post('/api/sleep/logs', newRecord, {
+            await axios.post('/api/sleep/logs', newRecord, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`

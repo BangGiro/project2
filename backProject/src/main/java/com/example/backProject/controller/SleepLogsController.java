@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -62,4 +65,19 @@ public class SleepLogsController{
 	        }
 	        return ResponseEntity.ok(sleepLogs);
 	    }
-}
+	    
+	    @DeleteMapping("/logs/{sleepId}")
+	    public ResponseEntity<?> deleteSleepLogsBySleepId(@PathVariable int sleepId){
+	    	boolean isDeleted = sleepLogsService.deleteSleepLogsBySleepId(sleepId);
+	    	if (isDeleted) {
+	            return ResponseEntity.ok("수면 기록이 성공적으로 삭제되었습니다.");
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("해당 기록을 찾을 수 없습니다.");
+	        }
+	    
+	    }
+	    
+	    
+	    
+	    
+}//controller
