@@ -109,7 +109,7 @@ const CheckoutPage = ({ userId }) => {
             }
 
             // 결제 완료 메시지 표시
-            alert("결제가 완료되었습니다!");
+            alert("결제가 완료되었습니다!(미구현)");
 
             // 홈 화면으로 이동
             navigate('/');
