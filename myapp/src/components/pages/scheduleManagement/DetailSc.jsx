@@ -2,7 +2,7 @@ import './DetailSc.css'
 import AddSc from './AddSc';
 import { useState } from 'react';
 
-function DetailSc() {
+function DetailSc({today , users }) {
     const [openSwitch , setOpenSwitch] = useState(false);
 
 
@@ -11,7 +11,8 @@ function DetailSc() {
         <div className="detailSc_container">
 
             <div className="dailySc">
-                <h2>오늘의 일정</h2>
+                <h2>{today}</h2>
+                <h3>오늘의 일정</h3>
                 <div className='dailySc_details'>
                     <p>시간</p>
                     <p>수업유형</p>
@@ -20,7 +21,11 @@ function DetailSc() {
                 </div>
             </div>
             
-            {openSwitch && <AddSc close={setOpenSwitch}/>}
+            {openSwitch && 
+            <AddSc 
+            close={setOpenSwitch}
+            users={users}
+            />}
 
             <div className="ScEdits">
                 <button onClick={()=>{setOpenSwitch(true)}}>일정 추가</button>

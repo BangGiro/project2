@@ -1,6 +1,16 @@
 .fc_container{
     padding: 4rem 2rem;
     height: 100%;
+    width: 1100px;
+}
+
+.fc_container > .fc {
+    height: 100%;
+    width: 100%;
+}
+
+.fc-media-screen {
+    height: 100%;
     width: 100%;
 }
 

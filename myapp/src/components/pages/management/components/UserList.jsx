@@ -2,7 +2,7 @@ import React from 'react';
 import UserItem from './UserItem';
 import './UserList.css';
 
-function UserList({ users, onDeleteUser, onEditUser, onOpenEditModal }) {
+function UserList({ users, onEditUser, onOpenEditModal }) {
 
     
     if (!Array.isArray(users)) {
@@ -26,7 +26,6 @@ function UserList({ users, onDeleteUser, onEditUser, onOpenEditModal }) {
                         <UserItem
                             key={user.userId}
                             user={user}
-                            onDeleteUser={onDeleteUser}
                             onEditUser={onEditUser}
                             onOpenEditModal={onOpenEditModal}
                         />
