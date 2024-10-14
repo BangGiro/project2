@@ -30,7 +30,7 @@ import ProductList from './components/pages/Shop/ProductList';
 import ProductDetail from './components/pages/Shop/ProductDetail';
 import Cart from './components/pages/Shop/Cart';
 import CheckoutPage from './components/pages/Shop/CheckoutPage';
-import ScheduleCalender from './components/pages/scheduleManagement/Schedules';
+import ScheduleCalendar from './components/pages/scheduleManagement/Schedules';
 import PassManage from './components/pages/PassManagement/PassManagement';
 
 function App() {
@@ -109,7 +109,7 @@ function App() {
           <Route path="/shop/product/:id" element={<ProductDetail userId={loggedId} onAddToCart={handleAddToCart} />} />
           <Route path="/shop/cart" element={<Cart userId={loggedId} cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
           <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} userId={loggedId}/>} />
-          <Route path="/ScheduleCalender" element={<ScheduleCalender />} />
+          <Route path="/fullcalendar" element={<ScheduleCalendar />} />
           <Route path="/passmng" element={<PassManage/>}/>
         </Route>
         {/* 헤더와 푸터가 포함되지 않은 페이지 */}

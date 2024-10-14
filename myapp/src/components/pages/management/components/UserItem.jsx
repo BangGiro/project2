@@ -4,8 +4,10 @@ import './UserItem.css';
 import { apiCall } from '../../../../service/apiService';
 import { UserContext } from '../ManagementContainer';
 
-function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
-    const { setUserDetail } = useContext(UserContext);
+function UserItem({ user, onEditUser, onOpenEditModal }) {
+    const context = useContext(UserContext);
+    const setUserDetail = context?.setUserDetail || (()=>{});//방어코드
+
 
     const navigate = useNavigate();
 
@@ -21,7 +23,7 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
 
     const handleDeleteClick = (e) => {
         e.stopPropagation();
-        onDeleteUser(user.email);
+        // onDeleteUser(user.email);
         const userId = user.userId;
         const url = `/users/removemember/${userId}`;
         const token = localStorage.getItem('JwtToken');
@@ -49,13 +51,12 @@ function UserItem({ user, onDeleteUser, onEditUser, onOpenEditModal }) {
     };
 
     return (
-        <tr className="user-item-row" onClick={handleItemClick}>
+        <tr className="user-item-row" onClick={handleDetailClick}>
             <td><img src={getProfileImage(user.gender)} alt="프로필사진" className="user-image" /></td>
             <td>{user.name}</td>
             <td>{user.phoneNumber}</td>
             <td>{user.gender}</td>
             <td>
-                <button onClick={handleDetailClick}>상세</button>
                 <button onClick={handleDeleteClick} >삭제</button>
             </td>
         </tr>
