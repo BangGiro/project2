@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './UserDetail.css'
 import { useNavigate } from 'react-router-dom';
+import GrantedPass from './GrantedPass';
 
 export default function UserDetail({ selectUser }) {
 
@@ -18,11 +19,8 @@ export default function UserDetail({ selectUser }) {
             </div>
 
             <div className="UD_pass_info">
-                <p>수강권이름</p>
-                <p>수강 등록일</p>
-                <div>수강권 기한</div>
-                <div>수강권 기본 사용가능 횟수</div>
-                <div>수강권 남은 사용가능 횟수</div>
+                {selectUser && <GrantedPass  selectUserId={selectUser.userId} />}
+
                 <button onClick={()=>{navigate('/passmng' , { state: selectUser })}}>수강권 관리</button>
             </div>
 

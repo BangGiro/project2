@@ -1,25 +1,22 @@
-package com.example.backProject.entity;
-
+package com.example.backProject.domain;
 
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "GrantedPasses")
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class GrantedPasses {
+@Data
+@Builder
+public class GrantedPassesDTO {
+
 	
-	@Id
 	private String userId;
 	
 	private String passName;
@@ -31,6 +28,5 @@ public class GrantedPasses {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date endDate;
 	
-    private Integer useCount; //null이 들어와도 된다
-	
+    private int useCount;
 }

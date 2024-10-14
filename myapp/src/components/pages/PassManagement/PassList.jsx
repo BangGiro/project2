@@ -9,7 +9,7 @@ export default function PassList({ selectUser }) {
 
     useEffect(()=>{
 
-        const uri = `/pass/find/${userId}`;
+        const uri = `/pass/find/${userId}/passes`;
         const token = localStorage.getItem('JwtToken');
 
         apiCall(uri,'get',null,token)
