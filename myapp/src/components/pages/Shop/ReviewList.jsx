@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ReviewList.css';
 
-
 const ReviewList = ({ productId, userId }) => {
   const [reviews, setReviews] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState(5);
   const [editingReview, setEditingReview] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [editingComment, setEditingComment] = useState(''); // 리뷰 수정 시 사용하는 별도의 상태
 
-  // productId와 userId가 제대로 전달되는지 확인하기 위해 useEffect에서 콘솔 로그 출력
+  // productId와 userId가 제대로 전달되는지 확인하기 위해 콘솔 로그 출력
   useEffect(() => {
     console.log("Received productId:", productId);
     console.log("Received userId:", userId);
@@ -35,50 +35,58 @@ const ReviewList = ({ productId, userId }) => {
 
   // 새로운 리뷰 추가
   const handleAddReview = async () => {
+    if(newComment.length<5){
+      alert('리뷰는 최소 5글자 이상이어야 합니다.');
+      return;
+    }
     const token = localStorage.getItem('JwtToken');
     if (!token) {
-       alert('로그인이 필요합니다.');
-       return;
+      alert('로그인이 필요합니다.');
+      return;
     }
- 
-    console.log('productId:', productId); // productId 값 출력
-    console.log('userId:', userId);       // userId 값 출력
- 
+
+    console.log('productId:', productId);
+    console.log('userId:', userId);
+
     try {
-       const response = await axios.post(
-          '/api/reviews/add',
-          {
-             productId: productId,
-             userId: userId,
-             comment: newComment,
-             rating: newRating,
+      const response = await axios.post(
+        '/api/reviews/add',
+        {
+          productId: productId,
+          userId: userId,
+          comment: newComment,
+          rating: newRating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
           },
-          {
-             headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-             },
-          }
-       );
-       
-       setReviews([...reviews, response.data]);
-       setNewComment('');
-       setNewRating(5);
+        }
+      );
+
+      setReviews([...reviews, response.data]);
+      setNewComment('');
+      setNewRating(5);
     } catch (error) {
-       console.error('리뷰 추가 중 오류 발생:', error);
-       alert('리뷰 추가 중 문제가 발생했습니다.');
+      console.error('리뷰 추가 중 오류 발생:', error);
+      alert('리뷰 추가 중 문제가 발생했습니다.');
     }
   };
 
   // 리뷰 수정 시작 함수
   const startEditing = (review) => {
-    setEditingReview(review);
-    setNewComment(review.comment);
+    setEditingReview(review.reviewId);
+    setEditingComment(review.comment);
     setNewRating(review.rating);
   };
 
   // 리뷰 수정
   const handleEditReview = async () => {
+    if(editingComment.length<5){
+      alert('리뷰는 최소 5글자 이상이어야 합니다.');
+      return;
+    }
     const token = localStorage.getItem('JwtToken');
     if (!token) {
       alert('로그인이 필요합니다.');
@@ -87,9 +95,9 @@ const ReviewList = ({ productId, userId }) => {
 
     try {
       const response = await axios.put(
-        `/api/reviews/${editingReview.reviewId}`,
+        `/api/reviews/${editingReview}`,
         {
-          comment: newComment,
+          comment: editingComment,
           rating: newRating,
         },
         {
@@ -101,11 +109,11 @@ const ReviewList = ({ productId, userId }) => {
 
       setReviews(
         reviews.map((review) =>
-          review.reviewId === editingReview.reviewId ? response.data : review
+          review.reviewId === editingReview ? response.data : review
         )
       );
       setEditingReview(null);
-      setNewComment('');
+      setEditingComment('');
       setNewRating(5);
     } catch (error) {
       console.error('리뷰 수정 중 오류 발생:', error);
@@ -144,12 +152,32 @@ const ReviewList = ({ productId, userId }) => {
         <ul className="review-list-items">
           {reviews.map((review) => (
             <li key={review.reviewId} className="review-list-item">
-              <p className="review-comment">댓글: {review.comment}</p>
+              {/* 수정 중인 리뷰일 경우, 텍스트 영역을 보여줌 */}
+              {editingReview === review.reviewId ? (
+                <textarea
+                  className="review-textarea"
+                  value={editingComment}
+                  onChange={(e) => setEditingComment(e.target.value)}
+                />
+              ) : (
+                <p className="review-comment">댓글: {review.comment}</p>
+              )}
               <p className="review-rating">평점: {review.rating} / 5</p>
+
               {review.userId === userId && (
                 <div className="review-actions">
-                  <button className="review-edit-button" onClick={() => startEditing(review)}>수정</button>
-                  <button className="review-delete-button" onClick={() => handleDeleteReview(review.reviewId)}>삭제</button>
+                  {editingReview === review.reviewId ? (
+                    <button className="review-submit-button" onClick={handleEditReview}>
+                      수정 완료
+                    </button>
+                  ) : (
+                    <button className="review-edit-button" onClick={() => startEditing(review)}>
+                      수정
+                    </button>
+                  )}
+                  <button className="review-delete-button" onClick={() => handleDeleteReview(review.reviewId)}>
+                    삭제
+                  </button>
                 </div>
               )}
             </li>
@@ -169,21 +197,16 @@ const ReviewList = ({ productId, userId }) => {
         value={newRating}
         onChange={(e) => setNewRating(Number(e.target.value))}
       >
-        {[1, 2, 3, 4, 5].map((rate) => (
-          <option key={rate} value={rate}>
+        {['★★★★★', '★★★★', '★★★', '★★', '★'].map((rate, index) => (
+          <option key={index} value={5 - index}>
             {rate}
           </option>
         ))}
       </select>
 
-      {editingReview ? (
-        <button className="review-submit-button" onClick={handleEditReview}>리뷰 수정</button>
-      ) : (
-        <button className="review-submit-button" onClick={handleAddReview}>리뷰 추가</button>
-      )}
+      <button className="review-submit-button" onClick={handleAddReview}>리뷰 추가</button>
     </div>
   );
 };
-
 
 export default ReviewList;
