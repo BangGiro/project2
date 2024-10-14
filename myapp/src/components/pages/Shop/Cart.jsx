@@ -81,7 +81,7 @@ const Cart = ({ userId }) => {
             </li>
           ))}
         </ul>
-        <h3>총 주문 금액:{totalAmount.toLocaleString()} 원</h3>
+        <h3>총 주문 금액:{totalAmount.toLocaleString()} 원(배송비포함)</h3>
 
         <Link
           to={{

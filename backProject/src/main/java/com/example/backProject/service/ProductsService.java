@@ -15,5 +15,6 @@ public interface ProductsService {
     Optional<Products> getProductById(int id);     // ID로 제품 조회
     Products saveProduct(Products product);        // 제품 저장
     void deleteProductById(int id);                // ID로 제품 삭제
-    public List<Products> findProductsByCategoryId(int categoryId);
+    public Page<Products> getProductsByCategories(List<Integer> categoryId, Pageable pageable);
+    
 }

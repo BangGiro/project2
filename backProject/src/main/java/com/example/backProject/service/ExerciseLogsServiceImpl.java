@@ -17,7 +17,11 @@ import lombok.RequiredArgsConstructor;
 public class ExerciseLogsServiceImpl implements ExerciseLogsService{
     private final ExerciseLogsRepository logsRepository;
     private final ExerciseImagesRepository imagesRepository;
-
+    
+    public List<LocalDate> getExerciseDates(String userId) {
+        return logsRepository.findDistinctExerciseDatesByUserId(userId);
+    }
+    
     public List<ExerciseImages> getAllExercises() {
         return imagesRepository.findAll();
     }

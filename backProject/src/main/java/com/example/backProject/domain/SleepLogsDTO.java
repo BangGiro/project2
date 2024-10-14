@@ -1,5 +1,6 @@
 package com.example.backProject.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ public class SleepLogsDTO {
 	//멤버 변수
 	private int sleepId;
 	private String userId;
-	private LocalDateTime sleepDate;
+	private LocalDate sleepDate;
 	private LocalDateTime sleepStart;
 	private LocalDateTime sleepEnd;
 	private String sleepQuality;

@@ -17,10 +17,10 @@ public class ProductsServiceImpl implements ProductsService {
 
 	private final ProductsRepository pRepository;
 	
-	@Override
-	public List<Products> findProductsByCategoryId(int categoryId) {
-	    return pRepository.findByCategory_CategoryId(categoryId);
+	public Page<Products> getProductsByCategories(List<Integer> categoryIds, Pageable pageable) {
+	    return pRepository.findByCategoryCategoryIdIn(categoryIds, pageable);
 	}
+
 	
 	@Override
 	public List<Products> getAllProducts() {

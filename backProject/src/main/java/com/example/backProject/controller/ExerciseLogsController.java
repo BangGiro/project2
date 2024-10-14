@@ -25,7 +25,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ExerciseLogsController{
 	private final ExerciseLogsService exerciseService;
-
+	
+	@GetMapping("/logs/dates")
+	public ResponseEntity<List<LocalDate>> getExerciseDates(@RequestParam String userId) {
+	    List<LocalDate> exerciseDates = exerciseService.getExerciseDates(userId);
+	    return ResponseEntity.ok(exerciseDates);
+	}
+	
     @GetMapping("/images")
     public List<ExerciseImages> getAllExercises() {
         return exerciseService.getAllExercises();

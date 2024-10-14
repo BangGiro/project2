@@ -92,7 +92,7 @@ function App() {
           <Route path="/exerciseUser" element={<ExerciseUser userId={loggedId}/>} />
           <Route path="/dietPlanner" element={<DietPlanner />} />
           <Route path="/FAQpage" element={<FAQpage />} />
-          <Route path="/sleepTracker" element={<SleepTracker />} />
+          <Route path="/sleepTracker" element={<SleepTracker userId={loggedId}/>} />
           <Route path="/management" element={<Management />} />
           <Route path="/QnAPage" element={<QnAPage />} />
           <Route path="/privacyPolicy" element={<PrivacyPolicy />} />

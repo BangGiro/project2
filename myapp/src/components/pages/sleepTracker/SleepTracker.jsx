@@ -5,6 +5,7 @@ import { Line } from 'react-chartjs-2';
 import 'react-calendar/dist/Calendar.css';
 import './SleepTracker.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
+import axios from 'axios';
 import FloatingButton from '../../layout/FloatingButton';
 
 ChartJS.register(
@@ -17,7 +18,7 @@ ChartJS.register(
     Legend
 );
 
-const SleepTracker = ({ loggedInEmail }) => {
+const SleepTracker = ({ userId }) => {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [sleepDuration, setSleepDuration] = useState(null);
@@ -29,33 +30,54 @@ const SleepTracker = ({ loggedInEmail }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalAnimation, setModalAnimation] = useState('');
     const [sleepQuality, setSleepQuality] = useState('');
-    const [sleepAdvice, setSleepAdvice] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const recordsPerPage = 10;
 
     useEffect(() => {
-        if (loggedInEmail) {
-            const savedRecords = JSON.parse(localStorage.getItem(`sleepRecords_${loggedInEmail}`));
-            if (savedRecords) {
-                setRecords(savedRecords);
-            }
+        // 서버에서 기록을 가져오는 함수 호출
+        if (userId) {
+            fetchRecordsFromServer(userId);
         }
-    }, [loggedInEmail]);
+    }, [userId]);
 
     useEffect(() => {
-        if (loggedInEmail && records.length > 0) {
-            localStorage.setItem(`sleepRecords_${loggedInEmail}`, JSON.stringify(records));
-        }
-    }, [records, loggedInEmail]);
-
-    useEffect(() => {
-        const selectedDateData = records.find(record => record.date === selectedDate.toLocaleDateString());
-        if (selectedDateData) {
-            setCurrentRecords(selectedDateData);
+        if (Array.isArray(records) && records.length > 0) {
+            const selectedDateData = records.find(record => record.date === selectedDate.toLocaleDateString());
+            setCurrentRecords(selectedDateData || []);
         } else {
             setCurrentRecords([]);
         }
     }, [selectedDate, records]);
+
+    const fetchRecordsFromServer = async (userId) => {
+        try {
+            const response = await axios.get(`/api/sleep/user/${userId}`);
+            const records = response.data;
+    
+            // 서버에서 받은 기록들에 대해 duration을 다시 계산
+            const updatedRecords = records.map(record => {
+                const start = new Date(record.sleepStart);
+                const end = new Date(record.sleepEnd);
+    
+                let duration = (end - start) / (1000 * 60 * 60); // 밀리초를 시간으로 변환
+    
+                // 종료 시간이 시작 시간보다 이전일 때 24시간 더해줌
+                if (duration < 0) {
+                    duration += 24;
+                }
+    
+                return {
+                    ...record,
+                    duration: parseFloat(duration.toFixed(1)) // 소수점 한 자리로 고정
+                };
+            });
+    
+            setRecords(updatedRecords); // 업데이트된 기록을 상태로 설정
+        } catch (error) {
+            console.error('수면 기록이 없습니다');
+        }
+    };
+    
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -100,67 +122,101 @@ const SleepTracker = ({ loggedInEmail }) => {
         return duration.toFixed(1);
     };
 
-    const getSleepAdvice = (duration) => {
-        if (duration <= 5) {
-            return '수면 시간이 부족합니다. 건강을 위해 더 많은 수면이 필요합니다. 최소 7시간 이상 자도록 노력하세요.';
-        } else if (duration <= 7) {
-            return '적절한 수면을 취하고 있습니다. 하지만 조금 더 자는 것이 건강에 좋습니다. 7-9시간의 수면을 권장합니다.';
-        } else if (duration <= 9) {
-            return '이상적인 수면 시간입니다! 건강을 유지하기 위해 이 수면 패턴을 지속하세요.';
-        } else {
-            return '수면 시간이 너무 깁니다. 너무 많은 수면은 오히려 건강에 해로울 수 있습니다. 적절한 수면 시간을 유지하세요.';
-        }
-    };
 
     const editRecord = (index) => {
-        const record = records[index];
-        setStartTime(record.startTime);
-        setEndTime(record.endTime);
-        setSleepDuration(record.sleepDuration);
-        setSleepQuality(record.sleepQuality || '');
-        setSelectedDate(new Date(record.date)); // 선택된 날짜를 기록의 날짜로 설정
-        setEditIndex(index);
-        openModal();
+        const record = records[index]; // 수정할 기록 가져오기
+        setStartTime(record.sleepStart.split('T')[1].slice(0, 5)); // sleepStart에서 시간 부분만 설정
+        setEndTime(record.sleepEnd.split('T')[1].slice(0, 5)); // sleepEnd에서 시간 부분만 설정
+        setSleepQuality(record.sleepQuality);
+        setSelectedDate(new Date(record.sleepDate)); // 날짜 설정
+        setEditIndex(index); // 수정할 인덱스를 설정
+        openModal(); // 모달 열기
     };
 
-    const deleteRecord = (index) => {
-        const updatedRecords = records.filter((_, i) => i !== index);
-        setRecords(updatedRecords);
+    const deleteRecord = async (index) => {
+        const sleepId = records[index].sleepId;  // 서버로부터 받아온 기록 ID
+        try {
+            await axios.delete(`/api/sleep/logs/${sleepId}`);  // 서버에서 삭제
+            setRecords(records.filter((_, i) => i !== index));// 삭제 후 상태 업데이트
+        } catch (error) {
+            console.error('수면 기록 삭제에 실패했습니다:', error);
+        }
     };
 
-    const saveEditedRecord = (event) => {
+    
+
+    const saveEditedRecord = async (event) => {
         event.preventDefault();
+        const token = localStorage.getItem('JwtToken'); // 토큰 가져오기
+        if (!startTime || !endTime) {
+            alert('수면 시작 시간과 종료 시간을 모두 설정하세요.');
+            return;
+        }
+    
         const duration = calculateSleepDuration();
         if (duration === null) return;
+        
+        
 
-        const date = new Date(selectedDate).toLocaleDateString();
-        const newRecord = { date, startTime, endTime, sleepDuration: duration, sleepQuality };
-        let updatedRecords;
+        const formattedDate = selectedDate.toLocaleDateString('en-CA'); // YYYY-MM-DD 형식으로 변환
+        const formattedStartTime = `${formattedDate}T${startTime}:00`;  // yyyy-MM-ddTHH:mm:ss
+        const formattedEndTime = `${formattedDate}T${endTime}:00`;      // yyyy-MM-ddTHH:mm:ss
+    
+        const newRecord = {
+            userId: userId,  // userId 사용
+            sleepDate: formattedDate,  // 수면 날짜 (YYYY-MM-DD 형식)
+            sleepStart: formattedStartTime,
+            sleepEnd: formattedEndTime,
+            sleepQuality: sleepQuality,
+            duration: duration,
+        };
+    
+        try {
+            await axios.post('/api/sleep/logs', newRecord, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            
+            alert('수면 기록이 저장되었습니다.');
+            // 이미 같은 날짜의 기록이 화면에 있는지 확인
+        const existingRecordIndex = records.findIndex(record => record.sleepDate === formattedDate);
 
-        if (editIndex !== null) {
-            updatedRecords = records.map((record, index) =>
-                index === editIndex ? newRecord : record
-            );
+        if (existingRecordIndex !== -1) {
+            // 이미 같은 날짜가 있는 경우 해당 기록을 업데이트
+            const updatedRecords = [...records];
+            updatedRecords[existingRecordIndex] = {
+                ...updatedRecords[existingRecordIndex],
+                sleepStart: formattedStartTime,
+                sleepEnd: formattedEndTime,
+                sleepQuality: sleepQuality,
+                duration: duration,
+            };
+            setRecords(updatedRecords);
         } else {
-            updatedRecords = [...records, newRecord];
+            // 새로운 기록을 추가
+            setRecords([...records, newRecord]);
         }
 
-        updatedRecords.sort((a, b) => new Date(b.date) - new Date(a.date));
-
-        setRecords(updatedRecords);
-        setErrorMessage('');
-        setSleepDuration(duration);
-        setSleepAdvice(getSleepAdvice(duration)); // 수면 조언 업데이트
-        alert('수면 데이터가 저장되었습니다.');
-    };
+        closeModal();  // 모달 닫기
+    } catch (error) {
+        console.error('수면 기록 저장에 실패했습니다:', error);
+        alert('수면 기록 저장에 실패했습니다.');
+    }
+};
 
     const getTileContent = ({ date, view }) => {
         if (view === 'month') {
-            const record = records.find(record => new Date(record.date).toLocaleDateString() === date.toLocaleDateString());
+            const validRecords = Array.isArray(records) ? records : [];
+            const formattedDate = date.toLocaleDateString('en-CA');
+        
+            // 해당 날짜에 해당하는 기록을 찾음
+            const record = validRecords.find(record => record.sleepDate === formattedDate);
             if (record) {
                 return (
-                    <div className="sleepTrackerTileContent" style={{ backgroundColor: getRecordColor(record.sleepDuration) }}>
-                        <span>{record.sleepDuration}h</span>
+                    <div className="sleepTrackerTileContent" style={{ backgroundColor: getRecordColor(record.duration) }}>
+                        <span>{record.duration}h</span>
                     </div>
                 );
             }
@@ -182,58 +238,89 @@ const SleepTracker = ({ loggedInEmail }) => {
     const getWeekData = () => {
         const weekData = [];
         const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
-
+    
+        const validRecords = Array.isArray(records) ? records : [];
+        const currentDate = new Date(); // 현재 날짜
+        const startOfWeek = new Date(currentDate.setDate(currentDate.getDate() - currentDate.getDay())); // 이번 주의 첫 날(일요일)
+    
         for (let i = 0; i < 7; i++) {
-            const date = new Date();
-            date.setDate(date.getDate() - date.getDay() + i);
-            const record = records.find(record => new Date(record.date).toLocaleDateString() === date.toLocaleDateString());
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i); // 해당 주의 각 요일로 설정
+    
+            // sleepDate와 date를 YYYY-MM-DD 형식으로 비교
+            const record = validRecords.find(record => {
+                const recordDate = new Date(record.sleepDate).toLocaleDateString('en-CA'); // 기록된 날짜
+                const currentDayFormatted = date.toLocaleDateString('en-CA'); // 현재 요일의 날짜
+                return recordDate === currentDayFormatted;
+            });
+    
+            // duration 값을 시간 단위로 사용
+            const durationInHours = record ? parseFloat(record.duration) : 0;
+    
             weekData.push({
-                day: weekDays[i],
-                duration: record ? parseFloat(record.sleepDuration) : 0,
+                day: weekDays[i], // 요일 이름
+                duration: durationInHours, // 해당 요일의 수면 시간
             });
         }
-
+    
         return weekData;
     };
-
+    
     const weekData = getWeekData();
 
     const data = {
-        labels: weekData.map(data => data.day),
+        labels: weekData.map(data => data.day), // 요일 레이블 설정
         datasets: [
             {
                 label: '수면 시간 (시간)',
-                data: weekData.map(data => data.duration),
+                data: weekData.map(data => isNaN(data.duration) ? 0 : data.duration),  // 수면 시간을 데이터로 사용
                 fill: false,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 tension: 0.1,
             },
         ],
     };
-
+    
+    
     const options = {
         scales: {
             y: {
                 beginAtZero: true,
-                max: 24,
+                max: 24, // 최대 24시간으로 설정
             },
         },
     };
 
-    const handleQualityChange = (quality) => {
-        setSleepQuality(quality);
+    const handleQualityChange = (emoji) => {
+        let quality;
+        switch (emoji) {
+            case '😴':
+                quality = '매우 안좋음';
+                break;
+            case '🥱':
+                quality = '안좋음';
+                break;
+            case '😑':
+                quality = '보통';
+                break;
+            case '🙂':
+                quality = '좋음';
+                break;
+            case '😁':
+                quality = '매우 좋음';
+                break;
+            default:
+                quality = '';
+        }
+        setSleepQuality(quality); // 문자열로 sleepQuality 설정
     };
 
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
+ 
 
-    const paginatedRecords = records.slice(
-        (currentPage - 1) * recordsPerPage,
-        currentPage * recordsPerPage
-    );
+    const paginatedRecords = Array.isArray(records)
+        ? records.slice((currentPage - 1) * recordsPerPage, currentPage * recordsPerPage)
+        : [];
 
-    const pageCount = Math.ceil(records.length / recordsPerPage);
 
     return (
         <div className='SleepTrackerTrue'>
@@ -280,11 +367,11 @@ const SleepTracker = ({ loggedInEmail }) => {
                         <div className="sleepTrackerInputGroup">
                             <label>수면 품질</label>
                             <div className="sleepQualityButtons">
-                                <button type="button" onClick={() => handleQualityChange('😴')} className={sleepQuality === '😴' ? 'selected' : ''}>😴</button>
-                                <button type="button" onClick={() => handleQualityChange('🥱')} className={sleepQuality === '🥱' ? 'selected' : ''}>🥱</button>
-                                <button type="button" onClick={() => handleQualityChange('😑')} className={sleepQuality === '😑' ? 'selected' : ''}>😑</button>
-                                <button type="button" onClick={() => handleQualityChange('🙂')} className={sleepQuality === '🙂' ? 'selected' : ''}>🙂</button>
-                                <button type="button" onClick={() => handleQualityChange('😁')} className={sleepQuality === '😁' ? 'selected' : ''}>😁</button>
+                                <button type="button" onClick={() => handleQualityChange('😴')} className={sleepQuality === '매우 안좋음' ? 'selected' : ''}>😴</button>
+                                <button type="button" onClick={() => handleQualityChange('🥱')} className={sleepQuality === '안좋음' ? 'selected' : ''}>🥱</button>
+                                <button type="button" onClick={() => handleQualityChange('😑')} className={sleepQuality === '보통' ? 'selected' : ''}>😑</button>
+                                <button type="button" onClick={() => handleQualityChange('🙂')} className={sleepQuality === '좋음' ? 'selected' : ''}>🙂</button>
+                                <button type="button" onClick={() => handleQualityChange('😁')} className={sleepQuality === '매우 좋음' ? 'selected' : ''}>😁</button>
                             </div>
                             {sleepQuality && (
                                 <div className="selectedQuality">
@@ -299,7 +386,6 @@ const SleepTracker = ({ loggedInEmail }) => {
                         {sleepDuration !== null && (
                             <div className="sleepTrackerResult">
                                 <h2>수면 시간: {sleepDuration}h</h2>
-                                <p>{sleepAdvice}</p> {/* 수면 조언 표시 */}
                             </div>
                         )}
                         {errorMessage && (
@@ -313,13 +399,13 @@ const SleepTracker = ({ loggedInEmail }) => {
                     editRecord={editRecord}
                     deleteRecord={deleteRecord}
                 />
-                
             </div>
         </div>
     );
 };
 
 const SleepRecords = ({ records, editRecord, deleteRecord }) => {
+
     const getRecordStyle = (duration) => {
         if (duration <= 5) {
             return { backgroundColor: '#ffcccc' };
@@ -332,14 +418,19 @@ const SleepRecords = ({ records, editRecord, deleteRecord }) => {
         }
     };
 
+    // records가 배열인지 확인 후 처리
+    if (!Array.isArray(records) || records.length === 0) {
+        return <p>수면 기록이 없습니다.</p>;
+    }
+
     return (
         <div className="sleepTrackerRecords">
             <h2>수면 기록</h2>
             <ul>
                 {records.map((record, index) => (
-                    <li key={index} className="sleepTrackerRecord" style={getRecordStyle(record.sleepDuration)}>
+                    <li key={index} className="sleepTrackerRecord" style={getRecordStyle(record.duration)}>
                         <div className="sleepTrackerRecordInfo">
-                            <strong>{record.date}:</strong> 수면 시간: {record.sleepDuration}h | 수면 품질: {record.sleepQuality}
+                            <strong>{record.sleepDate}:</strong> 수면 시간: {record.duration}시간 | 수면 품질: {record.sleepQuality}
                         </div>
                         <div className="sleepTrackerRecordButtons">
                             <button className="sleepTrackerButton" onClick={() => editRecord(index)}>수정</button>
@@ -351,9 +442,5 @@ const SleepRecords = ({ records, editRecord, deleteRecord }) => {
         </div>
     );
 };
-
-
-
-   
 
 export default SleepTracker;
