@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css'; // 스타일링을 위해 별도의 CSS 파일 사용
-import FloatingButton from '../../layout/FloatingButton';
 const CheckoutPage = ({ userId }) => {
     const [userInfo, setUserInfo] = useState({});
     const [cartData, setCartData] = useState([]); // cartItems -> cartData로 변경

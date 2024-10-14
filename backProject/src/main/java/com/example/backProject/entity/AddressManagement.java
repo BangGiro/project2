@@ -1,5 +1,6 @@
 package com.example.backProject.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,6 +22,7 @@ public class AddressManagement {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int shippingAddress;
+	@Column(length = 20)
 	private String userId;
 	
 	

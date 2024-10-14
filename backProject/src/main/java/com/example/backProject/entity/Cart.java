@@ -2,6 +2,7 @@ package com.example.backProject.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,7 +26,7 @@ public class Cart {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartId;
 	private int productId;
-
+	@Column(length = 20)
 	private String userId;
 	private LocalDateTime createdAt;
 	

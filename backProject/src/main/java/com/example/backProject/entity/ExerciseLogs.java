@@ -22,7 +22,7 @@ public class ExerciseLogs {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int exerciseId;
-
+    @Column(length = 20)
     private String userId;
     @Column(nullable = false)
     private LocalDate exerciseDate;

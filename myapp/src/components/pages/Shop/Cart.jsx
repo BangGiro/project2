@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Cart.css';
 import { Link } from 'react-router-dom';
-import FloatingButton from '../../layout/FloatingButton';
 const Cart = ({ userId }) => {
   const [cartData, setCartData] = useState([]);
   const [orderData, setOrderData] = useState([]);
@@ -62,7 +61,6 @@ const Cart = ({ userId }) => {
               <img src={`/image/shop/${item.productsImages}`} alt={item.productName} />
               <div>
                 <h2>{item.productName}</h2>
-                {/* item.price가 존재하는지 확인 */}
                 {orderData[index] && (
                   <div>
                     <h3>주문 날짜: {orderData[index].orderDate }</h3>

@@ -15,6 +15,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,6 +32,7 @@ import lombok.NoArgsConstructor;
 public class Users {
 
 	@Id
+	@Column(length = 20)
 	private String userId;
 	
 	private String name;
@@ -53,8 +56,11 @@ public class Users {
 	}
 	
 	
-	@ElementCollection(fetch = FetchType.LAZY) //사용법 숙지할 것(알아보자)
+	@ElementCollection(fetch = FetchType.LAZY)
 	@Enumerated(EnumType.STRING)
+	@JoinTable(name = "users_roles", 
+	           joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "role")
 	@Builder.Default
 	private List<Roles> roleList = new ArrayList<>(); //어떻게 enum을 타입을 받은거지??
 	

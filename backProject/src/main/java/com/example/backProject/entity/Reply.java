@@ -4,9 +4,12 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -16,30 +19,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "reply") // 테이블 이름을 "reply"로 설정
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Review {
+public class Reply {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private int reviewId;  
-    
-    // 기존에 ManyToOne으로 관계를 설정한 부분을 int로 변경
-    @Column(name = "product_id", nullable = false)
-    private int productId;
+    @Column(name = "reply_id")
+    private int replyId;
 
-    @Column(name = "user_id", nullable = false)
+    // Review와 ManyToOne 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id", nullable = false)
+    private Review review;
+    
+    @Column(length = 20)
     private String userId;
 
     @Column(nullable = false)
-    private String comment;
-
-    @Column(nullable = false)
-    private int rating;
+    private String reply;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -57,5 +58,4 @@ public class Review {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
-
 }

@@ -2,44 +2,44 @@
     padding: 20px;
     background-color: #f8f8f8;
     border-radius: 8px;
-  }
-  
-  .review-list-title,
-  .review-list-add-title {
+}
+
+.review-list-title,
+.review-list-add-title {
     font-size: 24px;
     color: #333;
     margin-bottom: 10px;
-  }
-  
-  .review-list-items {
+}
+
+.review-list-items {
     list-style-type: none;
     padding: 0;
-  }
-  
-  .review-list-item {
+}
+
+.review-list-item {
     padding: 15px;
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 4px;
     margin-bottom: 10px;
-  }
-  
-  .review-comment {
+}
+
+.review-comment {
     font-size: 16px;
     margin-bottom: 5px;
-  }
-  
-  .review-rating {
+}
+
+.review-rating {
     font-size: 14px;
     color: #888;
-  }
-  
-  .review-actions {
+}
+
+.review-actions {
     margin-top: 10px;
-  }
-  
-  .review-edit-button,
-  .review-delete-button {
+}
+
+.review-edit-button,
+.review-delete-button {
     padding: 8px 12px;
     margin-right: 5px;
     background-color: #4CAF50;
@@ -47,33 +47,33 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
-  
-  .review-delete-button {
+}
+
+.review-delete-button {
     background-color: #f44336;
-  }
-  
-  .review-edit-button:hover,
-  .review-delete-button:hover {
+}
+
+.review-edit-button:hover,
+.review-delete-button:hover {
     opacity: 0.8;
-  }
-  
-  .review-textarea {
+}
+
+.review-textarea {
     width: 100%;
     height: 80px;
     padding: 10px;
     margin-top: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
-  }
-  
-  .review-rating-select {
+}
+
+.review-rating-select {
     margin-top: 10px;
     padding: 8px;
     border-radius: 4px;
-  }
-  
-  .review-submit-button {
+}
+
+.review-submit-button {
     margin-top: 10px;
     padding: 10px 20px;
     background-color: #2196F3;
@@ -81,9 +81,112 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.review-submit-button:hover {
+    opacity: 0.9;
+}
+
+/* 답글 관련 스타일 */
+.review-reply-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+    margin-left: 20px; /* 답글을 들여쓰기 */
+}
+
+.review-reply-item {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.review-reply-form {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.review-reply-textarea {
+    width: 100%;
+    height: 50px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.review-reply-button {
+    margin-top: 5px;
+    padding: 6px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.review-reply-button:hover {
+    opacity: 0.8;
+}
+
+/* 답글 리스트 스타일 */
+.review-reply-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
   }
   
-  .review-submit-button:hover {
-    opacity: 0.9;
+  .review-reply-item {
+    padding: 10px;
+    background-color: #f1f1f1;
+    border-radius: 4px;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  
+  /* 답글 입력란 토글 버튼 */
+  .review-reply-toggle-button {
+    padding: 8px 12px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .review-reply-toggle-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* 답글 입력란 스타일 */
+  .review-reply-form {
+    margin-top: 10px;
+  }
+  
+  .review-reply-textarea {
+    width: 100%;
+    height: 60px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-top: 5px;
+  }
+  
+  /* 답글 달기 버튼 */
+  .review-reply-button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .review-reply-button:hover {
+    background-color: #1e87d6;
   }
   

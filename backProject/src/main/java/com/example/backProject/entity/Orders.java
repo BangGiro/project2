@@ -2,6 +2,7 @@ package com.example.backProject.entity;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +24,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderId;
-
+	@Column(length = 20)
 	private String userId;
 	private int quantity;
 	private LocalDateTime orderDate;

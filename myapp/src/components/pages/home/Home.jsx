@@ -4,7 +4,6 @@ import './Home.css';
 import FloatingButton from '../../layout/FloatingButton';
 
 const Home = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [paymentPlan, setPaymentPlan] = useState('annual'); // State for payment plan toggle
   const navigate = useNavigate();
 

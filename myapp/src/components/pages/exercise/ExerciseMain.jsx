@@ -40,18 +40,9 @@ export const availableExercises = [
   { name: "로잉", category: "유산소", imagePath: "rowing.png", imageId: 33 },
 ];
 
-const saveExerciseLog = async (log) => {
-  try {
-    await axios.post('/api/exercises/logs', log, {
-      headers: { 'Content-Type': 'application/json' },
-    });
-  } catch (error) {
-    console.error('운동 기록 저장에 실패했습니다:', error);
-  }
-};
+
 
 function ExerciseMain({ userId }) {
-  const [exercises, setExercises] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -81,14 +72,10 @@ function ExerciseMain({ userId }) {
     setIsSaved(savedStatus);
 
     if (userId) {
-      const controller = new AbortController();
       setLoading(true);
-      fetchExerciseLogs(userId, selectedDate.toLocaleDateString('en-CA'), setCurrentExercises, controller.signal)
+      fetchExerciseLogs(userId, selectedDate.toLocaleDateString('en-CA'), setCurrentExercises)
         .finally(() => setLoading(false));
-
-      return () => {
-        controller.abort();
-      };
+      return;
     }
   }, [userId, selectedDate]);
 
