@@ -8,14 +8,11 @@
     height: 90vh;
 }
 
-.sc1 ,
-.sc2 {
+.management-container > .sc1 ,
+.management-container > .sc2 {
     width: 25%;
 }
 
-@media (max-width: 768px) {
-    .manacategory {
-        display: none; /* 너비가 768px 이하일 때 카테고리 컨테이너 숨기기 */
-    }
+.management-container > .sc3 {
+    width: 50%;
 }
-

@@ -1,0 +1,29 @@
+.PLbox{
+    height: 5rem;
+
+    border: 1px black solid;
+    border-radius: 1rem;
+    
+    box-sizing: border-box;
+    padding: .3rem 1rem;
+    
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-content: space-between;
+
+    margin: .5rem 0rem;
+}
+
+.PLbox > p {
+    font-size: 1.2rem;
+}
+
+.grantPassForm{
+    display: grid;
+    width: auto;
+    gap: .5rem;
+}
+.grantPassForm > input {
+    margin-left: .5rem;
+}

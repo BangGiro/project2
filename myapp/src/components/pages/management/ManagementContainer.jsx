@@ -4,6 +4,7 @@ import UserDetail from './components/UserDetail';
 import { getLoggedInUser } from '../helpers/auth'; // isLoggedIn 삭제
 import './ManagementContainer.css';
 import { apiCall } from '../../../service/apiService';
+import ScheduleCalender from '../scheduleManagement/Schedules';
 import { Navigate } from 'react-router-dom';
 
 export const UserContext = createContext();
@@ -68,6 +69,7 @@ function ManagementContainer() {
 
     return (
         <UserContext.Provider value={{ setUserDetail }}>
+        
             <div className="management-container">
                 <section className='sc1'>
                     <Management
@@ -80,8 +82,13 @@ function ManagementContainer() {
                 <section className='sc2'>
                     <UserDetail selectUser={userDetail}/>
                 </section>
+                <section className='sc3'>
+                    {/* <ScheduleCalender/> */}
+                </section>
             </div>
+
         </UserContext.Provider>
+
     );
 }
 
