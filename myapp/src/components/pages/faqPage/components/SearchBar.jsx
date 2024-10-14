@@ -11,7 +11,6 @@ const SearchBar = ({detectSearch}) => {
 
     function setValue( e ) {
         if(e.key == 'Enter' ) {
-            console.log(searchText);
             sessionStorage.setItem( 'searchedValue' , JSON.stringify(searchText) );
             detectSearch();
         }

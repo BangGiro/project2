@@ -46,7 +46,6 @@ const saveExerciseLog = async (log) => {
     await axios.post('/api/exercises/logs', log, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log('운동 기록이 성공적으로 저장되었습니다');
   } catch (error) {
     console.error('운동 기록 저장에 실패했습니다:', error);
   }
@@ -99,7 +98,6 @@ function ExerciseUser() {
       }
   
       if (user) {
-        console.log(user.name); // user 객체의 데이터를 사용
       }
     }, [userId, selectedDate, user]);
 
@@ -128,7 +126,6 @@ function ExerciseUser() {
       
     } catch (error) {
       if (axios.isCancel(error)) {
-        console.log('요청이 취소되었습니다');
       } else {
         console.error('운동 기록 조회에 실패했습니다:', error);
       }
@@ -255,7 +252,6 @@ function ExerciseUser() {
           headers: { 'Content-Type': 'application/json' },
         });
         setExerciseDates(prevDates => [...new Set([...prevDates, formattedDate])]);
-        console.log('운동 기록이 성공적으로 업데이트되었습니다.'+formattedDate);
         setIsSaved(true); // 저장 후 수정 불가능하게 전환
         localStorage.setItem('isSaved', 'true'); // 저장 상태를 localStorage에 저장
 

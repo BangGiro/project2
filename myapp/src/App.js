@@ -44,14 +44,12 @@ function App() {
     const storedId = localStorage.getItem('memberLoggedInData') || '';
     setLoggedIn(storedLoggedIn);
     setLoggedId(storedId);
-    console.log("loggedId" + loggedId);
   }, []);
 
   // 로그인 처리
   const handleLogin = (response) => {
     setLoggedIn(true);
     setLoggedInfo(response);
-    console.log(response.userId);
     localStorage.setItem('loggedIn', 'true');
     localStorage.setItem('memberLoggedInData', response.userId); // userId 저장
     setLoggedId(response.userId); // loggedId 상태에 userId 저장

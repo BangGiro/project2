@@ -18,7 +18,6 @@ const[tabs , setTabs] = useState('기본 정보');
 // 탭 전환
     function ChangeMyService(e) {
         let eventTarget = e.target.closest('.tabBTN');
-        console.log(eventTarget.innerText);
         if(eventTarget.innerText) 
         setTabs(eventTarget.innerText);
     }

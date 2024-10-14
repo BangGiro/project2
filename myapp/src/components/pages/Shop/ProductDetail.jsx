@@ -59,7 +59,6 @@ const ProductDetail = ({ userId }) => {
 
     try {
       const token = localStorage.getItem('JwtToken');
-      console.log(`Adding product ID: ${productId} for user ID: ${userId}`);
 
       // 장바구니에 추가
       const cartResponse = await axios.post(
@@ -99,7 +98,6 @@ const ProductDetail = ({ userId }) => {
       );
 
       if (orderResponse.status === 200) {
-        console.log('주문이 생성되었습니다.', orderResponse.data);
       } else {
         console.error('주문 생성에 실패했습니다.', orderResponse.data);
       }

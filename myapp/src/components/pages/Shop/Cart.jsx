@@ -13,11 +13,8 @@ const Cart = ({ userId }) => {
       try {
         const response = await axios.get(`/api/cart/${userId}`); // 사용자 ID로 장바구니 불러오기
         setCartData(response.data);
-        console.log("==========cartData========", response.data);
-        console.log("UserId:", userId);
       } catch (error) {
         console.error('장바구니 데이터를 불러오는 중 오류 발생:', error);
-        console.log("UserId:", userId);
       }
     };
       
@@ -26,7 +23,6 @@ const Cart = ({ userId }) => {
       try {
         const response = await axios.get(`/api/orders/${userId}`); // 사용자 ID로 주문 데이터 불러오기
         setOrderData(response.data);
-        console.log("==========orderData========", response.data);
       } catch (error) {
         console.error('주문 데이터를 불러오는 중 오류 발생:', error);
       }
