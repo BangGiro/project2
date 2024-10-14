@@ -1,0 +1,59 @@
+.PMcontainer{
+    height: 70vh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-evenly;
+    width: 40rem;
+    margin: auto;
+}
+
+.addPassBox{
+    box-sizing: border-box;
+}
+
+.addPassForm{
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-flow: column wrap;
+    box-sizing: border-box;
+    
+    padding: 1rem;
+
+    border: 1px black solid;
+    border-radius: 1.5rem;
+    height: auto;
+}
+
+.addPassBox button {
+    height: 2rem;
+    width: 6rem;
+    margin: auto;
+}
+
+
+/* 인풋태그 */
+
+.addPassBox input {
+    height: 2rem;
+    margin: .5rem 0rem;
+}
+
+.psName_input{
+    width: 85%;
+}
+
+.psUse_input,
+.pExp_input{
+    width: 35%;
+}
+
+.addPassForm > section {
+    width: 100%;
+    display: flex;
+    flex-flow: row no-wrap;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+}
