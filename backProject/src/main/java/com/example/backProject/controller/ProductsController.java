@@ -60,19 +60,26 @@ public class ProductsController {
 	    Pageable pageable = PageRequest.of(page, size);
 	    Page<Products> productsPage;
 
-	    if (categories != null && !categories.isEmpty()) {
-	        // 카테고리가 선택된 경우 해당 카테고리로 필터링
+	    // 카테고리와 검색어가 모두 있을 때 두 조건을 동시에 적용
+	    if ((categories != null && !categories.isEmpty()) && (keyword != null && !keyword.isEmpty())) {
+	        productsPage = productsService.getProductsByKeywordAndCategories(keyword, categories, pageable);
+	    } 
+	    // 카테고리만 있을 때
+	    else if (categories != null && !categories.isEmpty()) {
 	        productsPage = productsService.getProductsByCategories(categories, pageable);
-	    } else if (keyword != null && !keyword.isEmpty()) {
-	        // 검색어가 있을 경우 검색 결과에 대한 페이징 처리
+	    } 
+	    // 검색어만 있을 때
+	    else if (keyword != null && !keyword.isEmpty()) {
 	        productsPage = productsService.searchByKeyword(keyword, pageable);
-	    } else {
-	        // 검색어와 카테고리가 없을 경우 모든 제품 페이징 처리
+	    } 
+	    // 검색어와 카테고리가 모두 없을 때
+	    else {
 	        productsPage = productsService.getProducts(pageable);
 	    }
 
 	    return ResponseEntity.ok(productsPage);
 	}
+
 
 	// ID로 제품 조회
 	@GetMapping("/{id}")

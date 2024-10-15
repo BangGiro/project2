@@ -19,6 +19,7 @@ const ProductList = () => {
   // 상품 데이터를 가져오는 함수
   const fetchProducts = async (page = 0, searchKeyword = '', categories = []) => {
     setLoading(true); // 로딩 상태 시작
+
     try {
       const response = await axios.get(`/api/products/paging`, {
         params: {
@@ -40,6 +41,9 @@ const ProductList = () => {
 
   // 검색어나 페이지가 변경될 때마다 상품 목록을 가져옴
   useEffect(() => {
+    console.log('Current Page:', currentPage);
+  console.log('Current Keyword:', keyword);
+  console.log('Selected Categories:', selectedCategories);
     fetchProducts(currentPage, keyword, selectedCategories);  // 페이지 및 검색어에 따라 상품 목록 로드
   }, [currentPage, keyword, selectedCategories]);
 
