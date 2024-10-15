@@ -5,7 +5,7 @@ import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
 import './Management.css';
 
-function Management({ loggedInEmail, onAddUser, onDeleteUser, selectUser ,users: initialUsers }) {
+function Management({ onAddUser, selectUser , users: initialUsers }) {
   const [users, setUsers] = useState(initialUsers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -13,7 +13,7 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, selectUser ,users:
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    setUsers(initialUsers);
+    setUsers(initialUsers || []);
   }, [initialUsers]);
 
   const handleAddUser = (user) => {
@@ -21,17 +21,6 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, selectUser ,users:
     const updatedUsers = [...users, { ...user }];
     setUsers(updatedUsers);
     };
-
-  const handleDeleteUser = (email) => {
-    onDeleteUser(email);
-    const updatedUsers = users.filter(user => user.email !== email);
-    setUsers(updatedUsers);
-    localStorage.setItem(`users_${loggedInEmail}`, JSON.stringify(updatedUsers));
-    const selectedUser = JSON.parse(localStorage.getItem('selectedUser'));
-    if (selectedUser && selectedUser.email === email) {
-      localStorage.removeItem('selectedUser');
-    }
-  };
 
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -51,7 +40,6 @@ function Management({ loggedInEmail, onAddUser, onDeleteUser, selectUser ,users:
         <div className="user-list">
           <UserList
             users={filteredUsers}
-            onDeleteUser={handleDeleteUser}
             onEditUser={setUserToEdit}
             onOpenEditModal={() => setIsEditModalOpen(true)}
           />

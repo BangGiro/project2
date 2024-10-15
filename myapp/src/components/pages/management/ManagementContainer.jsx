@@ -58,14 +58,6 @@ function ManagementContainer() {
         localStorage.setItem(`users_${user.email}`, JSON.stringify(updatedUsers));
     };
 
-    const handleDeleteAllUsers = () => {
-        if (window.confirm('모든 회원을 삭제하시겠습니까?')) {
-            const updatedUsers = [];
-            setUsers(updatedUsers);
-            setMemberNames(updatedUsers);
-            localStorage.removeItem(`users_${user.email}`);
-        }
-    };
 
     return (
         <UserContext.Provider value={{ setUserDetail }}>
@@ -75,12 +67,13 @@ function ManagementContainer() {
                     <Management
                         onAddUser={handleAddUser}
                         onDeleteUser={handleDeleteMember}
-                        onDeleteAllUsers={handleDeleteAllUsers}
                         users={users}
                         />
                 </section>
                 <section className='sc2'>
-                    <UserDetail selectUser={userDetail}/>
+                    <UserDetail 
+                    selectUser={userDetail}
+                    />
                 </section>
                 <section className='sc3'>
                     {/* <ScheduleCalender/> */}

@@ -10,6 +10,11 @@ export default function UserDetail({ selectUser }) {
     
     const navigate = useNavigate();
 
+    const toExercise = (e) => {
+        let user = selectUser;
+        e.preventDefault();
+        navigate('/exerciseUser' , { state: user }); // 링크 변경
+    };
 
     return (
         <div className="UD_container">
@@ -19,7 +24,9 @@ export default function UserDetail({ selectUser }) {
             </div>
 
             <div className="UD_pass_info">
-                {selectUser && <GrantedPass  selectUserId={selectUser.userId} />}
+                {selectUser ? <GrantedPass  selectUserId={selectUser.userId}/>
+                : <p>수강권이 없습니다</p>
+                }
 
                 <button onClick={()=>{navigate('/passmng' , { state: selectUser })}}>수강권 관리</button>
             </div>
@@ -28,12 +35,12 @@ export default function UserDetail({ selectUser }) {
                 <div>수업 횟수</div>
                 <div>지난 수업일</div>
                 <div>다음 수업일</div>
-                <button>일정관리</button>
+                <button onClick={()=>{navigate('/fullcalendar')}}>일정관리</button>
             </div>
 
             <div className="UD_exercises">
                 <div>일지 작성</div>
-                <div>운동 기록</div>
+                <button onClick={toExercise}>운동 기록</button>
                 <div>운동 통계</div>
             </div>
         </div>

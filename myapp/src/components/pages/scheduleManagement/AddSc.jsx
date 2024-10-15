@@ -1,36 +1,15 @@
 import { useState , useEffect } from "react";
 import UserList from "../management/components/UserList"
+import Management from "../management/components/Management";
 import { apiCall } from "../../../service/apiService";
 import './AddSc.css'
 
-export default function AddSc({ close }) {
-
-    const[members , setMembers] = useState(null);
-
-useEffect(() => {
-        const uri = "/users/finduserlist";
-        const method = "post";
-        const data = { trainerId : localStorage.getItem('memberLoggedInData') };
-        const token = localStorage.getItem("JwtToken");
-
-        apiCall(uri, method, data, token)
-        .then((Response) =>{
-            
-            if(Response != null) {
-                setMembers(Response);
-
-            } else {
-                setMembers([]);
-                alert("회원이 없습니다");
-            }
-
-        }).catch((err)=>{
-            alert("권한이 없습니다");
-        })
-}, []); // Optional chaining 사용
+export default function AddSc({ close , users }) {
 
 
-const closeModal = () =>{
+
+const closeModal = (e) =>{
+    e.preventDefault();
     close(false);
 }
 
@@ -38,8 +17,11 @@ const closeModal = () =>{
 //렌더링 파트=====================================================================
     return (
         <div className="addScModalBg">
-            <div className="addScModal" onClick={closeModal}>
-                
+            <div className="addScModal">
+                <button  onClick={closeModal}>닫기</button>
+                <form>
+                    <Management users={users}/>
+                </form>
             </div>
         </div>
     )

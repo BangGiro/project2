@@ -5,6 +5,7 @@
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
     "@fullcalendar/react": "^6.1.15",
     "@react-spring/web": "^9.7.3",
     "@testing-library/jest-dom": "^5.17.0",
