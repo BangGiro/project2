@@ -260,7 +260,7 @@ function ExerciseMain({ userId }) {
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
       const selectedDateString = date.toLocaleDateString('en-CA');
-  
+      
       // exerciseDates에 해당 날짜가 있으면 dot을 표시
       if (exerciseDates.includes(selectedDateString)) {
         return <div className="dot"></div>;

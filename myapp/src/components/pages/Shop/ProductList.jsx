@@ -99,6 +99,22 @@ const ProductList = () => {
             )
           )}
         </div>
+        {/* 좌우 화살표 버튼 */}
+      <button
+        className="pagination-button left"
+        onClick={() => handlePageChange(currentPage - 1)}
+        disabled={currentPage === 0}
+      >
+        &#8249;
+      </button>
+
+      <button
+        className="pagination-button right"
+        onClick={() => handlePageChange(currentPage + 1)}
+        disabled={currentPage === totalPages - 1}
+      >
+        &#8250;
+      </button>
         
         {/* 페이지네이션 컴포넌트 */}
         <PagiNation

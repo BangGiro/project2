@@ -1,61 +1,95 @@
-/* ProductList.css */
+/* 기본 스타일 */
 .product-list {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .products {
-    margin-top: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  .product-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    text-align: center;
-    height: 300px;
-    width: 300px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-  }
-  
-  .product-item:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-item img {
-    width: 70%;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .product-item h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .product-item p {
-    font-size: 16px;
-    margin-bottom: 10px;
-  }
-  
-  .product-item button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .product-item button:hover {
-    background-color: #0056b3;
-  }
-  
- 
+  padding: 20px;
+  text-align: center;
+  position: relative; /* 부모 요소에 상대적인 위치 지정 */
+}
+
+.products {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  position: relative; /* 좌우 화살표를 배치하기 위한 부모의 position 설정 */
+  max-width: 100%; /* 부모 요소 크기 설정 */
+  overflow: hidden; /* 부모 요소 영역을 넘는 부분은 숨김 */
+}
+
+/* 상품 항목 스타일 */
+.product-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  height: 300px;
+  width: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+}
+
+.product-item img {
+  width: 70%;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.product-item h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.product-item p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.product-item button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.product-item button:hover {
+  background-color: #0056b3;
+}
+
+/* 좌우 화살표 버튼 */
+.pagination-button {
+  position: absolute;
+  top: 57%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: #333;
+  z-index: 10; /* 버튼을 최상위에 표시 */
+}
+
+.pagination-button.left {
+  left: 40px; /* 화면 왼쪽으로부터 10px 떨어진 위치 */
+}
+
+.pagination-button.right {
+  right: 40px; /* 화면 오른쪽으로부터 10px 떨어진 위치 */
+}
+
+.pagination-button:hover {
+  color: #007bff; /* 마우스 오버 시 색상 변경 */
+}
+
+/* 페이지네이션 버튼 비활성화 시 */
+.pagination-button:disabled {
+  color: #ddd; /* 비활성화된 버튼 색상 */
+  cursor: not-allowed; /* 비활성화 상태일 때 커서 모양 변경 */
+}
