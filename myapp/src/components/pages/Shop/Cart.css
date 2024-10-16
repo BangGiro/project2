@@ -3,7 +3,7 @@
 /* 전체 장바구니 컨테이너 */
 .cartCss{
 .cart {
-  width: 50%;
+  width: 60%;
   max-width: 1200px;
   margin: 50px auto;
   padding: 30px;
@@ -64,13 +64,13 @@ li div {
 
 li h2 {
   margin: 0;
+  margin-right: 20px;
   font-size: 20px;
   color: #333;
   font-weight: 500;
 }
 
 li p {
-  margin: 10px 0 0;
   font-size: 18px;
   font-weight: 400;
   color: #555;

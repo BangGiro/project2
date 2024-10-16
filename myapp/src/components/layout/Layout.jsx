@@ -5,16 +5,16 @@ import { Outlet } from 'react-router-dom';
 import FloatingButton from './FloatingButton';
 
 const Layout = ({ loggedIn, onLogout }) => {
-return (
-    <div>
-        <FloatingButton/>
-    <Header loggedIn={loggedIn} onLogout={onLogout} />
-    <main>
-        <Outlet />
-    </main>
-    <Footer />
-    </div>
-);
+    return (
+        <div>
+            <Header loggedIn={loggedIn} onLogout={onLogout} />
+            <FloatingButton />
+            <main>
+                <Outlet />
+            </main>
+            <Footer />
+        </div>
+    );
 };
 
 export default Layout;

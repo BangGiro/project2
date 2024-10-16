@@ -10,7 +10,7 @@ const CheckoutPage = ({ userId }) => {
         name: '',
         address: '',
         postalCode: '',
-        city: ''
+        detailAddress: ''
     });
     const [paymentInfo, setPaymentInfo] = useState({
         cardNumber: '',
@@ -31,8 +31,8 @@ const CheckoutPage = ({ userId }) => {
                     ...shippingInfo,
                     name: response.data.name,
                     address: response.data.address,
-                    zip_code: response.data.zipCode,
-                    detail_address: response.data.detailAddress
+                    postalCode: response.data.zipCode,
+                    detailAddress: response.data.detailAddress
                 });
             } catch (error) {
                 console.error("사용자 정보를 가져오는 중 오류 발생:", error);
@@ -133,7 +133,7 @@ const CheckoutPage = ({ userId }) => {
             <div className="cart-info">
                 <hr/>
                 <br/>
-                <h2 style={{textAlign:'center', fontWeight:'bold'}}>장바구니</h2>
+                <h2 style={{textAlign:'center', fontWeight:'bold'}}>상품 목록</h2>
                 <ul>
                     {cartData.map((item, index) => (
                         <li key={item.cartId}>
@@ -183,7 +183,7 @@ const CheckoutPage = ({ userId }) => {
                     <input
                         type="text"
                         name="postalCode"
-                        value={shippingInfo.zip_code}
+                        value={shippingInfo.postalCode}
                         onChange={handleShippingChange}
                         required
                     />
@@ -192,8 +192,8 @@ const CheckoutPage = ({ userId }) => {
                     <label>상세주소</label>
                     <input
                         type="text"
-                        name="city"
-                        value={shippingInfo.detail_address}
+                        name="detailAddress"
+                        value={shippingInfo.detailAddress}
                         onChange={handleShippingChange}
                         required
                     />

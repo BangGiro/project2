@@ -72,9 +72,9 @@ const ProductDetail = ({ userId }) => {
       );
 
       if (cartResponse.status === 200) {
-        alert('장바구니에 추가되었습니다!');
+        alert('상품이 추가되었습니다!');
       } else {
-        console.error('장바구니 추가에 실패했습니다.', cartResponse.data);
+        console.error('상품 추가에 실패했습니다.', cartResponse.data);
       }
 
       // 주문 생성 요청
@@ -116,8 +116,9 @@ const ProductDetail = ({ userId }) => {
   };
 
   // 결제 페이지로 이동 버튼
-  const handleGoToCheckout = () => {
+  const handleGoToCheckout = async () => {
     if (!checkLoginStatus()) return;
+    await handleAddToCartAndOrder(product.productId);
     navigate('/checkout');
   };
 
