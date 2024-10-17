@@ -3,7 +3,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 }
 
 .user-list-table {
@@ -18,7 +17,7 @@
     text-align: center;
 }
 
-.user-list-table th {
+.user-list-table > thead th {
     background-color: #f2f2f2;
     color: black;
 }

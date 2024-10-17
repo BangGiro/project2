@@ -15,3 +15,55 @@
     box-sizing: border-box;
 }
 
+/* 테이블 기본 설정 */
+.detailSc_container > table {
+    width: 100%;
+    border-collapse: collapse; /* 테두리 겹침 방지 */
+    margin: 1rem 0;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+}
+
+/* 테이블 헤더 스타일 */
+.detailSc_container > table thead tr {
+    background-color: #f2f2f2;
+}
+
+.detailSc_container > table thead th {
+    padding: 12px;
+    border-bottom: 2px solid #ddd;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* 테이블 본문 스타일 */
+.detailSc_container > table tbody tr {
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.2s;
+}
+
+.detailSc_container > table tbody tr:hover {
+    background-color: #f9f9f9; /* 마우스 호버 시 */
+}
+
+.detailSc_container > table tbody td {
+    padding: 10px;
+    text-align: left;
+}
+
+/* 공백 데이터에 대한 메시지 스타일 */
+.detailSc_container .no-data {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #999;
+}
+
+/* 일정추가버튼 */
+
+.ScEdits > button {
+
+    height: 2rem;
+    width: 4rem;
+    
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import UserItem from './UserItem';
 import './UserList.css';
 
-function UserList({ users, onEditUser, onOpenEditModal }) {
+function UserList({ users, onEditUser, onOpenEditModal, isSc }) {
 
     
     if (!Array.isArray(users)) {
@@ -14,7 +14,6 @@ function UserList({ users, onEditUser, onOpenEditModal }) {
             <table className="user-list-table">
                 <thead>
                     <tr>
-                        <th>프로필</th>
                         <th>이름</th>
                         <th>전화번호</th>
                         <th>성별</th>
@@ -28,6 +27,7 @@ function UserList({ users, onEditUser, onOpenEditModal }) {
                             user={user}
                             onEditUser={onEditUser}
                             onOpenEditModal={onOpenEditModal}
+                            isSc={isSc}
                         />
                     ))}
                 </tbody>

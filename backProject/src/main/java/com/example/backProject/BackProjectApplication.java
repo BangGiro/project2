@@ -1,11 +1,13 @@
 package com.example.backProject;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication(exclude={SecurityAutoConfiguration.class})
+@MapperScan("com.example.backProject.mapper")
 @EnableJpaAuditing//BaseEntity 참고 : 자동감지 리스너를 작동시켜줌
 public class BackProjectApplication {
 
