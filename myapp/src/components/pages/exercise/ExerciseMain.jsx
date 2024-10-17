@@ -62,8 +62,9 @@ function ExerciseMain({ userId }) {
           headers: { Authorization: `Bearer ${token}` }
         });
         setExerciseDates(response.data);  // 운동 기록이 있는 모든 날짜를 저장
+        console.log(response.data,'11111');
       } catch (error) {
-        console.error('운동 날짜 조회에 실패했습니다:', error);
+        alert('운동 날짜 조회에 실패했습니다:');
       }
     };
     fetchExerciseDates();
@@ -98,11 +99,11 @@ function ExerciseMain({ userId }) {
     }
 
     setCurrentExercises(exercises);  // 불러온 운동 기록 설정
-      
+    console.log(response.data);
     } catch (error) {
       if (axios.isCancel(error)) {
       } else {
-        console.error('운동 기록 조회에 실패했습니다:', error);
+        alert('운동 기록 조회에 실패했습니다:');
       }
     } finally {
       setLoading(false);
@@ -131,7 +132,7 @@ function ExerciseMain({ userId }) {
 
   const handleAddExercise = (exerciseName, exerciseImagePath, exerciseId, exerciseCategory) => {
     setPendingExercises([...pendingExercises, {
-      name: exerciseName,
+      exerciseName: exerciseName,
       imagePath: exerciseImagePath,
       imageId: exerciseId,
       weightUsed: '',
@@ -142,7 +143,7 @@ function ExerciseMain({ userId }) {
   };
 
   const handleRemoveExercise = (exerciseName) => {
-    setPendingExercises(pendingExercises.filter(exercise => exercise.name !== exerciseName));
+    setPendingExercises(pendingExercises.filter(exercise => exercise.exerciseName !== exerciseName));
   };
 
   const handleConfirmExercises = () => {
@@ -173,7 +174,7 @@ function ExerciseMain({ userId }) {
   };
 
   const handleExerciseSelect = (exerciseName, exerciseImage, exerciseId, exerciseCategory) => {
-    if (pendingExercises.find(exercise => exercise.name === exerciseName)) {
+    if (pendingExercises.find(exercise => exercise.exerciseName === exerciseName)) {
       handleRemoveExercise(exerciseName);
     } else {
       handleAddExercise(exerciseName, exerciseImage, exerciseId, exerciseCategory);
@@ -212,7 +213,7 @@ function ExerciseMain({ userId }) {
       const logsToSave = currentExercises.map(exercise => ({
         exerciseId: exercise.exerciseId, // 기존 기록의 ID
         userId: userId,
-        exerciseName: exercise.name,
+        exerciseName: exercise.exerciseName,
         exerciseType: exercise.category,
         weightUsed: exercise.weightUsed,
         reps: exercise.reps,
@@ -232,7 +233,7 @@ function ExerciseMain({ userId }) {
 
         fetchExerciseLogs(userId, formattedDate, setCurrentExercises);
       } catch (error) {
-        console.error('운동 기록 업데이트에 실패했습니다:', error);
+        alert('운동 기록 업데이트에 실패했습니다:');
       }
     }
   };
@@ -295,8 +296,8 @@ function ExerciseMain({ userId }) {
                   ) : (
                     currentExercises.map((exercise, exerciseIndex) => (
                       <div key={exerciseIndex} className="exerciseEntry">
-                        <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
-                        <p>{exercise.name}</p>
+                        <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.exerciseName} className="exerciseImage" />
+                        <p>{exercise.exerciseName}</p>
                         {!isSaved ? (
                           <div>
                             <li>
@@ -335,6 +336,7 @@ function ExerciseMain({ userId }) {
                           </div>
                         ) : (
                           <ul>
+
                             <li>무게: {exercise.weightUsed}kg</li>
                             <li>횟수: {exercise.reps}회</li>
                             <li>세트: {exercise.sets}세트</li>
@@ -395,11 +397,11 @@ function ExerciseMain({ userId }) {
                     <div
                       key={index}
                       className="exerciseItem"
-                      onClick={() => handleAddExercise(exercise.name, exercise.imagePath, exercise.imageId, exercise.category)}
+                      onClick={() => handleAddExercise(exercise.exerciseName, exercise.imagePath, exercise.imageId, exercise.category)}
                     >
-                      <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
-                      <p>{exercise.name}</p>
-                      {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
+                      <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.exerciseName} className="exerciseImage" />
+                      <p>{exercise.exerciseName}</p>
+                      {pendingExercises.find(pendingExercise => pendingExercise.exerciseName === exercise.exerciseName) && (
                         <div className="checkMark">&#10003;</div>
                       )}
                     </div>

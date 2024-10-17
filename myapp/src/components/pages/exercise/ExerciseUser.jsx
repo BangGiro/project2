@@ -141,7 +141,7 @@ function ExerciseUser() {
 
     const handleAddExercise = (exerciseName, exerciseImagePath, exerciseId, exerciseCategory) => {
         setPendingExercises([...pendingExercises, {
-            name: exerciseName,
+            exerciseName: exerciseName,
             imagePath: exerciseImagePath,
             imageId: exerciseId,
             weightUsed: '',
@@ -152,7 +152,7 @@ function ExerciseUser() {
     };
 
     const handleRemoveExercise = (exerciseName) => {
-        setPendingExercises(pendingExercises.filter(exercise => exercise.name !== exerciseName));
+        setPendingExercises(pendingExercises.filter(exercise => exercise.exerciseName !== exerciseName));
     };
 
     const handleConfirmExercises = () => {
@@ -183,7 +183,7 @@ function ExerciseUser() {
     };
 
     const handleExerciseSelect = (exerciseName, exerciseImage, exerciseId, exerciseCategory) => {
-        if (pendingExercises.find(exercise => exercise.name === exerciseName)) {
+        if (pendingExercises.find(exercise => exercise.exerciseName === exerciseName)) {
             handleRemoveExercise(exerciseName);
         } else {
             handleAddExercise(exerciseName, exerciseImage, exerciseId, exerciseCategory);
@@ -222,7 +222,7 @@ function ExerciseUser() {
             const logsToSave = currentExercises.map(exercise => ({
                 exerciseId: exercise.exerciseId, // 기존 기록의 ID
                 userId: userId,
-                exerciseName: exercise.name,
+                exerciseName: exercise.exerciseName,
                 exerciseType: exercise.category,
                 weightUsed: exercise.weightUsed,
                 reps: exercise.reps,
@@ -305,8 +305,8 @@ function ExerciseUser() {
                                     ) : (
                                         currentExercises.map((exercise, exerciseIndex) => (
                                             <div key={exerciseIndex} className="exerciseEntry">
-                                                <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
-                                                <p>{exercise.name}</p>
+                                                <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.exerciseName} className="exerciseImage" />
+                                                <p>{exercise.exerciseName}</p>
                                                 {!isSaved ? (
                                                     <div>
                                                         <li>
@@ -405,11 +405,11 @@ function ExerciseUser() {
                                         <div
                                             key={index}
                                             className="exerciseItem"
-                                            onClick={() => handleAddExercise(exercise.name, exercise.imagePath, exercise.imageId, exercise.category)}
+                                            onClick={() => handleAddExercise(exercise.exerciseName, exercise.imagePath, exercise.imageId, exercise.category)}
                                         >
-                                            <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
-                                            <p>{exercise.name}</p>
-                                            {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
+                                            <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.exerciseName} className="exerciseImage" />
+                                            <p>{exercise.exerciseName}</p>
+                                            {pendingExercises.find(pendingExercise => pendingExercise.exerciseName === exercise.exerciseName) && (
                                                 <div className="checkMark">&#10003;</div>
                                             )}
                                         </div>
