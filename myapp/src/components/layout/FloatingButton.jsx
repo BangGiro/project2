@@ -41,7 +41,7 @@ const FloatingButton = () => {
         <button onClick={scrollToTop}><i className="fa-regular fa-circle-up"></i></button>
         <button onClick={scrollToBottom}><i className="fa-regular fa-circle-down"></i></button>
         <button onClick={goToManagement}><i className="fa-solid fa-user-group"></i></button>
-        <button onClick={goToExercise}><i class="fa-solid fa-dumbbell"></i></button>
+        <button onClick={goToExercise}><i className="fa-solid fa-dumbbell"></i></button>
         <button onClick={goToCart}><i className="fa-solid fa-cart-shopping"></i></button>
         <button onClick={goToHome}><i className="fa-solid fa-headset"></i></button>
       </div>

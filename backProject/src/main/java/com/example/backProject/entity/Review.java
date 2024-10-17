@@ -46,7 +46,10 @@ public class Review {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-
+    
+    @Column(name = "image_url")
+    private String imageUrl;
+    
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

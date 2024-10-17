@@ -136,3 +136,9 @@
     color: #888;
     margin-top: 5px;
 }
+.review-image {
+    max-width: 50%; /* 이미지가 부모 요소를 넘지 않도록 설정 */
+    max-height: 80px; /* 이미지의 최대 높이를 200px로 설정 */
+    margin-top: 10px; /* 이미지와 다른 요소 간의 간격을 위한 여백 */
+    border-radius: 4px; /* 이미지를 둥글게 만들기 위한 설정 */
+}

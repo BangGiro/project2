@@ -42,7 +42,7 @@ export const availableExercises = [
 
 
 
-function ExerciseMain({ userId }) {
+function ExerciseMain({ userId, userName }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -62,9 +62,8 @@ function ExerciseMain({ userId }) {
           headers: { Authorization: `Bearer ${token}` }
         });
         setExerciseDates(response.data);  // 운동 기록이 있는 모든 날짜를 저장
-        console.log(response.data,'11111');
       } catch (error) {
-        alert('운동 날짜 조회에 실패했습니다:');
+        console.error('운동 날짜 조회에 실패했습니다:', error);
       }
     };
     fetchExerciseDates();
@@ -91,23 +90,23 @@ function ExerciseMain({ userId }) {
       });
       const exercises = response.data;
 
-    // 운동 기록이 없으면 isSaved를 false로, 있으면 true로 설정
-    if (exercises.length === 0) {
-      setIsSaved(false);  // 기록이 없으므로 수정 가능
-    } else {
-      setIsSaved(true);   // 기록이 있으므로 수정 불가능
-    }
+      // 운동 기록이 없으면 isSaved를 false로, 있으면 true로 설정
+      if (exercises.length === 0) {
+        setIsSaved(false);  // 기록이 없으므로 수정 가능
+      } else {
+        setIsSaved(true);   // 기록이 있으므로 수정 불가능
+      }
 
-    setCurrentExercises(exercises);  // 불러온 운동 기록 설정
-    console.log(response.data);
+      setCurrentExercises(exercises);  // 불러온 운동 기록 설정
+
     } catch (error) {
       if (axios.isCancel(error)) {
       } else {
-        alert('운동 기록 조회에 실패했습니다:');
+        console.error('운동 기록 조회에 실패했습니다:', error);
       }
     } finally {
       setLoading(false);
-      
+
     }
   };
 
@@ -132,7 +131,7 @@ function ExerciseMain({ userId }) {
 
   const handleAddExercise = (exerciseName, exerciseImagePath, exerciseId, exerciseCategory) => {
     setPendingExercises([...pendingExercises, {
-      exerciseName: exerciseName,
+      name: exerciseName,
       imagePath: exerciseImagePath,
       imageId: exerciseId,
       weightUsed: '',
@@ -143,7 +142,7 @@ function ExerciseMain({ userId }) {
   };
 
   const handleRemoveExercise = (exerciseName) => {
-    setPendingExercises(pendingExercises.filter(exercise => exercise.exerciseName !== exerciseName));
+    setPendingExercises(pendingExercises.filter(exercise => exercise.name !== exerciseName));
   };
 
   const handleConfirmExercises = () => {
@@ -161,10 +160,10 @@ function ExerciseMain({ userId }) {
       const updatedExercises = currentExercises.filter((_, index) => index !== exerciseIndex);
       setCurrentExercises(updatedExercises);
       // 삭제 후 해당 날짜에 남은 운동 기록이 없는지 확인
-    if (updatedExercises.length === 0 || !updatedExercises.some(ex => ex.exerciseDate === exerciseDate)) {
-      const formattedDate = new Date(exerciseDate).toLocaleDateString('en-CA');
-      setExerciseDates(prevDates => prevDates.filter(date => date !== formattedDate)); // 해당 날짜 제거
-    }
+      if (updatedExercises.length === 0 || !updatedExercises.some(ex => ex.exerciseDate === exerciseDate)) {
+        const formattedDate = new Date(exerciseDate).toLocaleDateString('en-CA');
+        setExerciseDates(prevDates => prevDates.filter(date => date !== formattedDate)); // 해당 날짜 제거
+      }
     } catch (error) {
     }
   };
@@ -174,7 +173,7 @@ function ExerciseMain({ userId }) {
   };
 
   const handleExerciseSelect = (exerciseName, exerciseImage, exerciseId, exerciseCategory) => {
-    if (pendingExercises.find(exercise => exercise.exerciseName === exerciseName)) {
+    if (pendingExercises.find(exercise => exercise.name === exerciseName)) {
       handleRemoveExercise(exerciseName);
     } else {
       handleAddExercise(exerciseName, exerciseImage, exerciseId, exerciseCategory);
@@ -208,12 +207,27 @@ function ExerciseMain({ userId }) {
 
   const handleSave = async () => {
     if (userId) {
+
+      //0또는 데이터가 없을 때 물어보기
+      const hasZeroOrEmptyValue = currentExercises.some(exercise =>
+        exercise.weightUsed === '' || exercise.weightUsed === '0' ||
+        exercise.reps === '' || exercise.reps === '0' ||
+        exercise.sets === '' || exercise.sets === '0'
+      );
+
+      if (hasZeroOrEmptyValue) {
+        const confirmSave = window.confirm("무게, 횟수 또는 세트 중 빈 항목이나 0인 항목이 있습니다. 정말 저장하시겠습니까?");
+        if (!confirmSave) {
+          return;
+        }
+      }
+
       const formattedDate = selectedDate.toLocaleDateString('en-CA');
 
       const logsToSave = currentExercises.map(exercise => ({
         exerciseId: exercise.exerciseId, // 기존 기록의 ID
         userId: userId,
-        exerciseName: exercise.exerciseName,
+        exerciseName: exercise.name,
         exerciseType: exercise.category,
         weightUsed: exercise.weightUsed,
         reps: exercise.reps,
@@ -233,10 +247,12 @@ function ExerciseMain({ userId }) {
 
         fetchExerciseLogs(userId, formattedDate, setCurrentExercises);
       } catch (error) {
-        alert('운동 기록 업데이트에 실패했습니다:');
+        console.error('운동 기록 업데이트에 실패했습니다:', error);
       }
     }
   };
+
+
 
   const handleClear = async () => {
     const token = localStorage.getItem('JwtToken');
@@ -247,11 +263,15 @@ function ExerciseMain({ userId }) {
           params: { userId, date: formattedDate },
           headers: { 'Authorization': `Bearer ${token}` }
         });
-        alert('운동 기록이 성공적으로 삭제되었습니다');
-        setCurrentExercises([]);
-        setExerciseDates(prevDates => prevDates.filter(date => date !== formattedDate));
-        localStorage.removeItem('isSaved'); // 기록 삭제 시 저장 상태 초기화
-        setIsSaved(false);
+        if (currentExercises.length === 0) {
+          alert('삭제할 운동기록이 없습니다')
+        } else {
+          alert('운동 기록이 성공적으로 삭제되었습니다');
+          setCurrentExercises([]);
+          setExerciseDates(prevDates => prevDates.filter(date => date !== formattedDate));
+          localStorage.removeItem('isSaved'); // 기록 삭제 시 저장 상태 초기화
+          setIsSaved(false);
+        }
       } catch (error) {
         alert('운동 기록 삭제에 실패했습니다: ' + error.response?.data || error.message);
       }
@@ -261,7 +281,7 @@ function ExerciseMain({ userId }) {
   const tileContent = ({ date, view }) => {
     if (view === 'month') {
       const selectedDateString = date.toLocaleDateString('en-CA');
-      
+
       // exerciseDates에 해당 날짜가 있으면 dot을 표시
       if (exerciseDates.includes(selectedDateString)) {
         return <div className="dot"></div>;
@@ -269,13 +289,17 @@ function ExerciseMain({ userId }) {
     }
     return null;
   };
-  
+
   return (
     <div className='ExerciseMainTrue'>
       <div className='every'>
         <div className='exerciseMainBody'>
           <div className="header">
-            <h1>내 운동</h1>
+            {!userName ? (
+              <h1>내 운동</h1>
+            ) : (
+              <h1>{userName}의 운동</h1>
+            )}
             <hr />
           </div>
           <div className='exerciseMain'>
@@ -296,7 +320,7 @@ function ExerciseMain({ userId }) {
                   ) : (
                     currentExercises.map((exercise, exerciseIndex) => (
                       <div key={exerciseIndex} className="exerciseEntry">
-                        <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.exerciseName} className="exerciseImage" />
+                        <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
                         <p>{exercise.exerciseName}</p>
                         {!isSaved ? (
                           <div>
@@ -336,7 +360,6 @@ function ExerciseMain({ userId }) {
                           </div>
                         ) : (
                           <ul>
-
                             <li>무게: {exercise.weightUsed}kg</li>
                             <li>횟수: {exercise.reps}회</li>
                             <li>세트: {exercise.sets}세트</li>
@@ -353,12 +376,12 @@ function ExerciseMain({ userId }) {
                     {!isSaved ? (
                       <>
                         <button className="add" onClick={openModal} disabled={isSaved}>운동 추가하기</button>
-                        <button className="clear" onClick={handleClear}>초기화</button>
+                        <button className="clear" onClick={handleClear}>기록 전체 삭제</button>
                         <button className="save" onClick={handleSave} disabled={isSaved}>저장하기</button>
                       </>
                     ) : (
                       <>
-                        <button className="clear" onClick={handleClear}>초기화</button>
+                        <button className="clear" onClick={handleClear}>기록 전체 삭제</button>
                         <button className="save" onClick={handleEdit}>수정하기</button>
                       </>
                     )}
@@ -397,11 +420,11 @@ function ExerciseMain({ userId }) {
                     <div
                       key={index}
                       className="exerciseItem"
-                      onClick={() => handleAddExercise(exercise.exerciseName, exercise.imagePath, exercise.imageId, exercise.category)}
+                      onClick={() => handleExerciseSelect(exercise.name, exercise.imagePath, exercise.imageId, exercise.category)}
                     >
-                      <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.exerciseName} className="exerciseImage" />
-                      <p>{exercise.exerciseName}</p>
-                      {pendingExercises.find(pendingExercise => pendingExercise.exerciseName === exercise.exerciseName) && (
+                      <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
+                      <p>{exercise.name}</p>
+                      {pendingExercises.find(pendingExercise => pendingExercise.name === exercise.name) && (
                         <div className="checkMark">&#10003;</div>
                       )}
                     </div>

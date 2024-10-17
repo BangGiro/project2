@@ -6,9 +6,11 @@ const ReviewList = ({ productId, userId }) => {
   const [reviews, setReviews] = useState([]);
   const [newComment, setNewComment] = useState('');
   const [newRating, setNewRating] = useState(5);
+  const [newImage, setNewImage] = useState(null); // 이미지 상태 추가
   const [editingReview, setEditingReview] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [editingComment, setEditingComment] = useState(''); // 리뷰 수정 시 사용하는 별도의 상태
+  const [editingComment, setEditingComment] = useState('');
+  const [editingImage, setEditingImage] = useState(null); // 수정 시 이미지 상태 추가
 
   // 날짜 형식을 사람이 읽기 쉽게 변환하는 함수
   const formatDate = (dateString) => {
@@ -35,7 +37,7 @@ const ReviewList = ({ productId, userId }) => {
 
   // 새로운 리뷰 추가
   const handleAddReview = async () => {
-    if(newComment.length < 5){
+    if (newComment.length < 5) {
       alert('리뷰는 최소 5글자 이상이어야 합니다.');
       return;
     }
@@ -45,26 +47,29 @@ const ReviewList = ({ productId, userId }) => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append('review', new Blob([JSON.stringify({
+      productId: productId,
+      userId: userId,
+      comment: newComment,
+      rating: newRating
+    })], { type: 'application/json' }));
+    if (newImage) {
+      formData.append('image', newImage);
+    }
+
     try {
-      const response = await axios.post(
-        '/api/reviews/add',
-        {
-          productId: productId,
-          userId: userId,
-          comment: newComment,
-          rating: newRating,
+      const response = await axios.post('/api/reviews/add', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      });
 
       setReviews([...reviews, response.data]);
       setNewComment('');
       setNewRating(5);
+      setNewImage(null);
     } catch (error) {
       console.error('리뷰 추가 중 오류 발생:', error);
       alert('리뷰 추가 중 문제가 발생했습니다.');
@@ -76,11 +81,12 @@ const ReviewList = ({ productId, userId }) => {
     setEditingReview(review.reviewId);
     setEditingComment(review.comment);
     setNewRating(review.rating);
+    setEditingImage(null); // 수정 시 이미지 초기화
   };
 
   // 리뷰 수정
   const handleEditReview = async () => {
-    if(editingComment.length < 5){
+    if (editingComment.length < 5) {
       alert('리뷰는 최소 5글자 이상이어야 합니다.');
       return;
     }
@@ -90,19 +96,22 @@ const ReviewList = ({ productId, userId }) => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append('review', new Blob([JSON.stringify({
+      comment: editingComment,
+      rating: newRating
+    })], { type: 'application/json' }));
+    if (editingImage) {
+      formData.append('image', editingImage);
+    }
+
     try {
-      const response = await axios.put(
-        `/api/reviews/${editingReview}`,
-        {
-          comment: editingComment,
-          rating: newRating,
+      const response = await axios.put(`/api/reviews/${editingReview}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
         },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      });
 
       setReviews(
         reviews.map((review) =>
@@ -112,6 +121,7 @@ const ReviewList = ({ productId, userId }) => {
       setEditingReview(null);
       setEditingComment('');
       setNewRating(5);
+      setEditingImage(null);
     } catch (error) {
       console.error('리뷰 수정 중 오류 발생:', error);
     }
@@ -159,6 +169,14 @@ const ReviewList = ({ productId, userId }) => {
                 <>
                   <p className="review-comment">댓글: {review.comment}</p>
                   <p className="review-rating">평점: {review.rating} / 5</p>
+                  {review.imageUrl && (
+                    <img
+                      src={`/image/review/${review.imageUrl}`} // 이미지 URL을 경로와 파일명으로 구성
+                      alt="리뷰 이미지"
+                      className="review-image"
+                    />
+                  )}
+
                   <p className="review-updated">업데이트: {formatDate(review.updatedAt)}</p>
                 </>
               )}
@@ -166,9 +184,16 @@ const ReviewList = ({ productId, userId }) => {
               {review.userId === userId && (
                 <div className="review-actions">
                   {editingReview === review.reviewId ? (
-                    <button className="review-submit-button" onClick={handleEditReview}>
-                      수정 완료
-                    </button>
+                    <>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setEditingImage(e.target.files[0])}
+                      />
+                      <button className="review-submit-button" onClick={handleEditReview}>
+                        수정 완료
+                      </button>
+                    </>
                   ) : (
                     <button className="review-edit-button" onClick={() => startEditing(review)}>
                       수정
@@ -202,7 +227,12 @@ const ReviewList = ({ productId, userId }) => {
           </option>
         ))}
       </select>
-
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setNewImage(e.target.files[0])}
+        className="review-image-input"
+      />
       <button className="review-submit-button" onClick={handleAddReview}>리뷰 추가</button>
     </div>
   );
