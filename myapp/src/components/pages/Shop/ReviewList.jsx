@@ -10,11 +10,11 @@ const ReviewList = ({ productId, userId }) => {
   const [loading, setLoading] = useState(true);
   const [editingComment, setEditingComment] = useState(''); // 리뷰 수정 시 사용하는 별도의 상태
 
-  // productId와 userId가 제대로 전달되는지 확인하기 위해 콘솔 로그 출력
-  useEffect(() => {
-    console.log("Received productId:", productId);
-    console.log("Received userId:", userId);
-  }, [productId, userId]);
+  // 날짜 형식을 사람이 읽기 쉽게 변환하는 함수
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
 
   // 리뷰 목록 가져오기
   useEffect(() => {
@@ -35,7 +35,7 @@ const ReviewList = ({ productId, userId }) => {
 
   // 새로운 리뷰 추가
   const handleAddReview = async () => {
-    if(newComment.length<5){
+    if(newComment.length < 5){
       alert('리뷰는 최소 5글자 이상이어야 합니다.');
       return;
     }
@@ -44,9 +44,6 @@ const ReviewList = ({ productId, userId }) => {
       alert('로그인이 필요합니다.');
       return;
     }
-
-    console.log('productId:', productId);
-    console.log('userId:', userId);
 
     try {
       const response = await axios.post(
@@ -83,7 +80,7 @@ const ReviewList = ({ productId, userId }) => {
 
   // 리뷰 수정
   const handleEditReview = async () => {
-    if(editingComment.length<5){
+    if(editingComment.length < 5){
       alert('리뷰는 최소 5글자 이상이어야 합니다.');
       return;
     }
@@ -152,7 +149,6 @@ const ReviewList = ({ productId, userId }) => {
         <ul className="review-list-items">
           {reviews.map((review) => (
             <li key={review.reviewId} className="review-list-item">
-              {/* 수정 중인 리뷰일 경우, 텍스트 영역을 보여줌 */}
               {editingReview === review.reviewId ? (
                 <textarea
                   className="review-textarea"
@@ -160,9 +156,12 @@ const ReviewList = ({ productId, userId }) => {
                   onChange={(e) => setEditingComment(e.target.value)}
                 />
               ) : (
-                <p className="review-comment">댓글: {review.comment}</p>
+                <>
+                  <p className="review-comment">댓글: {review.comment}</p>
+                  <p className="review-rating">평점: {review.rating} / 5</p>
+                  <p className="review-updated">업데이트: {formatDate(review.updatedAt)}</p>
+                </>
               )}
-              <p className="review-rating">평점: {review.rating} / 5</p>
 
               {review.userId === userId && (
                 <div className="review-actions">
