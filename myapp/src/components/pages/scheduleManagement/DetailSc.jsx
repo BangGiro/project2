@@ -16,6 +16,7 @@ function DetailSc({date , users, monthData }) {
             <table className='detailSc_table'>
                 <thead>
                     <tr>
+                        <th>출결</th>
                         <th>시간</th>
                         <th>이름</th>
                         <th>담당</th>

@@ -1,9 +1,19 @@
 .UD_container{
-    background-color: rgb(185, 185, 185);
     width: 100%;
     height: 100%;
     padding: 1rem 1rem;
+    background-color: ghostwhite;
 }
+
+/* 버튼일괄 */
+.UD_container button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 1.5rem;
+    padding: .3rem;
+}
+
 
 .UD_basic_info,
 .UD_pass_info,
@@ -11,7 +21,8 @@
 .UD_exercises {
     margin-top: 1rem;
     padding: 1rem;
-    border-radius: 1.5rem;
+    border: 1.5px rgb(94, 185, 255) solid;
+    border-radius: .5rem;
 }
 
 

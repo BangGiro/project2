@@ -1,16 +1,24 @@
 .PMcontainer{
-    height: 70vh;
+    height: 80vh;
+    min-height: 600px;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-evenly;
+    padding: 3rem 0rem;
     width: 40rem;
     margin: auto;
+}
+
+.passListBox{
+    height: 400px;
+    box-sizing: border-box;
+    overflow-y: scroll;
 }
 
 .addPassBox{
     box-sizing: border-box;
 }
 
+/* 수강권 추가 박스 */
 .addPassForm{
     height: 100%;
     width: 100%;
@@ -21,8 +29,8 @@
     
     padding: 1rem;
 
-    border: 1px black solid;
-    border-radius: 1.5rem;
+    border: 2px rgb(94, 185, 255) solid;
+    border-radius: 1rem;
     height: auto;
 }
 
@@ -30,6 +38,12 @@
     height: 2rem;
     width: 6rem;
     margin: auto;
+}
+
+/* label */
+.addPassForm label {
+    width: 6rem;
+    padding: 0rem 0rem 0rem .5rem;
 }
 
 

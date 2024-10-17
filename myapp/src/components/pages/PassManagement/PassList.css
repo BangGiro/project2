@@ -1,7 +1,7 @@
 .PLbox{
     height: 5rem;
 
-    border: 1px black solid;
+    border: 1px rgb(94, 185, 255) solid;
     border-radius: 1rem;
     
     box-sizing: border-box;

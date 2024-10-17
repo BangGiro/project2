@@ -114,6 +114,7 @@ const handleDatesSet = (dateInfo) => {
                     // locales={[koLocale]} 
                     dateClick={handleDateClick}
                     events={events}
+                    showNonCurrentDates={false}
                     timeZone='local'
                     datesSet={handleDatesSet} //월 변경시 작동
                 />

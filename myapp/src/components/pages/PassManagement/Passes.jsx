@@ -35,6 +35,8 @@ export default function Passes({data , selectUser}) {
         }))
     }
 
+    const navigate = useNavigate();
+
     const grantPass = (e) => {
 
         e.preventDefault();//작성 안할 시 강제 새로고침되면서 데이터 초기화됨
@@ -45,7 +47,7 @@ export default function Passes({data , selectUser}) {
         .then((response)=>{
 
             alert('부여성공');
-
+            navigate('/Management');
 
         }).catch((err)=>{
 
@@ -59,9 +61,9 @@ export default function Passes({data , selectUser}) {
 
         <div className="PLbox">
             <section className="PLinfo">
-                <p>수강권: {data.passName}</p>
-                <p>부여 회차: {data.defaultUses}</p>
-                <p>기한: {data.expiry}</p>
+                <p><i className="fa-solid fa-ticket"></i> {data.passName}</p>
+                <p>부여 회차: {data.defaultUses}회</p>
+                <p>사용 기한: 부여일로부터 {data.expiry}일</p>
             </section>
             <section className="PLbuttons">
                 {selectUser &&
