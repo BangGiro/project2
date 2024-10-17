@@ -149,6 +149,13 @@
 	        <artifactId>jackson-datatype-hibernate5</artifactId>
 	        <version>2.14.1</version> <!-- Hibernate 버전에 맞게 설정 -->
 	    </dependency>
+	    
+	    <!--매퍼 사용-->
+	    <dependency>
+    		<groupId>org.mybatis.spring.boot</groupId>
+    		<artifactId>mybatis-spring-boot-starter</artifactId>
+    		<version>3.0.3</version> <!-- 사용 중인 Spring Boot 버전과 호환되는 최신 버전으로 변경 -->
+		</dependency>
 		
 	</dependencies>
 

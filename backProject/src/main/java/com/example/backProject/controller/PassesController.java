@@ -69,10 +69,5 @@ public class PassesController {
 		return ResponseEntity.ok(true);
 	}
 	
-	//부여된 수강권 불러오기 =============================================================
-
-	
-	
-	
 	
 }

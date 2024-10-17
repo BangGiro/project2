@@ -1,36 +1,41 @@
 import './DetailSc.css'
 import AddSc from './AddSc';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { apiCall } from '../../../service/apiService';
+import DetailScList from './DetailScList';
 
-function DetailSc({today , users }) {
+function DetailSc({date , users, monthData }) {
+    
     const [openSwitch , setOpenSwitch] = useState(false);
-
 
     return (
 
         <div className="detailSc_container">
 
-            <div className="dailySc">
-                <h2>{today}</h2>
-                <h3>오늘의 일정</h3>
-                <div className='dailySc_details'>
-                    <p>시간</p>
-                    <p>수업유형</p>
-                    <p>회원이름</p>
-                    <p>회원 전화번호</p>
-                </div>
-            </div>
-            
+            <h2>{date}</h2>
+            <table className='detailSc_table'>
+                <thead>
+                    <tr>
+                        <th>시간</th>
+                        <th>이름</th>
+                        <th>담당</th>
+                        <th>출결처리</th>
+                        <th>작업</th>
+                    </tr>
+                </thead>
+                <DetailScList date={date} monthData={monthData}/>
+            </table>
             {openSwitch && 
             <AddSc 
             close={setOpenSwitch}
             users={users}
+            scDate={date}
             />}
 
             <div className="ScEdits">
                 <button onClick={()=>{setOpenSwitch(true)}}>일정 추가</button>
             </div>
-            
+
         </div>
 
     )

@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import './UserItem.css';
 import { apiCall } from '../../../../service/apiService';
 import { UserContext } from '../ManagementContainer';
+import { ScContext } from '../../scheduleManagement/AddSc';
 
-function UserItem({ user, onEditUser, onOpenEditModal }) {
-    const context = useContext(UserContext);
-    const setUserDetail = context?.setUserDetail || (()=>{});//방어코드
-
+function UserItem({ user, isSc , ScMember }) {
+    const userContext = useContext(UserContext);
+    const scContext = useContext(ScContext);
+    const setUserDetail = userContext?.setUserDetail || (()=>{});//방어코드
+    const getMemberData = scContext?.getMemberData || (()=>{});
 
     const navigate = useNavigate();
 
@@ -23,41 +25,39 @@ function UserItem({ user, onEditUser, onOpenEditModal }) {
 
     const handleDeleteClick = (e) => {
         e.stopPropagation();
-        // onDeleteUser(user.email);
-        const userId = user.userId;
-        const url = `/users/removemember/${userId}`;
-        const token = localStorage.getItem('JwtToken');
 
-        console.log("삭제기능 체크"+userId);
-        apiCall(url, "patch" , null , token)
-        .then((response)=>{
-
-            alert("내 회원에서 제외했습니다");
-
-        }).catch((err)=>{
-
-            alert(err);
-
-        })
-        
-    };
+        if(window.confirm("정말 삭제하시겠습니까?")) { //그냥 confirm은 안됨 eslint오류
+            const userId = user.userId;
+            const url = `/users/removemember/${userId}`;
+            const token = localStorage.getItem('JwtToken');
     
-
-    const getProfileImage = (gender) => {
-        if (gender === '여성') {
-            return '/image/femaleprofile.PNG'; // 여자 프로필 이미지 경로 설정
+            apiCall(url, "patch" , null , token)
+            .then((response)=>{
+                alert("내 회원에서 제외했습니다");
+            }).catch((err)=>{
+                alert(err);
+            })
+        } else {
+            return;
         }
-        return '/image/profile.webp'; // 남자 프로필 이미지 경로 설정
+
     };
+
+    //full캘린더로 전달
+    const handleSelect = (e) => {
+        e.preventDefault();
+        getMemberData(user);
+    }
+    
 
     return (
         <tr className="user-item-row" onClick={handleDetailClick}>
-            <td><img src={getProfileImage(user.gender)} alt="프로필사진" className="user-image" /></td>
             <td>{user.name}</td>
             <td>{user.phoneNumber}</td>
             <td>{user.gender}</td>
             <td>
-                <button onClick={handleDeleteClick} >삭제</button>
+                {!isSc && <button onClick={handleDeleteClick} >삭제</button>}
+                {isSc && <button onClick={handleSelect}>선택</button>}
             </td>
         </tr>
     );

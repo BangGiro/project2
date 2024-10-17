@@ -5,7 +5,7 @@ import AddUserModal from './AddUserModal';
 import EditUserModal from './EditUserModal';
 import './Management.css';
 
-function Management({ onAddUser, selectUser , users: initialUsers }) {
+function Management({ onAddUser, selectUser , users: initialUsers, isSc }) {
   const [users, setUsers] = useState(initialUsers);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -42,6 +42,7 @@ function Management({ onAddUser, selectUser , users: initialUsers }) {
             users={filteredUsers}
             onEditUser={setUserToEdit}
             onOpenEditModal={() => setIsEditModalOpen(true)}
+            isSc={isSc}
           />
         </div>
         <button onClick={() => setIsAddModalOpen(true)}>회원 추가</button>

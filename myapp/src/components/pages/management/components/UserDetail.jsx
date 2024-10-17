@@ -18,6 +18,7 @@ export default function UserDetail({ selectUser }) {
 
     return (
         <div className="UD_container">
+            <h2>회원 정보</h2>
             <div className="UD_basic_info">
                 {selectUser ? <p>{selectUser.name}</p> : <p>이름</p> }
                 {selectUser ? <p>{selectUser.phoneNumber}</p> : <p>전화번호</p> }
@@ -30,18 +31,18 @@ export default function UserDetail({ selectUser }) {
 
                 <button onClick={()=>{navigate('/passmng' , { state: selectUser })}}>수강권 관리</button>
             </div>
-
+            
             <div className="UD_logs">
                 <div>수업 횟수</div>
                 <div>지난 수업일</div>
                 <div>다음 수업일</div>
                 <button onClick={()=>{navigate('/fullcalendar')}}>일정관리</button>
             </div>
-
+            
             <div className="UD_exercises">
                 <div>일지 작성</div>
-                <button onClick={toExercise}>운동 기록</button>
                 <div>운동 통계</div>
+                <button onClick={toExercise}>운동 기록</button>
             </div>
         </div>
     )

@@ -15,9 +15,103 @@
 .addScModal{
 
     position: absolute;
+
+    display: flex;
+
     background-color: white;
+
     width: 50em;
     height: 45em;
+
     border: 1px black solid;
+}
+
+.addScModal > .closeBtn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.addScModal > .ScSc1 {
+    width: 50%;
+} 
+
+.addScForm {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.addScForm > input {
+    display: block;
+}
+
+.addScModal > .ScSc2 {
+    width: 50%;
+}
+
+/* addScForm */
+
+.addScForm{
+
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    padding: 1rem;
+
+}
+
+.addScForm > label {
+
+    font-weight: bold;
+    margin-bottom: 1rem;
+
+}
+
+.addScForm > .ScMemberInfo {
+
+    height: 4rem;
+    border: 1px black solid;
+    margin-bottom: 1rem;
+
+}
+
+.addScForm > .ScMemberInfo > div {
+
+    height: 100%;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+}
+
+.addScForm > .ScMemberInfo  span {
+
+    margin-right: 1rem;
+
+}
+
+.addScForm > .ScPassInfo {
+
+    height: 6rem;
+    border: 1px black solid;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+
+}
+
+.addScForm input {
+
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+
+}
+
+.addScForm #scheduleMemo {
+
+    width: 100%;
+    height: 10rem;
+    resize: none;
+    margin-bottom: 1rem;
 
 }
