@@ -20,16 +20,18 @@ export default function UserDetail({ selectUser }) {
         <div className="UD_container">
             <h2>회원 정보</h2>
             <div className="UD_basic_info">
-                {selectUser ? <p>{selectUser.name}</p> : <p>이름</p> }
-                {selectUser ? <p>{selectUser.phoneNumber}</p> : <p>전화번호</p> }
+                {selectUser ? <p><i className="fa-regular fa-user"></i> {selectUser.name}</p> : <p>이름</p> }
+                {selectUser ? <p><i className="fa-solid fa-phone"></i> {selectUser.phoneNumber}</p> : <p>전화번호</p> }
             </div>
 
             <div className="UD_pass_info">
                 {selectUser ? <GrantedPass  selectUserId={selectUser.userId}/>
                 : <p>수강권이 없습니다</p>
                 }
-
-                <button onClick={()=>{navigate('/passmng' , { state: selectUser })}}>수강권 관리</button>
+                
+                {selectUser &&
+                    <button onClick={()=>{navigate('/passmng' , { state: selectUser })}}>수강권 관리</button>
+                }
             </div>
             
             <div className="UD_logs">
@@ -42,7 +44,9 @@ export default function UserDetail({ selectUser }) {
             <div className="UD_exercises">
                 <div>일지 작성</div>
                 <div>운동 통계</div>
+                {selectUser &&
                 <button onClick={toExercise}>운동 기록</button>
+                }
             </div>
         </div>
     )

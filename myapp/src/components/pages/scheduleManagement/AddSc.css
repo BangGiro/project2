@@ -20,17 +20,34 @@
 
     background-color: white;
 
-    width: 50em;
-    height: 45em;
+    width: 90%;
+    height: 70%;
+    min-height: 600px;
 
+    box-sizing: border-box;
     border: 1px black solid;
 }
 
+/* 닫기버튼 */
 .addScModal > .closeBtn {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    
+    top: .5rem;
+    right: .5rem;
+
+    padding: .2rem;
+
+    font-weight: bold;
+    font-size: 1.5rem;
+
+    color: rgb(0, 0, 0);
+
+    border: 0px black solid;
+    border-radius: .3rem;
+    
+    cursor: pointer;
 }
+
 
 .addScModal > .ScSc1 {
     width: 50%;

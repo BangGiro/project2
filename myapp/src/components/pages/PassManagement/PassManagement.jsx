@@ -8,6 +8,7 @@ import {  useLocation } from 'react-router-dom';
 export default function PassManage() {
 
     const [newPass,setNewPass] = useState({userId : localStorage.getItem('memberLoggedInData')}); 
+    const [update,setUpdate] = useState(1);
 
     //navlink state객체 받기
     const location = useLocation();
@@ -32,6 +33,7 @@ export default function PassManage() {
         .then((Response)=>{
             
             alert("추가성공");
+            setUpdate(update + 1);
 
         }).catch((err)=>{
 
@@ -43,15 +45,18 @@ export default function PassManage() {
     return(
         <div>
             <div className="PMcontainer">
-                <div> 수강권 리스트 
+                <h3>수강권 리스트</h3>
+                <div className='passListBox'>  
                     <PassList
                         selectUser={selectUser}
+                        update={update}
                     />
                 </div>
-                <div className="addPassBox"> 수강권 추가
+                <div className="addPassBox"> 
+                    <h4>수강권 추가하기</h4>
                     <form className="addPassForm">
                         <section>
-                        <label for="passName" >수강권 이름 </label>
+                            <label for="passName">수강권 이름 </label>
                             <input 
                             type="text"
                             id="passName"
@@ -60,9 +65,7 @@ export default function PassManage() {
                             className='psName_input'
                             required
                             />
-
                         </section>
-                        
                         <section>
                             <label for="defaultUses"> 수강 횟수 </label>
                                 <input 
@@ -87,12 +90,10 @@ export default function PassManage() {
                                 onChange={handleChange}
                                 required
                                 />
-                            
                         </section>
-                        <button onClick={submit}>저장하기</button>
+                        <button onClick={submit}>추가하기</button>
                     </form>
                 </div>
-                <div> 수강권 수정 </div>
             </div>
         </div>
     )

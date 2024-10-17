@@ -67,3 +67,14 @@
     width: 4rem;
     
 }
+
+/* 디테일SC리스트 버튼 */
+.dsclBtn{
+    padding: .3rem;
+}
+
+.attds{
+    color: white;
+    background-color: rgb(2, 166, 2);
+}
+

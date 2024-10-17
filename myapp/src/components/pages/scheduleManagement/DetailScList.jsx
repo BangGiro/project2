@@ -57,16 +57,21 @@ export default function DetailScList({date, monthData}) {
             {filteredSchedules.length > 0 ? (
                 filteredSchedules.map(schedule => (
                     <tr key={schedule.scId}>
+                        <td><i className="fa-regular fa-square"></i></td>
                         <td>{schedule.startTime} ~ {schedule.endTime || "없음"}</td>
                         <td>{schedule.userName}</td>
                         {/* <td>Memo: {schedule.scheduleMemo}</td> */}
                         <td>{schedule.trainerName}</td>
                         <td> 
-                            <button id={schedule.scId} value={true} onClick={updateAttd}>출석</button> 
-                            <button id={schedule.scId} value={false} onClick={updateAttd}>결석</button>
+                            <button id={schedule.scId} value={true} 
+                            onClick={updateAttd} className="dsclBtn attds">출석</button> 
+
+                            <button id={schedule.scId} value={false} 
+                            onClick={updateAttd} className="dsclBtn">결석</button>
                         </td>
                         <td>
-                            <button onClick={deleteSc} id={schedule.scId}>삭제</button>
+                            <button onClick={deleteSc} 
+                            id={schedule.scId} className="dsclBtn">삭제</button>
                         </td>
                     </tr>
                 ))
