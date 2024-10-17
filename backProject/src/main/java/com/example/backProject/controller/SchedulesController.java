@@ -66,18 +66,23 @@ public class SchedulesController {
 	}
 	
 	//출결처리 ==================================================================
-	@PostMapping(value = "/attd")
-	public ResponseEntity<?> updateAttendance(@RequestBody int scId, @RequestBody boolean attendance,
-			@RequestBody String userId) {
-		
-		Schedules sc = scService.findByScId(scId);
-		sc.setAttendance(attendance);
-		scRepository.save(sc);
-		
-		gpService.decrementUse(userId);
-		
-		return ResponseEntity.ok(null);
-	}
+    @PostMapping(value = "/attd")
+    public ResponseEntity<?> updateAttendance(@RequestBody Schedules scheduleRequest) {
+        
+        // scId로 스케줄을 조회합니다.
+        Schedules sc = scService.findByScId(scheduleRequest.getScId());
+        
+        if (sc == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("스케줄을 찾을 수 없습니다.");
+        }
+
+        sc.setAttendance(scheduleRequest.isAttendance());
+        scRepository.save(sc);
+        
+        gpService.decrementUse(scheduleRequest.getUserId());
+        
+        return ResponseEntity.ok(null);
+    }
 	
 	
 }

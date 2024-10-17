@@ -70,4 +70,17 @@
     button:hover {
         background-color: #0056b3;
     }
+
+    .AufindResultBox{
+        width: 100%;
+
+        display: flex;
+        flex-flow: column wrap;
+    }
+
+}
+
+/* 동적 스타일 */
+.auDisplayNone{
+    display: none;
 }

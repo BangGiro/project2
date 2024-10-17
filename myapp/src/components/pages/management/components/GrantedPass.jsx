@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { apiCall } from "../../../../service/apiService"
+import "./GrantedPass.css"
 
 export default function GrantedPass({ selectUserId }) {
     const [gPass , setGpass] =  useState({});
@@ -37,11 +38,14 @@ export default function GrantedPass({ selectUserId }) {
     },[gPass])
 
     return (
-        <div>
-            <p>{gPass.passName ? gPass.passName : '수강권이름'}</p>
-            <p>{gPass.startDate ? `시작일: ${gPass.startDate}` : '시작일'}</p>
-            <p>{day ? `D-${day}`:'D-day'}  </p>
-            <p>{gPass.remainingUse ? `남은 수강 횟수: ${gPass.remainingUse}` : '남은 횟수'}</p>
+        <div className="gPassDetailBox">
+            <p className="gpTitle"><i className="fa-solid fa-ticket"></i>{gPass.passName ? gPass.passName : '수강권이 없습니다'}</p>
+            <span>수강 시작</span>
+            <p>{gPass.startDate ? `${gPass.startDate}` : ''}
+                <span className="D_day_span">{day ? ` (D-${day})`:''}</span>
+            </p>
+            <span>남은 수업</span>
+            <span>{gPass.remainingUse ? `${gPass.remainingUse} 회` : ''}</span>
         </div>
 
     )

@@ -34,6 +34,7 @@ function UserItem({ user, isSc , ScMember }) {
             apiCall(url, "patch" , null , token)
             .then((response)=>{
                 alert("내 회원에서 제외했습니다");
+                window.location.reload();
             }).catch((err)=>{
                 alert(err);
             })

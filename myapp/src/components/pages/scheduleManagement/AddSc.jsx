@@ -95,6 +95,7 @@ const submit = (e) => {
     .then((response)=>{
         alert('저장되었습니다');
         close(false);
+        window.location.reload();
     }).catch((err)=>{
         alert('실패'+err);
     })
@@ -106,7 +107,9 @@ const submit = (e) => {
     return (
         <div className="addScModalBg">
             <div className="addScModal">
-                <button onClick={closeModal} className="closeBtn">닫기</button>
+                <button onClick={closeModal} className="closeBtn">
+                <i className="fa-solid fa-xmark"></i>
+                </button>
                 
                 <section className="ScSc1">
                     <form className="addScForm">
@@ -122,9 +125,9 @@ const submit = (e) => {
                         
                         <h4>수강권 정보</h4>
                         <div className="ScPassInfo">
-                            <p>수강권 이름 : {gPass.passName}</p>
-                            <p>유효 기한 : {gPass.startDate} ~ {gPass.endDate}</p>
-                            <p>잔여횟수 : {gPass.remainingUse}</p>
+                            <p><i class="fa-solid fa-ticket"></i> {gPass.passName}</p>
+                            <p>기한 : {gPass.startDate} ~ {gPass.endDate}</p>
+                            <p>잔여 : {gPass.remainingUse}회</p>
                         </div>
 
                         <label for='startTime'> 시작시간 
@@ -150,7 +153,6 @@ const submit = (e) => {
                             id='scheduleMemo'
                             onChange={handleChange}
                             />
-                        
                         <button onClick={submit}> 저장하기 </button>
                     </form>
                 </section>
