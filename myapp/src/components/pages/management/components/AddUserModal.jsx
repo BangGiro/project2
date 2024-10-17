@@ -8,29 +8,34 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
     const [memo, setMemo] = useState('');
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') {
-                handleClose();
-            } else if (e.key === 'Enter') {
-                handleFindUser();
-            }
-        };
-
-        document.addEventListener('keydown', handleKeyDown);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const handleKeyDown = (e) => {
+    //         if (e.key === 'Escape') {
+    //             handleClose();
+    //         } else if (e.key === 'Enter') {
+    //             if (searchUserId.trim() !== '') {
+    //                 handleFindUser(e);  // 검색어가 있을 때만 실행
+    //             } else {
+    //                 setMessage("검색어를 입력해주세요");
+    //             }
+    //         }
+    //     };
+    //     document.addEventListener('keydown', handleKeyDown);
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeyDown);
+    //     };
+    // }, []);
 
     const handleUserIdChange = (e) => {
         setUserId(e.target.value);
     };
 
+    const auFindBtn = document.querySelector('.auFindBtn');
+    const auAddBtn = document.querySelector('.auAddBtn');
 
     //사용자 찾기
     const handleFindUser = (e) => {
+        e.preventDefault();
 
         const uri = "/users/finduser";
         const method = "post";
@@ -46,9 +51,14 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
             .then((Response) =>{
                 
                 setUser(Response);
-                Response.userId != null ?
-                setMessage("회원찾기 성공"):
-                setMessage("해당하는 회원이 없습니다")
+                if(Response.userId != null) {
+
+                    setMessage("회원찾기 성공");
+                    auFindBtn.classList.add('auDisplayNone');
+                    auAddBtn.classList.add('auDisplayNone');
+                } else {
+                    setMessage("해당하는 회원이 없습니다")
+                }
             }).catch((err)=>{
                 alert("회원찾기 실패"+err);
             })
@@ -77,8 +87,9 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
                 alert("회원추가 실패");
             })
 
-            onAddUser(user, memo);
+            onAddUser(user);
             handleClose();
+            window.location.reload();
         } else {
             alert('먼저 사용자를 찾으세요.');
         }
@@ -97,6 +108,7 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
                 <div className="modal-content">
                     <span className="close" onClick={handleClose}>&times;</span>
                     <h2>회원 추가</h2>
+                    {message && <p>{message}</p>}
                     <input
                         type="text"
                         className='addUserInput'
@@ -104,21 +116,15 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
                         onChange={handleUserIdChange}
                         placeholder="아이디 입력"
                     />
-                    {message && <p>{message}</p>}
-                    <button onClick={handleFindUser}>찾기</button>
-                    <button onClick={handleAdduser}>추가</button>
+                    <button onClick={handleFindUser} className='auFindBtn'>찾기</button>
+                    <button onClick={handleAdduser} className='auAddBtn'>추가</button>
                     {user && (
-                        <div>
+                        <div className='AufindResultBox'>
                             <p>이름: {user.name}</p>
-                            <p>성별: {user.phoneNumber}</p>
-                            <textarea
-                                value={memo}
-                                onChange={(e) => setMemo(e.target.value)}
-                                placeholder="메모 추가"
-                            />
+                            <p>번호: {user.phoneNumber}</p>
+                            <button onClick={handleSubmit}>완료</button>
                         </div>
                     )}
-                    <button onClick={handleSubmit}>완료</button>
                 </div>
             </div>
         </div>
