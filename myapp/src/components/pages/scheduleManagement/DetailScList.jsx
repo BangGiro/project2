@@ -38,10 +38,12 @@ export default function DetailScList({date, monthData}) {
                     userId : userId
                     }
         const token = localStorage.getItem('JwtToken');
+        
+        console.log(scId + e.target.value + userId);
 
         apiCall(url,'post',data,token)
         .then((Response)=>{
-            window.location.reload();
+            alert('출결처리완료')
         }).catch((err)=>{
             alert(err)
         })

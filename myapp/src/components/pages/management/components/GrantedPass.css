@@ -11,7 +11,7 @@
 .gPassDetailBox{
     display: grid;
     grid-template-rows: 1.1fr 1fr 1fr;
-    grid-template-columns: 3fr 7fr;
+    grid-template-columns: 2fr 8fr;
 }
 
 .gPassDetailBox > p:nth-child(1) {

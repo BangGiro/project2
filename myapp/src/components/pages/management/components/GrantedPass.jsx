@@ -8,10 +8,12 @@ export default function GrantedPass({ selectUserId }) {
     const roadGpassData = (selectUserId) =>{
         const uri=`/pass/find/${selectUserId}/gpass`;
         const token = localStorage.getItem('JwtToken');
+        console.log('gpassPage'+selectUserId);
 
         apiCall(uri,'get',null,token)
         .then((response)=>{
             setGpass(response);
+            console.log(gPass.passName);
         }).catch((err)=>{
             console.log('gpassRoadError'+err)
         })

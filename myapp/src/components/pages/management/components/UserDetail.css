@@ -35,30 +35,10 @@
 }
 
 .UD_logs{
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-between;
-    height: 20%;
     background-color: white;
-}
-
-.UD_logs > p > span:nth-child(1) {
-    color: rgb(39, 74, 248);
-}
-
-.UD_logs > button {
-    width: 5rem;
 }
 
 .UD_exercises{
     height: 20%;
     background-color: white;
-
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: space-between;
-}
-
-.UD_exercises > button {
-    width: 5rem;
 }

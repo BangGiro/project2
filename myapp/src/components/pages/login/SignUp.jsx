@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { apiCall } from "../../../service/apiService";
-import { useLocation } from 'react-router-dom';
 
 export default function SignUp() {
     const [userData, setUserData] = useState({
@@ -13,8 +12,7 @@ export default function SignUp() {
         loginType: "",
         joinDate: ""
     });
-    const location = useLocation();
-    const isAdd = location.state;
+
     const [errorMessage, setErrorMessage] = useState("");
     const [duplicateMessage, setDuplicateMessage] = useState("");
     const [signZipCode, setZipCode] = useState("");
@@ -115,25 +113,22 @@ export default function SignUp() {
         let phoneNum = userData.phoneNumber;
         let result = false;
 
-        if(phoneNum) {
-            if(!phoneNum.includes('-')){
-                phoneNum = phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
-            } else {
-                phoneNum = phoneNum.replace(/-+/g,'-');
-            }
-    
-            if(phoneNum?.length != 13) {
-                handleErrorMessage(`phoneNumber`,"전화번호를 확인해주세요")
-            } else {
-                setErrorMessage(`phoneNumber`,"")
-                setUserData(prevState => ({
-                    ...prevState,
-                    phoneNumber : phoneNum
-                }));
-                result = true;
-            }
+        if(!phoneNum.includes('-')){
+            phoneNum = phoneNum.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+        } else {
+            phoneNum = phoneNum.replace(/-+/g,'-');
         }
 
+        if(phoneNum.length != 13) {
+            handleErrorMessage(`phoneNumber`,"전화번호를 확인해주세요")
+        } else {
+            setErrorMessage(`phoneNumber`,"")
+            setUserData(prevState => ({
+                ...prevState,
+                phoneNumber : phoneNum
+            }));
+            result = true;
+        }
         return result;
     }
 
@@ -152,6 +147,7 @@ export default function SignUp() {
             setErrorMessage("");
         } else {
             alert("항목을 다시 확인하세요");
+            console.log(validateUserId());
             return;
         }
 
@@ -162,6 +158,9 @@ export default function SignUp() {
         apiCall(uri, method, data, null)
         .then((response) => {
             if(response !=  null) {
+                console.log("login axios response 확인 ➡️ "+response.name); //오류테스트 용으로 남겨줄 것
+                
+                console.log(response);
                 alert('회원가입 성공');
             } else {
                 alert('회원가입 실패');
@@ -170,8 +169,7 @@ export default function SignUp() {
             alert('회원가입 실패'+err.message);
             console.log(userData);
         })
-        if(isAdd) navigate("/management")
-        else navigate("/login");
+        navigate("/login");
     };
 
     return (
