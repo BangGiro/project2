@@ -9,13 +9,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class BackProjectApplicationTests {
 	
-	@Autowired
-	
-	@Test
-	void ReplyTest() {
-		
-				
-	}
+//	@Autowired
+//	
+//	@Test
+//	void ReplyTest() {
+//		
+//				
+//	}
 
 }
 

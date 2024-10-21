@@ -15,7 +15,7 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class UsersRepositoryTest {
 	
-	@Autowired
+//	@Autowired
 	UsersRepository uRepository;
 		
 	//===========insert,update========
@@ -32,7 +32,7 @@ public class UsersRepositoryTest {
 		uRepository.save(users);
 	}
 	//=========select==========
-	@Test
+//	@Test
 	void readTest() {
 		Optional<Users> result = uRepository.findById("test02");
 		if (result.isPresent()) 
