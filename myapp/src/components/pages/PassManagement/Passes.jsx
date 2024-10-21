@@ -22,10 +22,6 @@ export default function Passes({data , selectUser}) {
         const endDate = new Date(startDate);
         endDate.setDate(endDate.getDate() + data.expiry);
 
-        console.log(grantData.userId);
-        console.log(startDate);
-        console.log(endDate);
-
         setGrantData(prevState => ({
             ...prevState,
             passName : data.passName,

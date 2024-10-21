@@ -78,6 +78,7 @@ export default function UserDetail({ selectUser }) {
             </div>
             
             <div className="UD_exercises">
+                <p>운동 관리</p>
                 {selectUser &&
                 <button onClick={toExercise}>운동 기록</button>
                 }
