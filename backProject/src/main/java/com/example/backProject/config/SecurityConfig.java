@@ -64,6 +64,8 @@ public class SecurityConfig {
 		        		.requestMatchers("/Management").hasRole("TRAINER")
 		        		.requestMatchers("/users/finduser").hasRole("TRAINER")
 		        		.requestMatchers("/users/removemember").hasRole("TRAINER")
+		        		.requestMatchers("/users/addmember").hasRole("TRAINER")
+		        		.requestMatchers("/pass/grant").hasRole("TRAINER")
 		        		.requestMatchers(HttpMethod.OPTIONS ,"/**").permitAll()
 		        		.anyRequest().permitAll()) //추후 권한추가예정
 		        .build();
