@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './CheckoutPage.css'; // 스타일링을 위해 별도의 CSS 파일 사용
+import { API_BASE_URL } from '../../../service/app-config';
 const CheckoutPage = ({ userId }) => {
     const [userInfo, setUserInfo] = useState({});
     const [cartData, setCartData] = useState([]); // cartItems -> cartData로 변경
@@ -24,7 +25,7 @@ const CheckoutPage = ({ userId }) => {
     useEffect(() => {
         const fetchUserInfo = async () => {
             try {
-                const response = await axios.get(`/users/${userId}`);
+                const response = await axios.get(`${API_BASE_URL}/users/${userId}`);
                 setUserInfo(response.data);
                 // 기본값으로 사용자 이름과 주소를 배송 정보에 입력
                 setShippingInfo({
@@ -41,7 +42,7 @@ const CheckoutPage = ({ userId }) => {
 
         const fetchCartItems = async () => {
             try {
-                const response = await axios.get(`/api/cart/${userId}`); // 사용자 ID로 장바구니 불러오기
+                const response = await axios.get(`${API_BASE_URL}/api/cart/${userId}`); // 사용자 ID로 장바구니 불러오기
                 setCartData(response.data); // cartItems -> cartData로 변경
             } catch (error) {
                 console.error('장바구니 데이터를 불러오는 중 오류 발생:', error);
@@ -50,7 +51,7 @@ const CheckoutPage = ({ userId }) => {
 
         const fetchOrderData = async () => {
             try {
-                const response = await axios.get(`/api/orders/${userId}`); // 사용자 ID로 주문 데이터 불러오기
+                const response = await axios.get(`${API_BASE_URL}/api/orders/${userId}`); // 사용자 ID로 주문 데이터 불러오기
                 setOrderData(response.data);
             } catch (error) {
                 console.error('주문 데이터를 불러오는 중 오류 발생:', error);
@@ -79,12 +80,12 @@ const CheckoutPage = ({ userId }) => {
     const handleRemoveFromCart = async (cartId, orderId) => {
         try {
             // Cart에서 항목 삭제
-            await axios.delete(`/api/cart/${cartId}`);
+            await axios.delete(`${API_BASE_URL}/api/cart/${cartId}`);
             setCartData(cartData.filter(item => item.cartId !== cartId));
 
             // Order에서 항목 삭제
             if (orderId) {
-                await axios.delete(`/api/orders/${orderId}`);
+                await axios.delete(`${API_BASE_URL}/api/orders/${orderId}`);
                 setOrderData(orderData.filter(order => order.orderId !== orderId));
             }
         } catch (error) {

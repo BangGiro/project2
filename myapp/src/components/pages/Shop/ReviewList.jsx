@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './ReviewList.css';
+import { API_BASE_URL } from '../../../service/app-config';
 
 const ReviewList = ({ productId, userId }) => {
   const [reviews, setReviews] = useState([]);
@@ -24,7 +25,7 @@ const ReviewList = ({ productId, userId }) => {
       if (!productId) return; // productId가 없으면 API 호출하지 않음
       setLoading(true);
       try {
-        const response = await axios.get(`/api/reviews/product/${productId}`);
+        const response = await axios.get(`${API_BASE_URL}/api/reviews/product/${productId}`);
         setReviews(response.data);
       } catch (error) {
         console.error('리뷰를 불러오는 중 오류 발생:', error);
@@ -59,7 +60,7 @@ const ReviewList = ({ productId, userId }) => {
     }
 
     try {
-      const response = await axios.post('/api/reviews/add', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/reviews/add`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -106,7 +107,7 @@ const ReviewList = ({ productId, userId }) => {
     }
 
     try {
-      const response = await axios.put(`/api/reviews/${editingReview}`, formData, {
+      const response = await axios.put(`${API_BASE_URL}/api/reviews/${editingReview}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -139,7 +140,7 @@ const ReviewList = ({ productId, userId }) => {
     if (!confirmDelete) return;
 
     try {
-      await axios.delete(`/api/reviews/${reviewId}`, {
+      await axios.delete(`${API_BASE_URL}/api/reviews/${reviewId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

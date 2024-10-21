@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './ExerciseMain.css';
 import axios from 'axios';
+import { API_BASE_URL } from '../../../service/app-config';
 
 export const availableExercises = [
   { name: "스쿼트", category: "하체", imagePath: "squat.png", imageId: 1 },
@@ -57,7 +58,7 @@ function ExerciseMain({ userId, userName }) {
     const fetchExerciseDates = async () => {
       const token = localStorage.getItem('JwtToken');
       try {
-        const response = await axios.get(`/api/exercises/logs/dates`, {
+        const response = await axios.get(`${API_BASE_URL}/api/exercises/logs/dates`, {
           params: { userId },
           headers: { Authorization: `Bearer ${token}` }
         });
@@ -83,7 +84,7 @@ function ExerciseMain({ userId, userName }) {
     const token = localStorage.getItem('JwtToken');
     setCurrentExercises([]);// 현재 운동 기록 초기화
     try {
-      const response = await axios.get(`/api/exercises/logs`, {
+      const response = await axios.get(`${API_BASE_URL}/api/exercises/logs`, {
         params: { userId, date },
         headers: { Authorization: `Bearer ${token}` },
         signal: signal
@@ -154,7 +155,7 @@ function ExerciseMain({ userId, userName }) {
     const exerciseId = currentExercises[exerciseIndex].exerciseId; // 삭제할 운동 기록의 ID
     const exerciseDate = currentExercises[exerciseIndex].exerciseDate;// 삭제할 운동 기록의 date
     try {
-      await axios.delete(`/api/exercises/logs/${exerciseId}`, {
+      await axios.delete(`${API_BASE_URL}/api/exercises/logs/${exerciseId}`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('JwtToken')}` }
       });
       const updatedExercises = currentExercises.filter((_, index) => index !== exerciseIndex);
@@ -238,7 +239,7 @@ function ExerciseMain({ userId, userName }) {
       }));
 
       try {
-        await axios.put('/api/exercises/logs', logsToSave, {
+        await axios.put(`${API_BASE_URL}/api/exercises/logs`, logsToSave, {
           headers: { 'Content-Type': 'application/json' },
         });
         setExerciseDates(prevDates => [...new Set([...prevDates, formattedDate])]);
@@ -259,7 +260,7 @@ function ExerciseMain({ userId, userName }) {
     if (userId) {
       try {
         const formattedDate = selectedDate.toLocaleDateString('en-CA');
-        await axios.delete('/api/exercises/delete', {
+        await axios.delete(`${API_BASE_URL}/api/exercises/delete`, {
           params: { userId, date: formattedDate },
           headers: { 'Authorization': `Bearer ${token}` }
         });
@@ -318,58 +319,62 @@ function ExerciseMain({ userId, userName }) {
                   {loading ? (
                     <div className="loading">로딩 중...</div>
                   ) : (
-                    currentExercises.map((exercise, exerciseIndex) => (
-                      <div key={exerciseIndex} className="exerciseEntry">
-                        <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
-                        <p>{exercise.exerciseName}</p>
-                        {!isSaved ? (
-                          <div>
-                            <li>
-                              <label>&nbsp;무게</label>
-                              <input
-                                type="number"
-                                min="1"
-                                placeholder="(kg)"
-                                value={exercise.weightUsed}
-                                onChange={(e) => handleInputChange(exerciseIndex, 'weightUsed', e.target.value)}
-                                className="weightInput"
-                              />
-                            </li>
-                            <li>
-                              <label>&nbsp;횟수</label>
-                              <input
-                                type="number"
-                                min="1"
-                                placeholder="횟수"
-                                value={exercise.reps}
-                                onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
-                                className="repsInput"
-                              />
-                            </li>
-                            <li>
-                              <label>&nbsp;세트 수</label>
-                              <input
-                                type="number"
-                                min="1"
-                                placeholder="세트 수"
-                                value={exercise.sets}
-                                onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
-                                className="setsInput"
-                              />
-                            </li>
-                          </div>
-                        ) : (
-                          <ul>
-                            <li>무게: {exercise.weightUsed}kg</li>
-                            <li>횟수: {exercise.reps}회</li>
-                            <li>세트: {exercise.sets}세트</li>
-                          </ul>
-                        )}
-                        <button className="delete" onClick={() => deleteExercise(exerciseIndex)}>
-                          <i className="fa-solid fa-circle-minus"></i>
-                        </button>
-                      </div>
-                    ))
+                    Array.isArray(currentExercises) && currentExercises.length > 0 ? (
+                      currentExercises.map((exercise, exerciseIndex) => (
+                        <div key={exerciseIndex} className="exerciseEntry">
+                          <img src={`/image/exercisePictogram/${exercise.imagePath}`} alt={exercise.name} className="exerciseImage" />
+                          <p>{exercise.exerciseName}</p>
+                          {!isSaved ? (
+                            <div>
+                              <li>
+                                <label>&nbsp;무게</label>
+                                <input
+                                  type="number"
+                                  min="1"
+                                  placeholder="(kg)"
+                                  value={exercise.weightUsed}
+                                  onChange={(e) => handleInputChange(exerciseIndex, 'weightUsed', e.target.value)}
+                                  className="weightInput"
+                                />
+                              </li>
+                              <li>
+                                <label>&nbsp;횟수</label>
+                                <input
+                                  type="number"
+                                  min="1"
+                                  placeholder="횟수"
+                                  value={exercise.reps}
+                                  onChange={(e) => handleInputChange(exerciseIndex, 'reps', e.target.value)}
+                                  className="repsInput"
+                                />
+                              </li>
+                              <li>
+                                <label>&nbsp;세트 수</label>
+                                <input
+                                  type="number"
+                                  min="1"
+                                  placeholder="세트 수"
+                                  value={exercise.sets}
+                                  onChange={(e) => handleInputChange(exerciseIndex, 'sets', e.target.value)}
+                                  className="setsInput"
+                                />
+                              </li>
+                            </div>
+                          ) : (
+                            <ul>
+                              <li>무게: {exercise.weightUsed}kg</li>
+                              <li>횟수: {exercise.reps}회</li>
+                              <li>세트: {exercise.sets}세트</li>
+                            </ul>
+                          )}
+                          <button className="delete" onClick={() => deleteExercise(exerciseIndex)}>
+                            <i className="fa-solid fa-circle-minus"></i>
+                          </button>
+                        </div>
+                      ))
+                    ) : (
+                      <p>운동 기록이 없습니다.</p>
+                    )
                   )}
                   {/* 첫 로딩시 버튼 3개 저장 2개 수정 3개 */}
                   <div className="dailyActivity">

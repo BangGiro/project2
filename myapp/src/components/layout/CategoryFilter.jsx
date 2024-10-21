@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './CategoryFilter.css';
 import axios from 'axios';
-
+import { API_BASE_URL } from '../../service/app-config';
 const CategoryFilter = ({ selectedCategories, onCategoryChange }) => {
   const [categories, setCategories] = useState([]);
 
+
   useEffect(() => {
     // API를 통해 카테고리 목록을 가져오는 코드
-    axios.get('/api/categories')
+    axios.get(`${API_BASE_URL}/api/categories`)
       .then(response => setCategories(response.data))
       .catch(error => console.error('카테고리 가져오기 실패', error));
   }, []);
@@ -23,7 +24,8 @@ const CategoryFilter = ({ selectedCategories, onCategoryChange }) => {
 
   return (
     <div className="category-filter-container">
-      {categories.map(category => (
+      {categories.length > 0 ? (
+      categories.map(category => (
         <label key={category.categoryId} className="category-checkbox">
           <input
             type="checkbox"
@@ -33,7 +35,10 @@ const CategoryFilter = ({ selectedCategories, onCategoryChange }) => {
           />
           {category.categoryName}
         </label>
-      ))}
+      ))
+    ) : (
+      <p>카테고리가 없습니다.</p> // 카테고리가 없을 때 처리
+    )}
     </div>
   );
 };

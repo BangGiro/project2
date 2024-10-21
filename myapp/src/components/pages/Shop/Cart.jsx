@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Cart.css';
 import { Link } from 'react-router-dom';
+import { API_BASE_URL } from '../../../service/app-config';
 const Cart = ({ userId }) => {
   const [cartData, setCartData] = useState([]);
   const [orderData, setOrderData] = useState([]);
@@ -10,7 +11,7 @@ const Cart = ({ userId }) => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`/api/cart/${userId}`); // 사용자 ID로 장바구니 불러오기
+        const response = await axios.get(`${API_BASE_URL}/api/cart/${userId}`); // 사용자 ID로 장바구니 불러오기
         setCartData(response.data);
       } catch (error) {
         console.error('장바구니 데이터를 불러오는 중 오류 발생:', error);
@@ -20,7 +21,7 @@ const Cart = ({ userId }) => {
     // 주문 데이터 불러오기
     const fetchOrderData = async () => {
       try {
-        const response = await axios.get(`/api/orders/${userId}`); // 사용자 ID로 주문 데이터 불러오기
+        const response = await axios.get(`${API_BASE_URL}/api/orders/${userId}`); // 사용자 ID로 주문 데이터 불러오기
         setOrderData(response.data);
       } catch (error) {
         console.error('주문 데이터를 불러오는 중 오류 발생:', error);
@@ -38,12 +39,12 @@ const Cart = ({ userId }) => {
   const handleRemoveFromCart = async (cartId, orderId) => {
     try {
       // Cart에서 항목 삭제
-      await axios.delete(`/api/cart/${cartId}`);
+      await axios.delete(`${API_BASE_URL}/api/cart/${cartId}`);
       setCartData(cartData.filter(item => item.cartId !== cartId));
 
       // Order에서 항목 삭제
       if (orderId) {
-        await axios.delete(`/api/orders/${orderId}`);
+        await axios.delete(`${API_BASE_URL}/api/orders/${orderId}`);
         setOrderData(orderData.filter(order => order.orderId !== orderId));
       }
     } catch (error) {

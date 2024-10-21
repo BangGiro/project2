@@ -5,9 +5,10 @@ import './ProductList.css';
 import PagiNation from '../../layout/PagiNation';
 import ProductSearch from './ProductSearch';
 import CategoryFilter from '../../layout/CategoryFilter';
+import { API_BASE_URL } from '../../../service/app-config';
 
 const ProductList = () => {
-  const [products, setProducts] = useState([]);   // 상품 데이터
+  const [products, setProducts] = useState([]);   // 상품 데이터를 빈 배열로 초기화
   const [loading, setLoading] = useState(false);  // 로딩 상태
   const [error, setError] = useState(null);       // 에러 상태
   const [currentPage, setCurrentPage] = useState(0); // 현재 페이지
@@ -21,7 +22,7 @@ const ProductList = () => {
     setLoading(true); // 로딩 상태 시작
 
     try {
-      const response = await axios.get(`/api/products/paging`, {
+      const response = await axios.get(`${API_BASE_URL}/api/products/paging`, {
         params: {
           page: page,
           size: 10,
@@ -30,8 +31,8 @@ const ProductList = () => {
         },
       });
       setPrevProducts(products); // 이전 상품 데이터를 저장
-      setProducts(response.data.content); // 새로운 데이터 설정
-      setTotalPages(response.data.totalPages); // 전체 페이지 수 설정
+      setProducts(response.data.content || []); // 새로운 데이터 설정 (null 대비 빈 배열 설정)
+      setTotalPages(response.data.totalPages || 1); // 전체 페이지 수 설정
     } catch (error) {
       setError('상품을 불러오는 데 실패했습니다.');
     } finally {
@@ -83,7 +84,7 @@ const ProductList = () => {
               </div>
             ))
           ) : (
-            products.length > 0 ? (
+            products && products.length > 0 ? (  // products가 undefined가 아니고 배열일 때만 렌더링
               products.map((product) => (
                 <div key={product.productId} className="product-item">
                   <img src={`/image/shop/${product.productsImages}`} alt={product.productName} />

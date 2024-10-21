@@ -3,6 +3,7 @@ package com.example.backProject.config;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 //** WebMvcConfigurer
@@ -30,20 +31,40 @@ public class WebMVCconfig implements WebMvcConfigurer{
     // => 방법1 설정 
     //    아래 addCorsMappings(...) 메서드를 이용해서 CORS를 적용할 URL패턴을 정의할 수 있음 
     // => https://dev.exd0tpy.xyz/49 
-	
+	@Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // 이미지 리소스 핸들러 추가
+        registry
+            .addResourceHandler("/image/exercisePictogram/**")
+            .addResourceLocations("file:///var/www/html/image/exercisePictogram/");
+        registry
+        .addResourceHandler("/image/shop/**")
+        .addResourceLocations("file:///var/www/html/image/shop/");
+        registry
+        .addResourceHandler("/image/review/**")
+        .addResourceLocations("file:///var/www/html/image/review/");
+        registry
+        .addResourceHandler("/image/unDrawSVG/**")
+        .addResourceLocations("file:///var/www/html/image/unDrawSVG/");
+    }
 	private final long MAX_AGE_SECS = 3600;
 	
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		// 모든 경로에 대해 적용
+		// 모든 경로에 대해
 		registry.addMapping("/**")
-        .allowedOrigins("http://localhost:3000")  // 소문자로 수정
-        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH")  // 명시적인 허용 메서드
-        .allowedHeaders("*")
-        .allowCredentials(true)
-        .maxAge(MAX_AGE_SECS);
-}
+		// Origin이 http:localhost:3000에 대해
+//				.allowedOrigins("http://localhost:3000")
+				// 탄력적 ip주소 할당해주기
+				.allowedOrigins("http://13.125.70.160",
+								"http://localhost:3000"
+						)
+				// GET, POST, PUT, PATCH, DELETE, OPTIONS 메서드를 허용한다.
+				.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS").allowedHeaders("*")
+				.allowCredentials(true).maxAge(MAX_AGE_SECS);
+	}
+} // class
 	
 	
 	
-}
+

@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './ProductDetail.css';
 import './ReviewList.css';
-
+import { API_BASE_URL } from '../../../service/app-config';
 import ReviewList from './ReviewList';
 
 const ProductDetail = ({ userId }) => {
@@ -18,7 +18,7 @@ const ProductDetail = ({ userId }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`/api/products/${id}`); // 상품 데이터 가져오기
+        const response = await axios.get(`${API_BASE_URL}/api/products/${id}`); // 상품 데이터 가져오기
 
         setProduct(response.data);
         setLoading(false);
@@ -62,7 +62,7 @@ const ProductDetail = ({ userId }) => {
 
       // 장바구니에 추가
       const cartResponse = await axios.post(
-        'http://localhost:3000/api/cart/add',
+        `${API_BASE_URL}/api/cart/add`,
         { productId, userId, quantity },  // 수량 추가
         {
           headers: {
@@ -88,7 +88,7 @@ const ProductDetail = ({ userId }) => {
       };
 
       const orderResponse = await axios.post(
-        'http://localhost:3000/api/orders/create',
+        `${API_BASE_URL}/api/orders/create`,
         orderData,
         {
           headers: {
