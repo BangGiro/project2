@@ -68,7 +68,7 @@
     
 }
 
-/* 디테일SC리스트 버튼 */
+/* detailSC리스트 버튼들 */
 .dsclBtn{
     padding: .3rem;
 }
@@ -78,3 +78,13 @@
     background-color: rgb(2, 166, 2);
 }
 
+
+/* detailSc 출결표시 */
+
+.attdY {
+    background-color: green;
+}
+
+.attdN {
+    background-color: red;
+}

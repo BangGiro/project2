@@ -1,27 +1,21 @@
-package com.example.backProject.entity;
+package com.example.backProject.domain;
 
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "schedules")
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Schedules {
+@Data
+@Builder
+public class SchedulesDTO {
 	
-	@Id
+
 	private int scId;
 	
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -35,9 +29,15 @@ public class Schedules {
 	private String trainerId;
 	private	Character attendance;
 	
-	@Transient
+	
 	private String userName; // userName 필드 추가 (조인용)
-	@Transient
 	private String trainerName; // trainerName 추가 (조인용)
 	
+	private Integer attendanceCount;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate pvdate;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private LocalDate nxdate;
+	
+	private String today;
 }

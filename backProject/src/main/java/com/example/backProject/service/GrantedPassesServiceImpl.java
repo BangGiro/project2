@@ -47,7 +47,7 @@ public class GrantedPassesServiceImpl implements GrantedPassesService{
 				gp.setRemainingUse(gp.getRemainingUse() -1);
 				repository.save(gp);
 			} else {
-				throw new RuntimeException("Update failed: gpass update failed.");
+				throw new RuntimeException("Update failed: gpass update failed ~ uses run out");
 			}
 		} else {
 			throw new RuntimeException("find failed: gpass find failed.");

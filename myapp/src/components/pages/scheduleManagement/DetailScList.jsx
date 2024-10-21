@@ -47,9 +47,7 @@ export default function DetailScList({date, monthData}) {
         }).catch((err)=>{
             alert(err)
         })
-
     }
-
 
     return(
 
@@ -57,16 +55,23 @@ export default function DetailScList({date, monthData}) {
             {filteredSchedules.length > 0 ? (
                 filteredSchedules.map(schedule => (
                     <tr key={schedule.scId}>
-                        <td><i className="fa-regular fa-square"></i></td>
+                        <td>{schedule.attendance === 'y' ? (
+                                <i className="fa-regular fa-square attdY"></i>
+                            ) : schedule.attendance === 'n' ? (
+                                <i className="fa-regular fa-square attdN"></i>
+                            ) : (
+                                <i className="fa-regular fa-square"></i>
+                            )}
+                        </td>
                         <td>{schedule.startTime} ~ {schedule.endTime || "없음"}</td>
                         <td>{schedule.userName}</td>
                         {/* <td>Memo: {schedule.scheduleMemo}</td> */}
                         <td>{schedule.trainerName}</td>
                         <td> 
-                            <button id={schedule.scId} value={true} 
+                            <button id={schedule.scId} value={'y'} 
                             onClick={updateAttd} className="dsclBtn attds">출석</button> 
 
-                            <button id={schedule.scId} value={false} 
+                            <button id={schedule.scId} value={'n'} 
                             onClick={updateAttd} className="dsclBtn">결석</button>
                         </td>
                         <td>
