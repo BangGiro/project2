@@ -1,7 +1,6 @@
 package com.example.backProject.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.backProject.entity.GrantedPasses;
+import com.example.backProject.domain.SchedulesDTO;
 import com.example.backProject.entity.Schedules;
 import com.example.backProject.repository.GrantedPassesRepository;
 import com.example.backProject.repository.SchedulesRepository;
@@ -65,7 +63,7 @@ public class SchedulesController {
 		return ResponseEntity.ok(null);
 	}
 	
-	//출결처리 ==================================================================
+	//출결처리 ================================================================================
     @PostMapping(value = "/attd")
     public ResponseEntity<?> updateAttendance(@RequestBody Schedules scheduleRequest) {
         
@@ -75,14 +73,30 @@ public class SchedulesController {
         if (sc == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("스케줄을 찾을 수 없습니다.");
         }
-
-        sc.setAttendance(scheduleRequest.isAttendance());
-        scRepository.save(sc);
         
-        gpService.decrementUse(scheduleRequest.getUserId());
+        if(sc.getAttendance() == null) {
+        	sc.setAttendance(scheduleRequest.getAttendance());
+        	scRepository.save(sc);
+        	gpService.decrementUse(scheduleRequest.getUserId());
+        } else {
+        	sc.setAttendance(scheduleRequest.getAttendance());
+        	scRepository.save(sc);
+        }
+        
         
         return ResponseEntity.ok(null);
     }
-	
+    
+    //수업일(count,이전 수업날, 다음 수업날) 받아오기 =======================================================================
+	@GetMapping(value="/attdLogs/{userId}/{today}")
+    public ResponseEntity<?> getAttendanceCount(@PathVariable String userId, 
+            @PathVariable String today) {
+		
+	 SchedulesDTO dto= scService.attdPersonalLogs(userId, today);
+		
+		return ResponseEntity.ok(dto);
+	}
+    
+
 	
 }

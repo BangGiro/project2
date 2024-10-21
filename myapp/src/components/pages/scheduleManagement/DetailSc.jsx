@@ -13,6 +13,11 @@ function DetailSc({date , users, monthData }) {
         <div className="detailSc_container">
 
             <h2>{date}</h2>
+            <div>
+                <span>출석 <i class="fa-regular fa-square attdY"></i></span>
+                <span> 결석 <i class="fa-regular fa-square attdN"></i></span>
+                <span> 대기 <i class="fa-regular fa-square"></i></span>
+            </div>
             <table className='detailSc_table'>
                 <thead>
                     <tr>
