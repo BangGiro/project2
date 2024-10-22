@@ -1,10 +1,10 @@
-.mainmanagement{
-    height: 100%;
-    background-color: whitesmoke;
-}
 
 
 .mainmanagement {
+    height: 100%;
+    background-color: whitesmoke;
+    color: black;
+
     .container {
         width: 100%;
         display: flex;
@@ -40,14 +40,6 @@
             background-color: #0056b3;
         }
 
-        .delete-all-button {
-            margin-top: 20px;
-            background-color: #dc3545; 
-        }
-
-        .delete-all-button:hover {
-            background-color: #c82333; 
-        }
     }
 
     .user-list {
