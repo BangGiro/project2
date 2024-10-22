@@ -90,7 +90,6 @@ export default function SignUp() {
             handleErrorMessage('password',"");
             result = true;
         }
-        
         return result;
     };
 

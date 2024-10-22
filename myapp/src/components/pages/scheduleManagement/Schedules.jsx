@@ -80,9 +80,7 @@ const handleDatesSet = (dateInfo) => {
             setMonthData(response)
                 
         }).catch((err)=>{
-            console.log(dateStr);
             alert('불러오기 실패'+err.message);
-                
         });
             
     };

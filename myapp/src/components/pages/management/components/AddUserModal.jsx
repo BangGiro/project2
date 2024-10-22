@@ -1,30 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './AddUserModal.css';
 import { apiCall } from "../../../../service/apiService";
+import { Link, useNavigate } from "react-router-dom";
 
 function AddUserModal({ onClose, onAddUser, existingUsers }) {
     const [searchUserId, setUserId] = useState('');
     const [message , setMessage] = useState('');
     const [memo, setMemo] = useState('');
     const [user, setUser] = useState(null);
-
-    // useEffect(() => {
-    //     const handleKeyDown = (e) => {
-    //         if (e.key === 'Escape') {
-    //             handleClose();
-    //         } else if (e.key === 'Enter') {
-    //             if (searchUserId.trim() !== '') {
-    //                 handleFindUser(e);  // 검색어가 있을 때만 실행
-    //             } else {
-    //                 setMessage("검색어를 입력해주세요");
-    //             }
-    //         }
-    //     };
-    //     document.addEventListener('keydown', handleKeyDown);
-    //     return () => {
-    //         document.removeEventListener('keydown', handleKeyDown);
-    //     };
-    // }, []);
+    const navigate = useNavigate();
 
     const handleUserIdChange = (e) => {
         setUserId(e.target.value);
@@ -66,10 +50,10 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
 
 
     };
-
     //사용자 추가
     const handleAdduser = () => {
-
+        const isAdd = true;
+        navigate('/signUp' , {state:{isAdd}} );
         return null;
     }
 

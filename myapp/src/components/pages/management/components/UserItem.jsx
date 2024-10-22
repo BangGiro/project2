@@ -41,7 +41,6 @@ function UserItem({ user, isSc , ScMember }) {
         } else {
             return;
         }
-
     };
 
     //full캘린더로 전달

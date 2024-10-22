@@ -71,7 +71,6 @@ function Header({ loggedIn, onLogout }) {
                                     <li><NavLink to="/SleepTracker">수면 관리</NavLink></li>
                                     <li><NavLink to="/DietPlanner">식단 추천</NavLink></li>
                                 </ul>
-                            
                         </li>
                         
                         <li>
