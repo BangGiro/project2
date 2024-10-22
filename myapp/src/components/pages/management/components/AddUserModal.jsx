@@ -63,12 +63,13 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
             const uri = "/users/addmember";
             const method = "put";
             const data = { userId : searchUserId , trainerId : localStorage.getItem('memberLoggedInData') };
+            const token = localStorage.getItem('JwtToken');
 
-            apiCall(uri, method, data, null)
+            apiCall(uri, method, data, token)
             .then((Response) =>{
                 setUser(Response);
             }).catch((err)=>{
-                alert("회원추가 실패");
+                alert("권한이 없습니다");
             })
 
             onAddUser(user);
