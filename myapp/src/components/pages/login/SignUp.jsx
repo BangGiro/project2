@@ -48,6 +48,16 @@ export default function SignUp() {
         }));
     };
 
+    //회원추가에서 올 때
+    useEffect(()=>{
+        setUserData(prevState => ({
+            ...prevState,
+            memberType: '일반'
+        }));
+
+    },[isAdd])
+
+
     //에러메세지 일괄 관리
     const handleErrorMessage = (name , message) => {
         setErrorMessage (prevState => ({
@@ -179,6 +189,7 @@ export default function SignUp() {
                     {duplicateMessage && <p className="duplicate-message">{duplicateMessage}</p>}
                     <form className="login-form" onSubmit={handleSubmit}>
                         <label>회원 유형 선택
+                            {isAdd ?  <p> 일반 회원 </p> :
                             <select
                                 name="memberType"
                                 value={userData.memberType}
@@ -189,6 +200,7 @@ export default function SignUp() {
                                 <option value="일반">일반</option>
                                 <option value="트레이너">트레이너</option>
                             </select>
+                            }
                         </label>
                         <label>아이디
                             {errorMessage && <p className="SignErrorMessage">{errorMessage.userId}</p>}
