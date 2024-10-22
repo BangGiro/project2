@@ -4,6 +4,7 @@ import Modal from 'react-modal';
 import { Line } from 'react-chartjs-2';
 import 'react-calendar/dist/Calendar.css';
 import './SleepTracker.css';
+import { API_BASE_URL } from '../../../service/app-config';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import FloatingButton from '../../layout/FloatingButton';
@@ -51,7 +52,7 @@ const SleepTracker = ({ userId }) => {
 
     const fetchRecordsFromServer = async (userId) => {
         try {
-            const response = await axios.get(`/api/sleep/user/${userId}`);
+            const response = await axios.get(`${ API_BASE_URL }/api/sleep/user/${userId}`);
             const records = response.data;
     
             // 서버에서 받은 기록들에 대해 duration을 다시 계산
@@ -136,7 +137,7 @@ const SleepTracker = ({ userId }) => {
     const deleteRecord = async (index) => {
         const sleepId = records[index].sleepId;  // 서버로부터 받아온 기록 ID
         try {
-            await axios.delete(`/api/sleep/logs/${sleepId}`);  // 서버에서 삭제
+            await axios.delete(`${ API_BASE_URL }/api/sleep/logs/${sleepId}`);  // 서버에서 삭제
             setRecords(records.filter((_, i) => i !== index));// 삭제 후 상태 업데이트
         } catch (error) {
             console.error('수면 기록 삭제에 실패했습니다:', error);
@@ -172,7 +173,7 @@ const SleepTracker = ({ userId }) => {
         };
     
         try {
-            await axios.post('/api/sleep/logs', newRecord, {
+            await axios.post(`${ API_BASE_URL }/api/sleep/logs`, newRecord, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`

@@ -23,7 +23,17 @@ public class ReviewServiceImpl implements ReviewService {
 
     private final ReviewRepository reviewRepository;
     // 절대 경로로 변경하여 파일 저장
-    private static final String UPLOAD_DIR = "C:/Users/USER/Desktop/project3/myapp/public/image/review";
+    private static final String UPLOAD_DIR;
+
+    static {
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            // Windows 경로
+            UPLOAD_DIR = "C:/Users/USER/Desktop/project3/myapp/public/image/review/";
+        } else {
+            // Linux 경로
+            UPLOAD_DIR = "/var/www/html/image/review/";
+        }
+    }
 
     public List<Review> getReviewsByProductId(int productId) {
         return reviewRepository.findByProductId(productId);
@@ -32,14 +42,17 @@ public class ReviewServiceImpl implements ReviewService {
     public Review addReview(Review review, MultipartFile image) {
         if (image != null && !image.isEmpty()) {
             String originalFileName = image.getOriginalFilename();
-            String savePath = UPLOAD_DIR + "/" + originalFileName; // 원래 파일명으로 저장
+            String uniqueFileName = UUID.randomUUID().toString() + "_" + originalFileName; // 고유한 파일명 생성
+            String savePath = UPLOAD_DIR +uniqueFileName;
+            log.info("이미지 저장 경로: " + savePath);  // 이미지 저장 경로 로그 출력
             saveImage(image, savePath);
 
-            // DB에 원래 파일명만 저장
-            review.setImageUrl(originalFileName);
+            // DB에 고유한 파일명을 저장
+            review.setImageUrl(uniqueFileName);
         }
         return reviewRepository.save(review);
     }
+
 
     public Review updateReview(int reviewId, Review review, MultipartFile image) {
         Review existingReview = reviewRepository.findById(reviewId)
@@ -50,7 +63,8 @@ public class ReviewServiceImpl implements ReviewService {
 
         if (image != null && !image.isEmpty()) {
             String originalFileName = image.getOriginalFilename();
-            String savePath = UPLOAD_DIR + "/" + originalFileName; // 원래 파일명으로 저장
+            String savePath = UPLOAD_DIR + originalFileName; // 원래 파일명으로 저장
+            log.info("이미지 저장 경로: " + savePath);  // 이미지 저장 경로 로그 출력
             saveImage(image, savePath);
             
             // DB에 원래 파일명만 저장

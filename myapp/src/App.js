@@ -107,7 +107,7 @@ function App() {
           <Route path="/myPage" element={<MyPage />} />
           <Route path="/shop" element={<ProductList />} />
           <Route path="/shop/product/:id" element={<ProductDetail userId={loggedId} onAddToCart={handleAddToCart} />} />
-          <Route path="/shop/cart" element={<Cart userId={loggedId} cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
+          <Route path="/cart" element={<Cart userId={loggedId} cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />} />
           <Route path="/checkout" element={<CheckoutPage cartItems={cartItems} userId={loggedId}/>} />
           <Route path="/fullcalendar" element={<ScheduleCalendar />} />
           <Route path="/passmng" element={<PassManage/>}/>

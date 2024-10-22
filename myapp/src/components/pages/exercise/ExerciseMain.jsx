@@ -25,7 +25,7 @@ export const availableExercises = [
   { name: "케이블 크로스오버", category: "가슴", imagePath: "cablecrossover.png", imageId: 17 },
   { name: "푸쉬업", category: "가슴", imagePath: "pushup.png", imageId: 18 },
   { name: "딥스", category: "가슴", imagePath: "dips.png", imageId: 19 },
-  { name: "팩덱플라이", category: "가슴", imagePath: "packDeckfly.png", imageId: 20 },
+  { name: "팩덱플라이", category: "가슴", imagePath: "packdeckfly.png", imageId: 20 },
   { name: "숄더 프레스", category: "어깨", imagePath: "shoulderpress.png", imageId: 21 },
   { name: "사이드 레터럴 레이즈", category: "어깨", imagePath: "sidelateralraise.png", imageId: 22 },
   { name: "밀리터리 프레스", category: "어깨", imagePath: "militarypress.png", imageId: 23 },

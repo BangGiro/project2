@@ -112,7 +112,7 @@ const ProductDetail = ({ userId }) => {
   // 장바구니 페이지 이동 버튼
   const handleGoToCart = () => {
     if (!checkLoginStatus()) return;
-    navigate('/shop/cart');
+    navigate('/cart');
   };
 
   // 결제 페이지로 이동 버튼
