@@ -34,14 +34,12 @@ export default function Passes({data , selectUser}) {
     const navigate = useNavigate();
 
     const grantPass = (e) => {
-
         e.preventDefault();//작성 안할 시 강제 새로고침되면서 데이터 초기화됨
 
         const uri='/pass/grant';
 
         apiCall(uri, 'post', grantData, token)
         .then((response)=>{
-
             alert('부여성공');
             navigate('/Management');
 

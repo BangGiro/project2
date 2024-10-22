@@ -23,7 +23,6 @@ export default function GrantedPass({ selectUserId }) {
         }
     },[ selectUserId ]);
 
-
     //디데이 계산
     const[ day , setDay ] = useState(null);
     useEffect(()=>{
@@ -32,7 +31,6 @@ export default function GrantedPass({ selectUserId }) {
         const endDate = new Date(gPass.endDate);
 
         setDay( Math.ceil((endDate.getTime() - nowDate.getTime())/(1000 * 60 * 60 * 24)) );
-        
     },[gPass])
 
     return (

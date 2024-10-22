@@ -8,7 +8,6 @@ export default function UserDetail({ selectUser }) {
 
     const[member,setMember] = useState(null);
     const[classLogs,setClassLogs] = useState(null);
-    // console.log("useDetailPageTest"+selectUser); //prop테스트
     
     const navigate = useNavigate();
 

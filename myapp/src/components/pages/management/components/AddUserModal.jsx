@@ -50,13 +50,10 @@ function AddUserModal({ onClose, onAddUser, existingUsers }) {
 
 
     };
-
     //사용자 추가
     const handleAdduser = () => {
         const isAdd = true;
-
         navigate('/signUp' , {state:{isAdd}} );
-
         return null;
     }
 

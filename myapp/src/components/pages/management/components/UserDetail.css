@@ -53,7 +53,6 @@
 .UD_exercises{
     height: 20%;
     background-color: white;
-
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
