@@ -64,9 +64,11 @@ function Header({ loggedIn, onLogout }) {
                         <li>
                             <NavLink to="/Management">회원관리</NavLink>
                         </li>
+
                         <li>
                             <NavLink to="/fullcalendar">일정관리</NavLink>
                         </li>
+                        
                         <li>
                             <NavLink to="/ExerciseMain">내 운동</NavLink>
                                 <ul className="submenu">
