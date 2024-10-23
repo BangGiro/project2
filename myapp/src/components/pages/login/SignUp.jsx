@@ -13,6 +13,7 @@ export default function SignUp() {
         loginType: "",
         joinDate: ""
     });
+    
     const location = useLocation();
     const isAdd = location.state;
     const [errorMessage, setErrorMessage] = useState("");
