@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Login.css";
 import { apiCall } from "../../../service/apiService";
 
@@ -12,7 +12,8 @@ export default function SignUp() {
         loginType: "",
         joinDate: ""
     });
-
+    const location = useLocation();
+    const isAdd = location.state;
     const [errorMessage, setErrorMessage] = useState("");
     const [duplicateMessage, setDuplicateMessage] = useState("");
     const [signZipCode, setZipCode] = useState("");
